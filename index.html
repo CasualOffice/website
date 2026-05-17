@@ -124,6 +124,29 @@
               <span><strong>Real-time co-editing</strong> — in progress; will ship as a Docker image on Docker Hub.</span>
             </div>
 
+            <details class="howto">
+              <summary class="howto__summary">Self-host with Docker</summary>
+              <div class="howto__body">
+                <p class="howto__intro">
+                  Single image. Web + Hocuspocus + Fastify in one container,
+                  Redis for room persistence. Anonymous co-edit at
+                  <code>/r/&lt;any-id&gt;</code>.
+                </p>
+                <pre class="howto__code"><code># Try it
+docker run --rm -p 3000:3000 schnsrw/casual-sheets:latest
+# open http://localhost:3000
+
+# Persistent + Redis
+docker compose up -d</code></pre>
+                <p class="howto__hint">
+                  Full setup in the
+                  <a href="https://github.com/schnsrw/sheets#self-host-with-docker" rel="noopener">README</a>
+                  and the
+                  <a href="https://github.com/schnsrw/sheets/blob/main/docs/CO-EDITING.md" rel="noopener">architecture doc</a>.
+                </p>
+              </div>
+            </details>
+
             <div class="chips">
               <span class="chip">TypeScript</span>
               <span class="chip">React</span>
