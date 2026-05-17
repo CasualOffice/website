@@ -3,51 +3,286 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>schnsrw</title>
-    <meta
-      name="description"
-      content="Sachin Sarwa — software, projects, things in progress."
-    />
+    <title>Sachin Sarwa</title>
+    <meta name="description" content="Sachin Sarwa — software engineer. Building Casual Sheets, a docx editor, and tools for everyday work." />
+    <meta name="author" content="Sachin Sarwa" />
+    <meta name="theme-color" content="#0a0c10" />
+    <meta name="color-scheme" content="dark light" />
+
+    <meta property="og:title" content="Sachin Sarwa" />
+    <meta property="og:description" content="Software engineer. Building tools for everyday work." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://schnsrw.live/" />
+    <meta property="og:site_name" content="schnsrw.live" />
+
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="canonical" href="https://schnsrw.live/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="bg-grain" aria-hidden="true"></div>
+    <div class="bg-glow" aria-hidden="true"></div>
+
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__brand" href="/">
+        <span class="nav__dot" aria-hidden="true"></span>
+        Sachin Sarwa
+      </a>
+      <div class="nav__links">
+        <a class="nav__link" href="#work">Work</a>
+        <a class="nav__link" href="#stack">Stack</a>
+        <a class="nav__link" href="#contact">Contact</a>
+        <a class="nav__link" href="https://github.com/schnsrw" rel="noopener">GitHub</a>
+      </div>
+    </nav>
+
     <main class="page">
+      <!-- ───────────── HERO ───────────── -->
       <header class="hero">
+        <div class="hero__status">
+          <span class="hero__dot" aria-hidden="true"></span>
+          Available for new work
+        </div>
         <h1 class="hero__name">Sachin Sarwa</h1>
-        <p class="hero__tag">Building software. Always something in motion.</p>
+        <p class="hero__role">Software engineer</p>
+        <p class="hero__tag">
+          I build practical tools for everyday work — spreadsheets,
+          documents, real-time collaboration. Code that ships and stays
+          shipped.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="https://sheet.schnsrw.live/" rel="noopener">
+            <span>Open Casual Sheets</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="https://github.com/schnsrw" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.89-.39s1.97.13 2.89.39c2.21-1.49 3.18-1.18 3.18-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56C20.21 21.38 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+            <span>GitHub</span>
+          </a>
+        </div>
       </header>
 
-      <section class="projects" aria-label="Projects">
-        <h2 class="section__title">Projects</h2>
-        <ul class="projects__list">
-          <li class="project">
-            <a class="project__link" href="/sheets/" rel="noopener">
-              <div class="project__name">Casual Sheets</div>
-              <div class="project__desc">
-                A web Excel-flavored spreadsheet editor built on Univer OSS.
-                Open / edit / save .xlsx with the feel of Office, not Sheets.
+      <!-- ───────────── PROJECTS ───────────── -->
+      <section id="work" class="section" aria-labelledby="work-title">
+        <div class="section__head">
+          <h2 id="work-title" class="section__title">Work</h2>
+          <p class="section__sub">Currently shipping.</p>
+        </div>
+
+        <div class="grid">
+          <!-- Casual Sheets -->
+          <article class="card">
+            <header class="card__head">
+              <div class="card__icon card__icon--sheet" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <rect width="32" height="32" rx="8" fill="currentColor" />
+                  <g fill="#fff">
+                    <rect x="5" y="5" width="6" height="6" rx="1.2" fill-opacity="0.4"/>
+                    <rect x="13" y="5" width="6" height="6" rx="1.2" fill-opacity="0.4"/>
+                    <rect x="21" y="5" width="6" height="6" rx="1.2" fill-opacity="0.4"/>
+                    <rect x="5" y="13" width="6" height="6" rx="1.2" fill-opacity="0.4"/>
+                    <rect x="13" y="13" width="6" height="6" rx="1.2"/>
+                    <rect x="21" y="13" width="6" height="6" rx="1.2" fill-opacity="0.4"/>
+                    <rect x="5" y="21" width="6" height="6" rx="1.2" fill-opacity="0.4"/>
+                    <rect x="13" y="21" width="6" height="6" rx="1.2" fill-opacity="0.4"/>
+                    <rect x="21" y="21" width="6" height="6" rx="1.2" fill-opacity="0.4"/>
+                  </g>
+                </svg>
               </div>
-              <div class="project__meta">
-                <span class="project__chip">live</span>
-                <span class="project__url">schnsrw.live/sheets</span>
+              <div class="card__title-block">
+                <h3 class="card__title">Casual Sheets</h3>
+                <p class="card__tag">Excel-flavored web spreadsheet</p>
               </div>
-            </a>
-          </li>
-        </ul>
+              <span class="badge badge--live">
+                <span class="badge__dot" aria-hidden="true"></span>
+                Live
+              </span>
+            </header>
+
+            <p class="card__desc">
+              A web spreadsheet that feels like Excel, not Google Sheets —
+              ribbon, formula bar, file-centric flow. Open, edit, and save
+              .xlsx, .ods, .csv, and .tsv with full round-trip fidelity.
+              Built on Univer OSS.
+            </p>
+
+            <ul class="bullets">
+              <li>120 end-to-end tests; CI on every push</li>
+              <li>Hyperlinks, outline groups, drag-fill, drag-and-drop file open</li>
+              <li>Save / Export toasts, editable Name Box, tooltips</li>
+              <li>Tables with themes, freeze panes, comments</li>
+            </ul>
+
+            <div class="meta-strip">
+              <span><strong>Open source</strong> — single-user editor on GitHub (Apache-2.0).</span>
+              <span><strong>Real-time co-editing</strong> — in progress; will ship as a Docker image on Docker Hub.</span>
+            </div>
+
+            <div class="chips">
+              <span class="chip">TypeScript</span>
+              <span class="chip">React</span>
+              <span class="chip">Vite</span>
+              <span class="chip">Univer OSS</span>
+              <span class="chip">ExcelJS</span>
+              <span class="chip">Playwright</span>
+            </div>
+
+            <div class="card__badges">
+              <img alt="CI status" src="https://github.com/schnsrw/sheets/actions/workflows/ci.yml/badge.svg?branch=main" />
+              <img alt="Deploy status" src="https://github.com/schnsrw/sheets/actions/workflows/deploy-pages.yml/badge.svg?branch=main" />
+            </div>
+
+            <footer class="card__foot">
+              <a class="link link--primary" href="https://sheet.schnsrw.live/" rel="noopener">
+                Open app
+                <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+              </a>
+              <a class="link" href="https://github.com/schnsrw/sheets" rel="noopener">Source</a>
+            </footer>
+          </article>
+
+          <!-- Docx Editor -->
+          <article class="card">
+            <header class="card__head">
+              <div class="card__icon card__icon--doc" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <rect width="32" height="32" rx="8" fill="currentColor" />
+                  <path d="M9 8h11l3 3v13a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" fill="#fff" fill-opacity="0.95"/>
+                  <path d="M20 8v3h3" stroke="currentColor" stroke-width="1.4" fill="none"/>
+                  <line x1="11" y1="15" x2="20" y2="15" stroke="currentColor" stroke-width="1.4"/>
+                  <line x1="11" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="1.4"/>
+                  <line x1="11" y1="21" x2="17" y2="21" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+              </div>
+              <div class="card__title-block">
+                <h3 class="card__title">Docx Editor</h3>
+                <p class="card__tag">Word-style document editor for the web</p>
+              </div>
+              <span class="badge badge--wip">
+                <span class="badge__dot" aria-hidden="true"></span>
+                In progress
+              </span>
+            </header>
+
+            <p class="card__desc">
+              Same playbook as Casual Sheets, applied to documents: a
+              Word-feel rich-text editor in the browser with .docx
+              round-trip as the bar. Early days — foundation first,
+              polish layered on after.
+            </p>
+
+            <ul class="bullets">
+              <li>Active development; no public demo yet</li>
+              <li>Aiming for tracked changes, comments, and full .docx fidelity</li>
+              <li>Same single-user-first roadmap; co-editing follows once stable</li>
+            </ul>
+
+            <div class="meta-strip">
+              <span><strong>Status</strong> — repository is private during early development; source link will be public once the foundation is stable.</span>
+            </div>
+
+            <div class="chips">
+              <span class="chip">TypeScript</span>
+              <span class="chip">React</span>
+              <span class="chip">Vite</span>
+            </div>
+
+            <footer class="card__foot">
+              <span class="link link--muted">Demo coming soon</span>
+              <a class="link" href="https://github.com/schnsrw/docx" rel="noopener">Source</a>
+            </footer>
+          </article>
+        </div>
       </section>
 
-      <footer class="foot">
-        <a href="https://github.com/schnsrw" rel="noopener" class="foot__link">GitHub</a>
-        <span class="foot__sep" aria-hidden="true">·</span>
-        <a href="mailto:schnsrw@gmail.com" class="foot__link">schnsrw@gmail.com</a>
-      </footer>
+      <!-- ───────────── STACK ───────────── -->
+      <section id="stack" class="section" aria-labelledby="stack-title">
+        <div class="section__head">
+          <h2 id="stack-title" class="section__title">Stack</h2>
+          <p class="section__sub">Tools I reach for first.</p>
+        </div>
+
+        <div class="stack">
+          <div class="stack__group">
+            <div class="stack__label">Frontend</div>
+            <div class="stack__items">
+              <span class="chip chip--lg">TypeScript</span>
+              <span class="chip chip--lg">React</span>
+              <span class="chip chip--lg">Vite</span>
+              <span class="chip chip--lg">Tailwind / CSS</span>
+            </div>
+          </div>
+          <div class="stack__group">
+            <div class="stack__label">Backend &amp; runtime</div>
+            <div class="stack__items">
+              <span class="chip chip--lg">Node.js</span>
+              <span class="chip chip--lg">Fastify</span>
+              <span class="chip chip--lg">Yjs / Hocuspocus</span>
+              <span class="chip chip--lg">Docker</span>
+            </div>
+          </div>
+          <div class="stack__group">
+            <div class="stack__label">Quality &amp; ops</div>
+            <div class="stack__items">
+              <span class="chip chip--lg">Playwright</span>
+              <span class="chip chip--lg">GitHub Actions</span>
+              <span class="chip chip--lg">ESLint + Prettier</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ───────────── CONTACT ───────────── -->
+      <section id="contact" class="section section--about" aria-labelledby="contact-title">
+        <div class="section__head">
+          <h2 id="contact-title" class="section__title">Get in touch</h2>
+          <p class="section__sub">Open to interesting problems, contract work, and collaborations.</p>
+        </div>
+
+        <div class="contact">
+          <a class="contact__card" href="mailto:schnsrw@gmail.com">
+            <div class="contact__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact__body">
+              <div class="contact__label">Email</div>
+              <div class="contact__value">schnsrw@gmail.com</div>
+            </div>
+          </a>
+          <a class="contact__card" href="https://github.com/schnsrw" rel="noopener">
+            <div class="contact__icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.34.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.89-.39s1.97.13 2.89.39c2.21-1.49 3.18-1.18 3.18-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56C20.21 21.38 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+            </div>
+            <div class="contact__body">
+              <div class="contact__label">GitHub</div>
+              <div class="contact__value">github.com/schnsrw</div>
+            </div>
+          </a>
+        </div>
+      </section>
     </main>
+
+    <footer class="foot">
+      <div class="foot__row">
+        <span class="foot__copyright">
+          Copyright © <span id="year">2026</span> Sachin Sarwa. All rights reserved.
+        </span>
+        <span class="foot__sep" aria-hidden="true">·</span>
+        <a class="foot__link" href="https://github.com/schnsrw/site" rel="noopener">View source</a>
+        <span class="foot__sep" aria-hidden="true">·</span>
+        <span class="foot__mono">schnsrw.live</span>
+      </div>
+    </footer>
+
+    <script>
+      // Keep the footer copyright year accurate without a build step.
+      document.getElementById('year').textContent = String(new Date().getFullYear());
+    </script>
   </body>
 </html>
