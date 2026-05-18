@@ -214,8 +214,8 @@ docker compose up -d</code></pre>
             </ul>
 
             <div class="meta-strip">
-              <span><strong>Open source</strong> — MIT on GitHub. Single-user demo on Pages; co-edit ships with the Docker image.</span>
-              <span><strong>Bundled image</strong> — <code>docker run -p 8080:8080 schnsrw/casual-editor:latest</code></span>
+              <span><strong>Open source</strong> — MIT on GitHub. Single-user demo on Pages; bundled co-edit image lands with the first tagged release.</span>
+              <span><strong>Self-host</strong> — clone, <code>docker compose up</code>, open <code>http://localhost:8080</code></span>
             </div>
 
             <details class="howto">
@@ -226,8 +226,10 @@ docker compose up -d</code></pre>
                   container. Anonymous co-edit at <code>/?room=&lt;docId&gt;</code>
                   after uploading a .docx via the Share dialog.
                 </p>
-                <pre class="howto__code"><code># Try it
-docker run --rm -p 8080:8080 schnsrw/casual-editor:latest
+                <pre class="howto__code"><code># Build + run locally
+git clone https://github.com/schnsrw/docx
+cd docx
+docker compose up
 # open http://localhost:8080
 
 # Dev mode (Vite hot reload + Go run)
