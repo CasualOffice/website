@@ -109,19 +109,21 @@
               A web spreadsheet that feels like Excel, not Google Sheets —
               ribbon, formula bar, file-centric flow. Open, edit, and save
               .xlsx, .ods, .csv, and .tsv with full round-trip fidelity.
-              Built on Univer OSS.
+              Real-time co-editing with live cursors, presence avatars, and
+              password-protected rooms. Built on Univer OSS.
             </p>
 
             <ul class="bullets">
-              <li>120 end-to-end tests; CI on every push</li>
-              <li>Hyperlinks, outline groups, drag-fill, drag-and-drop file open</li>
-              <li>Save / Export toasts, editable Name Box, tooltips</li>
-              <li>Tables with themes, freeze panes, comments</li>
+              <li>180+ end-to-end tests; CI on every push</li>
+              <li>Live co-editing — share dialog, presence avatars, live cursors with name labels, live-typing ghost</li>
+              <li>Worker-side xlsx parse + export; main bundle 6.3 MB; lazy plugin chunks</li>
+              <li>Excel-paste preservation (merges, column widths, row heights); range picker; toolbar overflow</li>
+              <li>Tables with themes, freeze panes, comments, hyperlinks, outline groups, drag-fill</li>
             </ul>
 
             <div class="meta-strip">
-              <span><strong>Open source</strong> — single-user editor on GitHub (Apache-2.0).</span>
-              <span><strong>Real-time co-editing</strong> — in progress; will ship as a Docker image on Docker Hub.</span>
+              <span><strong>Open source</strong> — Apache-2.0 on GitHub. Single-user demo on Pages; co-edit ships with the Docker image.</span>
+              <span><strong>v0.0.4 live on Docker Hub</strong> — <code>docker run -p 3000:3000 schnsrw/casual-sheets:0.0.4</code></span>
             </div>
 
             <details class="howto">
