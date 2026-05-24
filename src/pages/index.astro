@@ -86,83 +86,183 @@ const jsonLd = {
     },
   ],
 };
+
+// Quickstart docker-compose snippet. Held as a raw string and dropped
+// via set:html so Astro doesn't try to interpolate the `${VAR}` parts
+// as JS template-literal expressions.
+const composeYml = `<code>services:
+  app:
+    image: schnsrw/casual-sheets:0.1
+    ports: ['3000:3000']
+    environment:
+      REDIS_URL: redis://redis:6379
+      CASUAL_STORAGE: local
+      CASUAL_LOCAL_PATH: /data/workbooks
+      CASUAL_ADMIN_USERNAME: admin
+      CASUAL_ADMIN_PASSWORD: \${ADMIN_PASSWORD}
+      CASUAL_JWT_SECRET: \${JWT_SECRET}
+    volumes:
+      - data:/data
+    depends_on:
+      redis: { condition: service_healthy }
+  redis:
+    image: redis:7.4-alpine
+    command: ['redis-server', '--appendonly', 'yes']
+volumes:
+  data:</code>`;
+
+// FAQ content — collapsed via <details>. Plain markup so the source
+// stays scannable and we don't ship JS for what HTML does.
+const faqs = [
+  {
+    q: 'What is Casual Office, in one sentence?',
+    a: 'An open-source set of real-time, file-centric productivity tools — a web spreadsheet, a web document editor, and a desktop binary — that you can use on the public demo or self-host in your own infrastructure.',
+  },
+  {
+    q: 'Is this a SaaS?',
+    a: 'No. The hosted demos (sheet.schnsrw.live, doc.schnsrw.live) are public, but there are no accounts, no plans, and no upsell. Self-host via the published Docker images for any deployment beyond the demo.',
+  },
+  {
+    q: 'What\'s the licensing?',
+    a: 'Apache-2.0 for both products (and the Go backend for Casual Editor). The editor fork inside Casual Editor is MIT (eigenpal/docx-editor). No GPL/AGPL anywhere in the user-facing distribution.',
+  },
+  {
+    q: 'How does the .xlsx / .docx round-trip work?',
+    a: 'The file is the source of truth. Open → in-memory snapshot → edit → re-serialize back to the original OOXML shape. Casual Sheets carries macros (vbaProject.bin) and pivot caches through byte-equal. Casual Editor scores 39/39 fixtures pristine in the per-tag fidelity audit.',
+  },
+  {
+    q: 'Real-time co-editing — how?',
+    a: 'Yjs CRDT in the browser, Hocuspocus (Casual Sheets) or a custom Go y-websocket gateway (Casual Editor). State lives in memory while a session is active and goes away when everyone disconnects. Persistence is delegated to the host (WOPI or inline depending on version).',
+  },
+  {
+    q: 'Do I need a database?',
+    a: 'No, unless you opt in. The default storage is in-memory. Casual Sheets v0.1 ships local-FS, S3-compatible, and Postgres backends behind a single env var — pick what fits.',
+  },
+  {
+    q: 'Auth?',
+    a: 'JWT (HS256) when CASUAL_JWT_SECRET is set. Claims encode file binding + role + permissions + feature toggles. OIDC + SAML schema persists in v0.1; full enforcement lands in v0.2.',
+  },
+  {
+    q: 'What about AI?',
+    a: 'Univer\'s command bus is extensible — plug your own model into either editor later. No pre-baked LLM bindings in the v0.x line.',
+  },
+  {
+    q: 'Why does this exist?',
+    a: 'A counter-position to megasuites. Each product is small enough to read end-to-end, every line is open, and the file format is owned by the user, not the vendor.',
+  },
+];
 ---
 <Base {title} {description} active="home" jsonLd={jsonLd}>
   <section class="hero">
     <div class="container hero__inner">
-      <span class="eyebrow">An open-source office suite for the web</span>
+      <span class="eyebrow">open source · self-host · v0.1.0</span>
       <h1 class="display">
         Office, for the <em>open web.</em>
       </h1>
       <p class="lede">
-        Real-time, file-centric, self-hostable. Open a `.xlsx` or `.docx` in the browser,
-        edit it like the web, save it back. No accounts, no lock-in, no SaaS dependency —
-        just the files you already own.
+        Real-time, file-centric, self-hostable. Open a <code>.xlsx</code> or
+        <code>.docx</code> in the browser, edit it like the web, save it back.
+        No accounts. No lock-in. No SaaS dependency.
       </p>
+
+      <div class="cmdline" role="group" aria-label="Run with Docker">
+        <span class="cmdline__prompt">$</span>
+        <code class="cmdline__cmd">docker run -p 3000:3000 schnsrw/casual-sheets:0.1</code>
+        <span class="cmdline__hint">→ open localhost:3000</span>
+      </div>
+
       <div class="row">
-        <a class="btn btn--primary" href="/casual-sheets/">Explore Sheets →</a>
-        <a class="btn btn--ghost" href="/casual-editor/">Explore Editor</a>
+        <a class="btn btn--primary" href="https://sheet.schnsrw.live/">Open Sheets demo →</a>
+        <a class="btn btn--ghost" href="https://doc.schnsrw.live/">Open Editor demo</a>
         <a class="btn btn--ghost" href="https://github.com/schnsrw" rel="noopener" target="_blank">GitHub</a>
       </div>
     </div>
   </section>
 
+  <section class="section section--stats">
+    <div class="container">
+      <div class="statline">
+        <div class="stat">
+          <span class="stat__label">CASUAL SHEETS</span>
+          <span class="stat__value">v0.1.0</span>
+          <span class="stat__hint">WOPI · JWT · admin panel</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">CASUAL EDITOR</span>
+          <span class="stat__value">39/39</span>
+          <span class="stat__hint">.docx fidelity audit</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">TEST COVERAGE</span>
+          <span class="stat__value">417+</span>
+          <span class="stat__hint">unit + e2e across both</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">LICENSE</span>
+          <span class="stat__value">Apache-2.0</span>
+          <span class="stat__hint">MIT on editor fork</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container">
       <div class="section__head">
         <div>
-          <span class="eyebrow">Three products, one suite</span>
-          <h2 class="title">A spreadsheet, an editor, and a desktop binary.</h2>
+          <span class="eyebrow">three products, one suite</span>
+          <h2 class="title">A spreadsheet, an editor, a desktop binary.</h2>
         </div>
+        <span class="section__hint">/products</span>
       </div>
       <div class="products">
         <ProductCard
           slug="sheets"
           name="Casual Sheets"
-          role="Excel-flavored web spreadsheet"
-          body="Open a .xlsx, .ods, .csv, or .tsv. Real-time co-editing, pivot tables with drill-down, eight chart types with trendlines, sparklines, version history, and .xlsm macro passthrough that round-trips byte-equal."
+          role="EXCEL-FLAVORED WEB SPREADSHEET"
+          body="Open .xlsx, .ods, .csv, .tsv. Real-time co-editing, pivot tables with drill-down, 8 chart types with trendlines, sparklines, version history, and .xlsm macro passthrough that round-trips byte-equal."
           features={[
             '.xlsx · .ods · .csv · .tsv round-trip',
             'Pivot tables · 8 chart types · sparklines',
-            'Real-time co-editing via Yjs + Hocuspocus',
-            'Self-host via Docker · v0.0.6 shipped',
+            'Real-time via Yjs + Hocuspocus',
+            'WOPI · JWT · admin panel (v0.1)',
           ]}
-          status="357 e2e ✓ · v0.0.6"
+          status="v0.1.0 · 357 e2e"
           href="/casual-sheets/"
-          accent="#217346"
-          accentSoft="rgba(33, 115, 70, 0.10)"
+          accent="var(--sheets)"
+          accentSoft="var(--sheets-soft)"
         />
         <ProductCard
           slug="editor"
           name="Casual Editor"
-          role="Word-flavored web document editor"
-          body="Open a .docx with WYSIWYG fidelity. ProseMirror with an OOXML-preserving model; a stateless Go gateway speaks the y-websocket protocol in ~120 lines. Document persistence is delegated to a pluggable host integration."
+          role="WORD-FLAVORED .DOCX EDITOR"
+          body="Open .docx with WYSIWYG fidelity. ProseMirror with an OOXML-preserving model; a stateless Go gateway speaks the y-websocket protocol in ~120 lines. Document persistence delegated to a host integration."
           features={[
-            '.docx round-trip (26/39 pristine)',
-            'ProseMirror + OOXML-preserving model',
-            'Yjs + custom Go y-websocket gateway',
+            '.docx round-trip · 39/39 fixtures pristine',
+            'ProseMirror + OOXML model',
+            'Yjs + Go y-websocket gateway',
             'Three-way fidelity harness in CI',
           ]}
           status="public preview"
           href="/casual-editor/"
-          accent="#2563eb"
-          accentSoft="rgba(37, 99, 235, 0.10)"
+          accent="var(--editor)"
+          accentSoft="var(--editor-soft)"
         />
         <ProductCard
           slug="desktop"
           name="Casual Desktop"
-          role="Tauri binaries · in progress"
+          role="TAURI BINARIES · IN PROGRESS"
           body="A native binary for macOS, Linux, and Windows that reuses the Casual Editor and Casual Sheets web cores verbatim. Single-user, offline. First binary ships once both web fidelity scores cross 90%."
           features={[
             'Tauri shell · reuses the web cores',
             'macOS · Linux · Windows',
             'Single-user · offline',
-            'Ships once Editor + Sheets cross 90%',
+            'Ships when fidelity crosses 90%',
           ]}
           status="early scaffolding"
           href="/casual-desktop/"
-          accent="#7c3aed"
-          accentSoft="rgba(124, 58, 237, 0.10)"
+          accent="var(--desktop)"
+          accentSoft="var(--desktop-soft)"
         />
       </div>
     </div>
@@ -172,11 +272,12 @@ const jsonLd = {
     <div class="container">
       <div class="section__head">
         <div>
-          <span class="eyebrow">How it works</span>
-          <h2 class="title">Files, not formats. State, not storage.</h2>
+          <span class="eyebrow">how it works</span>
+          <h2 class="title">Files, not formats.<br/>State, not storage.</h2>
         </div>
+        <span class="section__hint">/architecture</span>
       </div>
-      <div class="feature-grid" style="--product-accent: var(--accent); --product-accent-soft: var(--accent-soft);">
+      <div class="feature-grid feature-grid--four" style="--product-accent: var(--accent); --product-accent-soft: var(--accent-soft);">
         <article class="feature">
           <span class="feature__icon">F</span>
           <h3 class="feature__title">File-centric</h3>
@@ -213,29 +314,232 @@ const jsonLd = {
             shapes — different boundaries.
           </p>
         </article>
+        <article class="feature">
+          <span class="feature__icon">D</span>
+          <h3 class="feature__title">Docker-shaped</h3>
+          <p class="feature__body">
+            Multi-arch images on Docker Hub (amd64 + arm64). OCI-labelled, SBOM
+            and provenance attestations in the manifest. One container, one port,
+            embedded WebSocket gateway.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">J</span>
+          <h3 class="feature__title">JWT-secured</h3>
+          <p class="feature__body">
+            Optional JWT auth gates the WOPI surface. Claims encode file binding,
+            role, per-flag permissions, and feature toggles — pluggable into
+            existing identity systems via signed tokens.
+          </p>
+        </article>
       </div>
     </div>
   </section>
 
   <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">quickstart</span>
+          <h2 class="title">A real deployment in 20 lines.</h2>
+        </div>
+        <span class="section__hint">docker-compose.yml</span>
+      </div>
+      <pre class="code-block" set:html={composeYml}></pre>
+      <div class="row" style="margin-top: 20px;">
+        <a class="btn btn--ghost" href="/docs/sheets/self-hosting/">Self-hosting docs →</a>
+        <a class="btn btn--ghost" href="/docs/sheets/customization-auth/">JWT auth guide</a>
+        <a class="btn btn--ghost" href="/docs/sheets/customization-webhooks/">Webhook docs</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">questions</span>
+          <h2 class="title">Common questions.</h2>
+        </div>
+        <span class="section__hint">/faq</span>
+      </div>
+      <div class="faq">
+        {faqs.map((f) => (
+          <details class="faq__item">
+            <summary class="faq__q">{f.q}</summary>
+            <div class="faq__a">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--echo">
     <div class="container container--narrow">
-      <span class="eyebrow">The bigger idea</span>
-      <h2 class="title">A small office suite, built like infrastructure.</h2>
-      <p>
-        Casual Office is a deliberate counter-position to the megasuite era. Each
-        product is small enough to read end-to-end; every line is open; every format
-        is owned by the user, not the vendor. The shape is closer to a UNIX tool than
-        a SaaS product: a single binary you run, with the file as the interface.
+      <h2 class="display display--small">Files in.<br/><em>Files out.</em></h2>
+      <p class="lede">
+        Casual Office is a small office suite, built like infrastructure. Open,
+        composable, file-shaped — closer to a UNIX tool than a SaaS product.
       </p>
-      <p>
-        The work is split across three repos and a marketing site — all linked from
-        the GitHub profile below.
-      </p>
-      <div class="row" style="margin-top: 18px;">
-        <a class="btn btn--ghost" href="/docs/">Documentation</a>
+      <div class="row" style="margin-top: 8px;">
+        <a class="btn btn--primary" href="/docs/">Documentation →</a>
         <a class="btn btn--ghost" href="/changelog/">Changelog</a>
-        <a class="btn btn--ghost" href="/about/">About</a>
+        <a class="btn btn--ghost" href="https://github.com/schnsrw" rel="noopener" target="_blank">GitHub</a>
+      </div>
+      <div class="row gap-sm" style="margin-top: 22px;">
+        <span class="chip">Open source</span>
+        <span class="chip">Self-hostable</span>
+        <span class="chip">Apache-2.0 / MIT</span>
       </div>
     </div>
   </section>
 </Base>
+
+<style>
+  /* Hero command-line snippet — looks like a copy-pastable Docker
+     command. Uses Space Mono so it reads as code immediately. */
+  .cmdline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    color: var(--text);
+    margin: 6px 0 22px;
+    max-width: 100%;
+    overflow: auto;
+  }
+  .cmdline__prompt { color: var(--text-muted); user-select: none; }
+  .cmdline__cmd { background: transparent; border: 0; padding: 0; color: var(--text); white-space: nowrap; }
+  .cmdline__hint {
+    color: var(--text-muted);
+    font-size: 12px;
+    white-space: nowrap;
+    padding-left: 8px;
+    border-left: 1px solid var(--border);
+  }
+  @media (max-width: 640px) {
+    .cmdline { flex-wrap: wrap; }
+    .cmdline__hint { border-left: 0; padding-left: 0; }
+  }
+
+  /* Stats row — four narrow columns immediately below the hero,
+     loud monospace value, dim mono label. */
+  .section--stats { padding: 24px 0 48px; }
+  .statline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  @media (max-width: 720px) {
+    .statline { grid-template-columns: repeat(2, 1fr); }
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--surface);
+    padding: 18px 22px;
+  }
+  .stat__label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+  .stat__value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .stat__hint {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
+
+  .feature-grid--four {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 920px) { .feature-grid--four { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .feature-grid--four { grid-template-columns: 1fr; } }
+
+  /* Quickstart code block — tighter than docs <pre>, fixed-width font,
+     soft warm background. */
+  .code-block {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.6;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px 26px;
+    overflow-x: auto;
+    color: var(--text);
+    white-space: pre;
+    margin: 0;
+  }
+  .code-block code { background: transparent; border: 0; padding: 0; color: inherit; font-size: inherit; }
+
+  /* FAQ collapses. Plain markup; one extra rule for the disclosure arrow. */
+  .faq {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .faq__item {
+    border-bottom: 1px solid var(--border);
+  }
+  .faq__item:last-child { border-bottom: 0; }
+  .faq__q {
+    cursor: pointer;
+    padding: 16px 22px;
+    font-weight: 600;
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 15px;
+  }
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__q::after {
+    content: '+';
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    font-size: 20px;
+    transition: transform 160ms ease-out;
+  }
+  .faq__item[open] .faq__q::after { transform: rotate(45deg); }
+  .faq__item[open] .faq__q { color: var(--accent-strong); }
+  .faq__a {
+    padding: 0 22px 18px;
+    color: var(--text-soft);
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+
+  /* Echo section — repeat the hero motif at the foot. */
+  .section--echo { padding: 96px 0 32px; text-align: center; }
+  .section--echo .display { margin: 0 auto 18px; max-width: 18ch; }
+  .section--echo .lede { margin: 0 auto 28px; }
+  .section--echo .row { justify-content: center; }
+  .display--small { font-size: clamp(40px, 6vw, 64px); }
+</style>
