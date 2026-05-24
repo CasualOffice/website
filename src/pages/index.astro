@@ -2,9 +2,9 @@
 import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
 
-const title = 'Casual Office — the open-source office suite you actually own';
+const title = 'Casual Office — open-source .xlsx and .docx in your browser';
 const description =
-  'Casual Office is a real-time, file-centric, open-source office suite. Casual Sheets (web .xlsx) and Casual Editor (web .docx) round-trip native Office files, sync via Yjs CRDT, and run as a single self-hostable container. MIT + Apache-2.0. No accounts, no SaaS, no upsell.';
+  'Casual Office is a real-time, file-centric, open-source office suite. Casual Sheets (web .xlsx) and Casual Editor (web .docx) round-trip native Office files, sync via Yjs CRDT, and run as a single self-hostable container. MIT + Apache-2.0. Try the live demos.';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -88,7 +88,7 @@ const jsonLd = {
   ],
 };
 
-// Quickstart compose snippet. Held as a raw string and emitted via
+// docker-compose snippet. Held as a raw string and emitted via
 // set:html so Astro doesn't try to interpolate the `${VAR}` segments.
 const composeYml = `<code>services:
   app:
@@ -102,12 +102,20 @@ const composeYml = `<code>services:
 volumes:
   data:</code>`;
 
-// FAQ — collapsed via <details>. Plain markup so the source stays
-// scannable and we don't ship JS for what HTML already does.
+// Minimal React embed example — copy-pastable, three lines that
+// actually mount the editor. Same shape as docx-editor.dev for
+// developers comparing the two.
+const reactEmbed = `<code>import { DocxEditor } from '@eigenpal/docx-js-editor';
+
+export default function App() {
+  return &lt;DocxEditor onSave={(blob) =&gt; saveAs(blob, 'doc.docx')} /&gt;;
+}</code>`;
+
+// FAQ — kept honest and short. No marketing hedge in the answers.
 const faqs = [
   {
     q: 'What is Casual Office, in one sentence?',
-    a: 'Two real office editors (sheets + docs) that open native Office files in the browser, sync in real time, and save back to the original byte-for-byte format — open source, MIT + Apache-2.0, self-hostable as one Docker container.',
+    a: 'Two real office editors — sheets + docs — that open native Office files in the browser, sync in real time, and save back to the original byte-for-byte format. Open source. Self-hostable as one Docker container.',
   },
   {
     q: 'Is this a SaaS? Will it ever be?',
@@ -115,7 +123,7 @@ const faqs = [
   },
   {
     q: 'How does the .xlsx / .docx round-trip work?',
-    a: 'The file is the source of truth. Open → in-memory snapshot → edit → re-serialize back to the original OOXML shape. Casual Sheets carries macros (vbaProject.bin) and pivot caches through byte-equal. Casual Editor scores 44/44 fixtures pristine in the per-tag fidelity audit.',
+    a: 'The file is the source of truth. Open → in-memory snapshot → edit → re-serialize back to the original OOXML shape. Casual Sheets carries macros and pivot caches through byte-equal. Casual Editor scores 44/44 fixtures pristine in the per-tag fidelity audit.',
   },
   {
     q: 'Real-time co-editing — what powers it?',
@@ -123,15 +131,15 @@ const faqs = [
   },
   {
     q: 'Do I need a database?',
-    a: 'No. Default storage is in-memory or local-filesystem. Casual Sheets v0.1 also ships S3-compatible and Postgres backends — pick one with a single env var or skip them entirely.',
+    a: 'No. Default storage is in-memory or local filesystem. Casual Sheets v0.1 also ships S3-compatible and Postgres backends — pick one with a single env var or skip them entirely.',
   },
   {
-    q: 'Can I embed it in my own app?',
-    a: 'Yes. Casual Editor ships as React packages on npm (`@eigenpal/docx-js-editor`). The Go gateway is a separate process you can run alongside any backend that speaks HTTP. Casual Sheets is currently a hosted shell; embedding APIs are planned for v0.2.',
+    q: 'Can I embed it in my own React or Vue app?',
+    a: 'Yes for Casual Editor — it ships as npm packages (`@eigenpal/docx-js-editor`, `@eigenpal/docx-editor-vue`). The Go gateway is a separate process you can run alongside any backend. Casual Sheets is currently a hosted shell; embedding APIs are planned for v0.2.',
   },
   {
     q: 'Where does it not fit?',
-    a: 'If you need server-side PDF rendering, document versioning out of the box, enterprise SSO, or compliance certifications, this is not that. It is a focused open-source pair of editors, not a managed compliance suite.',
+    a: 'If you need server-side PDF rendering, automatic version history out of the box, enterprise SSO, or compliance certifications, this is not that. It is a focused open-source pair of editors, not a managed compliance suite.',
   },
   {
     q: 'Why does this exist?',
@@ -140,45 +148,126 @@ const faqs = [
 ];
 ---
 <Base {title} {description} active="home" jsonLd={jsonLd}>
-  <section class="hero">
+  <!-- HERO — compact text, then the live demo dominates the fold -->
+  <section class="hero hero--tight">
     <div class="container hero__inner">
-      <span class="eyebrow">open source · self-host · MIT + Apache-2.0</span>
-      <h1 class="display">
-        Office software you <em>actually own.</em>
+      <span class="eyebrow">
+        <span class="eyebrow__dot" aria-hidden="true"></span>
+        open source · self-host · MIT + Apache-2.0
+      </span>
+      <h1 class="display display--xl">
+        <code class="display__code">.xlsx</code> and <code class="display__code">.docx</code>,<br/>
+        in your <em>browser.</em>
       </h1>
-      <p class="lede">
-        Two real editors for <code>.xlsx</code> and <code>.docx</code> — in the
-        browser, with real-time multi-peer collab, that save back to the same
-        byte-for-byte file. Open source. Self-hostable. No accounts, no SaaS, no
-        upsell.
+      <p class="lede lede--tight">
+        Real-time multi-peer co-editing. Saves back to the same byte-for-byte file.
+        No accounts, no SaaS, no upsell — try the live demos below, or
+        <code>docker run</code> it on your own server.
       </p>
 
-      <div class="cmdline" role="group" aria-label="Run with Docker">
-        <span class="cmdline__prompt">$</span>
-        <code class="cmdline__cmd">docker run -p 3000:3000 schnsrw/casual-sheets:0.1</code>
-        <span class="cmdline__hint">→ open localhost:3000</span>
-      </div>
-
-      <div class="row">
-        <a class="btn btn--primary" href="https://github.com/schnsrw" rel="noopener" target="_blank" aria-label="View on GitHub">
-          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="margin-right: 6px; vertical-align: -2px;">
+      <div class="row row--centered">
+        <a class="btn btn--primary btn--lg" href="https://github.com/schnsrw" rel="noopener" target="_blank" aria-label="View on GitHub">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="margin-right: 7px;">
             <path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/>
           </svg>
           Star on GitHub
         </a>
-        <a class="btn btn--ghost" href="https://sheet.schnsrw.live/">Open Sheets demo →</a>
-        <a class="btn btn--ghost" href="https://doc.schnsrw.live/">Open Editor demo</a>
+        <a class="btn btn--ghost btn--lg" href="#docker">Self-host →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE DEMO — the headline visual. Two tabs (Sheets / Editor),
+       each loads the actual production demo in an iframe. No fakes,
+       no static screenshots — visitors see the real product in five
+       seconds. Lazy-loaded so the iframe doesn't block first paint. -->
+  <section class="demo" aria-label="Live product demo">
+    <div class="container">
+      <div class="demo__head">
+        <div class="demo__tabs" role="tablist" aria-label="Choose a product">
+          <button
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="demo-sheets"
+            id="demo-tab-sheets"
+            class="demo__tab demo__tab--active"
+            data-demo="sheets"
+          >
+            <span class="demo__tab-dot" style="background: var(--sheets);" aria-hidden="true"></span>
+            Casual Sheets
+            <span class="demo__tab-pill">.xlsx</span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="demo-editor"
+            id="demo-tab-editor"
+            class="demo__tab"
+            data-demo="editor"
+          >
+            <span class="demo__tab-dot" style="background: var(--editor);" aria-hidden="true"></span>
+            Casual Editor
+            <span class="demo__tab-pill">.docx</span>
+          </button>
+        </div>
+        <div class="demo__actions">
+          <a class="demo__pop" href="https://sheet.schnsrw.live/" rel="noopener" target="_blank" data-pop-for="sheets">
+            Open Sheets full-screen ↗
+          </a>
+          <a class="demo__pop demo__pop--hidden" href="https://doc.schnsrw.live/" rel="noopener" target="_blank" data-pop-for="editor">
+            Open Editor full-screen ↗
+          </a>
+        </div>
       </div>
 
-      <p class="hero__trust">
-        <span>Free forever</span><span aria-hidden="true">·</span>
-        <span>No tracking</span><span aria-hidden="true">·</span>
-        <span>No accounts</span><span aria-hidden="true">·</span>
-        <span>Your files, your server</span>
+      <!-- Faux browser chrome for a polished, designed-on-purpose feel -->
+      <div class="frame" style="--frame-accent: var(--sheets);" data-frame>
+        <div class="frame__chrome">
+          <span class="frame__btn" style="background: #ff5f57"></span>
+          <span class="frame__btn" style="background: #febc2e"></span>
+          <span class="frame__btn" style="background: #28c840"></span>
+          <span class="frame__addr" data-addr="sheets">sheet.schnsrw.live</span>
+          <span class="frame__addr frame__addr--hidden" data-addr="editor">doc.schnsrw.live</span>
+        </div>
+        <div
+          id="demo-sheets"
+          role="tabpanel"
+          aria-labelledby="demo-tab-sheets"
+          class="frame__panel"
+        >
+          <iframe
+            title="Casual Sheets live demo"
+            src="https://sheet.schnsrw.live/?embed=1"
+            loading="lazy"
+            allow="clipboard-read; clipboard-write"
+          ></iframe>
+        </div>
+        <div
+          id="demo-editor"
+          role="tabpanel"
+          aria-labelledby="demo-tab-editor"
+          class="frame__panel frame__panel--hidden"
+        >
+          <iframe
+            title="Casual Editor live demo"
+            src="https://doc.schnsrw.live/?embed=1"
+            loading="lazy"
+            allow="clipboard-read; clipboard-write"
+          ></iframe>
+        </div>
+      </div>
+      <p class="demo__hint">
+        Real production demos, not screenshots. Open a real file, edit it, save it back —
+        nothing leaves your browser unless you click Share.
       </p>
     </div>
   </section>
 
+  <!-- STATS BAR — concrete numbers, monospace. Same content as before
+       but the live demo above means the visitor already has a reason
+       to care. -->
   <section class="section section--stats">
     <div class="container">
       <div class="statline">
@@ -206,12 +295,13 @@ const faqs = [
     </div>
   </section>
 
+  <!-- PRODUCTS — three cards, each links to the product page -->
   <section class="section">
     <div class="container">
       <div class="section__head">
         <div>
           <span class="eyebrow">two editors, one suite</span>
-          <h2 class="title">A spreadsheet and a document editor.<br/>Read every line.</h2>
+          <h2 class="title">A spreadsheet and a document editor.<br/>Every line on GitHub.</h2>
         </div>
         <span class="section__hint">/products</span>
       </div>
@@ -268,82 +358,145 @@ const faqs = [
     </div>
   </section>
 
+  <!-- WHY — 6 concrete differentiators with proper SVG icons -->
   <section class="section">
     <div class="container">
       <div class="section__head">
         <div>
           <span class="eyebrow">why bother</span>
-          <h2 class="title">What you don't get<br/>from a 700&#8209;MB SaaS dashboard.</h2>
+          <h2 class="title">Six reasons to take this seriously.</h2>
         </div>
         <span class="section__hint">/why</span>
       </div>
-      <div class="feature-grid feature-grid--four" style="--product-accent: var(--accent); --product-accent-soft: var(--accent-soft);">
-        <article class="feature">
-          <span class="feature__icon">①</span>
-          <h3 class="feature__title">The file is the source of truth</h3>
-          <p class="feature__body">
+      <div class="why">
+        <article class="why__card">
+          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Zm-1 7V3.5L18.5 9H13Z"/>
+          </svg>
+          <h3 class="why__title">The file is the source of truth</h3>
+          <p class="why__body">
             Open <code>.xlsx</code> or <code>.docx</code>, edit, save back to the
-            same bytes. The audit harness counts every OOXML tag round-trip;
+            same bytes. The audit counts every OOXML tag round-trip;
             Casual Editor is at <strong>100% on 44 fixtures</strong>.
           </p>
         </article>
-        <article class="feature">
-          <span class="feature__icon">②</span>
-          <h3 class="feature__title">Stateless backend</h3>
-          <p class="feature__body">
+        <article class="why__card">
+          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4Z"/>
+          </svg>
+          <h3 class="why__title">Real-time, actually verified</h3>
+          <p class="why__body">
+            Yjs CRDT in the browser, a <code>~120 LOC</code> Go gateway on the
+            server. A 5-second smoke proves multi-peer text, awareness, and live
+            rename — every push runs it.
+          </p>
+        </article>
+        <article class="why__card">
+          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M21 2H3a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1ZM8 18H6V8h2Zm5 0h-2V8h2Zm5 0h-2V8h2Z"/>
+          </svg>
+          <h3 class="why__title">Stateless backend</h3>
+          <p class="why__body">
             No database, no on-disk update log in the real-time path. Session
             state lives in memory while peers are connected, then drains to
             the host integration on the last disconnect.
           </p>
         </article>
-        <article class="feature">
-          <span class="feature__icon">③</span>
-          <h3 class="feature__title">Real-time, actually working</h3>
-          <p class="feature__body">
-            Yjs CRDT in the browser, a custom <code>~120 LOC</code> Go gateway
-            on the server. Multi-peer text, formatting, comments, presence
-            cursors, even live document rename — verified by an end-to-end
-            smoke that runs in five seconds.
-          </p>
-        </article>
-        <article class="feature">
-          <span class="feature__icon">④</span>
-          <h3 class="feature__title">One container, one port</h3>
-          <p class="feature__body">
-            Multi-arch images (amd64 + arm64) on Docker Hub. OCI labels, SBOM
-            and provenance attestations. <code>docker run</code> and you're
-            running both the editor and the WS gateway behind one URL.
-          </p>
-        </article>
-        <article class="feature">
-          <span class="feature__icon">⑤</span>
-          <h3 class="feature__title">Permissive, forever</h3>
-          <p class="feature__body">
+        <article class="why__card">
+          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6Zm0 10H6V7.3l6-3 6 3V12Z"/>
+          </svg>
+          <h3 class="why__title">Permissive, forever</h3>
+          <p class="why__body">
             MIT on the editor packages, Apache-2.0 on the backend. No
             copyleft, no AGPL trapdoor, no "open core" features hidden behind
-            a paid tier. Fork it, embed it, ship it inside whatever you're
-            building.
+            a paid tier.
           </p>
         </article>
-        <article class="feature">
-          <span class="feature__icon">⑥</span>
-          <h3 class="feature__title">Built in the open</h3>
-          <p class="feature__body">
+        <article class="why__card">
+          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M3 4h18v3H3Zm0 13h18v3H3Zm0-6.5h18v3H3Z"/>
+          </svg>
+          <h3 class="why__title">One container, one port</h3>
+          <p class="why__body">
+            Multi-arch images (amd64 + arm64) on Docker Hub. OCI labels, SBOM
+            and provenance attestations. <code>docker run</code> and you're
+            running both the editor and the WS gateway.
+          </p>
+        </article>
+        <article class="why__card">
+          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="m18.4 14.4 4.6 4.6L21 21l-4.6-4.6a8 8 0 1 1 2-2ZM10 16a6 6 0 1 0-6-6 6 6 0 0 0 6 6Z"/>
+          </svg>
+          <h3 class="why__title">Built in the open</h3>
+          <p class="why__body">
             Every commit, every fixture, every failing-then-passing test
             visible on GitHub. The roadmap is a doc, not a slide deck. Pick
-            an issue, open a PR, the bar is "did the suite stay green."
+            an issue, open a PR.
           </p>
         </article>
       </div>
     </div>
   </section>
 
+  <!-- EMBED — show how trivial it is to drop Casual Editor into a
+       React or Vue app. Targets developers comparing to docx-editor.dev. -->
   <section class="section">
     <div class="container">
       <div class="section__head">
         <div>
-          <span class="eyebrow">quickstart</span>
-          <h2 class="title">From zero to a running editor in one command.</h2>
+          <span class="eyebrow">embed</span>
+          <h2 class="title">Drop it into your own app.</h2>
+        </div>
+        <span class="section__hint">npm</span>
+      </div>
+      <div class="embed">
+        <div class="embed__col">
+          <div class="embed__label">Install</div>
+          <pre class="code-block code-block--inline"><code>npm i @eigenpal/docx-js-editor</code></pre>
+          <div class="embed__label embed__label--tight">Use</div>
+          <pre class="code-block" set:html={reactEmbed}></pre>
+        </div>
+        <div class="embed__col">
+          <div class="embed__label">Works with</div>
+          <div class="frameworks">
+            <a class="fw" href="https://github.com/schnsrw/docx#vite" rel="noopener" target="_blank">
+              <span class="fw__name">Vite</span>
+            </a>
+            <a class="fw" href="https://github.com/schnsrw/docx#nextjs" rel="noopener" target="_blank">
+              <span class="fw__name">Next.js</span>
+            </a>
+            <a class="fw" href="https://github.com/schnsrw/docx#astro" rel="noopener" target="_blank">
+              <span class="fw__name">Astro</span>
+            </a>
+            <a class="fw" href="https://github.com/schnsrw/docx#remix" rel="noopener" target="_blank">
+              <span class="fw__name">Remix</span>
+            </a>
+            <a class="fw" href="https://github.com/schnsrw/docx#vue" rel="noopener" target="_blank">
+              <span class="fw__name">Vue</span>
+            </a>
+            <a class="fw" href="https://github.com/schnsrw/docx#nuxt" rel="noopener" target="_blank">
+              <span class="fw__name">Nuxt</span>
+            </a>
+          </div>
+          <p class="embed__note">
+            The editor packages ship as ESM + UMD. The Go gateway is a
+            separate process — run it alongside any backend that speaks
+            HTTP. Casual Sheets ships as the full hosted shell today;
+            embed APIs land in v0.2.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELF-HOST QUICKSTART -->
+  <section class="section" id="docker">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">self-host</span>
+          <h2 class="title">From zero to a running suite in one command.</h2>
         </div>
         <span class="section__hint">docker</span>
       </div>
@@ -356,6 +509,7 @@ const faqs = [
     </div>
   </section>
 
+  <!-- COMMUNITY — three concrete ways to participate -->
   <section class="section section--community">
     <div class="container">
       <div class="section__head">
@@ -400,6 +554,7 @@ const faqs = [
     </div>
   </section>
 
+  <!-- FAQ -->
   <section class="section">
     <div class="container">
       <div class="section__head">
@@ -420,6 +575,7 @@ const faqs = [
     </div>
   </section>
 
+  <!-- ECHO CTA -->
   <section class="section section--echo">
     <div class="container container--narrow">
       <h2 class="display display--small">Files in.<br/><em>Files out.</em></h2>
@@ -443,66 +599,272 @@ const faqs = [
   </section>
 </Base>
 
+<!-- Tab switcher for the live demo. Tiny vanilla JS — no React, no
+     framework needed for two buttons. Flips ARIA attrs + show/hide
+     classes. Iframes stay mounted so switching back doesn't re-load. -->
+<script is:inline>
+  (function () {
+    const tabs = document.querySelectorAll('[data-demo]');
+    const panels = {
+      sheets: document.getElementById('demo-sheets'),
+      editor: document.getElementById('demo-editor'),
+    };
+    const frame = document.querySelector('[data-frame]');
+    const addrs = document.querySelectorAll('[data-addr]');
+    const pops = document.querySelectorAll('[data-pop-for]');
+    const FRAME_ACCENTS = {
+      sheets: 'var(--sheets)',
+      editor: 'var(--editor)',
+    };
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const key = tab.dataset.demo;
+        tabs.forEach((t) => {
+          const on = t === tab;
+          t.classList.toggle('demo__tab--active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        Object.entries(panels).forEach(([k, panel]) => {
+          if (!panel) return;
+          panel.classList.toggle('frame__panel--hidden', k !== key);
+        });
+        if (frame) frame.style.setProperty('--frame-accent', FRAME_ACCENTS[key]);
+        addrs.forEach((a) => {
+          a.classList.toggle('frame__addr--hidden', a.dataset.addr !== key);
+        });
+        pops.forEach((p) => {
+          p.classList.toggle('demo__pop--hidden', p.dataset.popFor !== key);
+        });
+      });
+    });
+  })();
+</script>
+
 <style>
-  /* Hero command-line snippet — looks like a copy-pastable Docker
-     command. Uses Space Mono so it reads as code immediately. */
-  .cmdline {
-    display: inline-flex;
+  /* ───────────────────────────────────────────────────────────────
+   *  HERO — tightened from the previous version. The demo below is
+   *  the headline visual, so the hero stays compact and centered
+   *  rather than pushing the demo below the fold.
+   * ──────────────────────────────────────────────────────────── */
+  .hero--tight {
+    padding: 56px 0 32px;
+    text-align: center;
+  }
+  .hero--tight .hero__inner {
     align-items: center;
-    gap: 10px;
-    padding: 12px 18px;
+  }
+  .display--xl {
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.02;
+    margin: 8px 0 14px;
+    letter-spacing: -0.025em;
+  }
+  .display__code {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.72em;
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    padding: 4px 16px 6px;
+    border-radius: 14px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    display: inline-block;
+    vertical-align: 6px;
+    box-shadow: var(--shadow-sm);
+  }
+  .lede--tight {
+    max-width: 640px;
+    margin: 0 auto 24px;
+    font-size: 17px;
+  }
+  .row--centered {
+    justify-content: center;
+  }
+  .btn--lg {
+    padding: 12px 22px;
+    font-size: 14px;
+  }
+  .eyebrow__dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 8px;
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    50% { box-shadow: 0 0 0 7px transparent; }
+  }
+
+  /* ───────────────────────────────────────────────────────────────
+   *  LIVE DEMO — tabbed iframe in a faux-browser chrome. This is
+   *  the most important section on the page; visitors see the real
+   *  product in five seconds without leaving.
+   * ──────────────────────────────────────────────────────────── */
+  .demo {
+    padding: 8px 0 56px;
+  }
+  .demo__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .demo__tabs {
+    display: inline-flex;
+    gap: 6px;
+    padding: 6px;
     background: var(--surface);
     border: 1px solid var(--border-strong);
-    border-radius: 10px;
-    font-family: var(--font-mono);
+    border-radius: 12px;
+  }
+  .demo__tab {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: var(--text-soft);
+    font-family: var(--font-body);
     font-size: 13.5px;
+    font-weight: 600;
+    padding: 9px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    transition: background-color 120ms ease, color 120ms ease;
+  }
+  .demo__tab:hover { color: var(--text); background: var(--surface-2); }
+  .demo__tab--active {
+    background: var(--surface-3);
     color: var(--text);
-    margin: 6px 0 22px;
-    max-width: 100%;
-    overflow: auto;
   }
-  .cmdline__prompt { color: var(--text-muted); user-select: none; }
-  .cmdline__cmd { background: transparent; border: 0; padding: 0; color: var(--text); white-space: nowrap; }
-  .cmdline__hint {
+  .demo__tab-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .demo__tab-pill {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    padding: 2px 7px;
+    background: var(--surface-2);
+    border-radius: 999px;
     color: var(--text-muted);
-    font-size: 12px;
-    white-space: nowrap;
-    padding-left: 8px;
-    border-left: 1px solid var(--border);
+    border: 1px solid var(--border);
   }
-  @media (max-width: 640px) {
-    .cmdline { flex-wrap: wrap; }
-    .cmdline__hint { border-left: 0; padding-left: 0; }
+  .demo__actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
   }
-
-  /* Trust strip directly under the hero CTAs — small, dim, monospace.
-     Carries the "free forever / no tracking / no SaaS" promise that's
-     the entire point of the project. */
-  .hero__trust {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 22px 0 0;
+  .demo__pop {
+    color: var(--text-soft);
+    text-decoration: none;
     font-family: var(--font-mono);
     font-size: 12px;
-    color: var(--text-muted);
-    letter-spacing: 0.03em;
+    padding: 6px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    transition: color 120ms ease, border-color 120ms ease;
   }
-  .hero__trust span[aria-hidden] {
-    opacity: 0.5;
+  .demo__pop:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+  .demo__pop--hidden { display: none; }
+  .demo__hint {
+    margin: 16px auto 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12.5px;
+    font-family: var(--font-mono);
+  }
+  /* Faux browser chrome — gives the iframe a "real product window"
+     feel without depending on the embedded app's own chrome.
+     Per-tab accent shows up as a thin top stripe so the user always
+     sees which product they're viewing. */
+  .frame {
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 20px 50px -20px rgba(15, 23, 42, 0.18);
+    transition: box-shadow 200ms ease, border-color 200ms ease;
+  }
+  .frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--frame-accent, var(--accent));
+    z-index: 2;
+  }
+  .frame__chrome {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .frame__btn {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .frame__addr {
+    margin-left: 16px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 4px 14px;
+    background: var(--bg);
+    border-radius: 6px;
+    border: 1px solid var(--border-strong);
+  }
+  .frame__addr--hidden { display: none; }
+  .frame__panel {
+    height: clamp(480px, 64vh, 720px);
+    display: block;
+  }
+  .frame__panel--hidden { display: none; }
+  .frame__panel iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    background: var(--surface);
   }
 
-  /* Stats row — four narrow columns immediately below the hero,
-     loud display value, dim mono label. */
+  /* ───────────────────────────────────────────────────────────────
+   *  STATS — 4-column rail directly under the demo. The 1-px gap
+   *  with a border background creates clean divider lines between
+   *  cells without doubling-up borders.
+   * ──────────────────────────────────────────────────────────── */
   .section--stats { padding: 24px 0 48px; }
   .statline {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1px;
     background: var(--border);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-lg);
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
   }
   @media (max-width: 720px) {
     .statline { grid-template-columns: repeat(2, 1fr); }
@@ -511,7 +873,7 @@ const faqs = [
     display: flex;
     flex-direction: column;
     gap: 4px;
-    background: var(--surface);
+    background: var(--bg);
     padding: 18px 22px;
   }
   .stat__label {
@@ -535,25 +897,122 @@ const faqs = [
     color: var(--text-muted);
   }
 
-  .feature-grid--four {
+  /* ───────────────────────────────────────────────────────────────
+   *  WHY — replaces the generic feature grid. Six cards, SVG icons,
+   *  one paragraph of concrete copy each.
+   * ──────────────────────────────────────────────────────────── */
+  .why {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
-  @media (max-width: 920px) { .feature-grid--four { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 620px) { .feature-grid--four { grid-template-columns: 1fr; } }
+  @media (max-width: 920px) { .why { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .why { grid-template-columns: 1fr; } }
+  .why__card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 26px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 160ms ease, transform 200ms ease, box-shadow 200ms ease;
+  }
+  .why__card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  .why__icon {
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 8px;
+    border-radius: 10px;
+    box-sizing: content-box;
+    width: 22px;
+    height: 22px;
+    align-self: flex-start;
+  }
+  .why__title {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    margin: 4px 0 0;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .why__body {
+    font-size: 14px;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
 
-  /* Quickstart code block — tighter than docs <pre>, fixed-width font,
-     no scrollbar gymnastics. */
+  /* ───────────────────────────────────────────────────────────────
+   *  EMBED — two-column showing install + framework adapters
+   * ──────────────────────────────────────────────────────────── */
+  .embed {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  @media (max-width: 820px) { .embed { grid-template-columns: 1fr; } }
+  .embed__col { display: flex; flex-direction: column; gap: 10px; }
+  .embed__label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .embed__label--tight { margin-top: 6px; }
+  .embed__note {
+    margin: 8px 0 0;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .frameworks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  @media (max-width: 460px) { .frameworks { grid-template-columns: repeat(2, 1fr); } }
+  .fw {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 12px;
+    text-align: center;
+    color: var(--text);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    font-weight: 600;
+    transition: border-color 120ms ease, transform 200ms ease, background-color 120ms ease, box-shadow 120ms ease;
+  }
+  .fw:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
   .code-block {
-    background: var(--surface);
-    border: 1px solid var(--border-strong);
+    background: #0c0a09;
+    border: 1px solid #1c1917;
     border-radius: 12px;
     padding: 18px 22px;
     font-family: var(--font-mono);
     font-size: 12.5px;
-    color: var(--text);
+    color: #fafaf9;
     overflow-x: auto;
     line-height: 1.6;
+    box-shadow: var(--shadow-md);
   }
+  .code-block code { color: inherit; }
+  .code-block--inline { padding: 12px 16px; font-size: 13px; }
   .code-block code {
     background: transparent;
     padding: 0;
@@ -563,11 +1022,12 @@ const faqs = [
     white-space: pre;
   }
 
-  /* Community section — three cards with a numeric-ish glyph that
-     reinforces the "this is a checklist of how to participate" vibe.
-     Matches the per-product card metrics without copying them. */
+  /* ───────────────────────────────────────────────────────────────
+   *  COMMUNITY — three "how to participate" cards
+   * ──────────────────────────────────────────────────────────── */
   .section--community {
-    background: linear-gradient(180deg, transparent 0%, var(--surface) 100%);
+    background: var(--surface);
+    border-top: 1px solid var(--border);
   }
   .community {
     display: grid;
@@ -578,16 +1038,19 @@ const faqs = [
   @media (max-width: 920px) { .community { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 620px) { .community { grid-template-columns: 1fr; } }
   .community__card {
-    background: var(--surface);
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 24px 22px;
+    padding: 26px 24px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    transition: border-color 120ms ease;
+    transition: border-color 120ms ease, box-shadow 200ms ease;
   }
-  .community__card:hover { border-color: var(--border-strong); }
+  .community__card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+  }
   .community__num {
     display: inline-flex;
     align-items: center;
