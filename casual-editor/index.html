@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Casual Editor — Sachin Sarwa</title>
-    <meta name="description" content="Casual Editor — a Word-flavored web document editor with real-time co-editing. Open .docx, edit with WYSIWYG fidelity, share a link, edit live." />
+    <meta name="description" content="Casual Editor — a Word-flavored web document editor with real-time co-editing. Open and save .docx, .odt, .md, .txt with WYSIWYG fidelity; share a link, edit live." />
     <meta name="theme-color" content="#fafaf7" />
 
     <meta property="og:title" content="Casual Editor — Sachin Sarwa" />
-    <meta property="og:description" content="Word-flavored web document editor with .docx round-trip fidelity and Yjs co-editing. 14-template home gallery with real PNG previews; 26 of 39 fixtures round-trip pristine; three-way fidelity harness in CI." />
+    <meta property="og:description" content="Word-flavored web document editor. Opens .docx, .odt, .md, .txt; Yjs co-editing; 14-template home gallery with real PNG previews; 26 of 39 fixtures round-trip pristine; three-way fidelity harness in CI." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://schnsrw.live/casual-editor/" />
     <meta property="og:image" content="https://schnsrw.live/favicon.svg" />
@@ -16,11 +16,11 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Casual Editor — Word-flavored web document editor" />
-    <meta name="twitter:description" content="Open a .docx, edit it like the web, save back. Real-time co-editing via Yjs over a stateless Go gateway. 14-template home gallery with real PNG previews." />
+    <meta name="twitter:description" content="Open .docx, .odt, .md, .txt, edit like the web, save back. Real-time co-editing via Yjs over a stateless Go gateway. 14-template home gallery with real PNG previews." />
     <meta name="twitter:image" content="https://schnsrw.live/favicon.svg" />
 
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
-    <meta name="keywords" content="Casual Editor, .docx editor, web document editor, OOXML round-trip, ProseMirror, Yjs, y-prosemirror, Go gateway, stateless backend, WOPI, eigenpal docx-editor, open source, Apache-2.0" />
+    <meta name="keywords" content="Casual Editor, .docx editor, .odt editor, Markdown editor, .txt editor, web document editor, OOXML round-trip, ProseMirror, Yjs, y-prosemirror, Go gateway, stateless backend, WOPI, eigenpal docx-editor, @schnsrw/core, WASM, open source, Apache-2.0" />
 
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <link rel="canonical" href="https://schnsrw.live/casual-editor/" />
@@ -68,7 +68,7 @@
         <div class="ph__body">
           <p class="ph__eyebrow">Project</p>
           <h1 class="ph__title">Casual Editor</h1>
-          <p class="ph__tag">Word-flavored web document editor with .docx round-trip and live co-editing.</p>
+          <p class="ph__tag">Word-flavored web document editor. Opens .docx, .odt, .md, .txt; round-trip fidelity; real-time co-editing.</p>
           <div class="ph__meta">
             <span class="badge badge--live"><span class="badge__dot"></span> Live</span>
             <span class="ph__license">Apache-2.0</span>
@@ -101,10 +101,17 @@
             <p>
               Casual Editor is a browser-based document editor that feels like
               Word, not Google Docs — a ribbon, a real page-layout view, and a
-              file-centric flow. Open a <code>.docx</code> from disk, edit it
-              with WYSIWYG fidelity, save it back as <code>.docx</code>. When
-              you want to co-edit, click <em>Share</em>, send a link, and
+              file-centric flow. Open and save <code>.docx</code>,
+              <code>.odt</code>, <code>.md</code>, and <code>.txt</code> with
+              WYSIWYG fidelity; export to PDF via the browser print pipeline.
+              When you want to co-edit, click <em>Share</em>, send a link, and
               everyone on it edits live.
+            </p>
+            <p>
+              Non-DOCX formats route through a Web Worker that bridges to
+              <a href="https://www.npmjs.com/package/@schnsrw/core" rel="noopener"><code>@schnsrw/core</code></a>
+              (Rust + WASM). The ~3.3 MB WASM artifact is lazy-loaded on
+              first use, so the editor's initial bundle stays slim.
             </p>
             <p>
               The editor is a fork of <a href="https://github.com/eigenpal/docx-editor" rel="noopener">eigenpal/docx-editor</a>
@@ -119,6 +126,22 @@
 
           <section id="features">
             <h2>Features</h2>
+            <h3>File formats</h3>
+            <table class="benchmark">
+              <thead>
+                <tr><th>Format</th><th>Open</th><th>Save / Export</th><th>Path</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>.docx</code></td><td>✅</td><td>✅</td><td>native parser + serializer</td></tr>
+                <tr><td><code>.odt</code></td><td>✅</td><td>✅</td><td><code>@schnsrw/core</code> WASM worker</td></tr>
+                <tr><td><code>.md</code></td><td>✅</td><td>✅</td><td><code>@schnsrw/core</code> WASM worker</td></tr>
+                <tr><td><code>.txt</code></td><td>✅</td><td>✅</td><td><code>@schnsrw/core</code> WASM worker</td></tr>
+                <tr><td>PDF</td><td>—</td><td>✅</td><td>browser print pipeline (Save as PDF)</td></tr>
+              </tbody>
+            </table>
+            <p>
+              Non-DOCX formats route through a lazy-loaded Web Worker (~3.3 MB WASM artifact fetched only when picked) that bridges to <code>@schnsrw/core</code> for conversion to and from DOCX bytes. The editor's internal model stays DOCX-only; the worker handles the format boundary.
+            </p>
             <h3>Home page · template gallery</h3>
             <ul>
               <li><strong>14 templates across 4 categories</strong> — Career (Resume, Cover letter), Work (Meeting notes, Project proposal, Memo, Weekly status, Press release), Personal (Letter, Travel itinerary, Recipe, Sample, Blank), Education (Essay, Lab report, Course syllabus). Modelled on Google Docs' template chooser.</li>
@@ -307,8 +330,8 @@ go run ./cmd/gateway   # listens on :8080</code></pre>
               <dt>Why no database?</dt>
               <dd>The gateway is the collaboration layer, not the storage layer. Persistence is delegated through <code>host.Integration</code> — inline for the v0 share-link flow, WOPI / JWT-API for integration with existing document hosts. Keeps the gateway disposable.</dd>
 
-              <dt>Will Casual Editor support <code>.odt</code>, <code>.md</code>, <code>.txt</code>?</dt>
-              <dd>Planned, post-docx-fidelity-floor. Editing stays docx-only — other formats land via input parsers + output converters that bookend the canonical model. <code>.doc</code> is explicitly out of scope.</dd>
+              <dt>Does Casual Editor support <code>.odt</code>, <code>.md</code>, <code>.txt</code>?</dt>
+              <dd>Yes — shipped. The editor's File menu opens and exports all three. Non-DOCX formats go through a lazy-loaded Web Worker that bridges to <a href="https://www.npmjs.com/package/@schnsrw/core" rel="noopener"><code>@schnsrw/core</code></a> (Rust + WASM) for round-trip conversion to and from DOCX bytes — so the editor's internal model stays DOCX-only while the menu shows all four formats. <code>.doc</code> stays out of scope.</dd>
 
               <dt>Is co-editing in the Pages demo?</dt>
               <dd>No. Co-editing requires the gateway, and there's no backend behind <code>doc.schnsrw.live</code>. The bundled Docker image is the collab distribution. Tauri desktop is single-user only.</dd>
@@ -347,11 +370,6 @@ go run ./cmd/gateway   # listens on :8080</code></pre>
               <li>
                 <strong>Floating-image text wrap.</strong> The biggest
                 remaining visual gap on the layout side.
-              </li>
-              <li>
-                <strong>.odt + .md + .txt converters.</strong> Lossy
-                input / output converters around the canonical docx model.
-                <code>.doc</code> stays out of scope.
               </li>
             </ol>
           </section>

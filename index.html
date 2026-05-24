@@ -128,8 +128,8 @@
             <div class="stat__label">Databases · stateless backends</div>
           </div>
           <div class="stat">
-            <div class="stat__num">3</div>
-            <div class="stat__label">File formats round-tripped<br />(.xlsx, .ods, .docx)</div>
+            <div class="stat__num">7</div>
+            <div class="stat__label">File formats round-tripped<br />(.xlsx, .ods, .csv, .tsv, .docx, .odt, .md/.txt)</div>
           </div>
           <div class="stat">
             <div class="stat__num">100%</div>
@@ -290,12 +290,14 @@ docker compose up -d</code></pre>
 
             <p class="card__desc">
               A web document editor that feels like Word — ribbon, page layout,
-              file-centric flow. Open a <strong>.docx</strong>, edit with
-              WYSIWYG fidelity, save it back. The new home page lands on a
-              Google-Docs-style template gallery with real first-page PNG
-              previews; pick one or open your own. Real-time co-editing
-              over a stateless Go gateway speaking the y-websocket protocol.
-              Forked from <code>eigenpal/docx-editor</code> (MIT) — ProseMirror
+              file-centric flow. Open and save <strong>.docx</strong>,
+              <strong>.odt</strong>, <strong>.md</strong>, and
+              <strong>.txt</strong> (the non-DOCX formats route through a
+              lazy-loaded WASM worker bridging to <code>@schnsrw/core</code>).
+              The new home page lands on a Google-Docs-style template gallery
+              with real first-page PNG previews. Real-time co-editing over a
+              stateless Go gateway speaking the y-websocket protocol. Forked
+              from <code>eigenpal/docx-editor</code> (MIT) — ProseMirror
               schema with the OOXML model preserved end-to-end.
             </p>
 
@@ -750,9 +752,17 @@ docker compose --profile dev up</code></pre>
           "operatingSystem": "Web",
           "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
           "license": "https://www.apache.org/licenses/LICENSE-2.0",
-          "description": "An open-source web document editor that feels like Microsoft Word — ribbon, page layout, file-centric flow. Open a .docx, edit with WYSIWYG fidelity, save it back. Real-time co-editing over a stateless Go gateway speaking the y-websocket protocol. Forked from eigenpal/docx-editor (MIT). 14 home-page templates with real PNG previews across 4 categories. 26 of 39 fixtures round-trip pristine in the per-tag audit; three-way fidelity harness vs LibreOffice and OnlyOffice DocumentBuilder.",
+          "description": "An open-source web document editor that feels like Microsoft Word — ribbon, page layout, file-centric flow. Opens and saves .docx, .odt, .md, and .txt with full WYSIWYG fidelity (non-DOCX formats route through a lazy-loaded WASM worker that bridges to @schnsrw/core for round-trip conversion to and from DOCX bytes). PDF export via the browser print pipeline. Real-time co-editing over a stateless Go gateway speaking the y-websocket protocol. Forked from eigenpal/docx-editor (MIT). 14 home-page templates with real PNG previews across 4 categories. 26 of 39 fixtures round-trip pristine in the per-tag audit; three-way fidelity harness vs LibreOffice and OnlyOffice DocumentBuilder.",
+          "fileFormat": [
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "application/vnd.oasis.opendocument.text",
+            "text/markdown",
+            "text/plain"
+          ],
           "featureList": [
             "Open and save .docx with WYSIWYG fidelity",
+            "Open and save .odt, .md, .txt (via lazy-loaded @schnsrw/core WASM worker)",
+            "PDF export via the browser print pipeline",
             "Home-page template gallery (Resume, Cover letter, Letter, Meeting notes, Project proposal, Memo, Weekly status, Press release, Travel itinerary, Recipe, Essay, Lab report, Syllabus, Sample, Blank)",
             "Real PNG previews per template (LibreOffice-rendered)",
             "Per-tag round-trip audit on every CI push",

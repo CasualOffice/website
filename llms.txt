@@ -35,7 +35,10 @@
 - **License:** Apache-2.0 (fork of eigenpal/docx-editor, MIT)
 - **Status:** Public preview. 26 of 39 .docx fixtures round-trip pristine in
   the per-tag audit; working toward ≥ 90% before the desktop ship.
-- **Formats round-tripped:** .docx
+- **Formats:** .docx (native parser + serializer), .odt / .md / .txt (via a
+  lazy-loaded WASM worker that bridges to @schnsrw/core for round-trip
+  conversion to and from DOCX bytes), PDF export via the browser print
+  pipeline.
 - **Built on:** ProseMirror with an OOXML-preserving model; React + Bun; Go
   for the stateless real-time gateway (own y-websocket protocol implementation
   in ~120 LOC, no DB, no on-disk update log).
