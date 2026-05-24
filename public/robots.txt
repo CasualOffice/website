@@ -62,4 +62,5 @@ Allow: /
 User-agent: LinkedInBot
 Allow: /
 
+Sitemap: https://schnsrw.live/sitemap-index.xml
 Sitemap: https://schnsrw.live/sitemap.xml

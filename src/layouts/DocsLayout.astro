@@ -29,8 +29,13 @@ const PRODUCT_ACCENT: Record<string, string> = {
   editor: 'var(--editor)',
   shared: 'var(--accent)',
 };
+const PRODUCT_OG: Record<string, string> = {
+  sheets: '/og-sheets.png',
+  editor: '/og-editor.png',
+  shared: '/og.png',
+};
 ---
-<Base title={`${title} · Docs · Casual Office`} description={description} active="docs">
+<Base title={`${title} · Docs · Casual Office`} description={description} active="docs" ogImage={PRODUCT_OG[product]}>
   <div
     class="docs"
     style={`--product-accent: ${PRODUCT_ACCENT[product]}; --product-accent-soft: var(--${product === 'shared' ? 'accent-soft' : product + '-soft'});`}

@@ -33,8 +33,9 @@ const fmtDate = (d: Date) =>
   new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 
 const title = `${entry.data.title} · ${PRODUCT_LABEL[entry.data.product]} · Changelog`;
+const ogImage = `/og-${entry.data.product}.png`;
 ---
-<Base title={title} description={entry.data.summary} active="changelog">
+<Base title={title} description={entry.data.summary} active="changelog" ogImage={ogImage}>
   <div
     class="cl-detail"
     style={`--product-accent: ${PRODUCT_ACCENT[entry.data.product]}; --product-accent-soft: ${PRODUCT_SOFT[entry.data.product]};`}
