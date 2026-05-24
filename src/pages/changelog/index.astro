@@ -1,23 +1,131 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+
+const all = await getCollection('changelog');
+// Reverse-chronological across all products.
+all.sort((a, b) => +b.data.date - +a.data.date);
+
+const PRODUCT_LABEL: Record<string, string> = {
+  sheets: 'Casual Sheets',
+  editor: 'Casual Editor',
+  desktop: 'Casual Desktop',
+};
+const PRODUCT_ACCENT: Record<string, string> = {
+  sheets: 'var(--sheets)',
+  editor: 'var(--editor)',
+  desktop: 'var(--desktop)',
+};
 
 const title = 'Changelog · Casual Office';
 const description =
-  'Release notes across Casual Sheets, Casual Editor, and Casual Desktop. Per-product entries, dated.';
+  'Release notes across Casual Sheets, Casual Editor, and Casual Desktop. Per-product entries, reverse-chronological.';
+
+const fmtDate = (d: Date) =>
+  new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 <Base {title} {description} active="changelog">
   <section class="hero">
     <div class="container hero__inner">
-      <span class="eyebrow">Coming soon</span>
-      <h1 class="display">Changelog.</h1>
+      <span class="eyebrow">Changelog</span>
+      <h1 class="display">What shipped, when.</h1>
       <p class="lede">
-        Per-product release notes across the three projects. Landing in the next
-        site commit, sourced from each repo's recent history.
+        Per-product release notes for the three projects. Tagged releases
+        appear here; ongoing work is on each repo's <code>main</code>.
       </p>
-      <div class="row">
-        <a class="btn btn--ghost" href="https://github.com/schnsrw/sheets/commits/main" rel="noopener" target="_blank">Sheets commits</a>
-        <a class="btn btn--ghost" href="https://github.com/schnsrw/docx/commits/main" rel="noopener" target="_blank">Editor commits</a>
-      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ol class="cl">
+        {all.map((entry) => (
+          <li class="cl__row" style={`--row-accent: ${PRODUCT_ACCENT[entry.data.product]};`}>
+            <a class="cl__card" href={`/changelog/${entry.slug}/`}>
+              <div class="cl__meta">
+                <span class="cl__product">
+                  <span class="cl__dot" aria-hidden="true"></span>
+                  {PRODUCT_LABEL[entry.data.product]}
+                </span>
+                <span class="cl__version">v{entry.data.version}</span>
+                <span class="cl__date">{fmtDate(entry.data.date)}</span>
+              </div>
+              <h2 class="cl__title">{entry.data.title}</h2>
+              <p class="cl__summary">{entry.data.summary}</p>
+              <span class="cl__open">Read full notes →</span>
+            </a>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 </Base>
+
+<style>
+  .cl { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  .cl__row {}
+  .cl__card {
+    display: block;
+    padding: 26px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--row-accent);
+    border-radius: var(--radius-lg);
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 160ms ease-out, box-shadow 160ms ease-out, border-color 160ms ease-out;
+  }
+  .cl__card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--row-accent);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .cl__meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .cl__product {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--row-accent);
+    font-weight: 700;
+  }
+  .cl__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--row-accent);
+  }
+  .cl__version {
+    font-family: var(--font-mono);
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 5px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+  }
+  .cl__date { color: var(--text-muted); text-transform: none; letter-spacing: 0; }
+  .cl__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 22px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .cl__summary { margin: 0 0 12px; color: var(--text-soft); line-height: 1.55; font-size: 15px; }
+  .cl__open { font-size: 13px; color: var(--row-accent); font-weight: 600; }
+</style>

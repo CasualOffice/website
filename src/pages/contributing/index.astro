@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Contributing · Casual Office';
+const description =
+  'How to contribute to Casual Sheets, Casual Editor, and Casual Desktop. Issues, pull requests, and the design rules each project follows.';
+---
+<Base {title} {description}>
+  <section class="hero">
+    <div class="container hero__inner">
+      <span class="eyebrow">Contributing</span>
+      <h1 class="display">PRs and issues are welcome.</h1>
+      <p class="lede">
+        Casual Office is solo work, but it's open by intention — file an issue,
+        send a patch, or fork freely. Each project has its own contribution
+        guide; the rest of this page summarises the shared rules.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <h2 class="title">Per-project guides</h2>
+      <p>The repo-level guides override anything here when they conflict.</p>
+      <ul>
+        <li>
+          <strong>Casual Sheets</strong> —
+          <a href="https://github.com/schnsrw/sheets/blob/main/CLAUDE.md" rel="noopener" target="_blank">CLAUDE.md</a>
+          (project conventions) ·
+          <a href="https://github.com/schnsrw/sheets/issues" rel="noopener" target="_blank">issues</a>
+        </li>
+        <li>
+          <strong>Casual Editor</strong> —
+          <a href="https://github.com/schnsrw/docx/blob/main/CONTRIBUTING.md" rel="noopener" target="_blank">CONTRIBUTING.md</a>
+          ·
+          <a href="https://github.com/schnsrw/docx/blob/main/CLAUDE.md" rel="noopener" target="_blank">CLAUDE.md</a>
+          ·
+          <a href="https://github.com/schnsrw/docx/issues" rel="noopener" target="_blank">issues</a>
+        </li>
+        <li>
+          <strong>Site</strong> —
+          <a href="https://github.com/schnsrw/site" rel="noopener" target="_blank">schnsrw/site</a>
+        </li>
+      </ul>
+
+      <h2 class="title" style="margin-top: 48px;">Shared rules</h2>
+      <ol>
+        <li>
+          <strong>Native formats are the source of truth.</strong> Round-trip
+          fidelity is sacred — never silently drop OOXML structures, never
+          shape an export-only model. If a feature can't survive a round-trip,
+          gate it behind an opt-in flag and document the gap.
+        </li>
+        <li>
+          <strong>Stateless backends.</strong> The real-time service holds in-
+          memory <code>Y.Doc</code> state for live sessions only; no DB, no
+          on-disk update log. Persistence is delegated to a pluggable host.
+        </li>
+        <li>
+          <strong>OSS dependencies, no Pro pinning.</strong> Casual Sheets is
+          built on Univer OSS — we never reach for Univer's commercial layer
+          for charts / pivots / print. Build on OSS or defer.
+        </li>
+        <li>
+          <strong>Tests gate every push.</strong> Casual Sheets ships with
+          357 Playwright e2e tests; Casual Editor runs a per-tag round-trip
+          audit + a three-way fidelity harness vs LibreOffice and OnlyOffice.
+          PRs add the test that locks the new behaviour.
+        </li>
+        <li>
+          <strong>Polished UX from the first commit.</strong> "We'll polish it
+          later" is not how shipping works here. Match Excel / Word interaction
+          conventions for every feature.
+        </li>
+        <li>
+          <strong>Conventional commit messages.</strong>
+          <code>feat(scope): …</code>, <code>fix(scope): …</code>,
+          <code>docs(scope): …</code>, etc. The body explains the <em>why</em>,
+          not the <em>what</em>.
+        </li>
+      </ol>
+
+      <h2 class="title" style="margin-top: 48px;">Filing a good issue</h2>
+      <p>The shape that gets fixed fastest:</p>
+      <ul>
+        <li>The exact version (Docker tag or <code>main</code> commit SHA).</li>
+        <li>A minimal reproduction — a small file, a numbered click sequence,
+          the observed vs expected result.</li>
+        <li>Browser + OS, if it's UI-shaped.</li>
+        <li>Console + network logs if relevant.</li>
+      </ul>
+
+      <div class="callout" style="margin-top: 28px; --product-accent: var(--accent);">
+        Touching co-edit, fidelity, or formula behaviour? Open a discussion
+        first — the surface area is large and the design decisions are
+        load-bearing. Most other contributions can go straight to a PR.
+      </div>
+    </div>
+  </section>
+</Base>

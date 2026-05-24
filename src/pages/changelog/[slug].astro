@@ -1,0 +1,169 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const all = await getCollection('changelog');
+  return all.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const PRODUCT_LABEL: Record<string, string> = {
+  sheets: 'Casual Sheets',
+  editor: 'Casual Editor',
+  desktop: 'Casual Desktop',
+};
+const PRODUCT_ACCENT: Record<string, string> = {
+  sheets: 'var(--sheets)',
+  editor: 'var(--editor)',
+  desktop: 'var(--desktop)',
+};
+const PRODUCT_SOFT: Record<string, string> = {
+  sheets: 'var(--sheets-soft)',
+  editor: 'var(--editor-soft)',
+  desktop: 'var(--desktop-soft)',
+};
+
+const fmtDate = (d: Date) =>
+  new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
+const title = `${entry.data.title} · ${PRODUCT_LABEL[entry.data.product]} · Changelog`;
+---
+<Base title={title} description={entry.data.summary} active="changelog">
+  <div
+    class="cl-detail"
+    style={`--product-accent: ${PRODUCT_ACCENT[entry.data.product]}; --product-accent-soft: ${PRODUCT_SOFT[entry.data.product]};`}
+  >
+    <div class="container container--narrow">
+      <a href="/changelog/" class="cl-detail__back">← All releases</a>
+      <div class="cl-detail__meta">
+        <span class="cl-detail__product">
+          <span class="cl-detail__dot" aria-hidden="true"></span>
+          {PRODUCT_LABEL[entry.data.product]}
+        </span>
+        <span class="cl-detail__version">v{entry.data.version}</span>
+        <span class="cl-detail__date">{fmtDate(entry.data.date)}</span>
+      </div>
+      <h1 class="cl-detail__title">{entry.data.title}</h1>
+      <p class="cl-detail__lede">{entry.data.summary}</p>
+
+      <article class="cl-detail__body">
+        <Content />
+      </article>
+
+      {entry.data.repoUrl && (
+        <footer class="cl-detail__foot">
+          <a class="btn btn--ghost" href={entry.data.repoUrl} rel="noopener" target="_blank">
+            View on GitHub →
+          </a>
+        </footer>
+      )}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .cl-detail { padding: 32px 0 64px; }
+  .cl-detail__back {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    text-decoration: none;
+  }
+  .cl-detail__back:hover { color: var(--text); text-decoration: none; }
+
+  .cl-detail__meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .cl-detail__product {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--product-accent);
+    font-weight: 700;
+  }
+  .cl-detail__dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--product-accent);
+    box-shadow: 0 0 0 4px var(--product-accent-soft);
+  }
+  .cl-detail__version {
+    font-family: var(--font-mono);
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 5px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .cl-detail__date { color: var(--text-muted); text-transform: none; letter-spacing: 0; }
+
+  .cl-detail__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(32px, 5vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    margin: 0 0 14px;
+    color: var(--text);
+  }
+  .cl-detail__lede {
+    font-size: 18px;
+    color: var(--text-soft);
+    margin: 0 0 32px;
+    line-height: 1.55;
+  }
+
+  .cl-detail__body { font-size: 16px; line-height: 1.7; color: var(--text-soft); }
+  .cl-detail__body :global(h2) {
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    margin: 32px 0 12px;
+    line-height: 1.2;
+  }
+  .cl-detail__body :global(h3) {
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 20px 0 8px;
+  }
+  .cl-detail__body :global(p) { margin: 0 0 14px; }
+  .cl-detail__body :global(strong) { color: var(--text); }
+  .cl-detail__body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .cl-detail__body :global(ul) { margin: 0 0 18px; padding-left: 22px; }
+  .cl-detail__body :global(li) { margin: 0 0 6px; }
+  .cl-detail__body :global(a) { color: var(--product-accent); text-decoration: underline; text-underline-offset: 3px; }
+
+  .cl-detail__foot {
+    margin-top: 36px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--border);
+  }
+</style>
