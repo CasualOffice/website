@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Changelog · Casual Office';
+const description =
+  'Release notes across Casual Sheets, Casual Editor, and Casual Desktop. Per-product entries, dated.';
+---
+<Base {title} {description} active="changelog">
+  <section class="hero">
+    <div class="container hero__inner">
+      <span class="eyebrow">Coming soon</span>
+      <h1 class="display">Changelog.</h1>
+      <p class="lede">
+        Per-product release notes across the three projects. Landing in the next
+        site commit, sourced from each repo's recent history.
+      </p>
+      <div class="row">
+        <a class="btn btn--ghost" href="https://github.com/schnsrw/sheets/commits/main" rel="noopener" target="_blank">Sheets commits</a>
+        <a class="btn btn--ghost" href="https://github.com/schnsrw/docx/commits/main" rel="noopener" target="_blank">Editor commits</a>
+      </div>
+    </div>
+  </section>
+</Base>

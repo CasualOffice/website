@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Documentation · Casual Office';
+const description =
+  'Architecture, research notes, plans, and operational guides for Casual Sheets and Casual Editor. Pulled and curated from each repo.';
+---
+<Base {title} {description} active="docs">
+  <section class="hero">
+    <div class="container hero__inner">
+      <span class="eyebrow">Coming soon</span>
+      <h1 class="display">Documentation.</h1>
+      <p class="lede">
+        Architecture, research notes, plans, and operational guides — pulled and
+        curated from each repo's <code>docs/</code> folder. Landing in the next
+        site commit.
+      </p>
+      <div class="row">
+        <a class="btn btn--ghost" href="https://github.com/schnsrw/sheets/tree/main/docs" rel="noopener" target="_blank">Sheets docs on GitHub</a>
+        <a class="btn btn--ghost" href="https://github.com/schnsrw/docx/tree/main/docs" rel="noopener" target="_blank">Editor docs on GitHub</a>
+      </div>
+    </div>
+  </section>
+</Base>

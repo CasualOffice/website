@@ -1,0 +1,34 @@
+---
+interface Props {
+  slug: 'sheets' | 'editor' | 'desktop';
+  name: string;
+  role: string;
+  body: string;
+  features: string[];
+  status: string;
+  href: string;
+  accent: string;
+  accentSoft: string;
+}
+const { slug, name, role, body, features, status, href, accent, accentSoft } = Astro.props as Props;
+---
+<a
+  class="product"
+  href={href}
+  data-product={slug}
+  style={`--product-accent: ${accent}; --product-accent-soft: ${accentSoft};`}
+>
+  <div>
+    <span class="product__dot" aria-hidden="true"></span>
+    <h2 class="product__name" style="display: inline">{name}</h2>
+    <div class="product__role">{role}</div>
+  </div>
+  <p class="product__body">{body}</p>
+  <ul class="product__features">
+    {features.map((f) => <li>{f}</li>)}
+  </ul>
+  <div class="product__cta">
+    <span class="product__status">{status}</span>
+    <span class="product__open">Read more →</span>
+  </div>
+</a>

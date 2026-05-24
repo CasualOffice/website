@@ -22,12 +22,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm install
+
+      - name: Build (Astro)
+        # Astro emits the static site to ./dist. CNAME, robots.txt, llms.txt,
+        # favicon.svg, og.png all live under /public and ride through verbatim.
+        # @astrojs/sitemap generates sitemap-index.xml + sitemap-0.xml.
+        run: npm run build
+
       - name: Upload Pages artifact
-        # Pure static HTML — no build step. The whole repo root is the
-        # artifact (CNAME at the root tells Pages which host to serve).
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: ./dist
 
   deploy:
     needs: build

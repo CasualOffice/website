@@ -1,0 +1,129 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Casual Desktop — offline Sheets + Editor in a Tauri binary · Casual Office';
+const description =
+  'Casual Desktop — a native binary for macOS, Linux, and Windows that reuses the Casual Editor and Casual Sheets web cores verbatim. Single-user, offline. Tauri shell. First binary ships once both web fidelity scores cross 90%.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  '@id': 'https://schnsrw.live/casual-desktop/#app',
+  name: 'Casual Desktop',
+  applicationCategory: 'DesktopEnhancementApplication',
+  operatingSystem: 'macOS, Linux, Windows',
+  url: 'https://schnsrw.live/casual-desktop/',
+  license: 'https://www.apache.org/licenses/LICENSE-2.0',
+  description:
+    'Tauri binaries that reuse the Casual Editor and Casual Sheets web cores verbatim — single-user, offline. In early scaffolding; first binary ships once both web fidelity scores cross 90%.',
+  image: 'https://schnsrw.live/og.png',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: {
+    '@type': 'Person',
+    '@id': 'https://schnsrw.live/#person',
+    name: 'Sachin Sarwa',
+    url: 'https://schnsrw.live/',
+  },
+  isAccessibleForFree: true,
+  softwareRequirements: 'macOS 12+, Linux (modern), Windows 10+',
+};
+---
+<Base {title} {description} active="desktop" jsonLd={jsonLd}>
+  <section
+    class="hero subpage"
+    style="--product-accent: var(--desktop); --product-accent-soft: var(--desktop-soft);"
+  >
+    <div class="container hero__inner">
+      <div class="subpage__topline">
+        <span class="dot" aria-hidden="true"></span>
+        Casual Desktop · in progress
+      </div>
+      <h1 class="display">The same editors, <em>off the network.</em></h1>
+      <p class="lede">
+        A native binary that reuses the Casual Editor and Casual Sheets web cores
+        verbatim. Single-user, offline. Tauri shell, Rust glue. macOS, Linux,
+        Windows. Same shipped UX as the web, no SaaS in the loop.
+      </p>
+      <div class="row">
+        <a class="btn btn--ghost" href="https://github.com/schnsrw" rel="noopener" target="_blank">Track on GitHub</a>
+        <a class="btn btn--ghost" href="/changelog/">Changelog</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--desktop); --product-accent-soft: var(--desktop-soft);">
+    <div class="container">
+      <div class="fact-row">
+        <div><div class="fact__label">Status</div><div class="fact__value">scaffolding</div></div>
+        <div><div class="fact__label">Targets</div><div class="fact__value">3 OSes</div></div>
+        <div><div class="fact__label">Ships when</div><div class="fact__value">≥ 90% web fidelity</div></div>
+        <div><div class="fact__label">Shell</div><div class="fact__value">Tauri</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--desktop); --product-accent-soft: var(--desktop-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">The shape</span>
+          <h2 class="title">Reuse the web build. Replace the chrome.</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature__icon">↻</span>
+          <h3 class="feature__title">Same web cores, verbatim</h3>
+          <p class="feature__body">
+            Casual Editor and Casual Sheets ship as web apps first; Casual Desktop
+            wraps the same bundle. No second code path, no "desktop-only" feature
+            drift — fixes and features in the web cores reach the desktop on the
+            next release.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">∅</span>
+          <h3 class="feature__title">Single-user only</h3>
+          <p class="feature__body">
+            Real-time co-edit stays in the Docker image where it earns its keep.
+            The desktop binary is intentionally offline: open a file, edit it,
+            save it. No server, no port, no port forwarding.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">📁</span>
+          <h3 class="feature__title">Native file dialogs</h3>
+          <p class="feature__body">
+            Native macOS / Linux / Windows file pickers. Drag-and-drop from
+            Finder / Explorer / nautilus into the window. The browser sandbox
+            limitations on file access disappear in the desktop shell.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⏱</span>
+          <h3 class="feature__title">Ships behind a fidelity gate</h3>
+          <p class="feature__body">
+            First binary lands after both Editor and Sheets cross the ≥ 90%
+            fidelity floor. Sheets is already there for everyday workbooks;
+            Editor's gap matrix is the active work.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--desktop); --product-accent-soft: var(--desktop-soft);">
+    <div class="container container--narrow">
+      <div class="callout">
+        <strong>Roadmap.</strong> Tauri scaffolding only today. The first
+        public binary ships once the web Editor's per-tag round-trip audit
+        crosses 90%. Sign-up for release notifications isn't here yet — watch
+        the repo or this page.
+      </div>
+      <div class="row" style="margin-top: 22px;">
+        <a class="btn btn--ghost" href="https://github.com/schnsrw" rel="noopener" target="_blank">Watch on GitHub</a>
+        <a class="btn btn--ghost" href="/changelog/">Changelog</a>
+      </div>
+    </div>
+  </section>
+</Base>

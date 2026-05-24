@@ -1,0 +1,21 @@
+# Astro build output + cache
+dist/
+.astro/
+
+# Node
+node_modules/
+npm-debug.log*
+.npm
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Logs
+*.log
+
+# Local env
+.env
+.env.local
+.env.*.local

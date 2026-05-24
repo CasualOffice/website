@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'About · Casual Office';
+const description =
+  'Casual Office is built by Sachin Sarwa — software engineer. Open-source, file-centric, real-time productivity tools you can self-host and own end-to-end.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://schnsrw.live/#person',
+  name: 'Sachin Sarwa',
+  url: 'https://schnsrw.live/',
+  email: 'schnsrw@gmail.com',
+  jobTitle: 'Software Engineer',
+  sameAs: ['https://github.com/schnsrw', 'https://hub.docker.com/u/schnsrw'],
+};
+---
+<Base {title} {description} active="about" jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="container hero__inner">
+      <span class="eyebrow">About</span>
+      <h1 class="display">One engineer, three editors, one office suite.</h1>
+      <p class="lede">
+        Casual Office is the work of <strong>Sachin Sarwa</strong> — a software
+        engineer building open-source productivity tools. The thesis is small,
+        explicit, and counter-positioned to the megasuite era: each product is
+        small enough to read end-to-end, every line is open, every format is
+        owned by you.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">Contact</span>
+      <h2 class="title">Get in touch.</h2>
+      <p>
+        Email — <a href="mailto:schnsrw@gmail.com">schnsrw@gmail.com</a>.<br />
+        GitHub — <a href="https://github.com/schnsrw" rel="noopener" target="_blank">github.com/schnsrw</a>.<br />
+        Docker Hub — <a href="https://hub.docker.com/u/schnsrw" rel="noopener" target="_blank">hub.docker.com/u/schnsrw</a>.
+      </p>
+      <p>
+        Issues, ideas, and pull requests are most welcome on the respective
+        repos. Every project ships under Apache-2.0 or MIT.
+      </p>
+    </div>
+  </section>
+</Base>

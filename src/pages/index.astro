@@ -1,0 +1,241 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductCard from '../components/ProductCard.astro';
+
+const title = 'Casual Office — open-source Sheets, Editor, and Desktop';
+const description =
+  'Casual Office — schnsrw.live. Open-source, real-time, file-centric productivity tools. Casual Sheets (Excel-flavored web spreadsheet), Casual Editor (Word-flavored web .docx editor), Casual Desktop (Tauri binaries — in progress). Self-hostable. Apache-2.0 / MIT.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': 'https://schnsrw.live/#person',
+      name: 'Sachin Sarwa',
+      url: 'https://schnsrw.live/',
+      email: 'schnsrw@gmail.com',
+      jobTitle: 'Software Engineer',
+      sameAs: ['https://github.com/schnsrw', 'https://hub.docker.com/u/schnsrw'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://schnsrw.live/#website',
+      url: 'https://schnsrw.live/',
+      name: 'Casual Office',
+      alternateName: 'schnsrw.live',
+      description: 'Open-source, real-time, file-centric productivity tools by Sachin Sarwa.',
+      publisher: { '@id': 'https://schnsrw.live/#person' },
+      inLanguage: 'en',
+    },
+    {
+      '@type': 'ItemList',
+      '@id': 'https://schnsrw.live/#projects',
+      name: 'Casual Office — projects',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          item: {
+            '@type': 'SoftwareApplication',
+            '@id': 'https://sheet.schnsrw.live/#app',
+            name: 'Casual Sheets',
+            applicationCategory: 'BusinessApplication',
+            applicationSubCategory: 'SpreadsheetApplication',
+            operatingSystem: 'Web Browser, Docker',
+            url: 'https://sheet.schnsrw.live/',
+            codeRepository: 'https://github.com/schnsrw/sheets',
+            license: 'https://www.apache.org/licenses/LICENSE-2.0',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            author: { '@id': 'https://schnsrw.live/#person' },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          item: {
+            '@type': 'SoftwareApplication',
+            '@id': 'https://doc.schnsrw.live/#app',
+            name: 'Casual Editor',
+            applicationCategory: 'BusinessApplication',
+            applicationSubCategory: 'WordProcessor',
+            operatingSystem: 'Web Browser, Docker',
+            url: 'https://doc.schnsrw.live/',
+            codeRepository: 'https://github.com/schnsrw/docx',
+            license: 'https://www.apache.org/licenses/LICENSE-2.0',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            author: { '@id': 'https://schnsrw.live/#person' },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          item: {
+            '@type': 'SoftwareApplication',
+            '@id': 'https://schnsrw.live/casual-desktop/#app',
+            name: 'Casual Desktop',
+            applicationCategory: 'DesktopEnhancementApplication',
+            operatingSystem: 'macOS, Linux, Windows',
+            url: 'https://schnsrw.live/casual-desktop/',
+            license: 'https://www.apache.org/licenses/LICENSE-2.0',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            author: { '@id': 'https://schnsrw.live/#person' },
+          },
+        },
+      ],
+    },
+  ],
+};
+---
+<Base {title} {description} active="home" jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="container hero__inner">
+      <span class="eyebrow">An open-source office suite for the web</span>
+      <h1 class="display">
+        Office, for the <em>open web.</em>
+      </h1>
+      <p class="lede">
+        Real-time, file-centric, self-hostable. Open a `.xlsx` or `.docx` in the browser,
+        edit it like the web, save it back. No accounts, no lock-in, no SaaS dependency —
+        just the files you already own.
+      </p>
+      <div class="row">
+        <a class="btn btn--primary" href="/casual-sheets/">Explore Sheets →</a>
+        <a class="btn btn--ghost" href="/casual-editor/">Explore Editor</a>
+        <a class="btn btn--ghost" href="https://github.com/schnsrw" rel="noopener" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">Three products, one suite</span>
+          <h2 class="title">A spreadsheet, an editor, and a desktop binary.</h2>
+        </div>
+      </div>
+      <div class="products">
+        <ProductCard
+          slug="sheets"
+          name="Casual Sheets"
+          role="Excel-flavored web spreadsheet"
+          body="Open a .xlsx, .ods, .csv, or .tsv. Real-time co-editing, pivot tables with drill-down, eight chart types with trendlines, sparklines, version history, and .xlsm macro passthrough that round-trips byte-equal."
+          features={[
+            '.xlsx · .ods · .csv · .tsv round-trip',
+            'Pivot tables · 8 chart types · sparklines',
+            'Real-time co-editing via Yjs + Hocuspocus',
+            'Self-host via Docker · v0.0.6 shipped',
+          ]}
+          status="357 e2e ✓ · v0.0.6"
+          href="/casual-sheets/"
+          accent="#217346"
+          accentSoft="rgba(33, 115, 70, 0.10)"
+        />
+        <ProductCard
+          slug="editor"
+          name="Casual Editor"
+          role="Word-flavored web document editor"
+          body="Open a .docx with WYSIWYG fidelity. ProseMirror with an OOXML-preserving model; a stateless Go gateway speaks the y-websocket protocol in ~120 lines. Document persistence is delegated to a pluggable host integration."
+          features={[
+            '.docx round-trip (26/39 pristine)',
+            'ProseMirror + OOXML-preserving model',
+            'Yjs + custom Go y-websocket gateway',
+            'Three-way fidelity harness in CI',
+          ]}
+          status="public preview"
+          href="/casual-editor/"
+          accent="#2563eb"
+          accentSoft="rgba(37, 99, 235, 0.10)"
+        />
+        <ProductCard
+          slug="desktop"
+          name="Casual Desktop"
+          role="Tauri binaries · in progress"
+          body="A native binary for macOS, Linux, and Windows that reuses the Casual Editor and Casual Sheets web cores verbatim. Single-user, offline. First binary ships once both web fidelity scores cross 90%."
+          features={[
+            'Tauri shell · reuses the web cores',
+            'macOS · Linux · Windows',
+            'Single-user · offline',
+            'Ships once Editor + Sheets cross 90%',
+          ]}
+          status="early scaffolding"
+          href="/casual-desktop/"
+          accent="#7c3aed"
+          accentSoft="rgba(124, 58, 237, 0.10)"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">How it works</span>
+          <h2 class="title">Files, not formats. State, not storage.</h2>
+        </div>
+      </div>
+      <div class="feature-grid" style="--product-accent: var(--accent); --product-accent-soft: var(--accent-soft);">
+        <article class="feature">
+          <span class="feature__icon">F</span>
+          <h3 class="feature__title">File-centric</h3>
+          <p class="feature__body">
+            Native Office formats are the source of truth. Open, edit, save back —
+            never an export-only model. Both editors round-trip the actual binary,
+            with audited fidelity scores.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">S</span>
+          <h3 class="feature__title">Stateless backends</h3>
+          <p class="feature__body">
+            No database, no on-disk update log in the real-time service. State lives
+            only in memory while a session is active. The host owns persistence
+            (WOPI in v1+, inline in v0).
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">O</span>
+          <h3 class="feature__title">Open source</h3>
+          <p class="feature__body">
+            Apache-2.0 / MIT throughout. Public demos at <code>sheet.schnsrw.live</code>
+            and <code>doc.schnsrw.live</code>; self-host via the published Docker
+            images. Every line on GitHub.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">R</span>
+          <h3 class="feature__title">Real-time when it earns it</h3>
+          <p class="feature__body">
+            Single-user demos on GitHub Pages; real-time co-edit ships in the Docker
+            image, not the React component. Same web build across distribution
+            shapes — different boundaries.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <span class="eyebrow">The bigger idea</span>
+      <h2 class="title">A small office suite, built like infrastructure.</h2>
+      <p>
+        Casual Office is a deliberate counter-position to the megasuite era. Each
+        product is small enough to read end-to-end; every line is open; every format
+        is owned by the user, not the vendor. The shape is closer to a UNIX tool than
+        a SaaS product: a single binary you run, with the file as the interface.
+      </p>
+      <p>
+        The work is split across three repos and a marketing site — all linked from
+        the GitHub profile below.
+      </p>
+      <div class="row" style="margin-top: 18px;">
+        <a class="btn btn--ghost" href="/docs/">Documentation</a>
+        <a class="btn btn--ghost" href="/changelog/">Changelog</a>
+        <a class="btn btn--ghost" href="/about/">About</a>
+      </div>
+    </div>
+  </section>
+</Base>

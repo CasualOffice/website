@@ -1,0 +1,189 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Casual Sheets — Excel-flavored web spreadsheet · Casual Office';
+const description =
+  'Open-source web spreadsheet with .xlsx round-trip, real-time co-editing, pivot tables with drill-down, eight chart types with trendlines, sparklines, version history, conditional formatting, data validation, and VBA macro passthrough. Self-hostable via Docker. Apache-2.0.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  '@id': 'https://sheet.schnsrw.live/#app',
+  name: 'Casual Sheets',
+  applicationCategory: 'BusinessApplication',
+  applicationSubCategory: 'SpreadsheetApplication',
+  operatingSystem: 'Web Browser, Docker (Linux/amd64, Linux/arm64)',
+  url: 'https://sheet.schnsrw.live/',
+  downloadUrl: 'https://hub.docker.com/r/schnsrw/casual-sheets',
+  codeRepository: 'https://github.com/schnsrw/sheets',
+  softwareVersion: '0.0.6',
+  license: 'https://www.apache.org/licenses/LICENSE-2.0',
+  description:
+    'Open-source, self-hostable web spreadsheet with .xlsx round-trip, real-time co-editing via Yjs + Hocuspocus, pivot tables with drill-down, 8 chart types, sparklines, version history, conditional formatting, data validation, and VBA macro passthrough on .xlsm files.',
+  image: 'https://schnsrw.live/og.png',
+  screenshot: 'https://sheet.schnsrw.live/og.png',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: {
+    '@type': 'Person',
+    '@id': 'https://schnsrw.live/#person',
+    name: 'Sachin Sarwa',
+    url: 'https://schnsrw.live/',
+  },
+  isAccessibleForFree: true,
+};
+---
+<Base {title} {description} active="sheets" jsonLd={jsonLd} themeColor="#fafaf7">
+  <section
+    class="hero subpage"
+    style="--product-accent: var(--sheets); --product-accent-soft: var(--sheets-soft);"
+  >
+    <div class="container hero__inner">
+      <div class="subpage__topline">
+        <span class="dot" aria-hidden="true"></span>
+        Casual Sheets
+      </div>
+      <h1 class="display">A spreadsheet that knows it's a&nbsp;<em>file</em>.</h1>
+      <p class="lede">
+        Open a <code>.xlsx</code>, edit it like the web, save it back. The Excel
+        flow — ribbon, formula bar, file-centric workflow — without the desktop
+        binary. Real-time co-editing when you want it; self-host the Docker image
+        when you don't want a SaaS in the loop.
+      </p>
+      <div class="row">
+        <a class="btn btn--accent" style="--product-accent: var(--sheets);" href="https://sheet.schnsrw.live/" rel="noopener" target="_blank">Open the live demo →</a>
+        <a class="btn btn--ghost" href="https://github.com/schnsrw/sheets" rel="noopener" target="_blank">Source on GitHub</a>
+        <a class="btn btn--ghost" href="https://hub.docker.com/r/schnsrw/casual-sheets" rel="noopener" target="_blank">Docker image</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--sheets); --product-accent-soft: var(--sheets-soft);">
+    <div class="container">
+      <div class="fact-row">
+        <div><div class="fact__label">Version</div><div class="fact__value">v0.0.6</div></div>
+        <div><div class="fact__label">E2E tests</div><div class="fact__value">357 ✓</div></div>
+        <div><div class="fact__label">Round-trip audit</div><div class="fact__value">46 / 46</div></div>
+        <div><div class="fact__label">License</div><div class="fact__value">Apache-2.0</div></div>
+        <div><div class="fact__label">Templates</div><div class="fact__value">11</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--sheets); --product-accent-soft: var(--sheets-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">What it does</span>
+          <h2 class="title">The Excel surface, faithfully ported.</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature__icon">x</span>
+          <h3 class="feature__title">Native .xlsx round-trip</h3>
+          <p class="feature__body">
+            ExcelJS-backed parser with a 46-probe lossiness audit covering styles,
+            formulas, number formats, hyperlinks, defined names, data validation,
+            page setup, tables, freeze, hidden sheets, and workbook metadata.
+            <code>.xlsm</code> files round-trip <strong>byte-equal</strong> — we
+            capture <code>xl/vbaProject.bin</code> and re-inject it on save.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">Σ</span>
+          <h3 class="feature__title">Pivot tables with drill-down</h3>
+          <p class="feature__body">
+            Multi-row compact layout, filter fields, refresh, and drill-down to the
+            contributing source rows with <kbd>Ctrl+Shift+D</kbd>. The pivot model
+            piggy-backs on Univer's mutation bus so co-edit syncs the pivot, not
+            just the cells beneath.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">📊</span>
+          <h3 class="feature__title">Eight chart types · sparklines</h3>
+          <p class="feature__body">
+            Line, column, bar, pie, donut, scatter, area, combo. Trendlines,
+            date-axis detection, per-series colour overrides. Sparklines as
+            line / column / win-loss. ECharts overlay anchored to cell ranges
+            with a zoom + frozen-pane-aware coordinate transform.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⌥</span>
+          <h3 class="feature__title">Real-time co-editing</h3>
+          <p class="feature__body">
+            Yjs + Hocuspocus over a WebSocket gateway. Anonymous rooms identified
+            by URL. Optional password-protected rooms with a SHA-256 client gate
+            <em>and</em> server-side <code>onAuthenticate</code> enforcement for
+            view-only roles.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⌫</span>
+          <h3 class="feature__title">Version history · autosave</h3>
+          <p class="feature__body">
+            Per-room auto-snapshots with one-click restore. IndexedDB autosave
+            with a restore banner on reload. Local single-user mode includes a
+            full history side panel; the Docker image carries cross-peer history
+            with timestamps and op-log compaction.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">🎁</span>
+          <h3 class="feature__title">11-template home gallery</h3>
+          <p class="feature__body">
+            Personal Budget, To-Do, Project Tracker, Sprint Planner, Invoice,
+            Inventory, Expense Report, Class Schedule, Grade Tracker, Travel
+            Planner, Meeting Notes — all real <code>.xlsx</code> files authored
+            with ExcelJS, with hand-tuned thumbnail previews.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--sheets); --product-accent-soft: var(--sheets-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">Stack</span>
+          <h2 class="title">Built on Univer OSS — no Pro pinning.</h2>
+        </div>
+      </div>
+      <p class="lede">
+        Univer OSS (Apache-2.0) is the grid + formula engine; everything above —
+        the Office-style shell, the collab driver, the xlsx workers, charts,
+        pivots, sparklines, the home gallery, the autosave loop — is in this
+        repo. When a feature is missing in OSS, we build it on OSS or defer it.
+        Never "use the Pro package."
+      </p>
+      <div class="row">
+        <span class="chip"><code>Univer OSS</code> 0.24.x</span>
+        <span class="chip"><code>React</code> 18 + Vite + TypeScript strict</span>
+        <span class="chip"><code>Yjs</code> + Hocuspocus</span>
+        <span class="chip"><code>ExcelJS</code> in Web Workers</span>
+        <span class="chip"><code>ECharts</code></span>
+        <span class="chip"><code>Docker</code> multi-arch</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--sheets); --product-accent-soft: var(--sheets-soft);">
+    <div class="container container--narrow">
+      <div class="callout">
+        <strong>Self-host in one line.</strong> The Docker image bundles the
+        web app, the Fastify HTTP server, and the Hocuspocus WebSocket gateway
+        into a single port. No DB. Multi-arch (amd64 + arm64).
+      </div>
+      <pre style="margin: 18px 0; padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-mono); font-size: 13px; overflow-x: auto;">
+docker run -p 3000:3000 schnsrw/casual-sheets:latest
+      </pre>
+      <div class="row" style="margin-top: 22px;">
+        <a class="btn btn--accent" style="--product-accent: var(--sheets);" href="https://sheet.schnsrw.live/" rel="noopener" target="_blank">Open the live demo</a>
+        <a class="btn btn--ghost" href="/docs/sheets/">Sheets docs</a>
+        <a class="btn btn--ghost" href="/changelog/">Changelog</a>
+      </div>
+    </div>
+  </section>
+</Base>
