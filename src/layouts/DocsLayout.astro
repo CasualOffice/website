@@ -143,8 +143,13 @@ const PRODUCT_OG: Record<string, string> = {
     color: var(--text);
     border: 1px solid var(--border);
   }
+  /* Shiki ships an inline `style="background-color: #..."` on its
+     `<pre class="astro-code github-light">` element. The selector
+     here uses `[style]` with `!important` so our surface-2 wins on
+     the light theme (Shiki's GitHub-light surface is too close to
+     pure white and disappears into the page). */
   .docs__body :global(pre) {
-    background: var(--surface-2);
+    background: var(--surface-2) !important;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 16px 18px;
@@ -153,12 +158,20 @@ const PRODUCT_OG: Record<string, string> = {
     font-family: var(--font-mono);
     font-size: 13.5px;
     line-height: 1.55;
+    color: var(--text);
   }
   .docs__body :global(pre code) {
-    background: transparent;
+    background: transparent !important;
     border: 0;
     padding: 0;
     font-size: inherit;
+    color: inherit;
+  }
+  /* Fenced blocks without a language fall back to plain `<pre>`
+     (no Shiki theme classes applied). Make sure their text is the
+     normal body color, not whatever the previous palette baked in. */
+  .docs__body :global(pre:not(.astro-code)) {
+    color: var(--text);
   }
   .docs__body :global(blockquote) {
     margin: 0 0 18px;

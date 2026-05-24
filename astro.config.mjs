@@ -11,6 +11,16 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://schnsrw.live',
   trailingSlash: 'always',
+  // Markdown code blocks use Shiki for syntax highlighting. Astro's
+  // default is `github-dark` which renders dark-bg + dark-fg on our
+  // light theme — every fenced ```code``` block in /docs/ becomes
+  // unreadable. `github-light` matches the surrounding light surface.
+  markdown: {
+    shikiConfig: {
+      theme: 'github-light',
+      wrap: true,
+    },
+  },
   integrations: [
     sitemap({
       changefreq: 'weekly',
