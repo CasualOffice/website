@@ -1,0 +1,258 @@
+---
+import Base from './Base.astro';
+import DocsSidebar from '../components/DocsSidebar.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  product?: 'sheets' | 'editor' | 'shared';
+  sourceUrl?: string;
+  updated?: Date;
+  currentSlug?: string;
+}
+const {
+  title,
+  description,
+  product = 'shared',
+  sourceUrl,
+  updated,
+  currentSlug,
+} = Astro.props as Props;
+
+const PRODUCT_LABEL: Record<string, string> = {
+  sheets: 'Casual Sheets',
+  editor: 'Casual Editor',
+  shared: 'Casual Office',
+};
+const PRODUCT_ACCENT: Record<string, string> = {
+  sheets: 'var(--sheets)',
+  editor: 'var(--editor)',
+  shared: 'var(--accent)',
+};
+---
+<Base title={`${title} · Docs · Casual Office`} description={description} active="docs">
+  <div
+    class="docs"
+    style={`--product-accent: ${PRODUCT_ACCENT[product]}; --product-accent-soft: var(--${product === 'shared' ? 'accent-soft' : product + '-soft'});`}
+  >
+    <div class="container docs__container">
+      <DocsSidebar currentSlug={currentSlug} />
+      <article class="docs__article">
+        <div class="docs__topline">
+          <a href="/docs/" class="docs__crumb">Docs</a>
+          <span aria-hidden="true">/</span>
+          <span class="docs__crumb docs__crumb--product">{PRODUCT_LABEL[product]}</span>
+        </div>
+        <h1 class="docs__title">{title}</h1>
+        {description && <p class="docs__lede">{description}</p>}
+
+        <div class="docs__body">
+          <slot />
+        </div>
+
+        <footer class="docs__foot">
+          {sourceUrl && (
+            <a class="btn btn--ghost" href={sourceUrl} rel="noopener" target="_blank">
+              Edit on GitHub →
+            </a>
+          )}
+          {updated && (
+            <span class="muted">
+              Synced {new Date(updated).toISOString().slice(0, 10)}
+            </span>
+          )}
+        </footer>
+      </article>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .docs { padding: 32px 0 64px; }
+  .docs__container { display: grid; grid-template-columns: 240px 1fr; gap: 36px; }
+  @media (max-width: 880px) {
+    .docs__container { grid-template-columns: 1fr; }
+  }
+
+  .docs__article {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 36px 40px;
+    box-shadow: var(--shadow-sm);
+    min-width: 0;
+  }
+
+  .docs__topline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .docs__crumb { color: var(--text-muted); }
+  .docs__crumb--product { color: var(--product-accent); font-weight: 700; }
+
+  .docs__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.16;
+    letter-spacing: -0.012em;
+    margin: 0 0 14px;
+    color: var(--text);
+  }
+  .docs__lede {
+    font-size: 17px;
+    color: var(--text-soft);
+    margin: 0 0 28px;
+  }
+
+  .docs__body { font-size: 15.5px; line-height: 1.7; color: var(--text-soft); }
+  .docs__body :global(h1),
+  .docs__body :global(h2),
+  .docs__body :global(h3),
+  .docs__body :global(h4) {
+    color: var(--text);
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    margin: 32px 0 10px;
+    line-height: 1.2;
+  }
+  .docs__body :global(h2) { font-size: 26px; padding-top: 8px; }
+  .docs__body :global(h3) { font-size: 20px; }
+  .docs__body :global(h4) { font-size: 17px; font-family: var(--font-sans); font-weight: 600; }
+  .docs__body :global(p) { margin: 0 0 14px; }
+  .docs__body :global(strong) { color: var(--text); }
+  .docs__body :global(a) { color: var(--product-accent); text-decoration: underline; text-underline-offset: 3px; }
+  .docs__body :global(a:hover) { color: var(--accent-strong); }
+  .docs__body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .docs__body :global(pre) {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    overflow-x: auto;
+    margin: 0 0 18px;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+  .docs__body :global(pre code) {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font-size: inherit;
+  }
+  .docs__body :global(blockquote) {
+    margin: 0 0 18px;
+    padding: 4px 18px;
+    border-left: 3px solid var(--product-accent);
+    color: var(--text-soft);
+    background: var(--product-accent-soft);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .docs__body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 20px;
+    font-size: 14.5px;
+  }
+  .docs__body :global(th),
+  .docs__body :global(td) {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .docs__body :global(th) {
+    font-weight: 600;
+    color: var(--text);
+    background: var(--surface-2);
+  }
+  .docs__body :global(ul),
+  .docs__body :global(ol) { margin: 0 0 18px; padding-left: 22px; }
+  .docs__body :global(li) { margin: 0 0 6px; }
+
+  .docs__body :global(hr) { border: none; border-top: 1px dashed var(--border); margin: 28px 0; }
+
+  .docs__foot {
+    margin-top: 36px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    font-size: 13px;
+  }
+
+  /* ─── Sidebar ─────────────────────────────────────────────────── */
+  :global(.docs-side) {
+    position: sticky;
+    top: 84px;
+    align-self: start;
+    padding: 8px 0;
+    font-size: 14px;
+  }
+  :global(.docs-side__group) { margin-bottom: 28px; }
+  :global(.docs-side__group-label) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  :global(.docs-side__dot) {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--group-accent, var(--accent));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--group-accent, var(--accent)) 12%, transparent);
+  }
+  :global(.docs-side__list) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-left: 1px solid var(--border);
+  }
+  :global(.docs-side__link) {
+    display: block;
+    padding: 6px 12px;
+    margin-left: -1px;
+    color: var(--text-soft);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  :global(.docs-side__link:hover) {
+    color: var(--text);
+    background: var(--surface-2);
+    text-decoration: none;
+  }
+  :global(.docs-side__link--active) {
+    color: var(--group-accent, var(--accent));
+    border-left-color: var(--group-accent, var(--accent));
+    background: color-mix(in srgb, var(--group-accent, var(--accent)) 6%, transparent);
+    font-weight: 600;
+  }
+</style>

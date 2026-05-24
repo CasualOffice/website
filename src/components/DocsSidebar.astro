@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+const { currentSlug } = Astro.props as { currentSlug?: string };
+
+const all = await getCollection('docs');
+const grouped: Record<string, typeof all> = {
+  sheets: [],
+  editor: [],
+  shared: [],
+};
+for (const e of all) grouped[e.data.product].push(e);
+for (const k of Object.keys(grouped)) {
+  grouped[k].sort((a, b) => a.data.order - b.data.order);
+}
+
+const PRODUCT_LABELS: Record<string, string> = {
+  sheets: 'Casual Sheets',
+  editor: 'Casual Editor',
+  shared: 'Shared',
+};
+const PRODUCT_ACCENT: Record<string, string> = {
+  sheets: 'var(--sheets)',
+  editor: 'var(--editor)',
+  shared: 'var(--accent)',
+};
+---
+<aside class="docs-side" aria-label="Documentation navigation">
+  {(['sheets', 'editor', 'shared'] as const).map((p) => (
+    grouped[p].length === 0 ? null : (
+      <section class="docs-side__group" style={`--group-accent: ${PRODUCT_ACCENT[p]};`}>
+        <div class="docs-side__group-label">
+          <span class="docs-side__dot" aria-hidden="true"></span>
+          {PRODUCT_LABELS[p]}
+        </div>
+        <ul class="docs-side__list">
+          {grouped[p].map((e) => (
+            <li>
+              <a
+                href={`/docs/${e.slug}/`}
+                class={`docs-side__link${e.slug === currentSlug ? ' docs-side__link--active' : ''}`}
+                aria-current={e.slug === currentSlug ? 'page' : undefined}
+              >
+                {e.data.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  ))}
+</aside>
