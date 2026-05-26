@@ -1,0 +1,140 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const all = await getCollection('notes');
+  return all.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const PRODUCT_LABEL: Record<string, string> = {
+  sheets: 'Casual Sheets',
+  editor: 'Casual Editor',
+  slides: 'Casual Slides',
+  shared: 'Casual Office',
+};
+const PRODUCT_ACCENT: Record<string, string> = {
+  sheets: 'var(--sheets)',
+  editor: 'var(--editor)',
+  slides: 'var(--slides)',
+  shared: 'var(--accent)',
+};
+const PRODUCT_HREF: Record<string, string> = {
+  sheets: '/casual-sheets/',
+  editor: '/casual-editor/',
+  slides: '/casual-slides/',
+  shared: '/',
+};
+
+const product = entry.data.product ?? 'shared';
+const accent = PRODUCT_ACCENT[product];
+
+const title = `${entry.data.title} — Casual Office notes`;
+
+// Article JSON-LD makes the post eligible for Google's "article" rich
+// result + carries author + dates that search engines weight.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: new Date(entry.data.date).toISOString(),
+  dateModified: new Date(entry.data.date).toISOString(),
+  author: {
+    '@type': 'Person',
+    name: 'Sachin Sarwa',
+    url: 'https://schnsrw.live/',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Casual Office',
+    url: 'https://schnsrw.live/',
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `https://schnsrw.live/notes/${entry.slug}/`,
+  },
+  keywords: entry.data.tags.join(', '),
+};
+
+const fmtDate = (d: Date) =>
+  new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+<Base title={title} description={entry.data.description} active="notes" jsonLd={jsonLd}>
+  <article class="note" style={`--product-accent: ${accent};`}>
+    <header class="note__head">
+      <div class="container container--narrow">
+        <div class="note__meta">
+          {entry.data.product && (
+            <a class="note__product" href={PRODUCT_HREF[product]}>
+              <span class="note__dot" aria-hidden="true"></span>
+              {PRODUCT_LABEL[product]}
+            </a>
+          )}
+          <span class="note__date">{fmtDate(entry.data.date)}</span>
+        </div>
+        <h1 class="display note__title">{entry.data.title}</h1>
+        <p class="lede note__lede">{entry.data.description}</p>
+      </div>
+    </header>
+
+    <div class="container container--narrow note__body">
+      <Content />
+    </div>
+
+    <footer class="container container--narrow note__foot">
+      {entry.data.tags.length > 0 && (
+        <div class="note__tags" aria-label="Tags">
+          {entry.data.tags.map((t) => <span class="note__tag">#{t}</span>)}
+        </div>
+      )}
+      <p class="note__back">
+        <a href="/notes/">← All notes</a>
+        {entry.data.product && (
+          <>
+            <span aria-hidden="true"> · </span>
+            <a href={PRODUCT_HREF[product]}>{PRODUCT_LABEL[product]} →</a>
+          </>
+        )}
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .note__head { padding: 56px 0 24px; border-bottom: 1px solid var(--border); }
+  .note__meta { display: flex; align-items: center; gap: 14px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 14px; }
+  .note__product { display: inline-flex; align-items: center; gap: 8px; color: var(--product-accent); font-weight: 700; text-decoration: none; }
+  .note__product:hover { text-decoration: underline; }
+  .note__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--product-accent); }
+  .note__date { color: var(--text-muted); text-transform: none; letter-spacing: 0; }
+  .note__title { margin: 0 0 14px; }
+  .note__lede { color: var(--text-soft); }
+  .note__body { padding: 36px 0; line-height: 1.7; font-size: 16px; }
+  .note__body :global(h2) { font-family: var(--font-display); font-size: 26px; margin: 36px 0 14px; letter-spacing: -0.01em; }
+  .note__body :global(h3) { font-size: 19px; margin: 28px 0 10px; }
+  .note__body :global(p) { margin: 0 0 16px; }
+  .note__body :global(ul), .note__body :global(ol) { margin: 0 0 16px; padding-left: 22px; }
+  .note__body :global(li) { margin-bottom: 6px; }
+  .note__body :global(code) { font-family: var(--font-mono); font-size: 14px; background: var(--surface-2); padding: 1px 6px; border-radius: 4px; }
+  .note__body :global(pre) { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; overflow-x: auto; margin: 0 0 22px; }
+  .note__body :global(pre code) { background: transparent; padding: 0; }
+  .note__body :global(blockquote) { margin: 0 0 20px; padding: 8px 16px; border-left: 3px solid var(--product-accent); color: var(--text-soft); background: var(--surface-2); border-radius: 0 var(--radius) var(--radius) 0; }
+  .note__body :global(a) { color: var(--product-accent); }
+  .note__body :global(hr) { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+  .note__body :global(table) { width: 100%; border-collapse: collapse; margin: 0 0 22px; font-size: 14px; }
+  .note__body :global(th), .note__body :global(td) { padding: 8px 12px; border: 1px solid var(--border); text-align: left; }
+  .note__body :global(th) { background: var(--surface-2); font-weight: 600; }
+  .note__foot { padding: 24px 0 56px; border-top: 1px solid var(--border); }
+  .note__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .note__tag { font-size: 12px; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-muted); font-family: var(--font-mono); }
+  .note__back { font-size: 14px; color: var(--text-muted); }
+  .note__back a { color: var(--product-accent); text-decoration: none; }
+  .note__back a:hover { text-decoration: underline; }
+</style>

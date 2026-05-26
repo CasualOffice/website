@@ -1,0 +1,85 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const all = await getCollection('vs');
+all.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const PRODUCT_ACCENT: Record<string, string> = {
+  sheets: 'var(--sheets)',
+  editor: 'var(--editor)',
+  slides: 'var(--slides)',
+};
+const PRODUCT_LABEL: Record<string, string> = {
+  sheets: 'Casual Sheets',
+  editor: 'Casual Editor',
+  slides: 'Casual Slides',
+};
+
+const title = 'Comparisons — Casual Office vs. the rest';
+const description =
+  'Honest side-by-side comparisons of Casual Sheets, Casual Editor, and Casual Slides against the incumbents (Google Sheets, OnlyOffice, Excel Online, etc.). Self-host, license, price, .xlsx round-trip, co-edit, maturity — surfaced not hidden.';
+---
+<Base {title} {description} active="home">
+  <section class="hero">
+    <div class="container hero__inner">
+      <span class="eyebrow">Comparisons</span>
+      <h1 class="display">vs. the&nbsp;<em>incumbents</em>.</h1>
+      <p class="lede">
+        Honest side-by-side write-ups, not feature checklists invented to win.
+        Every page is dated; we re-verify against the competitor's current
+        offering and update — drift is the natural state of comparison
+        content. If you find something wrong, the page links to the source
+        repo and you can open a PR.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {all.length === 0 ? (
+        <p class="lede">First comparison coming soon.</p>
+      ) : (
+        <ol class="vs">
+          {all.map((entry) => (
+            <li class="vs__row" style={`--row-accent: ${PRODUCT_ACCENT[entry.data.ourProduct]};`}>
+              <a class="vs__card" href={`/vs/${entry.slug}/`}>
+                <div class="vs__meta">
+                  <span class="vs__product">{PRODUCT_LABEL[entry.data.ourProduct]}</span>
+                  <span class="vs__vs">vs.</span>
+                  <span class="vs__other">{entry.data.other}</span>
+                </div>
+                <h2 class="vs__title">{entry.data.title}</h2>
+                <p class="vs__summary">{entry.data.description}</p>
+                <span class="vs__open">Read the comparison →</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .vs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  .vs__card {
+    display: block;
+    padding: 26px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--row-accent);
+    border-radius: var(--radius-lg);
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 160ms ease-out, box-shadow 160ms ease-out, border-color 160ms ease-out;
+  }
+  .vs__card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--row-accent); color: var(--text); text-decoration: none; }
+  .vs__meta { display: flex; align-items: center; gap: 10px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 10px; flex-wrap: wrap; }
+  .vs__product { color: var(--row-accent); font-weight: 700; }
+  .vs__vs { color: var(--text-muted); font-weight: 600; font-family: var(--font-mono); }
+  .vs__other { color: var(--text); font-weight: 600; }
+  .vs__title { font-family: var(--font-display); font-weight: 600; font-size: 22px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .vs__summary { margin: 0 0 12px; color: var(--text-soft); line-height: 1.55; font-size: 15px; }
+  .vs__open { font-size: 13px; color: var(--row-accent); font-weight: 600; }
+</style>

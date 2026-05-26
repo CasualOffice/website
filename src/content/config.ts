@@ -31,7 +31,7 @@ const changelog = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    product: z.enum(['sheets', 'editor', 'desktop']),
+    product: z.enum(['sheets', 'editor', 'slides', 'desktop']),
     version: z.string(),
     date: z.coerce.date(),
     summary: z.string(),
@@ -39,4 +39,43 @@ const changelog = defineCollection({
   }),
 });
 
-export const collections = { docs, changelog };
+// Notes collection — engineering posts. Each post targets a specific
+// long-tail dev search query in its title. Front matter doubles as the
+// SEO surface (description = meta description; tags = body keywords).
+const notes = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    /** One-paragraph meta description. <meta name="description"> AND
+     *  OpenGraph; this is the search-result preview line. 140–160 chars. */
+    description: z.string(),
+    date: z.coerce.date(),
+    /** Free-form tags surfaced at the bottom of each post + used as
+     *  body keywords for search. 3–6 per post. */
+    tags: z.array(z.string()).default([]),
+    /** Which product the post relates to (if any). Drives accent +
+     *  cross-link back to the product page. */
+    product: z.enum(['sheets', 'editor', 'slides', 'shared']).optional(),
+    /** Hidden from the public list when true (still reachable by URL). */
+    draft: z.boolean().default(false),
+  }),
+});
+
+// Comparison collection — one entry per "Casual X vs Y" search target.
+// Title IS the query someone would type; URL slug is `<our>-vs-<other>`.
+// Goal: appearing in the long tail of "open source alternative to X" /
+// "X self hosted alternative".
+const vs = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    ourProduct: z.enum(['sheets', 'editor', 'slides']),
+    other: z.string(),
+    /** When the comparison was last verified against the competitor's
+     *  current feature set — surfaces in the footer as honest dating. */
+    verified: z.coerce.date(),
+  }),
+});
+
+export const collections = { docs, changelog, notes, vs };

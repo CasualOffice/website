@@ -1,0 +1,124 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const all = await getCollection('vs');
+  return all.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const PRODUCT_LABEL: Record<string, string> = {
+  sheets: 'Casual Sheets',
+  editor: 'Casual Editor',
+  slides: 'Casual Slides',
+};
+const PRODUCT_ACCENT: Record<string, string> = {
+  sheets: 'var(--sheets)',
+  editor: 'var(--editor)',
+  slides: 'var(--slides)',
+};
+const PRODUCT_HREF: Record<string, string> = {
+  sheets: '/casual-sheets/',
+  editor: '/casual-editor/',
+  slides: '/casual-slides/',
+};
+
+const accent = PRODUCT_ACCENT[entry.data.ourProduct];
+const ourLabel = PRODUCT_LABEL[entry.data.ourProduct];
+const ourHref = PRODUCT_HREF[entry.data.ourProduct];
+
+// "ComparisonAction" doesn't exist in schema.org; use Article with a
+// specific subject. This still gets the article rich result.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: new Date(entry.data.verified).toISOString(),
+  dateModified: new Date(entry.data.verified).toISOString(),
+  author: {
+    '@type': 'Person',
+    name: 'Sachin Sarwa',
+    url: 'https://schnsrw.live/',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Casual Office',
+    url: 'https://schnsrw.live/',
+  },
+  about: [
+    { '@type': 'SoftwareApplication', name: ourLabel },
+    { '@type': 'SoftwareApplication', name: entry.data.other },
+  ],
+};
+
+const fmtDate = (d: Date) =>
+  new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+<Base title={`${entry.data.title} — Casual Office`} description={entry.data.description} active="home" jsonLd={jsonLd}>
+  <article class="vs-detail" style={`--product-accent: ${accent};`}>
+    <header class="vs-detail__head">
+      <div class="container container--narrow">
+        <div class="vs-detail__meta">
+          <span class="vs-detail__product">{ourLabel}</span>
+          <span class="vs-detail__vs">vs.</span>
+          <span class="vs-detail__other">{entry.data.other}</span>
+        </div>
+        <h1 class="display vs-detail__title">{entry.data.title}</h1>
+        <p class="lede vs-detail__lede">{entry.data.description}</p>
+      </div>
+    </header>
+
+    <div class="container container--narrow vs-detail__body">
+      <Content />
+    </div>
+
+    <footer class="container container--narrow vs-detail__foot">
+      <p class="vs-detail__verified">
+        Verified against {entry.data.other} as of {fmtDate(entry.data.verified)}.
+        If something here is wrong or out of date, the source is on
+        <a href="https://github.com/schnsrw/site" rel="noopener" target="_blank">GitHub</a>
+        — PRs welcome.
+      </p>
+      <p class="vs-detail__back">
+        <a href={ourHref}>{ourLabel} →</a>
+        <span aria-hidden="true"> · </span>
+        <a href="/vs/">All comparisons</a>
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .vs-detail__head { padding: 56px 0 24px; border-bottom: 1px solid var(--border); }
+  .vs-detail__meta { display: flex; align-items: center; gap: 10px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 14px; flex-wrap: wrap; }
+  .vs-detail__product { color: var(--product-accent); font-weight: 700; }
+  .vs-detail__vs { color: var(--text-muted); font-family: var(--font-mono); }
+  .vs-detail__other { color: var(--text); font-weight: 600; }
+  .vs-detail__title { margin: 0 0 14px; }
+  .vs-detail__lede { color: var(--text-soft); }
+  .vs-detail__body { padding: 36px 0; line-height: 1.7; font-size: 16px; }
+  .vs-detail__body :global(h2) { font-family: var(--font-display); font-size: 26px; margin: 36px 0 14px; letter-spacing: -0.01em; }
+  .vs-detail__body :global(h3) { font-size: 19px; margin: 28px 0 10px; }
+  .vs-detail__body :global(p) { margin: 0 0 16px; }
+  .vs-detail__body :global(ul), .vs-detail__body :global(ol) { margin: 0 0 16px; padding-left: 22px; }
+  .vs-detail__body :global(li) { margin-bottom: 6px; }
+  .vs-detail__body :global(code) { font-family: var(--font-mono); font-size: 14px; background: var(--surface-2); padding: 1px 6px; border-radius: 4px; }
+  .vs-detail__body :global(pre) { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; overflow-x: auto; margin: 0 0 22px; }
+  .vs-detail__body :global(pre code) { background: transparent; padding: 0; }
+  .vs-detail__body :global(blockquote) { margin: 0 0 20px; padding: 8px 16px; border-left: 3px solid var(--product-accent); color: var(--text-soft); background: var(--surface-2); border-radius: 0 var(--radius) var(--radius) 0; }
+  .vs-detail__body :global(a) { color: var(--product-accent); }
+  .vs-detail__body :global(table) { width: 100%; border-collapse: collapse; margin: 0 0 22px; font-size: 14px; }
+  .vs-detail__body :global(th), .vs-detail__body :global(td) { padding: 10px 14px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+  .vs-detail__body :global(th) { background: var(--surface-2); font-weight: 600; }
+  .vs-detail__foot { padding: 24px 0 56px; border-top: 1px solid var(--border); font-size: 14px; color: var(--text-muted); }
+  .vs-detail__verified { margin: 0 0 14px; }
+  .vs-detail__back a { color: var(--product-accent); text-decoration: none; }
+  .vs-detail__back a:hover { text-decoration: underline; }
+</style>
