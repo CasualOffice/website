@@ -1,0 +1,228 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Casual Slides — PowerPoint-flavored web slides editor · Casual Office';
+const description =
+  'Open-source web-based PowerPoint-equivalent. Office-style ribbon, slide-panel thumbnails, file-centric workflow. Built on Univer OSS with a fork-and-patch layer for collab + new element types. .pptx import + export with 68 of 87 fidelity probes passing (wave 7o). Apache-2.0. Early-stage — pre-v0.1.0.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  '@id': 'https://schnsrw.live/casual-slides/#app',
+  name: 'Casual Slides',
+  applicationCategory: 'BusinessApplication',
+  applicationSubCategory: 'PresentationApplication',
+  operatingSystem: 'Web Browser',
+  url: 'https://schnsrw.live/casual-slides/',
+  codeRepository: 'https://github.com/schnsrw/point',
+  softwareVersion: '0.0.0',
+  license: 'https://www.apache.org/licenses/LICENSE-2.0',
+  description:
+    'Open-source web-based PowerPoint-equivalent. Office-style ribbon, slide-panel thumbnails, file-centric workflow. Built on Univer OSS with a fork-and-patch layer for collab + new element types. .pptx import + export with 68 of 87 fidelity probes passing.',
+  image: 'https://schnsrw.live/og.png',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: {
+    '@type': 'Person',
+    '@id': 'https://schnsrw.live/#person',
+    name: 'Sachin Sarwa',
+    url: 'https://schnsrw.live/',
+  },
+  isAccessibleForFree: true,
+};
+---
+<Base {title} {description} active="slides" jsonLd={jsonLd} ogImage="/og.png">
+  <section
+    class="hero subpage"
+    style="--product-accent: var(--slides); --product-accent-soft: var(--slides-soft);"
+  >
+    <div class="container hero__inner">
+      <div class="subpage__topline">
+        <span class="dot" aria-hidden="true"></span>
+        Casual Slides
+      </div>
+      <h1 class="display">PowerPoint, but a&nbsp;<em>web page</em>.</h1>
+      <p class="lede">
+        Open a <code>.pptx</code>, edit it like the web, save it back. Office
+        ribbon — Home, Insert, Design, Transitions, Animations, Slide Show, View,
+        Review — and a slide-panel thumbnail strip on the left. No Office binary
+        installed. Active early-stage development; deep pptx fidelity is where
+        we've been investing.
+      </p>
+      <div class="row">
+        <a class="btn btn--accent" style="--product-accent: var(--slides);" href="https://github.com/schnsrw/point" rel="noopener" target="_blank">Source on GitHub</a>
+        <a class="btn btn--ghost" href="/changelog/">Changelog</a>
+      </div>
+      <p class="lede" style="margin-top: 14px; font-size: 14px; color: var(--text-soft);">
+        <strong>Honest status:</strong> single-user editor works end-to-end with
+        pptx round-trip. Co-edit is a Phase-2 spike — naive WebSocket broadcast,
+        not Yjs yet. No tagged release; no Docker image; no live demo. The
+        production-grade work that <a href="/casual-sheets/">Casual Sheets</a>
+        just shipped in v0.2.x is the next milestone here.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--slides); --product-accent-soft: var(--slides-soft);">
+    <div class="container">
+      <div class="fact-row">
+        <div><div class="fact__label">Version</div><div class="fact__value">v0.0.0 · pre-tag</div></div>
+        <div><div class="fact__label">Fidelity probes</div><div class="fact__value">68 / 87 ✓</div></div>
+        <div><div class="fact__label">Latest wave</div><div class="fact__value">7o · tables + charts</div></div>
+        <div><div class="fact__label">Layouts</div><div class="fact__value">6</div></div>
+        <div><div class="fact__label">License</div><div class="fact__value">Apache-2.0</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--slides); --product-accent-soft: var(--slides-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">What works today</span>
+          <h2 class="title">The Office surface — most of it, rendered honestly.</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature__icon">📂</span>
+          <h3 class="feature__title">.pptx open + save</h3>
+          <p class="feature__body">
+            Worker-side parser written in TypeScript on top of <code>JSZip</code>
+            + <code>fast-xml-parser</code>. Export via <code>PptxGenJS</code>.
+            Deep OOXML PresentationML coverage — slides, layouts, masters,
+            themes, theme color resolution, placeholder inheritance, gradients,
+            text outline + arrowheads + effects, hyperlinks via custom ranges,
+            tables + charts as <code>IPageElement</code>.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">✓</span>
+          <h3 class="feature__title">68 of 87 fidelity probes passing</h3>
+          <p class="feature__body">
+            Tracked in <code>docs/FIDELITY_TRACKER.md</code> as the source of
+            truth. Snapshot post wave 7o (2026-05-26):
+            <strong>68 ✅, 6 ⚠️</strong>. Recent waves added theme color
+            resolution (J2), placeholder default text style (I4), multi-run
+            rich text + paragraph alignment (B16 + C2), color modifiers +
+            rotation + flips (5b), bullets + indent + line spacing (C3/C4/C6-8),
+            text outline + arrowheads + effects (B15 + D17 + D18 + D19),
+            tables + charts as <code>IPageElement</code> (Gap 3).
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">🎨</span>
+          <h3 class="feature__title">Office-style ribbon shell</h3>
+          <p class="feature__body">
+            TitleBar, Toolbar with Layout dropdown (6 templates), StatusBar
+            with slide count + zoom, slide-panel thumbnails, Slide Show mode,
+            NotesPanel, ThemePicker, BackgroundPicker, RecentFilesDialog,
+            SlideContextMenu (right-click → duplicate / hide / delete / new),
+            PropertiesDialog, About. The Fluent-UI-flavoured look is loud
+            on purpose — readers familiar with Office should land immediately.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">🔌</span>
+          <h3 class="feature__title">Fork-and-patch on Univer OSS</h3>
+          <p class="feature__body">
+            Univer Slides doesn't ship collab rev tracking on
+            <code>SlideDataModel</code> or treat element ops as
+            <code>CommandType.MUTATION</code> — both required for the bridge.
+            Patches live in <code>patches/</code> (via <code>pnpm patch</code>)
+            so production builds get the fix today; same changes land in the
+            <code>univer-revamp</code> fork and head upstream as PRs to
+            <code>dream-num/univer</code>. Same fork-management pattern Casual
+            Sheets uses.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⌥</span>
+          <h3 class="feature__title">Collab — naive spike, Yjs is next</h3>
+          <p class="feature__body">
+            v0.0.x collab is a Phase-2 spike: 104-line raw <code>ws</code>
+            server, command broadcast, single-active-editor sufficient. Yjs
+            + Hocuspocus migration is queued as the v0.1.0 blocker — same
+            shape <a href="/casual-sheets/">Casual Sheets</a> uses today.
+            Until then, this works for one editor at a time per room.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">🗂</span>
+          <h3 class="feature__title">Layouts · backgrounds · themes</h3>
+          <p class="feature__body">
+            6 layout templates — title slide, title + content, two content,
+            comparison, blank, section header — each materialised as concrete
+            <code>IPageElement</code> placeholders (not OOXML inheritance
+            chains; layout inheritance is import-side only today). Theme
+            picker swaps the slide-master colour palette. Background picker
+            paints solid fills + gradient backgrounds.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--slides); --product-accent-soft: var(--slides-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">What's deliberately deferred</span>
+          <h2 class="title">Honest about the gap to v0.1.0.</h2>
+        </div>
+      </div>
+      <ul style="line-height: 1.7; color: var(--text-soft); margin: 0; padding-left: 20px;">
+        <li><strong>Yjs / Hocuspocus collab.</strong> Today's bridge is a 173-line spike that broadcasts commands. Production-grade replay + retry + dead-letter lands with the Phase-2.1 migration; same shape as Casual Sheets v0.2.x.</li>
+        <li><strong>Self-host story.</strong> No Docker image; no persistence (no Redis backing); no admin panel; no JWT-secured access. The platform layer Casual Sheets calls "M1" doesn't exist here yet.</li>
+        <li><strong>Mobile lane.</strong> Same approach as Sheets — back-port a viewer + light editor at v0.1.0. Today the layout assumes a desktop ribbon viewport.</li>
+        <li><strong>ODP + PDF export.</strong> Deferred to a wave 8+. Today it's <code>.pptx</code> only.</li>
+        <li><strong>The remaining 19 fidelity probes.</strong> Gap 4 (transitions + animations) and tail-end visual effects (e.g. complex pattern fills, certain gradient stops, chart-XML graphicFrame re-emit for wave 8). Tracked individually in <code>docs/FIDELITY_TRACKER.md</code>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--slides); --product-accent-soft: var(--slides-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">Stack</span>
+          <h2 class="title">Univer OSS + a fork that fills the gaps.</h2>
+        </div>
+      </div>
+      <p class="lede">
+        Same architecture as <a href="/casual-sheets/">Casual Sheets</a>:
+        Univer OSS supplies the slide canvas + command bus, everything above
+        (the ribbon, the pptx I/O workers, the layout/theme/background
+        pickers, the slide-panel, the eventual collab driver) is in this
+        repo. When OSS Slides falls short, we land the fix in a fork branch
+        + a <code>pnpm patch</code> artifact so production builds get it
+        today; the same diff goes upstream as a PR.
+      </p>
+      <div class="row">
+        <span class="chip"><code>Univer OSS</code> 0.24.x · forked</span>
+        <span class="chip"><code>React</code> 18 + Vite + TypeScript strict</span>
+        <span class="chip"><code>PptxGenJS</code> · MIT</span>
+        <span class="chip"><code>JSZip</code> + <code>fast-xml-parser</code></span>
+        <span class="chip"><code>Tailwind</code> + Fluent UI icons</span>
+        <span class="chip">Web Workers for pptx I/O</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--slides); --product-accent-soft: var(--slides-soft);">
+    <div class="container container--narrow">
+      <div class="callout">
+        <strong>The roadmap, in one sentence.</strong> Fidelity work continues
+        in waves; the next milestone is the Yjs / Hocuspocus migration that
+        unblocks the production-grade hardening Casual Sheets v0.2.x already
+        shipped (per-IP rate limit, room cap, replay retry + dead-letter,
+        load harness). When that's done, slides cuts v0.1.0 alongside the
+        first Docker image and a live demo.
+      </div>
+      <div class="row" style="margin-top: 22px;">
+        <a class="btn btn--accent" style="--product-accent: var(--slides);" href="https://github.com/schnsrw/point" rel="noopener" target="_blank">Source on GitHub</a>
+        <a class="btn btn--ghost" href="/changelog/">Changelog</a>
+        <a class="btn btn--ghost" href="/casual-sheets/">See the v0.2.x sister</a>
+      </div>
+    </div>
+  </section>
+</Base>

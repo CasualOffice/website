@@ -50,6 +50,9 @@
   --desktop: #ea580c;       /* matches umbrella */
   --desktop-light: #fb923c;
   --desktop-soft: rgba(234, 88, 12, 0.08);
+  --slides: #b91c1c;        /* red-700 — PowerPoint-adjacent, distinct from desktop orange */
+  --slides-light: #f87171;
+  --slides-soft: rgba(185, 28, 28, 0.08);
 
   --warn: #b45309;
   --warn-soft: rgba(180, 83, 9, 0.10);

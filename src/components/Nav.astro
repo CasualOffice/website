@@ -9,7 +9,7 @@
  * a community-first project — louder than the dim text links beside
  * it, but still a pill not a button so it doesn't feel salesy.
  */
-type ActiveLink = 'home' | 'sheets' | 'editor' | 'desktop' | 'docs' | 'changelog' | 'about';
+type ActiveLink = 'home' | 'sheets' | 'editor' | 'slides' | 'desktop' | 'docs' | 'changelog' | 'about';
 const { active = 'home' } = Astro.props as { active?: ActiveLink };
 
 const link = (slug: ActiveLink) =>
@@ -24,6 +24,7 @@ const link = (slug: ActiveLink) =>
   <div class="nav__links">
     <a class={link('sheets')} href="/casual-sheets/" aria-current={active === 'sheets' ? 'page' : undefined}>Sheets</a>
     <a class={link('editor')} href="/casual-editor/" aria-current={active === 'editor' ? 'page' : undefined}>Editor</a>
+    <a class={link('slides')} href="/casual-slides/" aria-current={active === 'slides' ? 'page' : undefined}>Slides</a>
     <a class={link('desktop')} href="/casual-desktop/" aria-current={active === 'desktop' ? 'page' : undefined}>Desktop</a>
     <a class={link('docs')} href="/docs/" aria-current={active === 'docs' ? 'page' : undefined}>Docs</a>
     <a class={link('changelog')} href="/changelog/" aria-current={active === 'changelog' ? 'page' : undefined}>Changelog</a>

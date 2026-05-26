@@ -300,8 +300,8 @@ const faqs = [
     <div class="container">
       <div class="section__head">
         <div>
-          <span class="eyebrow">two editors, one suite</span>
-          <h2 class="title">A spreadsheet and a document editor.<br/>Every line on GitHub.</h2>
+          <span class="eyebrow">three editors, one suite</span>
+          <h2 class="title">A spreadsheet, a document editor,<br/>and a slide deck. Every line on GitHub.</h2>
         </div>
         <span class="section__hint">/products</span>
       </div>
@@ -337,6 +337,22 @@ const faqs = [
           href="/casual-editor/"
           accent="var(--editor)"
           accentSoft="var(--editor-soft)"
+        />
+        <ProductCard
+          slug="slides"
+          name="Casual Slides"
+          role="POWERPOINT-FLAVORED WEB SLIDES"
+          body="Open .pptx in the browser with deep OOXML fidelity — 68 of 87 fidelity probes passing after wave 7o. Office-style ribbon, slide-panel thumbnails, layout templates, theme + background pickers, Slide Show mode. Co-edit is a Phase-2 spike today; Yjs migration is the v0.1.0 blocker."
+          features={[
+            '.pptx round-trip · 68 / 87 fidelity ✓',
+            'Office ribbon · 6 layouts · themes · backgrounds',
+            'Tables · charts · text outline · arrowheads · effects',
+            'Fork-and-patch on Univer Slides OSS',
+          ]}
+          status="v0.0.0 · pre-tag · active"
+          href="/casual-slides/"
+          accent="var(--slides)"
+          accentSoft="var(--slides-soft)"
         />
         <ProductCard
           slug="desktop"
