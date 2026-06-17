@@ -1,15 +1,15 @@
-# Casual Office — `schnsrw.live`
+# Casual Office — `casualoffice.org`
 
 Marketing + docs site for **Casual Office** — an open-source, file-centric, real-time productivity suite by [Sachin Sarwa](https://github.com/schnsrw). Three editors, one shared self-host story, all Apache-2.0:
 
 | Product | What | Repo | Demo | Status |
 |---|---|---|---|---|
-| **Casual Sheets** | `.xlsx` web spreadsheet with real-time co-editing | [schnsrw/sheets](https://github.com/schnsrw/sheets) | [sheet.schnsrw.live](https://sheet.schnsrw.live/) | v0.2.1 — production-ready for 1-user/doc · "almost" for co-edit |
-| **Casual Editor** | `.docx` web editor with real-time co-editing | [schnsrw/docx](https://github.com/schnsrw/docx) | [doc.schnsrw.live](https://doc.schnsrw.live/) | M1 backend live · public preview |
-| **Casual Slides** | `.pptx` web slides editor | [schnsrw/slides](https://github.com/schnsrw/slides) | [slide.schnsrw.live](https://slide.schnsrw.live/) | v0.0.0 · pre-tag · 68/87 fidelity ✓ |
+| **Casual Sheets** | `.xlsx` web spreadsheet with real-time co-editing | [CasualOffice/sheets](https://github.com/CasualOffice/sheets) | [sheets.casualoffice.org](https://sheets.casualoffice.org/) | v0.2.1 — production-ready for 1-user/doc · "almost" for co-edit |
+| **Casual Editor** | `.docx` web editor with real-time co-editing | [CasualOffice/docs](https://github.com/CasualOffice/docs) | [docs.casualoffice.org](https://docs.casualoffice.org/) | M1 backend live · public preview |
+| **Casual Slides** | `.pptx` web slides editor | [CasualOffice/slides](https://github.com/CasualOffice/slides) | [slides.casualoffice.org](https://slides.casualoffice.org/) | v0.0.0 · pre-tag · 68/87 fidelity ✓ |
 | **Casual Desktop** | Tauri binaries wrapping the three web cores | (within product repos) | — | paused · queued |
 
-Built with **Astro 5** (static output) and deployed to GitHub Pages on every push to `main`. The site is **`schnsrw.live`** via the custom domain in `public/CNAME`.
+Built with **Astro 5** (static output) and deployed to GitHub Pages on every push to `main`. The site is **`casualoffice.org`** via the custom domain in `public/CNAME`.
 
 ---
 
@@ -93,7 +93,7 @@ npm run preview    # serve dist/ locally
 4. Upload `./dist` as a Pages artifact
 5. `actions/deploy-pages@v4`
 
-CNAME (`public/CNAME` → ships as `dist/CNAME`) tells Pages to serve on **`schnsrw.live`**. DNS apex points to GitHub's IPs:
+CNAME (`public/CNAME` → ships as `dist/CNAME`) tells Pages to serve on **`casualoffice.org`**. DNS apex points to GitHub's IPs:
 
 ```
 A    @    185.199.108.153
@@ -130,9 +130,9 @@ A    @    185.199.111.153
 
 | Project | Repo | Demo |
 |---|---|---|
-| Casual Sheets | [schnsrw/sheets](https://github.com/schnsrw/sheets) | [sheet.schnsrw.live](https://sheet.schnsrw.live/) |
-| Casual Editor | [schnsrw/docx](https://github.com/schnsrw/docx) | [doc.schnsrw.live](https://doc.schnsrw.live/) |
-| Casual Slides | [schnsrw/slides](https://github.com/schnsrw/slides) | [slide.schnsrw.live](https://slide.schnsrw.live/) |
+| Casual Sheets | [CasualOffice/sheets](https://github.com/CasualOffice/sheets) | [sheets.casualoffice.org](https://sheets.casualoffice.org/) |
+| Casual Editor | [CasualOffice/docs](https://github.com/CasualOffice/docs) | [docs.casualoffice.org](https://docs.casualoffice.org/) |
+| Casual Slides | [CasualOffice/slides](https://github.com/CasualOffice/slides) | [slides.casualoffice.org](https://slides.casualoffice.org/) |
 
 ## License
 

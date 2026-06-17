@@ -11,27 +11,27 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'Person',
-      '@id': 'https://schnsrw.live/#person',
+      '@id': 'https://casualoffice.org/#person',
       name: 'Sachin Sarwa',
-      url: 'https://schnsrw.live/',
+      url: 'https://casualoffice.org/',
       email: 'schnsrw@gmail.com',
       jobTitle: 'Software Engineer',
       sameAs: ['https://github.com/schnsrw', 'https://hub.docker.com/u/schnsrw'],
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://schnsrw.live/#website',
-      url: 'https://schnsrw.live/',
+      '@id': 'https://casualoffice.org/#website',
+      url: 'https://casualoffice.org/',
       name: 'Casual Office',
-      alternateName: 'schnsrw.live',
+      alternateName: 'casualoffice.org',
       description:
         'Open-source, real-time, file-centric office suite. Self-hostable. MIT + Apache-2.0.',
-      publisher: { '@id': 'https://schnsrw.live/#person' },
+      publisher: { '@id': 'https://casualoffice.org/#person' },
       inLanguage: 'en',
     },
     {
       '@type': 'ItemList',
-      '@id': 'https://schnsrw.live/#projects',
+      '@id': 'https://casualoffice.org/#projects',
       name: 'Casual Office — projects',
       itemListElement: [
         {
@@ -39,16 +39,16 @@ const jsonLd = {
           position: 1,
           item: {
             '@type': 'SoftwareApplication',
-            '@id': 'https://sheet.schnsrw.live/#app',
+            '@id': 'https://sheets.casualoffice.org/#app',
             name: 'Casual Sheets',
             applicationCategory: 'BusinessApplication',
             applicationSubCategory: 'SpreadsheetApplication',
             operatingSystem: 'Web Browser, Docker',
-            url: 'https://sheet.schnsrw.live/',
-            codeRepository: 'https://github.com/schnsrw/sheets',
+            url: 'https://sheets.casualoffice.org/',
+            codeRepository: 'https://github.com/CasualOffice/sheets',
             license: 'https://www.apache.org/licenses/LICENSE-2.0',
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-            author: { '@id': 'https://schnsrw.live/#person' },
+            author: { '@id': 'https://casualoffice.org/#person' },
           },
         },
         {
@@ -56,16 +56,16 @@ const jsonLd = {
           position: 2,
           item: {
             '@type': 'SoftwareApplication',
-            '@id': 'https://doc.schnsrw.live/#app',
+            '@id': 'https://docs.casualoffice.org/#app',
             name: 'Casual Editor',
             applicationCategory: 'BusinessApplication',
             applicationSubCategory: 'WordProcessor',
             operatingSystem: 'Web Browser, Docker',
-            url: 'https://doc.schnsrw.live/',
-            codeRepository: 'https://github.com/schnsrw/docx',
+            url: 'https://docs.casualoffice.org/',
+            codeRepository: 'https://github.com/CasualOffice/docs',
             license: 'https://www.apache.org/licenses/LICENSE-2.0',
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-            author: { '@id': 'https://schnsrw.live/#person' },
+            author: { '@id': 'https://casualoffice.org/#person' },
           },
         },
         {
@@ -73,14 +73,14 @@ const jsonLd = {
           position: 3,
           item: {
             '@type': 'SoftwareApplication',
-            '@id': 'https://schnsrw.live/casual-desktop/#app',
+            '@id': 'https://casualoffice.org/casual-desktop/#app',
             name: 'Casual Desktop',
             applicationCategory: 'DesktopEnhancementApplication',
             operatingSystem: 'macOS, Linux, Windows',
-            url: 'https://schnsrw.live/casual-desktop/',
+            url: 'https://casualoffice.org/casual-desktop/',
             license: 'https://www.apache.org/licenses/LICENSE-2.0',
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-            author: { '@id': 'https://schnsrw.live/#person' },
+            author: { '@id': 'https://casualoffice.org/#person' },
           },
         },
       ],
@@ -119,7 +119,7 @@ const faqs = [
   },
   {
     q: 'Is this a SaaS? Will it ever be?',
-    a: 'No. The public demos at sheet.schnsrw.live and doc.schnsrw.live have no accounts, no plans, no upsell. The project is permissively licensed and free forever in the editions you can see today.',
+    a: 'No. The public demos at sheets.casualoffice.org and docs.casualoffice.org have no accounts, no plans, no upsell. The project is permissively licensed and free forever in the editions you can see today.',
   },
   {
     q: 'How does the .xlsx / .docx round-trip work?',
@@ -166,7 +166,7 @@ const faqs = [
       </p>
 
       <div class="row row--centered">
-        <a class="btn btn--primary btn--lg" href="https://github.com/schnsrw" rel="noopener" target="_blank" aria-label="View on GitHub">
+        <a class="btn btn--primary btn--lg" href="https://github.com/CasualOffice" rel="noopener" target="_blank" aria-label="View on GitHub">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="margin-right: 7px;">
             <path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/>
           </svg>
@@ -213,10 +213,10 @@ const faqs = [
           </button>
         </div>
         <div class="demo__actions">
-          <a class="demo__pop" href="https://sheet.schnsrw.live/" rel="noopener" target="_blank" data-pop-for="sheets">
+          <a class="demo__pop" href="https://sheets.casualoffice.org/" rel="noopener" target="_blank" data-pop-for="sheets">
             Open Sheets full-screen ↗
           </a>
-          <a class="demo__pop demo__pop--hidden" href="https://doc.schnsrw.live/" rel="noopener" target="_blank" data-pop-for="editor">
+          <a class="demo__pop demo__pop--hidden" href="https://docs.casualoffice.org/" rel="noopener" target="_blank" data-pop-for="editor">
             Open Editor full-screen ↗
           </a>
         </div>
@@ -228,8 +228,8 @@ const faqs = [
           <span class="frame__btn" style="background: #ff5f57"></span>
           <span class="frame__btn" style="background: #febc2e"></span>
           <span class="frame__btn" style="background: #28c840"></span>
-          <span class="frame__addr" data-addr="sheets">sheet.schnsrw.live</span>
-          <span class="frame__addr frame__addr--hidden" data-addr="editor">doc.schnsrw.live</span>
+          <span class="frame__addr" data-addr="sheets">sheets.casualoffice.org</span>
+          <span class="frame__addr frame__addr--hidden" data-addr="editor">docs.casualoffice.org</span>
         </div>
         <div
           id="demo-sheets"
@@ -239,7 +239,7 @@ const faqs = [
         >
           <iframe
             title="Casual Sheets live demo"
-            src="https://sheet.schnsrw.live/?embed=1"
+            src="https://sheets.casualoffice.org/?embed=1"
             loading="lazy"
             allow="clipboard-read; clipboard-write"
           ></iframe>
@@ -252,7 +252,7 @@ const faqs = [
         >
           <iframe
             title="Casual Editor live demo"
-            src="https://doc.schnsrw.live/?embed=1"
+            src="https://docs.casualoffice.org/?embed=1"
             loading="lazy"
             allow="clipboard-read; clipboard-write"
           ></iframe>
@@ -476,22 +476,22 @@ const faqs = [
         <div class="embed__col">
           <div class="embed__label">Works with</div>
           <div class="frameworks">
-            <a class="fw" href="https://github.com/schnsrw/docx#vite" rel="noopener" target="_blank">
+            <a class="fw" href="https://github.com/CasualOffice/docs#vite" rel="noopener" target="_blank">
               <span class="fw__name">Vite</span>
             </a>
-            <a class="fw" href="https://github.com/schnsrw/docx#nextjs" rel="noopener" target="_blank">
+            <a class="fw" href="https://github.com/CasualOffice/docs#nextjs" rel="noopener" target="_blank">
               <span class="fw__name">Next.js</span>
             </a>
-            <a class="fw" href="https://github.com/schnsrw/docx#astro" rel="noopener" target="_blank">
+            <a class="fw" href="https://github.com/CasualOffice/docs#astro" rel="noopener" target="_blank">
               <span class="fw__name">Astro</span>
             </a>
-            <a class="fw" href="https://github.com/schnsrw/docx#remix" rel="noopener" target="_blank">
+            <a class="fw" href="https://github.com/CasualOffice/docs#remix" rel="noopener" target="_blank">
               <span class="fw__name">Remix</span>
             </a>
-            <a class="fw" href="https://github.com/schnsrw/docx#vue" rel="noopener" target="_blank">
+            <a class="fw" href="https://github.com/CasualOffice/docs#vue" rel="noopener" target="_blank">
               <span class="fw__name">Vue</span>
             </a>
-            <a class="fw" href="https://github.com/schnsrw/docx#nuxt" rel="noopener" target="_blank">
+            <a class="fw" href="https://github.com/CasualOffice/docs#nuxt" rel="noopener" target="_blank">
               <span class="fw__name">Nuxt</span>
             </a>
           </div>
@@ -541,9 +541,9 @@ const faqs = [
           <h3 class="community__title">Star the repos</h3>
           <p class="community__body">
             Stars are the only signal that says "keep going." Two repos:
-            <a href="https://github.com/schnsrw/docx" rel="noopener" target="_blank">docx</a>
+            <a href="https://github.com/CasualOffice/docs" rel="noopener" target="_blank">docx</a>
             for Casual Editor,
-            <a href="https://github.com/schnsrw/sheets" rel="noopener" target="_blank">sheets</a>
+            <a href="https://github.com/CasualOffice/sheets" rel="noopener" target="_blank">sheets</a>
             for Casual Sheets.
           </p>
         </div>
@@ -562,7 +562,7 @@ const faqs = [
           <p class="community__body">
             The bar is the green CI suite plus a fixture that pins the
             change. Both repos have <code>CONTRIBUTING.md</code>; the
-            <a href="https://github.com/schnsrw/docx/issues" rel="noopener" target="_blank">issue trackers</a>
+            <a href="https://github.com/CasualOffice/docs/issues" rel="noopener" target="_blank">issue trackers</a>
             tag <code>good-first-issue</code>.
           </p>
         </div>
@@ -601,7 +601,7 @@ const faqs = [
         a SaaS product.
       </p>
       <div class="row" style="margin-top: 8px;">
-        <a class="btn btn--primary" href="https://github.com/schnsrw" rel="noopener" target="_blank">Browse on GitHub →</a>
+        <a class="btn btn--primary" href="https://github.com/CasualOffice" rel="noopener" target="_blank">Browse on GitHub →</a>
         <a class="btn btn--ghost" href="/docs/">Documentation</a>
         <a class="btn btn--ghost" href="/changelog/">Changelog</a>
       </div>

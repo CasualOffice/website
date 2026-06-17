@@ -45,7 +45,7 @@ the better answer.
 - **You're tired of Workspace billing.** Workspace at $6/user/month
   for 50 people is $3 600/year. The same workload runs on a single $48
   DigitalOcean droplet (8 GB / 4 vCPU). See the
-  [capacity model](https://github.com/schnsrw/sheets/blob/main/docs/CAPACITY_MODEL.md).
+  [capacity model](https://github.com/CasualOffice/sheets/blob/main/docs/CAPACITY_MODEL.md).
 - **You want `.xlsm` macro files to survive the round-trip.** Google
   Sheets converts `.xlsm` to its proprietary format and silently drops
   the VBA. Casual Sheets captures `xl/vbaProject.bin` and re-emits it
@@ -133,7 +133,7 @@ Being honest: this is v0.2.1, ~6 months old. Gaps vs Google Sheets:
   on the roadmap.
 
 These all land or don't based on contributor interest. The roadmap
-is `docs/PRODUCTION_PIPELINE.md` in the [repo](https://github.com/schnsrw/sheets).
+is `docs/PRODUCTION_PIPELINE.md` in the [repo](https://github.com/CasualOffice/sheets).
 
 ## When to choose what
 
@@ -156,4 +156,4 @@ Then open <http://localhost:3000>. The full self-hosting guide
 covers reverse proxy, TLS, JWT auth, and the admin panel:
 [/docs/sheets/self-hosting/](/docs/sheets/self-hosting/).
 
-Live demo: <https://sheet.schnsrw.live/>.
+Live demo: <https://sheets.casualoffice.org/>.

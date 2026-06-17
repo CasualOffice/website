@@ -1,5 +1,5 @@
 /* ───────────────────────────────────────────────────────────────────────
- *  Casual Office — schnsrw.live design tokens (clean-light v3).
+ *  Casual Office — casualoffice.org design tokens (clean-light v3).
  *
  *  Pivoted from the warm-dark v2 palette to a clean light theme that
  *  reads as a productive office product, not a dev portfolio. Reference
@@ -50,9 +50,9 @@
   --desktop: #ea580c;       /* matches umbrella */
   --desktop-light: #fb923c;
   --desktop-soft: rgba(234, 88, 12, 0.08);
-  --slides: #b91c1c;        /* red-700 — PowerPoint-adjacent, distinct from desktop orange */
-  --slides-light: #f87171;
-  --slides-soft: rgba(185, 28, 28, 0.08);
+  --slides: #0d9488;        /* teal-600 — refreshed brand mark, matches the page-gradient deep stop */
+  --slides-light: #2dd4bf;  /* teal-400 — gradient bright stop */
+  --slides-soft: rgba(13, 148, 136, 0.08);
 
   --warn: #b45309;
   --warn-soft: rgba(180, 83, 9, 0.10);

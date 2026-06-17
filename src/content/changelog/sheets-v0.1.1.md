@@ -4,7 +4,7 @@ product: sheets
 version: '0.1.1'
 date: 2026-05-25
 summary: 'Patch release: Excel-style typed input (currency · percent · negative-in-parens · non-USD symbols) parses as numbers; formula engine triggers initial recalc on workbook mount + swap; mobile lane regressions cleaned up (desktop toolbar hides at ≤480 px, autosave banner no longer clipped); e2e stability fixes that unblock long CI runs.'
-repoUrl: https://github.com/schnsrw/sheets/releases/tag/v0.1.1
+repoUrl: https://github.com/CasualOffice/sheets/releases/tag/v0.1.1
 ---
 
 A small patch release on top of [v0.1.0](/changelog/sheets-v0.1.0/).
@@ -56,4 +56,4 @@ docker run -p 3000:3000 schnsrw/casual-sheets:0.1
 ```
 
 Full upstream notes:
-[github.com/schnsrw/sheets/releases/tag/v0.1.1](https://github.com/schnsrw/sheets/releases/tag/v0.1.1).
+[github.com/CasualOffice/sheets/releases/tag/v0.1.1](https://github.com/CasualOffice/sheets/releases/tag/v0.1.1).

@@ -2,7 +2,7 @@
 title: "Self-hosting — TLS + custom domain"
 product: sheets
 order: 220
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/self-hosting/tls.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/self-hosting/tls.md"
 updated: 2026-05-24T15:55:58.839Z
 summary: "Let's Encrypt with each proxy, DNS pointers, CASUAL_PUBLIC_ORIGIN."
 ---
@@ -93,4 +93,4 @@ human-readable sanity check after first provisioning.
 
 ---
 
-_Synced from [`docs/self-hosting/tls.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/self-hosting/tls.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/self-hosting/tls.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/self-hosting/tls.md). To update: edit upstream and re-run `npm run sync-docs`._

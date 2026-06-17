@@ -2,7 +2,7 @@
 title: 'Signatures'
 product: sheets
 order: 270
-sourceUrl: 'https://github.com/schnsrw/sheets/blob/main/docs/SDK_SIGNING_EMBED.md#anchor--the-sheet-specific-bit'
+sourceUrl: 'https://github.com/CasualOffice/sheets/blob/main/docs/SDK_SIGNING_EMBED.md#anchor--the-sheet-specific-bit'
 updated: 2026-06-08T00:00:00.000Z
 summary: 'Anchored cell signatures via drawn / typed / uploaded surfaces. Same pipeline as Casual Editor; sheet-flavored anchors.'
 ---

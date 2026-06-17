@@ -2,7 +2,7 @@
 title: "xlsx round-trip audit"
 product: sheets
 order: 70
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/xlsx-lossiness.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/xlsx-lossiness.md"
 updated: 2026-05-24T14:30:06.507Z
 summary: "Per-probe lossiness report. Currently 46 of 46 pristine."
 ---
@@ -88,7 +88,7 @@ Legend: `✅` survived · `⚠️` partial (present but shape differs) · `❌` 
 
 | Probe | Reference | Actual | Status |
 | --- | --- | --- | --- |
-| C2 → github.com/schnsrw/sheets | `"https://github.com/schnsrw/sheets"` | `"https://github.com/schnsrw/sheets"` | ✅ |
+| C2 → github.com/CasualOffice/sheets | `"https://github.com/CasualOffice/sheets"` | `"https://github.com/CasualOffice/sheets"` | ✅ |
 
 ## Comments
 
@@ -170,4 +170,4 @@ Legend: `✅` survived · `⚠️` partial (present but shape differs) · `❌` 
 
 ---
 
-_Synced from [`docs/xlsx-lossiness.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/xlsx-lossiness.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/xlsx-lossiness.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/xlsx-lossiness.md). To update: edit upstream and re-run `npm run sync-docs`._

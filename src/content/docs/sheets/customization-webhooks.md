@@ -2,7 +2,7 @@
 title: "Customization — webhooks"
 product: sheets
 order: 320
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/customization/webhooks.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/customization/webhooks.md"
 updated: 2026-05-24T15:59:41.235Z
 summary: "Event catalogue, payload + headers, signature verification (Node / Python / Go)."
 ---
@@ -218,4 +218,4 @@ storage for receivers that go down longer than a few seconds.
 
 ---
 
-_Synced from [`docs/customization/webhooks.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/customization/webhooks.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/customization/webhooks.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/customization/webhooks.md). To update: edit upstream and re-run `npm run sync-docs`._

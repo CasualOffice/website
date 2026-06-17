@@ -2,7 +2,7 @@
 title: "Self-hosting — reverse proxy"
 product: sheets
 order: 210
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/self-hosting/reverse-proxy.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/self-hosting/reverse-proxy.md"
 updated: 2026-05-24T15:55:35.201Z
 summary: "nginx, Caddy, Traefik. WebSocket upgrade + body-size + sub-path mount recipes."
 ---
@@ -197,4 +197,4 @@ additional config needed for `/yjs`.
 
 ---
 
-_Synced from [`docs/self-hosting/reverse-proxy.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/self-hosting/reverse-proxy.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/self-hosting/reverse-proxy.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/self-hosting/reverse-proxy.md). To update: edit upstream and re-run `npm run sync-docs`._

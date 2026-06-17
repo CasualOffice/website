@@ -2,7 +2,7 @@
 title: "Self-hosting — backups"
 product: sheets
 order: 250
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/self-hosting/backups.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/self-hosting/backups.md"
 updated: 2026-05-24T15:57:27.814Z
 summary: "Per-backend backup + restore recipes. Run the restore drill once."
 ---
@@ -126,4 +126,4 @@ edits at the moment of restore.
 
 ---
 
-_Synced from [`docs/self-hosting/backups.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/self-hosting/backups.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/self-hosting/backups.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/self-hosting/backups.md). To update: edit upstream and re-run `npm run sync-docs`._

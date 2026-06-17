@@ -95,7 +95,7 @@ For most users, this is the right answer. Be honest about why:
 ## What "93 of 99 fidelity probes" means
 
 Casual Slides tracks a structured `.pptx` fidelity matrix at
-[`docs/FIDELITY_TRACKER.md`](https://github.com/schnsrw/slides/blob/main/docs/FIDELITY_TRACKER.md).
+[`docs/FIDELITY_TRACKER.md`](https://github.com/CasualOffice/slides/blob/main/docs/FIDELITY_TRACKER.md).
 Each probe is a specific OOXML PresentationML feature (e.g.,
 "`<a:rPr><a:highlight>` text highlight," "`<a:bodyPr rot>`
 text-box rotation," "tables as `IPageElement`"). Each gets
@@ -144,7 +144,7 @@ It's a real editor. It just hasn't earned its v0.1.0 yet.
 - **Yjs + Hocuspocus migration.** Today's 104-line raw `ws`
   server gets replaced with the same Fastify + Hocuspocus stack
   the sheets repo ships at v0.2.x (see the
-  [production-readiness pipeline](https://github.com/schnsrw/sheets/blob/main/docs/PRODUCTION_PIPELINE.md)
+  [production-readiness pipeline](https://github.com/CasualOffice/sheets/blob/main/docs/PRODUCTION_PIPELINE.md)
   for what that buys: replay retry + dead-letter, per-IP rate
   limit, room cap with LRU eviction).
 - **Docker image** (multi-arch amd64 + arm64).
@@ -167,7 +167,7 @@ expect roughly the same shape as the sister projects:
 
 These assume the Yjs migration lands with the same broadcast
 characteristics measured for sheets in the
-[capacity model](https://github.com/schnsrw/sheets/blob/main/docs/CAPACITY_MODEL.md).
+[capacity model](https://github.com/CasualOffice/sheets/blob/main/docs/CAPACITY_MODEL.md).
 Until v0.1.0 ships, this is forecast, not measurement.
 
 ## When to choose what
@@ -193,13 +193,13 @@ works: **Casual Slides is worth following.**
 
 ## Try Casual Slides
 
-The live demo is at <https://slide.schnsrw.live/>. Source is at
-[github.com/schnsrw/slides](https://github.com/schnsrw/slides).
+The live demo is at <https://slide.casualoffice.org/>. Source is at
+[github.com/CasualOffice/slides](https://github.com/CasualOffice/slides).
 
 For local development:
 
 ```bash
-git clone git@github.com:schnsrw/slides.git
+git clone git@github.com:CasualOffice/slides.git
 cd slides
 pnpm install
 pnpm dev:web    # http://127.0.0.1:5373

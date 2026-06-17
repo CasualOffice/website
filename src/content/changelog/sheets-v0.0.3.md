@@ -4,7 +4,7 @@ product: sheets
 version: '0.0.3'
 date: 2026-05-17
 summary: 'Hocuspocus server + Yjs bridge, room lifecycle, share URL, password-protected rooms, view-only role, Redis persistence option, joiner fast-path, op-log compaction, and the single-port self-hosted Docker image.'
-repoUrl: https://github.com/schnsrw/sheets/releases/tag/v0.0.3
+repoUrl: https://github.com/CasualOffice/sheets/releases/tag/v0.0.3
 ---
 
 The real-time release — phase 2 of the roadmap.

@@ -2,7 +2,7 @@
 title: 'Iframe embedding'
 product: sheets
 order: 260
-sourceUrl: 'https://github.com/schnsrw/sheets/blob/main/docs/SDK_SIGNING_EMBED.md'
+sourceUrl: 'https://github.com/CasualOffice/sheets/blob/main/docs/SDK_SIGNING_EMBED.md'
 updated: 2026-06-08T00:00:00.000Z
 summary: 'Embed Casual Sheets in any host via iframe + postMessage. Same protocol as Casual Editor.'
 ---
@@ -48,7 +48,7 @@ interface EmbedConfig {
 - **`app` discriminator** — every envelope carries `app: 'sheet'`. Hosts embedding both products route by this field.
 - **Selection events** — `casual.selection.changed.data.sheet` carries `{ sheet, from, to }` instead of `{ paraId, from, to, selectedText }`.
 
-Every other envelope shape — handshake, load.request / response, save.request / response, telemetry, lock, command.\*, signature.\* — is byte-identical to the Casual Editor protocol. See [the full contract](https://github.com/schnsrw/docx/blob/main/docs/internal/13-iframe-protocol.md).
+Every other envelope shape — handshake, load.request / response, save.request / response, telemetry, lock, command.\*, signature.\* — is byte-identical to the Casual Editor protocol. See [the full contract](https://github.com/CasualOffice/docs/blob/main/docs/internal/13-iframe-protocol.md).
 
 ## Signature anchor
 
@@ -94,4 +94,4 @@ Identical to [Casual Editor's](/docs/editor/iframe-embed/#reference-flow) — on
 
 ## Source of truth
 
-The iframe protocol contract lives in the [Casual Editor repo](https://github.com/schnsrw/docx/blob/main/docs/internal/13-iframe-protocol.md) — both products implement it in lockstep. When the contract changes, both repos update.
+The iframe protocol contract lives in the [Casual Editor repo](https://github.com/CasualOffice/docs/blob/main/docs/internal/13-iframe-protocol.md) — both products implement it in lockstep. When the contract changes, both repos update.

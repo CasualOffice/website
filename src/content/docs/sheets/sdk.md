@@ -2,7 +2,7 @@
 title: 'SDK'
 product: sheets
 order: 250
-sourceUrl: 'https://github.com/schnsrw/sheets/blob/main/docs/SDK_SIGNING_EMBED.md'
+sourceUrl: 'https://github.com/CasualOffice/sheets/blob/main/docs/SDK_SIGNING_EMBED.md'
 updated: 2026-06-08T00:00:00.000Z
 summary: 'Embed Casual Sheets inside your own React app. Single-pane or co-edit; same surfaces.'
 ---
@@ -42,4 +42,4 @@ This mirrors Casual Editor's topology. Operators get a clear cost equation: skip
 
 ## Source of truth
 
-The integration playbook is mirrored in the [sheets repo](https://github.com/schnsrw/sheets/blob/main/docs/SDK_SIGNING_EMBED.md). When the iframe protocol contract changes in `document/docs/internal/13-iframe-protocol.md`, both products update in lockstep.
+The integration playbook is mirrored in the [sheets repo](https://github.com/CasualOffice/sheets/blob/main/docs/SDK_SIGNING_EMBED.md). When the iframe protocol contract changes in `document/docs/internal/13-iframe-protocol.md`, both products update in lockstep.

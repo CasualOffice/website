@@ -2,7 +2,7 @@
 title: "Customization — auth (JWT, roles, permissions)"
 product: sheets
 order: 310
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/customization/auth.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/customization/auth.md"
 updated: 2026-05-24T15:59:01.963Z
 summary: "Claim model, role permission matrix, token issuance, error responses, migration."
 ---
@@ -242,4 +242,4 @@ Casual Sheets supports a gradual migration:
 
 ---
 
-_Synced from [`docs/customization/auth.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/customization/auth.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/customization/auth.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/customization/auth.md). To update: edit upstream and re-run `npm run sync-docs`._

@@ -1,4 +1,4 @@
-# schnsrw.live — open to search engines + AI crawlers.
+# casualoffice.org — open to search engines + AI crawlers.
 # The site is a portfolio of open-source projects; indexing helps
 # users + assistants discover them.
 
@@ -62,5 +62,5 @@ Allow: /
 User-agent: LinkedInBot
 Allow: /
 
-Sitemap: https://schnsrw.live/sitemap-index.xml
-Sitemap: https://schnsrw.live/sitemap.xml
+Sitemap: https://casualoffice.org/sitemap-index.xml
+Sitemap: https://casualoffice.org/sitemap.xml

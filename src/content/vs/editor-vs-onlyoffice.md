@@ -192,8 +192,8 @@ you.**
 
 ## What about the rest of the suite?
 
-[Casual Sheets](https://github.com/schnsrw/sheets) (`.xlsx`,
-v0.2.1) and [Casual Slides](https://github.com/schnsrw/slides)
+[Casual Sheets](https://github.com/CasualOffice/sheets) (`.xlsx`,
+v0.2.1) and [Casual Slides](https://github.com/CasualOffice/slides)
 (`.pptx`, v0.0.0 pre-tag) are sister projects in the same suite.
 Sheets is production-grade today; Slides is fidelity-mature but
 infra-immature. Neither matches OnlyOffice's maturity on those
@@ -216,8 +216,8 @@ Compare image size, RAM use, and startup time directly against an
 OnlyOffice Document Server container — the differences are
 substantial.
 
-Live demo: <https://doc.schnsrw.live/>. Source:
-[github.com/schnsrw/docx](https://github.com/schnsrw/docx).
+Live demo: <https://docs.casualoffice.org/>. Source:
+[github.com/CasualOffice/docs](https://github.com/CasualOffice/docs).
 
 For the spreadsheet sister, see
 [Casual Sheets vs OnlyOffice](/vs/sheets-vs-onlyoffice/).

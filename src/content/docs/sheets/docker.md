@@ -2,7 +2,7 @@
 title: "Docker image"
 product: sheets
 order: 90
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/DOCKERHUB.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/DOCKERHUB.md"
 updated: 2026-05-24T14:40:22.592Z
 summary: "Self-hosted bundle: web + Hocuspocus + Fastify on one port."
 ---
@@ -11,7 +11,7 @@ summary: "Self-hosted bundle: web + Hocuspocus + Fastify on one port."
 Built on [Univer OSS](https://github.com/dream-num/univer) (Apache-2.0).
 Single image — web app, Hocuspocus, and Fastify all in one container.
 
-**Source:** [github.com/schnsrw/sheets](https://github.com/schnsrw/sheets) &nbsp;·&nbsp; **Demo (single-user):** [sheet.schnsrw.live](https://sheet.schnsrw.live/) &nbsp;·&nbsp; **Docs:** [schnsrw.live/docs/sheets/](https://schnsrw.live/docs/sheets/)
+**Source:** [github.com/CasualOffice/sheets](https://github.com/CasualOffice/sheets) &nbsp;·&nbsp; **Demo (single-user):** [sheets.casualoffice.org](https://sheets.casualoffice.org/) &nbsp;·&nbsp; **Docs:** [casualoffice.org/docs/sheets/](https://casualoffice.org/docs/sheets/)
 
 ---
 
@@ -96,7 +96,7 @@ Anonymous sessions — no accounts required. Rooms are addressed at `/r/<roomId>
 
 ## Configuration
 
-Quick reference; the canonical doc lives at [`docs/ENV.md`](https://github.com/schnsrw/sheets/blob/main/docs/ENV.md).
+Quick reference; the canonical doc lives at [`docs/ENV.md`](https://github.com/CasualOffice/sheets/blob/main/docs/ENV.md).
 
 | Env var | Default | Description |
 | --- | --- | --- |
@@ -153,9 +153,9 @@ Sample output:
 {
   "org.opencontainers.image.title":         "Casual Sheets",
   "org.opencontainers.image.description":   "Excel-flavored web spreadsheet …",
-  "org.opencontainers.image.url":           "https://sheet.schnsrw.live/",
-  "org.opencontainers.image.source":        "https://github.com/schnsrw/sheets",
-  "org.opencontainers.image.documentation": "https://schnsrw.live/docs/sheets/",
+  "org.opencontainers.image.url":           "https://sheets.casualoffice.org/",
+  "org.opencontainers.image.source":        "https://github.com/CasualOffice/sheets",
+  "org.opencontainers.image.documentation": "https://casualoffice.org/docs/sheets/",
   "org.opencontainers.image.vendor":        "Sachin Sarwa",
   "org.opencontainers.image.licenses":      "Apache-2.0",
   "org.opencontainers.image.version":       "v0.1.0",
@@ -184,4 +184,4 @@ Apache-2.0. Vendored Univer source retains its upstream Apache-2.0 license; it i
 
 ---
 
-_Synced from [`docs/DOCKERHUB.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/DOCKERHUB.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/DOCKERHUB.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/DOCKERHUB.md). To update: edit upstream and re-run `npm run sync-docs`._

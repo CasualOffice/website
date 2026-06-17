@@ -20,7 +20,7 @@ threshold past that point.
 We had not actually measured this.
 
 When [Casual Sheets v0.2.0](/changelog/sheets-v020/) shipped, the
-[capacity model doc](https://github.com/schnsrw/sheets/blob/main/docs/CAPACITY_MODEL.md)
+[capacity model doc](https://github.com/CasualOffice/sheets/blob/main/docs/CAPACITY_MODEL.md)
 sized everything from this 500-doc ceiling. Five deployment tiers,
 dollar estimates, sharding triggers — all anchored to a number we'd
 calculated from first principles but never run a wire on.
@@ -155,7 +155,7 @@ A `$48`/mo DigitalOcean General Purpose droplet (4 vCPU / 8 GB /
 180 SSD) realistically serves **5 000–8 000 concurrent users**
 single-process. With Node cluster mode and sticky room-to-worker
 routing, **10 000–15 000**. The full breakdown is in the
-[capacity model](https://github.com/schnsrw/sheets/blob/main/docs/CAPACITY_MODEL.md)
+[capacity model](https://github.com/CasualOffice/sheets/blob/main/docs/CAPACITY_MODEL.md)
 including a worked example for that exact droplet.
 
 For the more realistic 2–5-users-per-doc co-edit workload, the
@@ -166,7 +166,7 @@ broadcast CPU like the model originally claimed.
 ## How to reproduce
 
 The harness is in-tree at
-[`apps/server/scripts/wsloadtest.ts`](https://github.com/schnsrw/sheets/blob/main/apps/server/scripts/wsloadtest.ts).
+[`apps/server/scripts/wsloadtest.ts`](https://github.com/CasualOffice/sheets/blob/main/apps/server/scripts/wsloadtest.ts).
 Configurable via env:
 
 ```bash
@@ -207,4 +207,4 @@ measurement is a story.
 *[Casual Sheets](/casual-sheets/) is an open-source self-hosted
 spreadsheet — `docker run -p 3000:3000 schnsrw/casual-sheets:latest`
 to try. Apache-2.0. Full numbers + tier breakdown in the
-[capacity model](https://github.com/schnsrw/sheets/blob/main/docs/CAPACITY_MODEL.md).*
+[capacity model](https://github.com/CasualOffice/sheets/blob/main/docs/CAPACITY_MODEL.md).*

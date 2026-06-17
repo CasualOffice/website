@@ -3,8 +3,8 @@ title: 'v0.1.0 — WOPI host, JWT auth, admin panel'
 product: sheets
 version: '0.1.0'
 date: 2026-05-24
-summary: 'The first version-bumped release. Real persistence via WOPI (memory · local · S3 · Postgres), JWT-secured access with role + permission + feature claims, a runtime admin panel for branding · storage · networking · room limits · auth providers · webhooks, OCI image labels + rolling-tag scheme, complex pivot cache passthrough (audit 54/54 pristine), and a full self-hosting + customization docs section on schnsrw.live.'
-repoUrl: https://github.com/schnsrw/sheets/releases/tag/v0.1.0
+summary: 'The first version-bumped release. Real persistence via WOPI (memory · local · S3 · Postgres), JWT-secured access with role + permission + feature claims, a runtime admin panel for branding · storage · networking · room limits · auth providers · webhooks, OCI image labels + rolling-tag scheme, complex pivot cache passthrough (audit 54/54 pristine), and a full self-hosting + customization docs section on casualoffice.org.'
+repoUrl: https://github.com/CasualOffice/sheets/releases/tag/v0.1.0
 ---
 
 The first version-bumped release. v0.0.x was the "build a real editor
@@ -125,7 +125,7 @@ renumbering + `<pivotCaches>` injection.
 
 ### Full self-hosting + customization docs
 
-Eleven new doc pages on schnsrw.live/docs/sheets/:
+Eleven new doc pages on casualoffice.org/docs/sheets/:
 
 - Self-hosting: overview · reverse-proxy recipes (nginx/Caddy/Traefik) ·
   TLS · CORS · scaling · backups.
@@ -209,4 +209,4 @@ volumes:
   data:
 ```
 
-Full docs: [schnsrw.live/docs/sheets/self-hosting/](https://schnsrw.live/docs/sheets/self-hosting/).
+Full docs: [casualoffice.org/docs/sheets/self-hosting/](https://casualoffice.org/docs/sheets/self-hosting/).

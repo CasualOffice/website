@@ -295,7 +295,7 @@ Two things, in retrospect:
 
 The fix is in
 [Casual Sheets v0.2.1](/changelog/sheets-v021/) and the helper is at
-[`apps/web/src/collab/bridge-helpers.ts`](https://github.com/schnsrw/sheets/blob/main/apps/web/src/collab/bridge-helpers.ts)
+[`apps/web/src/collab/bridge-helpers.ts`](https://github.com/CasualOffice/sheets/blob/main/apps/web/src/collab/bridge-helpers.ts)
 in the repo. Six unit tests + the unskipped end-to-end test pin the
 behaviour.
 

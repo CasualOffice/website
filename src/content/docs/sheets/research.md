@@ -2,7 +2,7 @@
 title: "Research — Univer technical brief"
 product: sheets
 order: 30
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/RESEARCH.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/RESEARCH.md"
 updated: 2026-05-16T15:18:08.597Z
 summary: "Source-level notes on how Univer behaves, with file paths."
 ---
@@ -253,4 +253,4 @@ Use this plugin set as our known-safe Node baseline. For workers, `UniverRPCNode
 
 ---
 
-_Synced from [`docs/RESEARCH.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/RESEARCH.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/RESEARCH.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/RESEARCH.md). To update: edit upstream and re-run `npm run sync-docs`._

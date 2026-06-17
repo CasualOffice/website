@@ -9,7 +9,7 @@ export async function GET(context: APIContext) {
     title: 'Casual Office — Engineering notes',
     description:
       'Technical posts from building open-source web spreadsheets, .docx editors, and slide decks. Yjs CRDT bridges, Hocuspocus, capacity modelling, .xlsx + .pptx round-trip, and the production-readiness work behind each release.',
-    site: context.site ?? 'https://schnsrw.live/',
+    site: context.site ?? 'https://casualoffice.org/',
     items: all.map((entry) => ({
       title: entry.data.title,
       description: entry.data.description,

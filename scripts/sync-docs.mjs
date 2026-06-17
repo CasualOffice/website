@@ -266,8 +266,8 @@ const docs = [
 ];
 
 const REPO_URLS = {
-  sheets: 'https://github.com/schnsrw/sheets',
-  docx: 'https://github.com/schnsrw/docx',
+  sheets: 'https://github.com/CasualOffice/sheets',
+  docx: 'https://github.com/CasualOffice/docs',
 };
 
 function transform(source, doc) {

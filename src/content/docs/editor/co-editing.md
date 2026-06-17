@@ -2,7 +2,7 @@
 title: "Co-editing"
 product: editor
 order: 20
-sourceUrl: "https://github.com/schnsrw/docx/blob/main/docs/CO-EDITING.md"
+sourceUrl: "https://github.com/CasualOffice/docs/blob/main/docs/CO-EDITING.md"
 updated: 2026-05-22T21:41:27.096Z
 summary: "y-prosemirror + Yjs over our own y-websocket implementation in ~120 LOC."
 ---
@@ -88,4 +88,4 @@ We get the y-protocol benefits (efficient sync, awareness, partial updates) with
 
 ---
 
-_Synced from [`docs/CO-EDITING.md` in schnsrw/docx](https://github.com/schnsrw/docx/blob/main/docs/CO-EDITING.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/CO-EDITING.md` in CasualOffice/docs](https://github.com/CasualOffice/docs/blob/main/docs/CO-EDITING.md). To update: edit upstream and re-run `npm run sync-docs`._

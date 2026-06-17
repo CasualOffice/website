@@ -8,24 +8,24 @@ const description =
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  '@id': 'https://doc.schnsrw.live/#app',
+  '@id': 'https://docs.casualoffice.org/#app',
   name: 'Casual Editor',
   applicationCategory: 'BusinessApplication',
   applicationSubCategory: 'WordProcessor',
   operatingSystem: 'Web Browser, Docker (Linux/amd64, Linux/arm64)',
-  url: 'https://doc.schnsrw.live/',
-  codeRepository: 'https://github.com/schnsrw/docx',
+  url: 'https://docs.casualoffice.org/',
+  codeRepository: 'https://github.com/CasualOffice/docs',
   license: 'https://www.apache.org/licenses/LICENSE-2.0',
   description:
     'Open-source, real-time collaborative .docx editor. ProseMirror with an OOXML-preserving model (forked from eigenpal/docx-editor, MIT); React + Bun frontend; Go for the stateless WebSocket gateway implementing the y-websocket protocol.',
-  image: 'https://schnsrw.live/og.png',
-  screenshot: 'https://doc.schnsrw.live/og.png',
+  image: 'https://casualoffice.org/og.png',
+  screenshot: 'https://docs.casualoffice.org/og.png',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   author: {
     '@type': 'Person',
-    '@id': 'https://schnsrw.live/#person',
+    '@id': 'https://casualoffice.org/#person',
     name: 'Sachin Sarwa',
-    url: 'https://schnsrw.live/',
+    url: 'https://casualoffice.org/',
   },
   isAccessibleForFree: true,
 };
@@ -49,8 +49,8 @@ const jsonLd = {
         lines.
       </p>
       <div class="row">
-        <a class="btn btn--accent" style="--product-accent: var(--editor);" href="https://doc.schnsrw.live/" rel="noopener" target="_blank">Open the live demo →</a>
-        <a class="btn btn--ghost" href="https://github.com/schnsrw/docx" rel="noopener" target="_blank">Source on GitHub</a>
+        <a class="btn btn--accent" style="--product-accent: var(--editor);" href="https://docs.casualoffice.org/" rel="noopener" target="_blank">Open the live demo →</a>
+        <a class="btn btn--ghost" href="https://github.com/CasualOffice/docs" rel="noopener" target="_blank">Source on GitHub</a>
       </div>
     </div>
   </section>
@@ -170,7 +170,7 @@ const jsonLd = {
 docker run -p 8080:8080 schnsrw/casual-editor:latest
       </pre>
       <div class="row" style="margin-top: 22px;">
-        <a class="btn btn--accent" style="--product-accent: var(--editor);" href="https://doc.schnsrw.live/" rel="noopener" target="_blank">Open the live demo</a>
+        <a class="btn btn--accent" style="--product-accent: var(--editor);" href="https://docs.casualoffice.org/" rel="noopener" target="_blank">Open the live demo</a>
         <a class="btn btn--ghost" href="/docs/editor/">Editor docs</a>
         <a class="btn btn--ghost" href="/changelog/">Changelog</a>
       </div>

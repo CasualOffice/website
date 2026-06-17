@@ -193,7 +193,7 @@ Teable) if:**
 docker run -p 3000:3000 schnsrw/casual-sheets:latest
 ```
 
-Live demo: <https://sheet.schnsrw.live/>.
+Live demo: <https://sheets.casualoffice.org/>.
 
 If you discover halfway through that you actually want a
 database-shape tool, that's useful information — better to find

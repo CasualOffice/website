@@ -23,11 +23,11 @@ write-side HTTP endpoints, no per-IP throttle, no upper bound on
 room count. The room TTL would eventually evict idle rooms, but a
 patient script could create rooms faster than the GC interval and
 fill the registry to OOM. Not theoretical — the editor's live
-demo at <https://sheet.schnsrw.live/> has been getting probed by
+demo at <https://sheets.casualoffice.org/> has been getting probed by
 the usual web-scrapers since launch.
 
 This post is how the
-[Casual Sheets v0.2.0 production pipeline](https://github.com/schnsrw/sheets/blob/main/docs/PRODUCTION_PIPELINE.md)
+[Casual Sheets v0.2.0 production pipeline](https://github.com/CasualOffice/sheets/blob/main/docs/PRODUCTION_PIPELINE.md)
 hardened those three endpoints in two compact streams.
 
 ## Stream C1 — @fastify/rate-limit, per-route
@@ -313,16 +313,16 @@ Honest gaps:
 ## Code
 
 The full implementation is in
-[`apps/server/src/index.ts`](https://github.com/schnsrw/sheets/blob/main/apps/server/src/index.ts)
-+ [`apps/server/src/rooms.ts`](https://github.com/schnsrw/sheets/blob/main/apps/server/src/rooms.ts)
+[`apps/server/src/index.ts`](https://github.com/CasualOffice/sheets/blob/main/apps/server/src/index.ts)
++ [`apps/server/src/rooms.ts`](https://github.com/CasualOffice/sheets/blob/main/apps/server/src/rooms.ts)
 of Casual Sheets. Six unit tests pin every code path of the
 two-pass eviction (idle preference, live fallback,
 all-non-evictable throws, hook fires) at
-[`apps/server/src/rooms.unit.test.ts`](https://github.com/schnsrw/sheets/blob/main/apps/server/src/rooms.unit.test.ts).
+[`apps/server/src/rooms.unit.test.ts`](https://github.com/CasualOffice/sheets/blob/main/apps/server/src/rooms.unit.test.ts).
 
 The load harness that verifies the bucket clamps at the configured
 limits is at
-[`apps/server/scripts/loadtest.ts`](https://github.com/schnsrw/sheets/blob/main/apps/server/scripts/loadtest.ts);
+[`apps/server/scripts/loadtest.ts`](https://github.com/CasualOffice/sheets/blob/main/apps/server/scripts/loadtest.ts);
 run it with `pnpm --filter @sheet/server load`.
 
 ---

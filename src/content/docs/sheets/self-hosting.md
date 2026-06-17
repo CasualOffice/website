@@ -2,7 +2,7 @@
 title: "Self-hosting"
 product: sheets
 order: 200
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/self-hosting/overview.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/self-hosting/overview.md"
 updated: 2026-05-24T15:54:55.696Z
 summary: "Single image, three deployment shapes, full configuration model."
 ---
@@ -59,7 +59,7 @@ Three layers of configuration, in precedence order:
    ship a deployment with sensible defaults via env; the admin
    panel overrides individual fields.
 3. **Compiled defaults**. Last resort. See
-   [`apps/server/src/admin/config.ts`](https://github.com/schnsrw/sheets/blob/main/apps/server/src/admin/config.ts).
+   [`apps/server/src/admin/config.ts`](https://github.com/CasualOffice/sheets/blob/main/apps/server/src/admin/config.ts).
 
 Full env-var matrix: [`docs/ENV.md`](../ENV.md).
 
@@ -145,4 +145,4 @@ to finish wiring branding, room limits, webhooks etc. from the panel.
 
 ---
 
-_Synced from [`docs/self-hosting/overview.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/self-hosting/overview.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/self-hosting/overview.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/self-hosting/overview.md). To update: edit upstream and re-run `npm run sync-docs`._

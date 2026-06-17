@@ -149,7 +149,7 @@ Being honest about gaps vs Excel Online:
   supports plugins; no resources allocated to build the integrations.
 
 These all land based on contributor interest; the roadmap is
-`docs/PRODUCTION_PIPELINE.md` in the [repo](https://github.com/schnsrw/sheets).
+`docs/PRODUCTION_PIPELINE.md` in the [repo](https://github.com/CasualOffice/sheets).
 
 ## When to choose what
 
@@ -178,4 +178,4 @@ Excel workflow, edit it, save it. Open the saved file in desktop
 Excel — round-trip should be lossless for the surface we cover
 (see the 46-probe audit in `docs/xlsx-lossiness.md`).
 
-Live demo: <https://sheet.schnsrw.live/>.
+Live demo: <https://sheets.casualoffice.org/>.

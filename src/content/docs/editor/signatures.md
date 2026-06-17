@@ -2,7 +2,7 @@
 title: 'Signatures'
 product: editor
 order: 80
-sourceUrl: 'https://github.com/schnsrw/docx/blob/main/docs/internal/13-iframe-protocol.md#document-signatures'
+sourceUrl: 'https://github.com/CasualOffice/docs/blob/main/docs/internal/13-iframe-protocol.md#document-signatures'
 updated: 2026-06-08T00:00:00.000Z
 summary: 'Walk a signer through anchored fields; host owns identity and crypto. Same flow via SDK callbacks or iframe envelopes.'
 ---
@@ -124,7 +124,7 @@ window.addEventListener('message', (e) => {
 });
 ```
 
-Full envelope shapes in [the iframe protocol contract](https://github.com/schnsrw/docx/blob/main/docs/internal/13-iframe-protocol.md#document-signatures).
+Full envelope shapes in [the iframe protocol contract](https://github.com/CasualOffice/docs/blob/main/docs/internal/13-iframe-protocol.md#document-signatures).
 
 ## Sequence — three-signer sequential flow
 

@@ -2,7 +2,7 @@
 title: "Architecture"
 product: editor
 order: 10
-sourceUrl: "https://github.com/schnsrw/docx/blob/main/docs/ARCHITECTURE.md"
+sourceUrl: "https://github.com/CasualOffice/docs/blob/main/docs/ARCHITECTURE.md"
 updated: 2026-05-24T01:13:40.224Z
 summary: "ProseMirror + OOXML-preserving model on top, stateless Go gateway underneath."
 ---
@@ -155,4 +155,4 @@ backend/
 
 ---
 
-_Synced from [`docs/ARCHITECTURE.md` in schnsrw/docx](https://github.com/schnsrw/docx/blob/main/docs/ARCHITECTURE.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/ARCHITECTURE.md` in CasualOffice/docs](https://github.com/CasualOffice/docs/blob/main/docs/ARCHITECTURE.md). To update: edit upstream and re-run `npm run sync-docs`._

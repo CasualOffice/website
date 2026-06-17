@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Casual Office — schnsrw.live.
+// Casual Office — casualoffice.org.
 // Astro static build. Output goes to dist/; GitHub Pages serves that
 // directory via .github/workflows/pages.yml.
 //
@@ -9,7 +9,7 @@ import sitemap from '@astrojs/sitemap';
 // emits. Lastmod is filled in from each page's frontmatter or build time.
 // The robots.txt at public/robots.txt references sitemap-index.xml.
 export default defineConfig({
-  site: 'https://schnsrw.live',
+  site: 'https://casualoffice.org',
   trailingSlash: 'always',
   // Markdown code blocks use Shiki for syntax highlighting. Astro's
   // default is `github-dark` which renders dark-bg + dark-fg on our
@@ -29,12 +29,12 @@ export default defineConfig({
       // docs + changelog inherit the default.
       serialize(item) {
         const url = item.url;
-        if (url === 'https://schnsrw.live/') return { ...item, priority: 1.0, changefreq: 'weekly' };
+        if (url === 'https://casualoffice.org/') return { ...item, priority: 1.0, changefreq: 'weekly' };
         if (
-          url === 'https://schnsrw.live/casual-sheets/' ||
-          url === 'https://schnsrw.live/casual-editor/'
+          url === 'https://casualoffice.org/casual-sheets/' ||
+          url === 'https://casualoffice.org/casual-editor/'
         ) return { ...item, priority: 0.9, changefreq: 'weekly' };
-        if (url === 'https://schnsrw.live/casual-desktop/')
+        if (url === 'https://casualoffice.org/casual-desktop/')
           return { ...item, priority: 0.6, changefreq: 'monthly' };
         return item;
       },

@@ -4,7 +4,7 @@ product: sheets
 version: '0.2.0'
 date: 2026-05-26
 summary: 'Six engineering streams that turn v0.1''s "real persistence + self-host story" into a workload you can put real users on. Co-edit divergence becomes recoverable (transient-vs-permanent classifier, retry with backoff, click-to-expand dead-letter). The gateway gets per-IP throttling + a hard room cap with LRU eviction. First measured baseline (~1900 req/s, p99 < 3 ms) + a capacity model with five deployment tiers (Solo $5/mo → Sharded linear). Toast surface across the app. Typed Univer facade — 27 caller-side as-any sites eliminated.'
-repoUrl: https://github.com/schnsrw/sheets/releases/tag/v0.2.0
+repoUrl: https://github.com/CasualOffice/sheets/releases/tag/v0.2.0
 ---
 
 The "production-readiness" release. v0.1.0 earned the
@@ -216,4 +216,4 @@ example for the $48/mo DigitalOcean General Purpose droplet
 spec (4 vCPU / 8 GB / 180 SSD).
 
 Full upstream notes + binary download:
-[github.com/schnsrw/sheets/releases/tag/v0.2.0](https://github.com/schnsrw/sheets/releases/tag/v0.2.0).
+[github.com/CasualOffice/sheets/releases/tag/v0.2.0](https://github.com/CasualOffice/sheets/releases/tag/v0.2.0).

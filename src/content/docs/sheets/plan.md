@@ -2,7 +2,7 @@
 title: "Plan"
 product: sheets
 order: 10
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/PLAN.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/PLAN.md"
 updated: 2026-05-23T23:22:10.049Z
 summary: "Phased roadmap, scope, and what is in/out for Casual Sheets."
 ---
@@ -145,4 +145,4 @@ See [`docs/ARCHITECTURE.md`](/docs/sheets/architecture/) for the full diagram an
 
 ---
 
-_Synced from [`PLAN.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/PLAN.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`PLAN.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/PLAN.md). To update: edit upstream and re-run `npm run sync-docs`._

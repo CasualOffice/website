@@ -62,7 +62,7 @@ the better answer.
 - **You don't want Google's billing math.** Workspace at $6/user/mo
   for 50 people is $3 600/year. The same workload runs on a
   single $15/mo VPS — see the
-  [capacity model in the sister repo](https://github.com/schnsrw/sheets/blob/main/docs/CAPACITY_MODEL.md)
+  [capacity model in the sister repo](https://github.com/CasualOffice/sheets/blob/main/docs/CAPACITY_MODEL.md)
   for the methodology (sheets numbers; editor's WS path is the
   same shape).
 - **You want all your system fonts.** Casual Editor uses the
@@ -172,7 +172,7 @@ Being honest about gaps:
 - **Marketplace add-ons.** None.
 
 These all land based on contributor interest — the
-[improvement tracker](https://github.com/schnsrw/docx/blob/main/docs/internal/08-improvement-tracker.md)
+[improvement tracker](https://github.com/CasualOffice/docs/blob/main/docs/internal/08-improvement-tracker.md)
 in the repo lists what's planned.
 
 ## When to choose what
@@ -201,6 +201,6 @@ docker run -p 8080:8080 schnsrw/casual-editor:latest
 Open <http://localhost:8080>. Upload a `.docx`, edit it, save it.
 Open the saved file in desktop Word — round-trip should be lossless
 for the surface our audit covers (see
-[`docs/internal/03-gap-matrix.md`](https://github.com/schnsrw/docx/blob/main/docs/internal/03-gap-matrix.md)).
+[`docs/internal/03-gap-matrix.md`](https://github.com/CasualOffice/docs/blob/main/docs/internal/03-gap-matrix.md)).
 
-Live demo: <https://doc.schnsrw.live/>.
+Live demo: <https://docs.casualoffice.org/>.

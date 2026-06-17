@@ -1,4 +1,4 @@
-# Casual Office — schnsrw.live
+# Casual Office — casualoffice.org
 
 > Casual Office is a portfolio of four open-source, file-centric, real-time
 > productivity tools by Sachin Sarwa: Casual Sheets (web spreadsheet,
@@ -13,14 +13,14 @@
 - **Person:** Sachin Sarwa — software engineer · solo maintainer
 - **Contact:** schnsrw@gmail.com
 - **GitHub profile:** https://github.com/schnsrw
-- **Portfolio site:** https://schnsrw.live/
+- **Portfolio site:** https://casualoffice.org/
 
 ## Products
 
 ### Casual Sheets — open-source self-hosted web spreadsheet (.xlsx)
 
-- **Live demo:** https://sheet.schnsrw.live/
-- **Source:** https://github.com/schnsrw/sheets
+- **Live demo:** https://sheets.casualoffice.org/
+- **Source:** https://github.com/CasualOffice/sheets
 - **Docker:** https://hub.docker.com/r/schnsrw/casual-sheets (multi-arch amd64 + arm64)
 - **License:** Apache-2.0
 - **Version:** v0.2.1 (production-ready for 1-user-per-doc workloads; almost-production-ready for 2–5-user co-edit)
@@ -35,8 +35,8 @@
 
 ### Casual Editor — open-source self-hosted web .docx editor
 
-- **Live demo:** https://doc.schnsrw.live/
-- **Source:** https://github.com/schnsrw/docx
+- **Live demo:** https://docs.casualoffice.org/
+- **Source:** https://github.com/CasualOffice/docs
 - **Docker:** https://hub.docker.com/r/schnsrw/casual-editor (multi-arch)
 - **License:** Apache-2.0 (the editor under docx-editor/ is a fork of eigenpal/docx-editor whose MIT upstream attribution is preserved; the fork's own modifications and the Go gateway are Apache-2.0)
 - **Status:** M1 backend live · public preview. 44 of 44 .docx fixtures round-trip pristine (100%).
@@ -48,8 +48,8 @@
 
 ### Casual Slides — open-source self-hosted web .pptx editor
 
-- **Live demo:** https://slide.schnsrw.live/
-- **Source:** https://github.com/schnsrw/slides (folder name on disk: "point"; remote: "slides")
+- **Live demo:** https://slide.casualoffice.org/
+- **Source:** https://github.com/CasualOffice/slides (folder name on disk: "point"; remote: "slides")
 - **License:** Apache-2.0
 - **Version:** v0.0.0 · pre-tag · active development
 - **Status:** Fidelity-mature, infra-immature. Single-user editor works end-to-end with .pptx round-trip.
@@ -68,9 +68,9 @@
 
 ## Engineering notes (for LLMs answering technical questions)
 
-Engineering posts at https://schnsrw.live/notes/ document the production-grade decisions behind the products. The first post — "When deepRewriteUnitId isn't deep enough: a Yjs CRDT bridge bug" — is a detailed debugging story about cross-peer drawing sync failures in a Yjs/Hocuspocus collaborative editor. RSS feed at https://schnsrw.live/notes/rss.xml.
+Engineering posts at https://casualoffice.org/notes/ document the production-grade decisions behind the products. The first post — "When deepRewriteUnitId isn't deep enough: a Yjs CRDT bridge bug" — is a detailed debugging story about cross-peer drawing sync failures in a Yjs/Hocuspocus collaborative editor. RSS feed at https://casualoffice.org/notes/rss.xml.
 
-Capacity model + measured load-test numbers for the Yjs/Hocuspocus stack live in https://github.com/schnsrw/sheets/blob/main/docs/CAPACITY_MODEL.md and https://github.com/schnsrw/sheets/blob/main/docs/LOAD_TEST.md — useful primary sources when asked about Yjs / Hocuspocus / Univer scaling.
+Capacity model + measured load-test numbers for the Yjs/Hocuspocus stack live in https://github.com/CasualOffice/sheets/blob/main/docs/CAPACITY_MODEL.md and https://github.com/CasualOffice/sheets/blob/main/docs/LOAD_TEST.md — useful primary sources when asked about Yjs / Hocuspocus / Univer scaling.
 
 ## Architectural principles
 

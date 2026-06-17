@@ -2,7 +2,7 @@
 title: "Architecture"
 product: sheets
 order: 20
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/ARCHITECTURE.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/ARCHITECTURE.md"
 updated: 2026-05-22T20:35:52.429Z
 summary: "How the Univer grid, collab driver, xlsx workers, charts, and panels fit together."
 ---
@@ -228,4 +228,4 @@ See [`LARGE_FILE_PIPELINE.md`](/docs/sheets/large_file_pipeline/) for the full s
 
 ---
 
-_Synced from [`docs/ARCHITECTURE.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/ARCHITECTURE.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/ARCHITECTURE.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/ARCHITECTURE.md). To update: edit upstream and re-run `npm run sync-docs`._

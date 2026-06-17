@@ -4,7 +4,7 @@ product: editor
 version: '0.0.3'
 date: 2026-05-25
 summary: 'Round-trip fidelity hits 44/44 fixtures pristine = 100%. Live co-editing verified end-to-end with a 5-second smoke (multi-peer text fan-out, awareness, live filename rename). New: page color, wordCompat React prop, drawing-fidelity audit, mobile format chip.'
-repoUrl: https://github.com/schnsrw/docx/commits/main
+repoUrl: https://github.com/CasualOffice/docs/commits/main
 ---
 
 The fidelity floor cleared the desktop-ship bar (≥ 90%) by a

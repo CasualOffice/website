@@ -4,7 +4,7 @@ product: sheets
 version: '0.0.4'
 date: 2026-05-18
 summary: 'Peer cursors on the grid, live-typing ghost, presence avatars with last-seen, "Out of sync" pill, and a session-history side panel with per-room op log and revert.'
-repoUrl: https://github.com/schnsrw/sheets/releases/tag/v0.0.4
+repoUrl: https://github.com/CasualOffice/sheets/releases/tag/v0.0.4
 ---
 
 Phase 3 of the roadmap — presence + polish.

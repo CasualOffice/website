@@ -148,7 +148,7 @@ function umbrellaHtml() {
   <div class="topline">
     <span class="brand-mark" aria-hidden="true">cs</span>
     <span class="brand">Casual Office</span>
-    <span class="domain">schnsrw.live</span>
+    <span class="domain">casualoffice.org</span>
   </div>
   <div class="main">
     <h1>Office, for the <span class="accent">open</span> <span class="accent2">web</span>.</h1>
@@ -223,7 +223,7 @@ const variants = [
     name: 'og-sheets.png',
     html: productHtml({
       name: 'Casual Sheets',
-      domain: 'sheet.schnsrw.live',
+      domain: 'sheets.casualoffice.org',
       mark: 'cs',
       accent: '#217346',
       accentSoft: '#2faf6b',
@@ -238,7 +238,7 @@ const variants = [
     name: 'og-editor.png',
     html: productHtml({
       name: 'Casual Editor',
-      domain: 'doc.schnsrw.live',
+      domain: 'docs.casualoffice.org',
       mark: 'ce',
       accent: '#2563eb',
       accentSoft: '#6366f1',
@@ -253,7 +253,7 @@ const variants = [
     name: 'og-desktop.png',
     html: productHtml({
       name: 'Casual Desktop',
-      domain: 'schnsrw.live/casual-desktop',
+      domain: 'casualoffice.org/casual-desktop',
       mark: 'cd',
       accent: '#7c3aed',
       accentSoft: '#a78bfa',

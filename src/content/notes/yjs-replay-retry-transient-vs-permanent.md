@@ -253,14 +253,14 @@ failed mutations targeting that sheet id).
 ## Code
 
 The classifier + retry helper are in
-[`apps/web/src/collab/replay-retry.ts`](https://github.com/schnsrw/sheets/blob/main/apps/web/src/collab/replay-retry.ts)
+[`apps/web/src/collab/replay-retry.ts`](https://github.com/CasualOffice/sheets/blob/main/apps/web/src/collab/replay-retry.ts)
 of [Casual Sheets](/casual-sheets/). 17 unit tests cover every
 classifier branch, the retry path, the ring buffer's eviction, and
 the pinned retry schedule. The UI surface lives in
-[`apps/web/src/shell/CollabIndicator.tsx`](https://github.com/schnsrw/sheets/blob/main/apps/web/src/shell/CollabIndicator.tsx).
+[`apps/web/src/shell/CollabIndicator.tsx`](https://github.com/CasualOffice/sheets/blob/main/apps/web/src/shell/CollabIndicator.tsx).
 
 The full design lived as Stream A1 + A2 of the
-[production-readiness pipeline](https://github.com/schnsrw/sheets/blob/main/docs/PRODUCTION_PIPELINE.md);
+[production-readiness pipeline](https://github.com/CasualOffice/sheets/blob/main/docs/PRODUCTION_PIPELINE.md);
 both shipped in [v0.2.0](/changelog/sheets-v020/).
 
 ---

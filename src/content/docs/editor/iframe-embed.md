@@ -2,7 +2,7 @@
 title: 'Iframe embedding'
 product: editor
 order: 70
-sourceUrl: 'https://github.com/schnsrw/docx/blob/main/docs/internal/13-iframe-protocol.md'
+sourceUrl: 'https://github.com/CasualOffice/docs/blob/main/docs/internal/13-iframe-protocol.md'
 updated: 2026-06-08T00:00:00.000Z
 summary: 'Embed the editor in any host via iframe + postMessage. No React dependency on the host side.'
 ---
@@ -92,7 +92,7 @@ After both `hello`s land the editor emits `casual.ready` and the host can issue 
 | Host → Editor   | `casual.command.save`             | Host's "Save" button — editor responds with `save.request` |
 | Both            | `casual.signature.*`              | Signature pipeline — see [Signatures](/docs/editor/signatures/) |
 
-The full protocol shape lives in [the source contract](https://github.com/schnsrw/docx/blob/main/docs/internal/13-iframe-protocol.md).
+The full protocol shape lives in [the source contract](https://github.com/CasualOffice/docs/blob/main/docs/internal/13-iframe-protocol.md).
 
 ## Reference flow
 

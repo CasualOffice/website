@@ -2,7 +2,7 @@
 title: "Environment variables"
 product: sheets
 order: 100
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/ENV.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/ENV.md"
 updated: 2026-05-24T15:38:04.709Z
 summary: "Every runtime + build-time knob, with defaults + accepted values."
 ---
@@ -296,4 +296,4 @@ its config UI from this table.
 
 ---
 
-_Synced from [`docs/ENV.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/ENV.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/ENV.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/ENV.md). To update: edit upstream and re-run `npm run sync-docs`._

@@ -4,7 +4,7 @@ product: sheets
 version: '0.0.5'
 date: 2026-05-23
 summary: 'Phase 4 closes: Charts P1–P5b shipped, Pivot Tables P0, conditional formatting and data validation co-edit synced, drawings synced, autosave with restore banner, ODS fidelity, and 30+ Excel keyboard shortcuts.'
-repoUrl: https://github.com/schnsrw/sheets/releases/tag/v0.0.5
+repoUrl: https://github.com/CasualOffice/sheets/releases/tag/v0.0.5
 ---
 
 The feature-breadth release — phase 4 of the roadmap closes. After

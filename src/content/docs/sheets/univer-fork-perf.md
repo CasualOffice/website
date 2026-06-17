@@ -2,7 +2,7 @@
 title: "Univer fork — perf plan"
 product: sheets
 order: 60
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/UNIVER_FORK_PERF.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/UNIVER_FORK_PERF.md"
 updated: 2026-05-23T20:29:05.136Z
 summary: "Fork-side perf punch list with status per item."
 ---
@@ -290,4 +290,4 @@ Expected end-state: **2-5× on bulk mutations**, **20-40% on scrolling**,
 
 ---
 
-_Synced from [`docs/UNIVER_FORK_PERF.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/UNIVER_FORK_PERF.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/UNIVER_FORK_PERF.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/UNIVER_FORK_PERF.md). To update: edit upstream and re-run `npm run sync-docs`._

@@ -4,7 +4,7 @@ product: sheets
 version: '0.2.1'
 date: 2026-05-26
 summary: 'Patch release closing the last two known production-readiness gaps. (1) A drawing (image or chart) inserted by peer A did not appear on peer B; root cause was the bridge''s deepRewriteUnitId only swapping unitIds at object keys, missing the unitId embedded at position [0] of the json1 op path (positional array). New rewriteJson1OpPathUnitId helper fixes it. (2) WS-side load harness lands with measured numbers: 1500 concurrent WS clients × 30 s, sustained 350 updates/s aggregate, p99 broadcast latency 3.2 ms, zero dropped records. The capacity model''s "~500 active docs latency knee" prediction was ~10× too conservative; real binding constraint at that size is RAM, not broadcast CPU.'
-repoUrl: https://github.com/schnsrw/sheets/releases/tag/v0.2.1
+repoUrl: https://github.com/CasualOffice/sheets/releases/tag/v0.2.1
 ---
 
 A small patch on top of [v0.2.0](/changelog/sheets-v020/) that
@@ -119,4 +119,4 @@ docker run -p 3000:3000 schnsrw/casual-sheets:0.2
 ```
 
 Full upstream notes:
-[github.com/schnsrw/sheets/releases/tag/v0.2.1](https://github.com/schnsrw/sheets/releases/tag/v0.2.1).
+[github.com/CasualOffice/sheets/releases/tag/v0.2.1](https://github.com/CasualOffice/sheets/releases/tag/v0.2.1).

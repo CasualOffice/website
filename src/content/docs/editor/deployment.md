@@ -2,7 +2,7 @@
 title: "Deployment"
 product: editor
 order: 40
-sourceUrl: "https://github.com/schnsrw/docx/blob/main/docs/DEPLOYMENT.md"
+sourceUrl: "https://github.com/CasualOffice/docs/blob/main/docs/DEPLOYMENT.md"
 updated: 2026-05-22T21:40:56.531Z
 summary: "Docker bundle, embedded SPA, host integrations."
 ---
@@ -63,7 +63,7 @@ share-link flow today; WOPI / JWT-API later).
 
 | Where | Collab | Use when |
 |---|---|---|
-| **GitHub Pages** (`doc.schnsrw.live`) | off | You want to demo the editor, single-user only. No backend behind it. |
+| **GitHub Pages** (`docs.casualoffice.org`) | off | You want to demo the editor, single-user only. No backend behind it. |
 | **Docker Hub image** (`schnsrw/casual-editor`) | on | You want the share-link flow. Everyone hitting the same container co-edits in real time. |
 | **Tauri desktop** (in progress) | off | Offline / single-user / local-file workflows. No server, no browser tab. |
 
@@ -110,7 +110,7 @@ If you don't trust the published image, or you want to ship a
 patch, build it yourself:
 
 ```bash
-git clone https://github.com/schnsrw/docx
+git clone https://github.com/CasualOffice/docs
 cd docx
 docker compose up        # default service: build + run the bundled image
 open http://localhost:8080
@@ -358,4 +358,4 @@ should be scoped Read/Write/Delete on `schnsrw/casual-editor` only.
 
 ---
 
-_Synced from [`docs/DEPLOYMENT.md` in schnsrw/docx](https://github.com/schnsrw/docx/blob/main/docs/DEPLOYMENT.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/DEPLOYMENT.md` in CasualOffice/docs](https://github.com/CasualOffice/docs/blob/main/docs/DEPLOYMENT.md). To update: edit upstream and re-run `npm run sync-docs`._

@@ -2,7 +2,7 @@
 title: "Round-trip fidelity"
 product: editor
 order: 30
-sourceUrl: "https://github.com/schnsrw/docx/blob/main/docs/ROUNDTRIP.md"
+sourceUrl: "https://github.com/CasualOffice/docs/blob/main/docs/ROUNDTRIP.md"
 updated: 2026-05-24T14:18:37.972Z
 summary: "Per-tag fidelity audit + three-way harness vs LibreOffice and OnlyOffice."
 ---
@@ -87,4 +87,4 @@ commits) is in `roundtrip-audit-report.md` in the editor repo root.
 
 ---
 
-_Synced from [`docs/ROUNDTRIP.md` in schnsrw/docx](https://github.com/schnsrw/docx/blob/main/docs/ROUNDTRIP.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/ROUNDTRIP.md` in CasualOffice/docs](https://github.com/CasualOffice/docs/blob/main/docs/ROUNDTRIP.md). To update: edit upstream and re-run `npm run sync-docs`._

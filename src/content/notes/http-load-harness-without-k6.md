@@ -24,9 +24,9 @@ Node's built-in `fetch` + `perf_hooks` gives you everything you
 need.
 
 This is what shipped as
-[`apps/server/scripts/loadtest.ts`](https://github.com/schnsrw/sheets/blob/main/apps/server/scripts/loadtest.ts)
+[`apps/server/scripts/loadtest.ts`](https://github.com/CasualOffice/sheets/blob/main/apps/server/scripts/loadtest.ts)
 in the
-[Casual Sheets v0.2.0 production-readiness pipeline](https://github.com/schnsrw/sheets/blob/main/docs/PRODUCTION_PIPELINE.md).
+[Casual Sheets v0.2.0 production-readiness pipeline](https://github.com/CasualOffice/sheets/blob/main/docs/PRODUCTION_PIPELINE.md).
 190 lines, zero new deps, drives 50 virtual users hammering the
 write endpoints at ~1900 req/s on a laptop, with grep-friendly
 output.
@@ -180,7 +180,7 @@ you're locked into k6's schema.
 ## Real numbers it produced
 
 The harness drove three runs against the
-[Casual Sheets backend](https://github.com/schnsrw/sheets)
+[Casual Sheets backend](https://github.com/CasualOffice/sheets)
 during the v0.2.0 production-readiness pass:
 
 **Run 1 — baseline (rate-limit DISABLED, 50 VUs × 20 s):**
@@ -270,7 +270,7 @@ bottleneck.
 ## How to run it
 
 The full harness is at
-[`apps/server/scripts/loadtest.ts`](https://github.com/schnsrw/sheets/blob/main/apps/server/scripts/loadtest.ts)
+[`apps/server/scripts/loadtest.ts`](https://github.com/CasualOffice/sheets/blob/main/apps/server/scripts/loadtest.ts)
 of [Casual Sheets](/casual-sheets/). The script command:
 
 ```bash

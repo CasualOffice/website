@@ -4,7 +4,7 @@ product: sheets
 version: '0.0.6'
 date: 2026-05-23
 summary: 'Phase 5 closes the Excel parity gap: Pivots P1 + drill-down, Sparklines, Goal Seek, Name Manager, Flash Fill, dark theme, Recent Files landing, Paste Special, server-side view-only enforcement, and 357 e2e tests.'
-repoUrl: https://github.com/schnsrw/sheets/releases/tag/v0.0.6
+repoUrl: https://github.com/CasualOffice/sheets/releases/tag/v0.0.6
 ---
 
 The Excel-parity wave — phase 5 of the roadmap closes. v0.0.6 is the

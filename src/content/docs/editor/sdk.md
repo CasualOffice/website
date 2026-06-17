@@ -2,7 +2,7 @@
 title: 'SDK'
 product: editor
 order: 60
-sourceUrl: 'https://github.com/schnsrw/docx/blob/main/docs/internal/14-sdk-delivery.md'
+sourceUrl: 'https://github.com/CasualOffice/docs/blob/main/docs/internal/14-sdk-delivery.md'
 updated: 2026-06-08T00:00:00.000Z
 summary: 'npm install the editor into your React app. Standalone or co-edit; same component.'
 ---

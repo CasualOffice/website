@@ -2,7 +2,7 @@
 title: "ODS round-trip audit"
 product: sheets
 order: 80
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/ods-lossiness.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/ods-lossiness.md"
 updated: 2026-05-23T22:05:54.576Z
 summary: ".ods round-trip results vs the same probe set."
 ---
@@ -59,7 +59,7 @@ Legend: `✅` survived · `⚠️` partial · `❌` dropped
 
 | Probe | Reference | Actual | Status |
 | --- | --- | --- | --- |
-| C2 external hyperlink | `"https://github.com/schnsrw/sheets"` | `"https://github.com/schnsrw/sheets"` | ✅ |
+| C2 external hyperlink | `"https://github.com/CasualOffice/sheets"` | `"https://github.com/CasualOffice/sheets"` | ✅ |
 
 ## Comments
 
@@ -104,4 +104,4 @@ Legend: `✅` survived · `⚠️` partial · `❌` dropped
 
 ---
 
-_Synced from [`docs/ods-lossiness.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/ods-lossiness.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/ods-lossiness.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/ods-lossiness.md). To update: edit upstream and re-run `npm run sync-docs`._

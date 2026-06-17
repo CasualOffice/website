@@ -2,12 +2,12 @@
 title: "Co-editing"
 product: sheets
 order: 40
-sourceUrl: "https://github.com/schnsrw/sheets/blob/main/docs/CO-EDITING.md"
+sourceUrl: "https://github.com/CasualOffice/sheets/blob/main/docs/CO-EDITING.md"
 updated: 2026-05-22T20:38:08.952Z
 summary: "Hocuspocus + Yjs bridge: mutations, presence, room lifecycle."
 ---
 Real-time collaborative editing layered on top of the single-user editor.
-Available in the self-hosted Docker image; the GitHub Pages demo at `sheet.schnsrw.live` stays single-user.
+Available in the self-hosted Docker image; the GitHub Pages demo at `sheets.casualoffice.org` stays single-user.
 
 ---
 
@@ -203,4 +203,4 @@ See [`docs/DOCKERHUB.md`](/docs/sheets/dockerhub/) for the full compose snippet 
 
 ---
 
-_Synced from [`docs/CO-EDITING.md` in schnsrw/sheets](https://github.com/schnsrw/sheets/blob/main/docs/CO-EDITING.md). To update: edit upstream and re-run `npm run sync-docs`._
+_Synced from [`docs/CO-EDITING.md` in CasualOffice/sheets](https://github.com/CasualOffice/sheets/blob/main/docs/CO-EDITING.md). To update: edit upstream and re-run `npm run sync-docs`._

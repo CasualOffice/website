@@ -4,7 +4,7 @@ product: editor
 version: '0.0.2'
 date: 2026-05-23
 summary: 'Casual Editor opens the public preview. Home gallery with 14 real .docx templates, stateless Go gateway implementing the y-websocket protocol in ~120 LOC, three-way fidelity harness vs LibreOffice and OnlyOffice, 26 of 39 fixtures round-trip pristine.'
-repoUrl: https://github.com/schnsrw/docx/releases/tag/v0.0.2
+repoUrl: https://github.com/CasualOffice/docs/releases/tag/v0.0.2
 ---
 
 The first tagged public preview.
@@ -31,7 +31,7 @@ The first tagged public preview.
 - **Three-way fidelity harness** vs LibreOffice and OnlyOffice
   DocumentBuilder gates CI.
 - **Live deploys** — single-user demo at
-  [doc.schnsrw.live](https://doc.schnsrw.live/). Co-edit ships with
+  [docs.casualoffice.org](https://docs.casualoffice.org/). Co-edit ships with
   the Docker image once tagged.
 
 ## What's next
