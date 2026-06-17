@@ -156,4 +156,4 @@ Then open <http://localhost:3000>. The full self-hosting guide
 covers reverse proxy, TLS, JWT auth, and the admin panel:
 [/docs/sheets/self-hosting/](/docs/sheets/self-hosting/).
 
-Live demo: <https://sheets.casualoffice.org/>.
+Live demo: <https://sheet.casualoffice.org/>.

@@ -11,7 +11,7 @@ summary: "Self-hosted bundle: web + Hocuspocus + Fastify on one port."
 Built on [Univer OSS](https://github.com/dream-num/univer) (Apache-2.0).
 Single image — web app, Hocuspocus, and Fastify all in one container.
 
-**Source:** [github.com/CasualOffice/sheets](https://github.com/CasualOffice/sheets) &nbsp;·&nbsp; **Demo (single-user):** [sheets.casualoffice.org](https://sheets.casualoffice.org/) &nbsp;·&nbsp; **Docs:** [casualoffice.org/docs/sheets/](https://casualoffice.org/docs/sheets/)
+**Source:** [github.com/CasualOffice/sheets](https://github.com/CasualOffice/sheets) &nbsp;·&nbsp; **Demo (single-user):** [sheet.casualoffice.org](https://sheet.casualoffice.org/) &nbsp;·&nbsp; **Docs:** [casualoffice.org/docs/sheets/](https://casualoffice.org/docs/sheets/)
 
 ---
 
@@ -153,7 +153,7 @@ Sample output:
 {
   "org.opencontainers.image.title":         "Casual Sheets",
   "org.opencontainers.image.description":   "Excel-flavored web spreadsheet …",
-  "org.opencontainers.image.url":           "https://sheets.casualoffice.org/",
+  "org.opencontainers.image.url":           "https://sheet.casualoffice.org/",
   "org.opencontainers.image.source":        "https://github.com/CasualOffice/sheets",
   "org.opencontainers.image.documentation": "https://casualoffice.org/docs/sheets/",
   "org.opencontainers.image.vendor":        "Sachin Sarwa",

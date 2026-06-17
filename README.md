@@ -4,7 +4,7 @@ Marketing + docs site for **Casual Office** — an open-source, file-centric, re
 
 | Product | What | Repo | Demo | Status |
 |---|---|---|---|---|
-| **Casual Sheets** | `.xlsx` web spreadsheet with real-time co-editing | [CasualOffice/sheets](https://github.com/CasualOffice/sheets) | [sheets.casualoffice.org](https://sheets.casualoffice.org/) | v0.2.1 — production-ready for 1-user/doc · "almost" for co-edit |
+| **Casual Sheets** | `.xlsx` web spreadsheet with real-time co-editing | [CasualOffice/sheets](https://github.com/CasualOffice/sheets) | [sheet.casualoffice.org](https://sheet.casualoffice.org/) | v0.2.1 — production-ready for 1-user/doc · "almost" for co-edit |
 | **Casual Editor** | `.docx` web editor with real-time co-editing | [CasualOffice/docs](https://github.com/CasualOffice/docs) | [docs.casualoffice.org](https://docs.casualoffice.org/) | M1 backend live · public preview |
 | **Casual Slides** | `.pptx` web slides editor | [CasualOffice/slides](https://github.com/CasualOffice/slides) | [slides.casualoffice.org](https://slides.casualoffice.org/) | v0.0.0 · pre-tag · 68/87 fidelity ✓ |
 | **Casual Desktop** | Tauri binaries wrapping the three web cores | (within product repos) | — | paused · queued |
@@ -130,7 +130,7 @@ A    @    185.199.111.153
 
 | Project | Repo | Demo |
 |---|---|---|
-| Casual Sheets | [CasualOffice/sheets](https://github.com/CasualOffice/sheets) | [sheets.casualoffice.org](https://sheets.casualoffice.org/) |
+| Casual Sheets | [CasualOffice/sheets](https://github.com/CasualOffice/sheets) | [sheet.casualoffice.org](https://sheet.casualoffice.org/) |
 | Casual Editor | [CasualOffice/docs](https://github.com/CasualOffice/docs) | [docs.casualoffice.org](https://docs.casualoffice.org/) |
 | Casual Slides | [CasualOffice/slides](https://github.com/CasualOffice/slides) | [slides.casualoffice.org](https://slides.casualoffice.org/) |
 

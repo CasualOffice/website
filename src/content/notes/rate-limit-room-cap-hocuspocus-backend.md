@@ -23,7 +23,7 @@ write-side HTTP endpoints, no per-IP throttle, no upper bound on
 room count. The room TTL would eventually evict idle rooms, but a
 patient script could create rooms faster than the GC interval and
 fill the registry to OOM. Not theoretical — the editor's live
-demo at <https://sheets.casualoffice.org/> has been getting probed by
+demo at <https://sheet.casualoffice.org/> has been getting probed by
 the usual web-scrapers since launch.
 
 This post is how the

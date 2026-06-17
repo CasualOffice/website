@@ -7,7 +7,7 @@ updated: 2026-05-22T20:38:08.952Z
 summary: "Hocuspocus + Yjs bridge: mutations, presence, room lifecycle."
 ---
 Real-time collaborative editing layered on top of the single-user editor.
-Available in the self-hosted Docker image; the GitHub Pages demo at `sheets.casualoffice.org` stays single-user.
+Available in the self-hosted Docker image; the GitHub Pages demo at `sheet.casualoffice.org` stays single-user.
 
 ---
 

@@ -178,4 +178,4 @@ Excel workflow, edit it, save it. Open the saved file in desktop
 Excel — round-trip should be lossless for the surface we cover
 (see the 46-probe audit in `docs/xlsx-lossiness.md`).
 
-Live demo: <https://sheets.casualoffice.org/>.
+Live demo: <https://sheet.casualoffice.org/>.
