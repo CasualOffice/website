@@ -149,7 +149,7 @@ the suite story closes.
 ## Try Casual Sheets
 
 ```bash
-docker run -p 3000:3000 schnsrw/casual-sheets:latest
+docker run -p 3000:3000 casualoffice/sheets:latest
 ```
 
 Compare image size, RAM use, and startup time directly against an

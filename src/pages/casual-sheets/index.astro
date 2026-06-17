@@ -14,7 +14,7 @@ const jsonLd = {
   applicationSubCategory: 'SpreadsheetApplication',
   operatingSystem: 'Web Browser, Docker (Linux/amd64, Linux/arm64)',
   url: 'https://sheet.casualoffice.org/',
-  downloadUrl: 'https://hub.docker.com/r/schnsrw/casual-sheets',
+  downloadUrl: 'https://hub.docker.com/r/casualoffice/sheets',
   codeRepository: 'https://github.com/CasualOffice/sheets',
   softwareVersion: '0.1.0',
   license: 'https://www.apache.org/licenses/LICENSE-2.0',
@@ -52,7 +52,7 @@ const jsonLd = {
       <div class="row">
         <a class="btn btn--accent" style="--product-accent: var(--sheets);" href="https://sheet.casualoffice.org/" rel="noopener" target="_blank">Open the live demo →</a>
         <a class="btn btn--ghost" href="https://github.com/CasualOffice/sheets" rel="noopener" target="_blank">Source on GitHub</a>
-        <a class="btn btn--ghost" href="https://hub.docker.com/r/schnsrw/casual-sheets" rel="noopener" target="_blank">Docker image</a>
+        <a class="btn btn--ghost" href="https://hub.docker.com/r/casualoffice/sheets" rel="noopener" target="_blank">Docker image</a>
       </div>
     </div>
   </section>
@@ -177,7 +177,7 @@ const jsonLd = {
         into a single port. No DB. Multi-arch (amd64 + arm64).
       </div>
       <pre style="margin: 18px 0; padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-mono); font-size: 13px; overflow-x: auto;">
-docker run -p 3000:3000 schnsrw/casual-sheets:latest
+docker run -p 3000:3000 casualoffice/sheets:latest
       </pre>
       <div class="row" style="margin-top: 22px;">
         <a class="btn btn--accent" style="--product-accent: var(--sheets);" href="https://sheet.casualoffice.org/" rel="noopener" target="_blank">Open the live demo</a>

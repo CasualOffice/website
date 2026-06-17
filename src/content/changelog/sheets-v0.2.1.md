@@ -114,8 +114,8 @@ non-array input, single-element list edge case).
 ## Try it
 
 ```bash
-docker pull schnsrw/casual-sheets:0.2
-docker run -p 3000:3000 schnsrw/casual-sheets:0.2
+docker pull casualoffice/sheets:0.2
+docker run -p 3000:3000 casualoffice/sheets:0.2
 ```
 
 Full upstream notes:

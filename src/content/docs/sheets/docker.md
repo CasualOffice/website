@@ -19,7 +19,7 @@ Single image — web app, Hocuspocus, and Fastify all in one container.
 
 ```sh
 # In-memory rooms — great for a quick try (rooms vanish on restart):
-docker run --rm -p 3000:3000 schnsrw/casual-sheets:latest
+docker run --rm -p 3000:3000 casualoffice/sheets:latest
 # open http://localhost:3000
 ```
 
@@ -35,7 +35,7 @@ Paste this `docker-compose.yml` if you don't want to clone the repo:
 ```yaml
 services:
   app:
-    image: schnsrw/casual-sheets:0.1   # rolling minor — auto picks up patch updates
+    image: casualoffice/sheets:0.1   # rolling minor — auto picks up patch updates
     restart: unless-stopped
     ports: ['3000:3000']
     environment:
@@ -143,7 +143,7 @@ Multi-arch manifest: `linux/amd64` + `linux/arm64`. SBOM + provenance attestatio
 Every published image carries `org.opencontainers.image.*` labels:
 
 ```sh
-docker inspect schnsrw/casual-sheets:latest \
+docker inspect casualoffice/sheets:latest \
   | jq '.[0].Config.Labels | with_entries(select(.key | startswith("org.opencontainers")))'
 ```
 

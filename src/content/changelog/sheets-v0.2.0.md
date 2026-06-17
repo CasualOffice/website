@@ -177,7 +177,7 @@ all green.
 ## Try it
 
 ```bash
-docker run -p 3000:3000 schnsrw/casual-sheets:0.2
+docker run -p 3000:3000 casualoffice/sheets:0.2
 # → open http://localhost:3000
 ```
 
@@ -186,7 +186,7 @@ Production-ish docker-compose with the new caps in effect:
 ```yaml
 services:
   app:
-    image: schnsrw/casual-sheets:0.2
+    image: casualoffice/sheets:0.2
     ports: ['3000:3000']
     ulimits:
       nofile: { soft: 65535, hard: 65535 }  # raise from default 1024 — see capacity model

@@ -52,7 +52,7 @@ waiting for an overlay the harness had already covered.
 ## Try it
 
 ```bash
-docker run -p 3000:3000 schnsrw/casual-sheets:0.1
+docker run -p 3000:3000 casualoffice/sheets:0.1
 ```
 
 Full upstream notes:

@@ -329,4 +329,4 @@ run it with `pnpm --filter @sheet/server load`.
 
 *[Casual Sheets](/casual-sheets/) is an open-source self-hosted
 spreadsheet built on Univer OSS + Yjs + Hocuspocus. Apache-2.0.
-`docker run -p 3000:3000 schnsrw/casual-sheets:latest`.*
+`docker run -p 3000:3000 casualoffice/sheets:latest`.*

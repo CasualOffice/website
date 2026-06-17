@@ -40,7 +40,7 @@ the better answer.
 
 - **You need to keep the data on your servers.** Compliance, IP
   sensitivity, paranoia — whatever the reason, `docker run -p 3000:3000
-  schnsrw/casual-sheets:latest` puts the whole thing on a $5/mo VPS.
+  casualoffice/sheets:latest` puts the whole thing on a $5/mo VPS.
   No Google account required; no data leaves your network.
 - **You're tired of Workspace billing.** Workspace at $6/user/month
   for 50 people is $3 600/year. The same workload runs on a single $48
@@ -149,7 +149,7 @@ Both can be the right answer.
 ## Try Casual Sheets
 
 ```bash
-docker run -p 3000:3000 schnsrw/casual-sheets:latest
+docker run -p 3000:3000 casualoffice/sheets:latest
 ```
 
 Then open <http://localhost:3000>. The full self-hosting guide

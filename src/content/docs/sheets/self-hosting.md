@@ -9,7 +9,7 @@ summary: "Single image, three deployment shapes, full configuration model."
 Casual Sheets ships as a single Docker image:
 
 ```sh
-docker run --rm -p 3000:3000 schnsrw/casual-sheets:0.1
+docker run --rm -p 3000:3000 casualoffice/sheets:0.1
 # open http://localhost:3000
 ```
 
@@ -68,7 +68,7 @@ Full env-var matrix: [`docs/ENV.md`](../ENV.md).
 ```yaml
 services:
   app:
-    image: schnsrw/casual-sheets:0.1
+    image: casualoffice/sheets:0.1
     restart: unless-stopped
     ports: ['3000:3000']
     environment:

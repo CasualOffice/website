@@ -16,7 +16,7 @@ const jsonLd = {
       url: 'https://casualoffice.org/',
       email: 'schnsrw@gmail.com',
       jobTitle: 'Software Engineer',
-      sameAs: ['https://github.com/schnsrw', 'https://hub.docker.com/u/schnsrw'],
+      sameAs: ['https://github.com/schnsrw', 'https://hub.docker.com/u/casualoffice'],
     },
     {
       '@type': 'WebSite',
@@ -92,7 +92,7 @@ const jsonLd = {
 // set:html so Astro doesn't try to interpolate the `${VAR}` segments.
 const composeYml = `<code>services:
   app:
-    image: schnsrw/casual-sheets:0.1
+    image: casualoffice/sheets:0.1
     ports: ['3000:3000']
     environment:
       CASUAL_STORAGE: local

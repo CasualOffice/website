@@ -45,7 +45,7 @@ the better answer.
 
 - **You want to keep documents on your servers.** Compliance,
   IP-sensitive contracts, paranoia — whatever the reason,
-  `docker run -p 8080:8080 schnsrw/casual-editor:latest` puts the
+  `docker run -p 8080:8080 casualoffice/docs:latest` puts the
   whole editor on a $5/mo VPS. No Google account required; no
   document leaves your network.
 - **You want true `.docx` round-trip.** Open a Word document, edit
@@ -195,7 +195,7 @@ in the repo lists what's planned.
 ## Try Casual Editor
 
 ```bash
-docker run -p 8080:8080 schnsrw/casual-editor:latest
+docker run -p 8080:8080 casualoffice/docs:latest
 ```
 
 Open <http://localhost:8080>. Upload a `.docx`, edit it, save it.

@@ -34,7 +34,7 @@ substantially.
 | Integration model | Direct UI + WOPI host | WOPI/JWT — designed to embed into Nextcloud / Seafile / etc. |
 | Standalone use | First-class | Designed to be embedded; standalone UI is utilitarian |
 | Native mobile apps | No (web viewer + light editor at ≤768 px) | Yes (iOS + Android) |
-| Multi-format export via WASM worker | Yes (`@schnsrw/core`) | Native via DocService |
+| Multi-format export via WASM worker | Yes (`@casualoffice/core`) | Native via DocService |
 | Concurrent users per process | Single Go process — high (Yjs broadcast scales well) | Higher per-process but heavier per-doc |
 
 ## License — the elephant in the room
@@ -76,7 +76,7 @@ only path.
 
 If your shape is "I want to give my users a great `.docx` editor
 right now," Casual Editor makes that one-line easy
-(`docker run -p 8080:8080 schnsrw/casual-editor:latest`). If your
+(`docker run -p 8080:8080 casualoffice/docs:latest`). If your
 shape is "I have a document management system and I want a
 `.docx` renderer inside it," OnlyOffice's WOPI-first design fits
 better.
@@ -209,7 +209,7 @@ matter equally to you.
 ## Try Casual Editor
 
 ```bash
-docker run -p 8080:8080 schnsrw/casual-editor:latest
+docker run -p 8080:8080 casualoffice/docs:latest
 ```
 
 Compare image size, RAM use, and startup time directly against an

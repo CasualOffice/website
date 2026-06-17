@@ -306,5 +306,5 @@ payloads, this is the bug to remember.
 ---
 
 *[Casual Sheets](/casual-sheets/) is an open-source self-hosted
-spreadsheet — `docker run -p 3000:3000 schnsrw/casual-sheets:latest`
+spreadsheet — `docker run -p 3000:3000 casualoffice/sheets:latest`
 to try. Apache-2.0.*

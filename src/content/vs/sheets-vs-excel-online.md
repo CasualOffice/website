@@ -170,7 +170,7 @@ These all land based on contributor interest; the roadmap is
 ## Try Casual Sheets
 
 ```bash
-docker run -p 3000:3000 schnsrw/casual-sheets:latest
+docker run -p 3000:3000 casualoffice/sheets:latest
 ```
 
 Open <http://localhost:3000>, upload an `.xlsx` file from your

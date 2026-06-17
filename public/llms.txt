@@ -21,7 +21,7 @@
 
 - **Live demo:** https://sheets.casualoffice.org/
 - **Source:** https://github.com/CasualOffice/sheets
-- **Docker:** https://hub.docker.com/r/schnsrw/casual-sheets (multi-arch amd64 + arm64)
+- **Docker:** https://hub.docker.com/r/casualoffice/sheets (multi-arch amd64 + arm64)
 - **License:** Apache-2.0
 - **Version:** v0.2.1 (production-ready for 1-user-per-doc workloads; almost-production-ready for 2–5-user co-edit)
 - **Tests:** 145 unit + 357 Playwright e2e — green on every push
@@ -37,12 +37,12 @@
 
 - **Live demo:** https://docs.casualoffice.org/
 - **Source:** https://github.com/CasualOffice/docs
-- **Docker:** https://hub.docker.com/r/schnsrw/casual-editor (multi-arch)
+- **Docker:** https://hub.docker.com/r/casualoffice/docs (multi-arch)
 - **License:** Apache-2.0 (the editor under docx-editor/ is a fork of eigenpal/docx-editor whose MIT upstream attribution is preserved; the fork's own modifications and the Go gateway are Apache-2.0)
 - **Status:** M1 backend live · public preview. 44 of 44 .docx fixtures round-trip pristine (100%).
 - **Tests:** 836 Playwright e2e tests
 - **Compares to:** Google Docs, Microsoft Word Online, OnlyOffice Document Server, CryptPad
-- **Formats:** .docx (native parser + serializer), .odt / .md / .txt (via lazy-loaded WASM worker bridging to @schnsrw/core), PDF export via browser print pipeline
+- **Formats:** .docx (native parser + serializer), .odt / .md / .txt (via lazy-loaded WASM worker bridging to @casualoffice/core), PDF export via browser print pipeline
 - **Built on:** ProseMirror with an OOXML-preserving model (forked from eigenpal/docx-editor); React + Bun frontend; Go for the stateless real-time gateway (~120 LOC y-websocket protocol implementation, no DB, no on-disk update log)
 - **Notable features:** 14-template home gallery with real first-page PNG previews across four categories (Personal / Work / Education / Career); three-way fidelity harness vs LibreOffice and OnlyOffice DocumentBuilder; per-tag round-trip audit in CI; Word-compat opt-in flag for non-spec heuristics; pluggable host integration (inline / WOPI / JWT-API behind one Go interface); real-time co-editing via Yjs
 

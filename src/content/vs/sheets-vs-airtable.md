@@ -190,7 +190,7 @@ Teable) if:**
 ## Try Casual Sheets
 
 ```bash
-docker run -p 3000:3000 schnsrw/casual-sheets:latest
+docker run -p 3000:3000 casualoffice/sheets:latest
 ```
 
 Live demo: <https://sheet.casualoffice.org/>.

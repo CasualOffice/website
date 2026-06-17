@@ -176,7 +176,7 @@ E2E suite untouched at 357 + the home + mobile + audit specs.
 ## Try it
 
 ```bash
-docker run -p 3000:3000 schnsrw/casual-sheets:0.1
+docker run -p 3000:3000 casualoffice/sheets:0.1
 # → open http://localhost:3000
 ```
 
@@ -185,7 +185,7 @@ With persistence + admin panel:
 ```yaml
 services:
   app:
-    image: schnsrw/casual-sheets:0.1
+    image: casualoffice/sheets:0.1
     ports: ['3000:3000']
     environment:
       REDIS_URL: redis://redis:6379

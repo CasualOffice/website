@@ -205,6 +205,6 @@ measurement is a story.
 ---
 
 *[Casual Sheets](/casual-sheets/) is an open-source self-hosted
-spreadsheet — `docker run -p 3000:3000 schnsrw/casual-sheets:latest`
+spreadsheet — `docker run -p 3000:3000 casualoffice/sheets:latest`
 to try. Apache-2.0. Full numbers + tier breakdown in the
 [capacity model](https://github.com/CasualOffice/sheets/blob/main/docs/CAPACITY_MODEL.md).*

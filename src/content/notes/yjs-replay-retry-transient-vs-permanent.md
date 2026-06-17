@@ -267,4 +267,4 @@ both shipped in [v0.2.0](/changelog/sheets-v020/).
 
 *[Casual Sheets](/casual-sheets/) is an open-source self-hosted
 spreadsheet built on Univer OSS + Yjs + Hocuspocus. Apache-2.0.
-`docker run -p 3000:3000 schnsrw/casual-sheets:latest`.*
+`docker run -p 3000:3000 casualoffice/sheets:latest`.*
