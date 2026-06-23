@@ -2,7 +2,7 @@
 
 > Casual Office is a portfolio of four open-source, file-centric, real-time
 > productivity tools by Sachin Sarwa: Casual Sheets (web spreadsheet,
-> .xlsx round-trip), Casual Editor (web .docx editor), Casual Slides
+> .xlsx round-trip), Casual Docs (web .docx editor), Casual Slides
 > (web .pptx editor), and Casual Desktop (Tauri shell, paused). All
 > products are Apache-2.0, self-hostable via Docker, built on Univer OSS
 > (sheets + slides) or a fork of eigenpal/docx-editor (docs). Real-time
@@ -23,8 +23,8 @@
 - **Source:** https://github.com/CasualOffice/sheets
 - **Docker:** https://hub.docker.com/r/casualoffice/sheets (multi-arch amd64 + arm64)
 - **License:** Apache-2.0
-- **Version:** v0.2.1 (production-ready for 1-user-per-doc workloads; almost-production-ready for 2–5-user co-edit)
-- **Tests:** 145 unit + 357 Playwright e2e — green on every push
+- **Version:** v0.3.3 (production-ready for 1-user-per-doc workloads; personal mode + auth + WOPI host; almost-production-ready for 2–5-user co-edit)
+- **Tests:** 235 unit + 398 Playwright e2e — green on every push
 - **Compares to:** Google Sheets, Excel Online, OnlyOffice, Airtable
 - **Formats round-tripped:** .xlsx · .ods · .csv · .tsv
 - **Built on:** Univer OSS 0.24.x (Apache-2.0, never the Pro package) + custom Office-style shell.
@@ -33,13 +33,13 @@
 - **Notable features:** 8 chart types with trendlines + date-axis detection; pivot tables with drill-down (Ctrl+Shift+D); sparklines (line / column / win-loss); version history with auto-snapshots; conditional formatting; data validation; live cursors and presence avatars; .xlsm macro passthrough (round-trips byte-equal); 11-template home gallery with thumbnail previews; admin panel with JWT auth + webhook dispatcher.
 - **Sister-page comparisons:** /vs/sheets-vs-google-sheets/, /vs/sheets-vs-excel-online/, /vs/sheets-vs-onlyoffice/
 
-### Casual Editor — open-source self-hosted web .docx editor
+### Casual Docs — open-source self-hosted web .docx editor
 
 - **Live demo:** https://docs.casualoffice.org/
 - **Source:** https://github.com/CasualOffice/docs
 - **Docker:** https://hub.docker.com/r/casualoffice/docs (multi-arch)
 - **License:** Apache-2.0 (the editor under docx-editor/ is a fork of eigenpal/docx-editor whose MIT upstream attribution is preserved; the fork's own modifications and the Go gateway are Apache-2.0)
-- **Status:** M1 backend live · public preview. 44 of 44 .docx fixtures round-trip pristine (100%).
+- **Status:** public preview · npm SDK @casualoffice/docs v1.1.7. 39 of 39 .docx fixtures round-trip pristine (100%).
 - **Tests:** 836 Playwright e2e tests
 - **Compares to:** Google Docs, Microsoft Word Online, OnlyOffice Document Server, CryptPad
 - **Formats:** .docx (native parser + serializer), .odt / .md / .txt (via lazy-loaded WASM worker bridging to @casualoffice/core), PDF export via browser print pipeline
@@ -62,7 +62,7 @@
 
 ### Casual Desktop — offline editor (Tauri, paused)
 
-- **Status:** Tauri scaffolding only. Work resumes after Casual Editor + Casual Slides reach v0.2.x parity with Casual Sheets.
+- **Status:** Tauri scaffolding only. Work resumes after Casual Docs + Casual Slides reach v0.2.x parity with Casual Sheets.
 - **Targets:** macOS, Linux, Windows
 - **Approach:** Reuses the three web cores verbatim; deltas live in the Tauri shell. Single-user only (collab stays in the Docker images where it earns its keep).
 
@@ -91,4 +91,4 @@ Capacity model + measured load-test numbers for the Yjs/Hocuspocus stack live in
 
 ## License of all four repositories
 
-Apache-2.0 across the board. The Casual Editor repo contains a fork of eigenpal/docx-editor (originally MIT); the upstream MIT notice is preserved per Apache-2.0 §4 attribution, and the fork's own modifications plus everything else are Apache-2.0.
+Apache-2.0 across the board. The Casual Docs repo contains a fork of eigenpal/docx-editor (originally MIT); the upstream MIT notice is preserved per Apache-2.0 §4 attribution, and the fork's own modifications plus everything else are Apache-2.0.

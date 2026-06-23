@@ -125,7 +125,9 @@ a:hover { color: var(--accent-strong); text-decoration: underline; }
 .container {
   max-width: 1160px;
   margin: 0 auto;
-  padding: 0 32px;
+  /* Fluid gutters — full 32px on desktop, easing to 20px on phones so
+     content isn't crushed against the edge on a 360px screen. */
+  padding: 0 clamp(20px, 5vw, 32px);
 }
 .container--narrow { max-width: 780px; }
 
@@ -217,7 +219,7 @@ code, kbd {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 14px 32px;
+  padding: 14px clamp(20px, 5vw, 32px);
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: saturate(180%) blur(14px);
   -webkit-backdrop-filter: saturate(180%) blur(14px);

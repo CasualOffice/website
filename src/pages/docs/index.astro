@@ -9,7 +9,7 @@ for (const k of Object.keys(grouped)) grouped[k].sort((a, b) => a.data.order - b
 
 const PRODUCT_LABELS: Record<string, string> = {
   sheets: 'Casual Sheets',
-  editor: 'Casual Editor',
+  editor: 'Casual Docs',
   shared: 'Shared concepts',
 };
 const PRODUCT_ACCENTS: Record<string, string> = {
@@ -25,7 +25,7 @@ const PRODUCT_BLURBS: Record<string, string> = {
 
 const title = 'Documentation · Casual Office';
 const description =
-  'Architecture, research notes, plans, and operational guides for Casual Sheets and Casual Editor. Pulled and curated from each repo.';
+  'Architecture, research notes, plans, and operational guides for Casual Sheets and Casual Docs. Pulled and curated from each repo.';
 ---
 <Base {title} {description} active="docs">
   <section class="hero">

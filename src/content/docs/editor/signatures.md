@@ -7,7 +7,7 @@ updated: 2026-06-08T00:00:00.000Z
 summary: 'Walk a signer through anchored fields; host owns identity and crypto. Same flow via SDK callbacks or iframe envelopes.'
 ---
 
-Casual Editor ships a document-signature pipeline that drives signing flows — employment agreements, sales contracts, multi-party approvals. The editor handles the UX (walking the signer through anchored fields, capturing drawn / typed / uploaded signatures). The host owns identity, crypto, audit, and final stamping.
+Casual Docs ships a document-signature pipeline that drives signing flows — employment agreements, sales contracts, multi-party approvals. The editor handles the UX (walking the signer through anchored fields, capturing drawn / typed / uploaded signatures). The host owns identity, crypto, audit, and final stamping.
 
 The same shapes work whether you deliver via the SDK or the iframe protocol — pick the delivery based on your host, not the feature.
 
@@ -45,7 +45,7 @@ interface SignatureField {
 }
 ```
 
-The `anchor` discriminator is the only product-specific piece. Casual Editor uses paragraph anchors; Casual Sheets uses cell anchors. Everything else — banner, mode, complete event, cancel — is uniform.
+The `anchor` discriminator is the only product-specific piece. Casual Docs uses paragraph anchors; Casual Sheets uses cell anchors. Everything else — banner, mode, complete event, cancel — is uniform.
 
 ## SDK integration
 

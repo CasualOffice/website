@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "description": "Casual Office — schnsrw.live. Astro-built. The home of Casual Sheets, Casual Editor, and Casual Desktop.",
+  "description": "Casual Office — casualoffice.org. Astro-built. The home of Casual Sheets, Casual Docs, Casual Slides, and Casual Desktop.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

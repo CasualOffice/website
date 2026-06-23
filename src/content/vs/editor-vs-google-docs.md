@@ -1,6 +1,6 @@
 ---
-title: 'Casual Editor vs Google Docs — open-source self-hosted alternative'
-description: 'Honest comparison between Casual Editor (open-source, Apache-2.0, self-host via Docker, no Google account) and Google Docs (SaaS, free for personal, $6+/user for Workspace). Side-by-side on .docx fidelity, self-host, co-edit, real-time, mobile, ecosystem, cost. Where each is the right answer.'
+title: 'Casual Docs vs Google Docs — open-source self-hosted alternative'
+description: 'Honest comparison between Casual Docs (open-source, Apache-2.0, self-host via Docker, no Google account) and Google Docs (SaaS, free for personal, $6+/user for Workspace). Side-by-side on .docx fidelity, self-host, co-edit, real-time, mobile, ecosystem, cost. Where each is the right answer.'
 ourProduct: editor
 other: 'Google Docs'
 verified: 2026-05-28
@@ -12,13 +12,13 @@ you commit. Both render the same surface — a paginated WYSIWYG
 document editor with real-time co-editing — but the trade-offs are
 different in ways that matter for adoption decisions.
 
-I built [Casual Editor](/casual-editor/), so I have an obvious bias.
+I built [Casual Docs](/casual-docs/), so I have an obvious bias.
 The comparison below tries to be honest about where Google Docs is
 the better answer.
 
 ## At a glance
 
-| | **Casual Editor** | **Google Docs** |
+| | **Casual Docs** | **Google Docs** |
 |---|---|---|
 | License | Apache-2.0 — fully open source | Proprietary SaaS |
 | Hosting | Self-host via Docker (one container) | Google-hosted only |
@@ -41,7 +41,7 @@ the better answer.
 | Backup / DR | Your problem (host owns persistence) | Google's problem |
 | Add-ons / extensions | None today | Marketplace |
 
-## Where Casual Editor wins
+## Where Casual Docs wins
 
 - **You want to keep documents on your servers.** Compliance,
   IP-sensitive contracts, paranoia — whatever the reason,
@@ -65,7 +65,7 @@ the better answer.
   [capacity model in the sister repo](https://github.com/CasualOffice/sheets/blob/main/docs/CAPACITY_MODEL.md)
   for the methodology (sheets numbers; editor's WS path is the
   same shape).
-- **You want all your system fonts.** Casual Editor uses the
+- **You want all your system fonts.** Casual Docs uses the
   fonts already installed on the user's system (plus any
   embedded in the doc via `@font-face`). Google Docs is limited
   to the Google Fonts catalog; uploading a custom font requires
@@ -77,7 +77,7 @@ the better answer.
   no server you maintain, no Docker to upgrade, no TLS to renew.
   If "log in and use it" is the bar, the SaaS wins.
 - **You need native mobile apps.** Google Docs ships first-class
-  iOS + Android apps that work offline. Casual Editor ships a web
+  iOS + Android apps that work offline. Casual Docs ships a web
   viewer + light editor at `≤768 px` viewport but isn't a native
   app.
 - **You depend on the Google ecosystem.** Drive sharing, Forms
@@ -85,10 +85,10 @@ the better answer.
   Smart Chips, Gemini integration — all SaaS-only by design.
 - **You need add-ons.** Google has a marketplace of grammar
   checkers, citation managers, e-signature integrations, etc.
-  Casual Editor has none today (the extension system in
+  Casual Docs has none today (the extension system in
   `packages/react/` is designed to support it, but no marketplace).
 - **Your audience is non-technical.** Google Docs URLs work for
-  anyone with a Google account; Casual Editor rooms work for
+  anyone with a Google account; Casual Docs rooms work for
   anyone with the link but the operator still has to maintain
   the link + the server.
 - **You want 20 years of edge-case `.docx` fidelity.** Casual
@@ -118,7 +118,7 @@ typically lose:
 
 This is documented on Google's own help pages. For most casual
 editing it doesn't matter. For document workflows where the file
-flows between web edit + desktop Word usage, **Casual Editor's
+flows between web edit + desktop Word usage, **Casual Docs's
 pristine round-trip preserves the file**.
 
 ## Self-host complexity, honestly
@@ -137,13 +137,13 @@ log to maintain. Rooms live in memory while a session is active,
 which is the right shape for a small-team self-host (the host
 integration owns the persisted `.docx` bytes).
 
-If your IT team already runs nginx, they can run Casual Editor.
+If your IT team already runs nginx, they can run Casual Docs.
 
 ## Cost — real numbers
 
 For ~50 users editing ~20 active documents (small-team shape):
 
-| Cost surface | Casual Editor | Google Docs (Workspace Business Basic) |
+| Cost surface | Casual Docs | Google Docs (Workspace Business Basic) |
 |---|---|---|
 | Hosting | $10–20/mo (small VPS) | $0 (Google-hosted) |
 | Per-user licensing | $0 | $6/user/mo = $300/mo for 50 users |
@@ -155,7 +155,7 @@ The break-even is roughly 3 users. Below 3, Google Docs Personal
 (free) is the cheapest answer. Above 3, the per-seat Workspace
 billing pulls ahead in cost-of-self-host's favour rapidly.
 
-## What's NOT in Casual Editor
+## What's NOT in Casual Docs
 
 Being honest about gaps:
 
@@ -177,7 +177,7 @@ in the repo lists what's planned.
 
 ## When to choose what
 
-**Pick Casual Editor if:**
+**Pick Casual Docs if:**
 - You need self-host or want to keep documents off Google's servers.
 - True `.docx` round-trip matters (no silent format loss).
 - You don't want Microsoft / Google billing for editor seats.
@@ -192,7 +192,7 @@ in the repo lists what's planned.
 - You want AI assist + the marketplace add-ons today.
 - Your documents push the OOXML format past common use.
 
-## Try Casual Editor
+## Try Casual Docs
 
 ```bash
 docker run -p 8080:8080 casualoffice/docs:latest

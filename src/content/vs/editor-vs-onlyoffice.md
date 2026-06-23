@@ -1,6 +1,6 @@
 ---
-title: 'Casual Editor vs OnlyOffice Document Server — which open-source web .docx editor to self-host'
-description: 'Honest technical comparison between Casual Editor (Apache-2.0, Go gateway, ~50 MB Docker image, .docx round-trip 44/44 pristine) and OnlyOffice Document Server (AGPL-3.0, C++ DocService + Node + RabbitMQ, ~1.5 GB image, full office suite). License, architecture, deployment shape, fidelity, integration model, maturity.'
+title: 'Casual Docs vs OnlyOffice Document Server — which open-source web .docx editor to self-host'
+description: 'Honest technical comparison between Casual Docs (Apache-2.0, Go gateway, ~50 MB Docker image, .docx round-trip 44/44 pristine) and OnlyOffice Document Server (AGPL-3.0, C++ DocService + Node + RabbitMQ, ~1.5 GB image, full office suite). License, architecture, deployment shape, fidelity, integration model, maturity.'
 ourProduct: editor
 other: 'OnlyOffice Document Server'
 verified: 2026-05-28
@@ -8,10 +8,10 @@ verified: 2026-05-28
 
 If you've shortlisted "self-hostable open-source web `.docx`
 editor," your two real options are
-[Casual Editor](/casual-editor/) and OnlyOffice Document Server.
+[Casual Docs](/casual-docs/) and OnlyOffice Document Server.
 This page is the honest comparison between them.
 
-The single biggest decision factor: **license**. Casual Editor is
+The single biggest decision factor: **license**. Casual Docs is
 Apache-2.0; OnlyOffice's open-source edition is AGPL-3.0. For
 most embedded / commercial-product use cases, that's the answer
 right there. Past that, the architectures and footprints differ
@@ -19,7 +19,7 @@ substantially.
 
 ## At a glance
 
-| | **Casual Editor** | **OnlyOffice Document Server** |
+| | **Casual Docs** | **OnlyOffice Document Server** |
 |---|---|---|
 | License | Apache-2.0 — truly permissive | **AGPL-3.0** + commercial offering |
 | File formats | `.docx`, `.odt`, `.md`, `.txt`, PDF export | `.docx`, `.odt`, `.pdf`, plus sheets + slides via sister modules |
@@ -45,9 +45,9 @@ it over a network — you have to release your full application's
 source under AGPL. That's a non-starter for most commercial
 products; OnlyOffice sells a commercial license to escape it.
 
-**Casual Editor is Apache-2.0.** Embed it, fork it, wrap it, ship
+**Casual Docs is Apache-2.0.** Embed it, fork it, wrap it, ship
 it to customers — no copyleft, no commercial license to buy. This
-is the single biggest reason to pick Casual Editor if you're
+is the single biggest reason to pick Casual Docs if you're
 building on top.
 
 If you're self-hosting only for your own use (employees, a closed
@@ -68,14 +68,14 @@ structure. WOPI is the primary integration surface; the standalone
 UI is functional but clearly a secondary concern. The Nextcloud
 + OnlyOffice combination is the canonical deployment.
 
-Casual Editor is built to be **used directly OR embedded**. The
+Casual Docs is built to be **used directly OR embedded**. The
 standalone UI is a first-class web app (ribbon, file menu, recent
 files, share dialog). The WOPI host integration is there if you
 want to plug it into Nextcloud or another DMS, but it's not the
 only path.
 
 If your shape is "I want to give my users a great `.docx` editor
-right now," Casual Editor makes that one-line easy
+right now," Casual Docs makes that one-line easy
 (`docker run -p 8080:8080 casualoffice/docs:latest`). If your
 shape is "I have a document management system and I want a
 `.docx` renderer inside it," OnlyOffice's WOPI-first design fits
@@ -83,7 +83,7 @@ better.
 
 ## .docx fidelity
 
-| File feature | Casual Editor | OnlyOffice |
+| File feature | Casual Docs | OnlyOffice |
 |---|---|---|
 | Paragraphs + runs + formatting | ✅ | ✅ |
 | Tables (borders, shading, merged cells) | ✅ | ✅ |
@@ -99,7 +99,7 @@ better.
 | Complex chart types | re-renders | native |
 | All system fonts | ✅ (auto-load `@font-face`) | ✅ |
 
-Casual Editor's per-tag round-trip audit shows
+Casual Docs's per-tag round-trip audit shows
 **44 of 44 fixtures pristine** today. The audit covers the OOXML
 surface a typical business document uses. OnlyOffice has a decade
 of fixes for exotic edge cases (legal contracts with nested
@@ -122,7 +122,7 @@ OnlyOffice Document Server ships a kitchen-sink stack:
 ~1.5 GB Docker image. ~1.5 GB RAM at idle. Multiple processes per
 host. Production-tested at scale; correspondingly heavy.
 
-Casual Editor is a Go binary + the built web SPA bundled together:
+Casual Docs is a Go binary + the built web SPA bundled together:
 
 - Single Go process (the gateway)
 - Built web SPA served from the same port
@@ -145,7 +145,7 @@ the WOPI endpoints (CheckFileInfo, GetFile, PutFile) on your
 host; OnlyOffice talks to your host. Authentication is JWT-signed
 URLs. The host owns file storage.
 
-Casual Editor exposes a similar shape — the pluggable
+Casual Docs exposes a similar shape — the pluggable
 `host.Integration` interface in Go has three concrete
 implementations (`inline`, `wopi`, `jwt-api`). Same separation of
 concerns: editor renders, host owns the file. You can pick the
@@ -154,12 +154,12 @@ suitable for the demo) or wire WOPI/JWT for production.
 
 If you're already running Nextcloud / Seafile / ownCloud with the
 WOPI client, OnlyOffice is the friction-free choice — both ends
-of the WOPI contract are mature. Casual Editor's WOPI side is
+of the WOPI contract are mature. Casual Docs's WOPI side is
 M1-level; the inline path is more battle-tested.
 
 ## When to choose what
 
-**Pick Casual Editor if:**
+**Pick Casual Docs if:**
 - License matters — Apache-2.0 lets you embed, fork, or ship
   without copyleft obligations.
 - You only need documents right now (Casual Sheets is the
@@ -200,13 +200,13 @@ infra-immature. Neither matches OnlyOffice's maturity on those
 formats yet.
 
 If you need the **full office suite** today, OnlyOffice covers
-all three formats in one binary while Casual Editor only covers
+all three formats in one binary while Casual Docs only covers
 `.docx`. As Casual Sheets and Casual Slides reach v0.2.x parity,
 the suite story closes — but today, OnlyOffice's "everything in
 one image" is genuinely the right choice if all three formats
 matter equally to you.
 
-## Try Casual Editor
+## Try Casual Docs
 
 ```bash
 docker run -p 8080:8080 casualoffice/docs:latest

@@ -9,7 +9,7 @@ verified: 2026-05-28
 If you searched **"open source Google Slides alternative"** or
 **"self-host alternative to Google Slides"**, you should know up
 front: this comparison is **honest about Casual Slides being
-earlier-stage** than Casual Sheets or Casual Editor. v0.0.0 with
+earlier-stage** than Casual Sheets or Casual Docs. v0.0.0 with
 no tagged release, no Docker image, naive WebSocket co-edit. But
 the pieces that ARE there are unusually deep — 93 of 99 `.pptx`
 fidelity probes passing after wave 12.

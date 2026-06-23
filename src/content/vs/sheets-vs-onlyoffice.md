@@ -122,7 +122,7 @@ issue.
 **Pick Casual Sheets if:**
 - License matters — Apache-2.0 lets you embed, fork, or ship without
   copyleft obligations.
-- You only need spreadsheets right now (Casual Editor and Casual
+- You only need spreadsheets right now (Casual Docs and Casual
   Slides are sister projects on their own roadmap).
 - You want a small footprint — a $5/mo VPS comfortably handles a
   small team.
@@ -135,7 +135,7 @@ Both are real choices. The AGPL question usually decides for you.
 
 ## What about the other two products?
 
-[Casual Editor](/casual-editor/) (`.docx`) and [Casual Slides](/casual-slides/)
+[Casual Docs](/casual-docs/) (`.docx`) and [Casual Slides](/casual-slides/)
 (`.pptx`) are sister projects in the same suite. Editor is at M1
 backend live with the WOPI host integration; Slides is at v0.0.0
 pre-tag (fidelity-mature, infra-immature). Neither matches
@@ -143,7 +143,7 @@ OnlyOffice's maturity on those formats yet.
 
 If you need the full office suite **today**, OnlyOffice is the
 right answer for `.docx` + `.pptx` while Casual Sheets handles
-`.xlsx`. As Casual Editor and Casual Slides reach v0.2.x parity,
+`.xlsx`. As Casual Docs and Casual Slides reach v0.2.x parity,
 the suite story closes.
 
 ## Try Casual Sheets

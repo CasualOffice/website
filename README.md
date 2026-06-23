@@ -4,9 +4,9 @@ Marketing + docs site for **Casual Office** — an open-source, file-centric, re
 
 | Product | What | Repo | Demo | Status |
 |---|---|---|---|---|
-| **Casual Sheets** | `.xlsx` web spreadsheet with real-time co-editing | [CasualOffice/sheets](https://github.com/CasualOffice/sheets) | [sheet.casualoffice.org](https://sheet.casualoffice.org/) | v0.2.1 — production-ready for 1-user/doc · "almost" for co-edit |
-| **Casual Editor** | `.docx` web editor with real-time co-editing | [CasualOffice/docs](https://github.com/CasualOffice/docs) | [docs.casualoffice.org](https://docs.casualoffice.org/) | M1 backend live · public preview |
-| **Casual Slides** | `.pptx` web slides editor | [CasualOffice/slides](https://github.com/CasualOffice/slides) | [slides.casualoffice.org](https://slides.casualoffice.org/) | v0.0.0 · pre-tag · 68/87 fidelity ✓ |
+| **Casual Sheets** | `.xlsx` web spreadsheet with real-time co-editing | [CasualOffice/sheets](https://github.com/CasualOffice/sheets) | [sheet.casualoffice.org](https://sheet.casualoffice.org/) | v0.3.3 — production-ready for 1-user/doc · personal mode + WOPI · "almost" for co-edit |
+| **Casual Docs** | `.docx` web editor with real-time co-editing | [CasualOffice/docs](https://github.com/CasualOffice/docs) | [docs.casualoffice.org](https://docs.casualoffice.org/) | public preview · 39/39 fidelity · npm SDK @casualoffice/docs |
+| **Casual Slides** | `.pptx` web slides editor | [CasualOffice/slides](https://github.com/CasualOffice/slides) | [slide.casualoffice.org](https://slide.casualoffice.org/) | v0.0.0 · pre-tag · 68/87 fidelity ✓ |
 | **Casual Desktop** | Tauri binaries wrapping the three web cores | (within product repos) | — | paused · queued |
 
 Built with **Astro 5** (static output) and deployed to GitHub Pages on every push to `main`. The site is **`casualoffice.org`** via the custom domain in `public/CNAME`.
@@ -19,7 +19,7 @@ Built with **Astro 5** (static output) and deployed to GitHub Pages on every pus
 |---|---|
 | `/` | Umbrella landing page, product cards, the "why bother" + "what's the shape" pitch |
 | `/casual-sheets/` | Product page — what it does, screenshots, install snippet |
-| `/casual-editor/` | Product page |
+| `/casual-docs/` | Product page |
 | `/casual-slides/` | Product page (honest about early-stage state) |
 | `/casual-desktop/` | Tauri lane status — paused, queued behind web v1 |
 | `/docs/` | Long-form docs — pulled from sibling repos via `scripts/sync-docs.mjs`. Per-product + shared sections. |
@@ -52,7 +52,7 @@ Built with **Astro 5** (static output) and deployed to GitHub Pages on every pus
 │   ├── pages/                  # one file = one route
 │   │   ├── index.astro
 │   │   ├── casual-sheets/index.astro
-│   │   ├── casual-editor/index.astro
+│   │   ├── casual-docs/index.astro
 │   │   ├── casual-slides/index.astro
 │   │   ├── casual-desktop/index.astro
 │   │   ├── docs/index.astro + [...slug].astro
@@ -131,8 +131,8 @@ A    @    185.199.111.153
 | Project | Repo | Demo |
 |---|---|---|
 | Casual Sheets | [CasualOffice/sheets](https://github.com/CasualOffice/sheets) | [sheet.casualoffice.org](https://sheet.casualoffice.org/) |
-| Casual Editor | [CasualOffice/docs](https://github.com/CasualOffice/docs) | [docs.casualoffice.org](https://docs.casualoffice.org/) |
-| Casual Slides | [CasualOffice/slides](https://github.com/CasualOffice/slides) | [slides.casualoffice.org](https://slides.casualoffice.org/) |
+| Casual Docs | [CasualOffice/docs](https://github.com/CasualOffice/docs) | [docs.casualoffice.org](https://docs.casualoffice.org/) |
+| Casual Slides | [CasualOffice/slides](https://github.com/CasualOffice/slides) | [slide.casualoffice.org](https://slide.casualoffice.org/) |
 
 ## License
 

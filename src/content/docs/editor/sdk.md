@@ -7,14 +7,14 @@ updated: 2026-06-08T00:00:00.000Z
 summary: 'npm install the editor into your React app. Standalone or co-edit; same component.'
 ---
 
-Casual Editor ships as a React component via `@eigenpal/docx-js-editor`. Drop the SDK into your app's React tree, supply a FileSource adapter against your storage API, and you get the full editor — toolbar, page layout, comments, version history. Co-edit is a single optional prop.
+Casual Docs ships as a React component via `@casualoffice/docs`. Drop the SDK into your app's React tree, supply a FileSource adapter against your storage API, and you get the full editor — toolbar, page layout, comments, version history. Co-edit is a single optional prop.
 
 ---
 
 ## Install
 
 ```bash
-npm install @eigenpal/docx-js-editor
+npm install @casualoffice/docs
 ```
 
 Optional peer dependencies — install only when you enable collab:
@@ -30,7 +30,7 @@ A standalone deploy with no co-edit doesn't pay the bundle weight for these.
 ## Minimum integration
 
 ```tsx
-import { CasualEditor } from '@eigenpal/docx-js-editor';
+import { CasualEditor } from '@casualoffice/docs';
 import { MyFileSource } from './my-file-source';
 
 const fs = new MyFileSource({ baseUrl: '/api' });
@@ -86,7 +86,7 @@ The wrapper ticks `fs.save(docId, bytes)` every `autosaveInterval` ms. Status (`
 Five methods. Your `MyFileSource` calls into your existing HTTP API:
 
 ```ts
-import type { FileSource } from '@eigenpal/docx-js-editor';
+import type { FileSource } from '@casualoffice/docs';
 
 export class MyFileSource implements FileSource {
   readonly kind = 'browser' as const;
@@ -145,6 +145,6 @@ Existing implementations you can use directly:
 
 ## Version compatibility
 
-`@eigenpal/docx-js-editor` follows semver. The Casual gateway used in co-edit mode speaks the standard y-websocket binary protocol — stable across editor versions; no pin required.
+`@casualoffice/docs` follows semver. The Casual gateway used in co-edit mode speaks the standard y-websocket binary protocol — stable across editor versions; no pin required.
 
 When a major version of the SDK ships, your host pins explicitly. There are no silent breaks.

@@ -8,7 +8,7 @@ all.sort((a, b) => +b.data.date - +a.data.date);
 
 const PRODUCT_LABEL: Record<string, string> = {
   sheets: 'Casual Sheets',
-  editor: 'Casual Editor',
+  editor: 'Casual Docs',
   slides: 'Casual Slides',
   desktop: 'Casual Desktop',
 };
@@ -21,7 +21,7 @@ const PRODUCT_ACCENT: Record<string, string> = {
 
 const title = 'Changelog · Casual Office';
 const description =
-  'Release notes across Casual Sheets, Casual Editor, and Casual Desktop. Per-product entries, reverse-chronological.';
+  'Release notes across Casual Sheets, Casual Docs, and Casual Desktop. Per-product entries, reverse-chronological.';
 
 const fmtDate = (d: Date) =>
   new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });

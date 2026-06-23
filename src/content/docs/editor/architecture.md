@@ -6,7 +6,7 @@ sourceUrl: "https://github.com/CasualOffice/docs/blob/main/docs/ARCHITECTURE.md"
 updated: 2026-05-24T01:13:40.224Z
 summary: "ProseMirror + OOXML-preserving model on top, stateless Go gateway underneath."
 ---
-System design for Casual Editor. For deployment notes, see [`DEPLOYMENT.md`](/docs/editor/deployment/).
+System design for Casual Docs. For deployment notes, see [`DEPLOYMENT.md`](/docs/editor/deployment/).
 
 ---
 

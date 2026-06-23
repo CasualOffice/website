@@ -4,10 +4,10 @@ product: sheets
 order: 270
 sourceUrl: 'https://github.com/CasualOffice/sheets/blob/main/docs/SDK_SIGNING_EMBED.md#anchor--the-sheet-specific-bit'
 updated: 2026-06-08T00:00:00.000Z
-summary: 'Anchored cell signatures via drawn / typed / uploaded surfaces. Same pipeline as Casual Editor; sheet-flavored anchors.'
+summary: 'Anchored cell signatures via drawn / typed / uploaded surfaces. Same pipeline as Casual Docs; sheet-flavored anchors.'
 ---
 
-Casual Sheets ships the same document-signature pipeline as [Casual Editor](/docs/editor/signatures/). Drive integrators who built a signing flow against the editor port to sheets by swapping field anchors from `{ kind: 'doc', paraId }` to `{ kind: 'sheet', sheet, cell }`. Everything else — banner, mode, complete event, cancel — is identical.
+Casual Sheets ships the same document-signature pipeline as [Casual Docs](/docs/editor/signatures/). Drive integrators who built a signing flow against the editor port to sheets by swapping field anchors from `{ kind: 'doc', paraId }` to `{ kind: 'sheet', sheet, cell }`. Everything else — banner, mode, complete event, cancel — is identical.
 
 ---
 
@@ -125,4 +125,4 @@ writes audit rows, archives
 
 ## Editor parity
 
-See the [Casual Editor signatures guide](/docs/editor/signatures/) for the same flow with paragraph anchors. The two docs cover the same protocol from different sides.
+See the [Casual Docs signatures guide](/docs/editor/signatures/) for the same flow with paragraph anchors. The two docs cover the same protocol from different sides.

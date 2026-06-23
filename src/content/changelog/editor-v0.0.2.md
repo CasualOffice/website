@@ -3,7 +3,7 @@ title: 'v0.0.2 — public preview'
 product: editor
 version: '0.0.2'
 date: 2026-05-23
-summary: 'Casual Editor opens the public preview. Home gallery with 14 real .docx templates, stateless Go gateway implementing the y-websocket protocol in ~120 LOC, three-way fidelity harness vs LibreOffice and OnlyOffice, 26 of 39 fixtures round-trip pristine.'
+summary: 'Casual Docs opens the public preview. Home gallery with 14 real .docx templates, stateless Go gateway implementing the y-websocket protocol in ~120 LOC, three-way fidelity harness vs LibreOffice and OnlyOffice, 26 of 39 fixtures round-trip pristine.'
 repoUrl: https://github.com/CasualOffice/docs/releases/tag/v0.0.2
 ---
 

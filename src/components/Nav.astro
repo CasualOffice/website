@@ -1,34 +1,60 @@
 ---
 /**
- * Top navigation. Sticky, blurred backdrop.
+ * Top navigation. Sticky, blurred backdrop. Mobile-first:
  *
- * `active` prop highlights the matching link. Pages pass the route slug
- * ('home' | 'sheets' | 'editor' | 'desktop' | 'docs' | 'changelog' | 'about').
+ *  - ≥ 880px  → full horizontal link row.
+ *  - < 880px  → brand + hamburger; links collapse into a full-width
+ *               drop panel toggled by the button. The panel is keyboard
+ *               reachable, closes on Escape / outside-click / link-tap,
+ *               and locks body scroll while open.
  *
- * The right-most "★ Star on GitHub" affordance is the primary CTA on
- * a community-first project — louder than the dim text links beside
- * it, but still a pill not a button so it doesn't feel salesy.
+ * `active` highlights the matching link. The product formerly called
+ * "Casual Editor" is now "Casual Docs" (route stays /casual-docs/); the
+ * long-form documentation section is labelled "Guides" so the two don't
+ * collide in the bar.
+ *
+ * The right-most "Star on GitHub" affordance is the primary CTA on a
+ * community-first project — a pill, not a salesy button.
  */
 type ActiveLink = 'home' | 'sheets' | 'editor' | 'slides' | 'desktop' | 'docs' | 'notes' | 'changelog' | 'about';
 const { active = 'home' } = Astro.props as { active?: ActiveLink };
 
-const link = (slug: ActiveLink) =>
-  slug === active ? 'nav__link nav__link--active' : 'nav__link';
+const links: { slug: ActiveLink; label: string; href: string }[] = [
+  { slug: 'sheets', label: 'Sheets', href: '/casual-sheets/' },
+  { slug: 'editor', label: 'Docs', href: '/casual-docs/' },
+  { slug: 'slides', label: 'Slides', href: '/casual-slides/' },
+  { slug: 'desktop', label: 'Desktop', href: '/casual-desktop/' },
+  { slug: 'docs', label: 'Guides', href: '/docs/' },
+  { slug: 'notes', label: 'Notes', href: '/notes/' },
+  { slug: 'changelog', label: 'Changelog', href: '/changelog/' },
+];
 ---
 
-<nav class="nav" aria-label="Primary">
+<nav class="nav" aria-label="Primary" data-nav>
   <a class="nav__brand" href="/" aria-label="Casual Office home">
     <span class="nav__mark" aria-hidden="true"></span>
     Casual Office
   </a>
-  <div class="nav__links">
-    <a class={link('sheets')} href="/casual-sheets/" aria-current={active === 'sheets' ? 'page' : undefined}>Sheets</a>
-    <a class={link('editor')} href="/casual-editor/" aria-current={active === 'editor' ? 'page' : undefined}>Editor</a>
-    <a class={link('slides')} href="/casual-slides/" aria-current={active === 'slides' ? 'page' : undefined}>Slides</a>
-    <a class={link('desktop')} href="/casual-desktop/" aria-current={active === 'desktop' ? 'page' : undefined}>Desktop</a>
-    <a class={link('docs')} href="/docs/" aria-current={active === 'docs' ? 'page' : undefined}>Docs</a>
-    <a class={link('notes')} href="/notes/" aria-current={active === 'notes' ? 'page' : undefined}>Notes</a>
-    <a class={link('changelog')} href="/changelog/" aria-current={active === 'changelog' ? 'page' : undefined}>Changelog</a>
+
+  <button
+    type="button"
+    class="nav__toggle"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="nav-menu"
+    data-nav-toggle
+  >
+    <span class="nav__toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
+
+  <div class="nav__links" id="nav-menu" data-nav-menu>
+    {links.map((l) => (
+      <a
+        class={l.slug === active ? 'nav__link nav__link--active' : 'nav__link'}
+        href={l.href}
+        aria-current={l.slug === active ? 'page' : undefined}
+      >{l.label}</a>
+    ))}
     <a
       class="nav__star"
       href="https://github.com/CasualOffice"
@@ -45,9 +71,86 @@ const link = (slug: ActiveLink) =>
       <span class="nav__star-label">Star on GitHub</span>
     </a>
   </div>
+
+  <span class="nav__scrim" data-nav-scrim aria-hidden="true"></span>
 </nav>
 
+<script is:inline>
+  (function () {
+    const nav = document.querySelector('[data-nav]');
+    if (!nav) return;
+    const toggle = nav.querySelector('[data-nav-toggle]');
+    const menu = nav.querySelector('[data-nav-menu]');
+    const scrim = nav.querySelector('[data-nav-scrim]');
+    const mq = window.matchMedia('(max-width: 879px)');
+
+    function setOpen(open) {
+      nav.classList.toggle('nav--open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      // Only trap scroll on the mobile breakpoint.
+      document.body.style.overflow = open && mq.matches ? 'hidden' : '';
+    }
+
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('nav--open')));
+    scrim && scrim.addEventListener('click', () => setOpen(false));
+    menu.addEventListener('click', (e) => {
+      if (e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+    // Reset state if the viewport grows past the mobile breakpoint.
+    mq.addEventListener('change', () => setOpen(false));
+  })();
+</script>
+
 <style>
+  /* Hamburger button — hidden on desktop, shown under 880px. */
+  .nav__toggle {
+    display: none;
+    appearance: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: -4px -6px -4px 0;
+    padding: 0;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: var(--text);
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease;
+  }
+  .nav__toggle:hover { background: var(--surface-2); }
+  .nav__toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .nav__toggle-bars,
+  .nav__toggle-bars span {
+    display: block;
+    box-sizing: border-box;
+  }
+  .nav__toggle-bars {
+    position: relative;
+    width: 20px;
+    height: 14px;
+  }
+  .nav__toggle-bars span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 200ms ease, opacity 160ms ease, top 200ms ease;
+  }
+  .nav__toggle-bars span:nth-child(1) { top: 0; }
+  .nav__toggle-bars span:nth-child(2) { top: 6px; }
+  .nav__toggle-bars span:nth-child(3) { top: 12px; }
+  .nav--open .nav__toggle-bars span:nth-child(1) { top: 6px; transform: rotate(45deg); }
+  .nav--open .nav__toggle-bars span:nth-child(2) { opacity: 0; }
+  .nav--open .nav__toggle-bars span:nth-child(3) { top: 6px; transform: rotate(-45deg); }
+
   .nav__star {
     display: inline-flex;
     align-items: center;
@@ -72,13 +175,65 @@ const link = (slug: ActiveLink) =>
     background: var(--accent-soft);
     color: var(--accent-strong);
   }
-  @media (max-width: 720px) {
-    .nav__star-label {
-      display: none;
+
+  .nav__scrim { display: none; }
+
+  /* ── Mobile: collapse links into a drop panel ───────────────────── */
+  @media (max-width: 879px) {
+    .nav__toggle { display: inline-flex; }
+
+    .nav__links {
+      position: absolute;
+      top: calc(100% + 1px);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2px;
+      padding: 10px 16px calc(14px + env(safe-area-inset-bottom));
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-8px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease, visibility 0s linear 180ms;
+    }
+    .nav--open .nav__links {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: opacity 180ms ease, transform 180ms ease, visibility 0s;
+    }
+    .nav__link {
+      padding: 12px 12px;
+      font-size: 16px;
+      border-radius: 10px;
     }
     .nav__star {
-      padding: 6px 10px;
-      gap: 0;
+      margin: 8px 0 0;
+      justify-content: center;
+      padding: 12px;
+      font-size: 14px;
     }
+    .nav__star-label { display: inline; }
+
+    .nav--open .nav__scrim {
+      display: block;
+      position: fixed;
+      inset: 0;
+      top: 0;
+      z-index: -1;
+      background: rgba(12, 10, 9, 0.32);
+      -webkit-backdrop-filter: blur(1px);
+      backdrop-filter: blur(1px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav__links,
+    .nav__toggle-bars span { transition: none; }
   }
 </style>

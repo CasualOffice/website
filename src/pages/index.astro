@@ -4,7 +4,7 @@ import ProductCard from '../components/ProductCard.astro';
 
 const title = 'Casual Office — open-source .xlsx and .docx in your browser';
 const description =
-  'Casual Office is a real-time, file-centric, open-source office suite. Casual Sheets (web .xlsx) and Casual Editor (web .docx) round-trip native Office files, sync via Yjs CRDT, and run as a single self-hostable container. MIT + Apache-2.0. Try the live demos.';
+  'Casual Office is a real-time, file-centric, open-source office suite. Casual Sheets (web .xlsx) and Casual Docs (web .docx) round-trip native Office files, sync via Yjs CRDT, and run as a single self-hostable container. MIT + Apache-2.0. Try the live demos.';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -57,7 +57,7 @@ const jsonLd = {
           item: {
             '@type': 'SoftwareApplication',
             '@id': 'https://docs.casualoffice.org/#app',
-            name: 'Casual Editor',
+            name: 'Casual Docs',
             applicationCategory: 'BusinessApplication',
             applicationSubCategory: 'WordProcessor',
             operatingSystem: 'Web Browser, Docker',
@@ -92,7 +92,7 @@ const jsonLd = {
 // set:html so Astro doesn't try to interpolate the `${VAR}` segments.
 const composeYml = `<code>services:
   app:
-    image: casualoffice/sheets:0.1
+    image: casualoffice/sheets:0.3
     ports: ['3000:3000']
     environment:
       CASUAL_STORAGE: local
@@ -105,7 +105,7 @@ volumes:
 // Minimal React embed example — copy-pastable, three lines that
 // actually mount the editor. Same shape as docx-editor.dev for
 // developers comparing the two.
-const reactEmbed = `<code>import { DocxEditor } from '@eigenpal/docx-js-editor';
+const reactEmbed = `<code>import { DocxEditor } from '@casualoffice/docs';
 
 export default function App() {
   return &lt;DocxEditor onSave={(blob) =&gt; saveAs(blob, 'doc.docx')} /&gt;;
@@ -123,19 +123,19 @@ const faqs = [
   },
   {
     q: 'How does the .xlsx / .docx round-trip work?',
-    a: 'The file is the source of truth. Open → in-memory snapshot → edit → re-serialize back to the original OOXML shape. Casual Sheets carries macros and pivot caches through byte-equal. Casual Editor scores 44/44 fixtures pristine in the per-tag fidelity audit.',
+    a: 'The file is the source of truth. Open → in-memory snapshot → edit → re-serialize back to the original OOXML shape. Casual Sheets carries macros and pivot caches through byte-equal. Casual Docs scores 39/39 fixtures pristine in the per-tag fidelity audit.',
   },
   {
     q: 'Real-time co-editing — what powers it?',
-    a: 'Yjs (industry-standard CRDT) in the browser, paired with Hocuspocus (Casual Sheets) or a custom ~120-line Go y-websocket gateway (Casual Editor). State lives in memory while a session is active; persistence is delegated to the host integration.',
+    a: 'Yjs (industry-standard CRDT) in the browser, paired with Hocuspocus (Casual Sheets) or a custom ~120-line Go y-websocket gateway (Casual Docs). State lives in memory while a session is active; persistence is delegated to the host integration.',
   },
   {
     q: 'Do I need a database?',
-    a: 'No. Default storage is in-memory or local filesystem. Casual Sheets v0.1 also ships S3-compatible and Postgres backends — pick one with a single env var or skip them entirely.',
+    a: 'No. Default storage is in-memory or local filesystem. Casual Sheets also ships S3-compatible and Postgres backends, plus an optional personal mode (bcrypt + SQLite) for named per-user files — pick one with a single env var or skip them entirely.',
   },
   {
     q: 'Can I embed it in my own React or Vue app?',
-    a: 'Yes for Casual Editor — it ships as npm packages (`@eigenpal/docx-js-editor`, `@eigenpal/docx-editor-vue`). The Go gateway is a separate process you can run alongside any backend. Casual Sheets is currently a hosted shell; embedding APIs are planned for v0.2.',
+    a: 'Yes for Casual Docs — it ships as npm packages (`@casualoffice/docs`, `@eigenpal/docx-editor-vue`). The Go gateway is a separate process you can run alongside any backend. Casual Sheets now publishes an SDK (`@casualoffice/sheets`) for the xlsx import path plus an iframe postMessage protocol; a full React embed wrapper is in progress.',
   },
   {
     q: 'Where does it not fit?',
@@ -146,6 +146,19 @@ const faqs = [
     a: 'A counterposition to megasuites. Each product is small enough to read end-to-end, every line is on GitHub, and the file format is owned by the user — not the vendor.',
   },
 ];
+
+// FAQPage structured data — makes the Q&A block eligible for Google's
+// rich-result FAQ treatment. Built from the same `faqs` array the page
+// renders below, so the visible markup and the schema can't drift.
+jsonLd['@graph'].push({
+  '@type': 'FAQPage',
+  '@id': 'https://casualoffice.org/#faq',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+});
 ---
 <Base {title} {description} active="home" jsonLd={jsonLd}>
   <!-- HERO — compact text, then the live demo dominates the fold -->
@@ -208,7 +221,7 @@ const faqs = [
             data-demo="editor"
           >
             <span class="demo__tab-dot" style="background: var(--editor);" aria-hidden="true"></span>
-            Casual Editor
+            Casual Docs
             <span class="demo__tab-pill">.docx</span>
           </button>
         </div>
@@ -251,7 +264,7 @@ const faqs = [
           class="frame__panel frame__panel--hidden"
         >
           <iframe
-            title="Casual Editor live demo"
+            title="Casual Docs live demo"
             src="https://docs.casualoffice.org/?embed=1"
             loading="lazy"
             allow="clipboard-read; clipboard-write"
@@ -272,14 +285,14 @@ const faqs = [
     <div class="container">
       <div class="statline">
         <div class="stat">
-          <span class="stat__label">CASUAL EDITOR</span>
-          <span class="stat__value">44/44</span>
+          <span class="stat__label">CASUAL DOCS</span>
+          <span class="stat__value">39/39</span>
           <span class="stat__hint">.docx fixtures · 100% round-trip</span>
         </div>
         <div class="stat">
           <span class="stat__label">CASUAL SHEETS</span>
-          <span class="stat__value">v0.1.0</span>
-          <span class="stat__hint">self-host shipped</span>
+          <span class="stat__value">v0.3.3</span>
+          <span class="stat__hint">production-grade · WOPI host</span>
         </div>
         <div class="stat">
           <span class="stat__label">CO-EDIT</span>
@@ -317,24 +330,24 @@ const faqs = [
             'Real-time via Yjs + Hocuspocus',
             'Self-host: memory · local · S3 · Postgres',
           ]}
-          status="v0.1.0 · 357 e2e"
+          status="v0.3.3 · 398 e2e"
           href="/casual-sheets/"
           accent="var(--sheets)"
           accentSoft="var(--sheets-soft)"
         />
         <ProductCard
           slug="editor"
-          name="Casual Editor"
+          name="Casual Docs"
           role="WORD-FLAVORED .DOCX EDITOR"
           body="Open .docx in the browser with WYSIWYG fidelity. Fork of eigenpal/docx-editor on top of ProseMirror with an OOXML-preserving model. The stateless Go gateway speaks the y-websocket protocol in roughly 120 lines."
           features={[
-            '.docx round-trip · 44/44 fixtures pristine',
+            '.docx round-trip · 39/39 fixtures pristine',
             'ProseMirror + OOXML model · page color · table fidelity',
             'Yjs + Go y-websocket gateway',
             'Co-edit verified end-to-end (smoke + tests)',
           ]}
-          status="M1 backend live · public preview"
-          href="/casual-editor/"
+          status="public preview · npm SDK v1.1.7"
+          href="/casual-docs/"
           accent="var(--editor)"
           accentSoft="var(--editor-soft)"
         />
@@ -393,7 +406,7 @@ const faqs = [
           <p class="why__body">
             Open <code>.xlsx</code> or <code>.docx</code>, edit, save back to the
             same bytes. The audit counts every OOXML tag round-trip;
-            Casual Editor is at <strong>100% on 44 fixtures</strong>.
+            Casual Docs is at <strong>100% on 39 fixtures</strong>.
           </p>
         </article>
         <article class="why__card">
@@ -455,7 +468,7 @@ const faqs = [
     </div>
   </section>
 
-  <!-- EMBED — show how trivial it is to drop Casual Editor into a
+  <!-- EMBED — show how trivial it is to drop Casual Docs into a
        React or Vue app. Targets developers comparing to docx-editor.dev. -->
   <section class="section">
     <div class="container">
@@ -469,7 +482,7 @@ const faqs = [
       <div class="embed">
         <div class="embed__col">
           <div class="embed__label">Install</div>
-          <pre class="code-block code-block--inline"><code>npm i @eigenpal/docx-js-editor</code></pre>
+          <pre class="code-block code-block--inline"><code>npm i @casualoffice/docs</code></pre>
           <div class="embed__label embed__label--tight">Use</div>
           <pre class="code-block" set:html={reactEmbed}></pre>
         </div>
@@ -498,8 +511,8 @@ const faqs = [
           <p class="embed__note">
             The editor packages ship as ESM + UMD. The Go gateway is a
             separate process — run it alongside any backend that speaks
-            HTTP. Casual Sheets ships as the full hosted shell today;
-            embed APIs land in v0.2.
+            HTTP. Casual Sheets now ships an SDK (`@casualoffice/sheets`) for xlsx
+            import plus an iframe protocol; a React wrapper is in progress.
           </p>
         </div>
       </div>
@@ -542,7 +555,7 @@ const faqs = [
           <p class="community__body">
             Stars are the only signal that says "keep going." Two repos:
             <a href="https://github.com/CasualOffice/docs" rel="noopener" target="_blank">docx</a>
-            for Casual Editor,
+            for Casual Docs,
             <a href="https://github.com/CasualOffice/sheets" rel="noopener" target="_blank">sheets</a>
             for Casual Sheets.
           </p>

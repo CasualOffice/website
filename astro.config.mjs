@@ -11,6 +11,13 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://casualoffice.org',
   trailingSlash: 'always',
+  // "Casual Editor" was renamed to "Casual Docs"; the product page moved
+  // from /casual-editor/ to /casual-docs/. Keep the old path alive so
+  // already-indexed URLs and inbound links resolve instead of 404ing.
+  // Astro emits a static redirect page (meta-refresh + canonical) here.
+  redirects: {
+    '/casual-editor/': '/casual-docs/',
+  },
   // Markdown code blocks use Shiki for syntax highlighting. Astro's
   // default is `github-dark` which renders dark-bg + dark-fg on our
   // light theme — every fenced ```code``` block in /docs/ becomes
@@ -32,7 +39,7 @@ export default defineConfig({
         if (url === 'https://casualoffice.org/') return { ...item, priority: 1.0, changefreq: 'weekly' };
         if (
           url === 'https://casualoffice.org/casual-sheets/' ||
-          url === 'https://casualoffice.org/casual-editor/'
+          url === 'https://casualoffice.org/casual-docs/'
         ) return { ...item, priority: 0.9, changefreq: 'weekly' };
         if (url === 'https://casualoffice.org/casual-desktop/')
           return { ...item, priority: 0.6, changefreq: 'monthly' };

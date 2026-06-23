@@ -6,7 +6,7 @@ import { defineCollection, z } from 'astro:content';
 //
 // `product` is one of:
 //   - sheets   — Casual Sheets (../sheet)
-//   - editor   — Casual Editor (../document)
+//   - editor   — Casual Docs (../document)
 //   - shared   — concepts that span both
 //
 // `order` controls sidebar ordering within a product. Lower = earlier.

@@ -4,10 +4,10 @@ product: sheets
 order: 260
 sourceUrl: 'https://github.com/CasualOffice/sheets/blob/main/docs/SDK_SIGNING_EMBED.md'
 updated: 2026-06-08T00:00:00.000Z
-summary: 'Embed Casual Sheets in any host via iframe + postMessage. Same protocol as Casual Editor.'
+summary: 'Embed Casual Sheets in any host via iframe + postMessage. Same protocol as Casual Docs.'
 ---
 
-Casual Sheets exposes the same iframe protocol as [Casual Editor](/docs/editor/iframe-embed/). A host that integrates one product can light up the other by swapping the iframe `src` and the field anchors. Every envelope's `app` field is `'sheet'`; every other shape is identical.
+Casual Sheets exposes the same iframe protocol as [Casual Docs](/docs/editor/iframe-embed/). A host that integrates one product can light up the other by swapping the iframe `src` and the field anchors. Every envelope's `app` field is `'sheet'`; every other shape is identical.
 
 This is the right delivery when:
 
@@ -42,13 +42,13 @@ interface EmbedConfig {
 }
 ```
 
-## Differences from Casual Editor
+## Differences from Casual Docs
 
 - **Field anchor in signing envelopes** — Casual Sheets uses `{ kind: 'sheet', sheet: string, cell: string }` instead of `{ kind: 'doc', paraId: string }`.
 - **`app` discriminator** — every envelope carries `app: 'sheet'`. Hosts embedding both products route by this field.
 - **Selection events** — `casual.selection.changed.data.sheet` carries `{ sheet, from, to }` instead of `{ paraId, from, to, selectedText }`.
 
-Every other envelope shape — handshake, load.request / response, save.request / response, telemetry, lock, command.\*, signature.\* — is byte-identical to the Casual Editor protocol. See [the full contract](https://github.com/CasualOffice/docs/blob/main/docs/internal/13-iframe-protocol.md).
+Every other envelope shape — handshake, load.request / response, save.request / response, telemetry, lock, command.\*, signature.\* — is byte-identical to the Casual Docs protocol. See [the full contract](https://github.com/CasualOffice/docs/blob/main/docs/internal/13-iframe-protocol.md).
 
 ## Signature anchor
 
@@ -90,8 +90,8 @@ The signing pane walks the signer through; drawn signatures stamp as floating im
 
 ## Reference sequence
 
-Identical to [Casual Editor's](/docs/editor/iframe-embed/#reference-flow) — only the `app` field differs.
+Identical to [Casual Docs's](/docs/editor/iframe-embed/#reference-flow) — only the `app` field differs.
 
 ## Source of truth
 
-The iframe protocol contract lives in the [Casual Editor repo](https://github.com/CasualOffice/docs/blob/main/docs/internal/13-iframe-protocol.md) — both products implement it in lockstep. When the contract changes, both repos update.
+The iframe protocol contract lives in the [Casual Docs repo](https://github.com/CasualOffice/docs/blob/main/docs/internal/13-iframe-protocol.md) — both products implement it in lockstep. When the contract changes, both repos update.

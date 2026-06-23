@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 
-const title = 'Casual Editor — Word-flavored web document editor · Casual Office';
+const title = 'Casual Docs — Word-flavored web document editor · Casual Office';
 const description =
   'Open-source web .docx editor. ProseMirror with an OOXML-preserving model; a stateless Go gateway implementing the y-websocket protocol in ~120 lines. Real-time co-editing. Three-way fidelity harness in CI. Apache-2.0.';
 
@@ -9,7 +9,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   '@id': 'https://docs.casualoffice.org/#app',
-  name: 'Casual Editor',
+  name: 'Casual Docs',
   applicationCategory: 'BusinessApplication',
   applicationSubCategory: 'WordProcessor',
   operatingSystem: 'Web Browser, Docker (Linux/amd64, Linux/arm64)',
@@ -38,7 +38,7 @@ const jsonLd = {
     <div class="container hero__inner">
       <div class="subpage__topline">
         <span class="dot" aria-hidden="true"></span>
-        Casual Editor
+        Casual Docs
       </div>
       <h1 class="display">A document editor that&nbsp;<em>respects the .docx</em>.</h1>
       <p class="lede">
@@ -58,8 +58,8 @@ const jsonLd = {
   <section class="section" style="--product-accent: var(--editor); --product-accent-soft: var(--editor-soft);">
     <div class="container">
       <div class="fact-row">
-        <div><div class="fact__label">Pristine fixtures</div><div class="fact__value">44 / 44</div></div>
-        <div><div class="fact__label">Floor cleared</div><div class="fact__value">100%</div></div>
+        <div><div class="fact__label">Pristine fixtures</div><div class="fact__value">39 / 39</div></div>
+        <div><div class="fact__label">npm SDK</div><div class="fact__value">v1.1.7</div></div>
         <div><div class="fact__label">Gateway LOC</div><div class="fact__value">~120</div></div>
         <div><div class="fact__label">Co-edit smoke</div><div class="fact__value">5 s</div></div>
         <div><div class="fact__label">License</div><div class="fact__value">Apache-2.0</div></div>
@@ -82,7 +82,7 @@ const jsonLd = {
           <p class="feature__body">
             ProseMirror schema + layout painter (forked from
             <code>eigenpal/docx-editor</code>, MIT) keeps Word's box model intact
-            through every edit. Round-trips audited per-tag — <strong>44 of 44 fixtures
+            through every edit. Round-trips audited per-tag — <strong>39 of 39 fixtures
             pristine = 100%</strong>, with a published gap matrix.
           </p>
         </article>
@@ -136,6 +136,28 @@ const jsonLd = {
             API slot in for v1+ without touching the WebSocket layer.
           </p>
         </article>
+        <article class="feature">
+          <span class="feature__icon">✓</span>
+          <h3 class="feature__title">A full writing surface</h3>
+          <p class="feature__body">
+            Paginated WYSIWYG with real page breaks, headers/footers, and
+            multi-column sections. Spell check (Hunspell), autocorrect + smart
+            quotes, find &amp; replace with regex, a command palette
+            (<kbd>Ctrl+Shift+P</kbd>), footnotes/endnotes, citations, voice
+            typing, document outline, and live word/character counts.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⤓</span>
+          <h3 class="feature__title">Export &amp; embed</h3>
+          <p class="feature__body">
+            Print / Export-as-PDF with page setup, plus IndexedDB autosave +
+            restore. Drop the editor into your own React app with the
+            <code>&lt;DocxEditor&gt;</code> component from
+            <code>@casualoffice/docs</code> (v1.1.7) — or run the whole thing
+            from one Docker image.
+          </p>
+        </article>
       </div>
     </div>
   </section>
@@ -152,9 +174,10 @@ const jsonLd = {
         <span class="chip">React + Bun + Vite</span>
         <span class="chip">ProseMirror</span>
         <span class="chip">Yjs + <code>y-prosemirror</code></span>
-        <span class="chip">Go 1.24</span>
+        <span class="chip">Go 1.25</span>
         <span class="chip"><code>y-websocket</code> protocol</span>
         <span class="chip">LibreOffice fidelity harness</span>
+        <span class="chip"><code>@casualoffice/docs</code> · npm</span>
       </div>
     </div>
   </section>
@@ -171,7 +194,7 @@ docker run -p 8080:8080 casualoffice/docs:latest
       </pre>
       <div class="row" style="margin-top: 22px;">
         <a class="btn btn--accent" style="--product-accent: var(--editor);" href="https://docs.casualoffice.org/" rel="noopener" target="_blank">Open the live demo</a>
-        <a class="btn btn--ghost" href="/docs/editor/">Editor docs</a>
+        <a class="btn btn--ghost" href="/docs/editor/">Docs guides</a>
         <a class="btn btn--ghost" href="/changelog/">Changelog</a>
       </div>
     </div>

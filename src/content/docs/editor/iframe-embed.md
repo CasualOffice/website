@@ -7,7 +7,7 @@ updated: 2026-06-08T00:00:00.000Z
 summary: 'Embed the editor in any host via iframe + postMessage. No React dependency on the host side.'
 ---
 
-Casual Editor exposes a `/embed` route that mounts a stripped-down editor configured from URL parameters. The host page talks to the iframe via `postMessage` envelopes — no React, no SDK install, no shared runtime. A 50-line shim in any language works.
+Casual Docs exposes a `/embed` route that mounts a stripped-down editor configured from URL parameters. The host page talks to the iframe via `postMessage` envelopes — no React, no SDK install, no shared runtime. A 50-line shim in any language works.
 
 This is the right delivery when:
 
