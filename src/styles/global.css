@@ -70,6 +70,26 @@
   --shadow-lg: 0 1px 2px rgba(15, 23, 42, 0.04),
                0 12px 32px rgba(15, 23, 42, 0.10);
 
+  /* ── Premium layer (v4) — gradients, glows, motion ────────────────
+     The clean-light base above stays; this layer adds the "funded
+     product" finish: a brand gradient (orange → magenta → violet),
+     per-product gradients, colored glow shadows, and motion tokens
+     used by hovers + scroll-reveal. */
+  --gradient-brand: linear-gradient(110deg, #ea580c 0%, #e11d8f 46%, #7c3aed 100%);
+  --gradient-brand-soft: linear-gradient(110deg, rgba(234, 88, 12, 0.10), rgba(225, 29, 143, 0.08) 50%, rgba(124, 58, 237, 0.10));
+  --gradient-sheets: linear-gradient(120deg, #059669, #0d9488);
+  --gradient-editor: linear-gradient(120deg, #7c3aed, #d6276e);
+  --gradient-slides: linear-gradient(120deg, #0d9488, #2563eb);
+  --gradient-desktop: linear-gradient(120deg, #f59e0b, #ea580c);
+  --glow-accent: 0 14px 40px -10px rgba(234, 88, 12, 0.45);
+  --glow-brand: 0 22px 60px -18px rgba(124, 58, 237, 0.40);
+  --shadow-glow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 24px 60px -24px rgba(124, 58, 237, 0.32);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-1: 140ms;
+  --dur-2: 280ms;
+  --dur-3: 620ms;
+
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Manrope', 'Inter', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -519,36 +539,113 @@ code, kbd {
   box-shadow: 0 6px 16px color-mix(in srgb, var(--product-accent, var(--accent)) 40%, transparent);
 }
 
-/* ─── Footer ───────────────────────────────────────────────────────── */
+/* ─── Footer — structured, multi-column ────────────────────────────── */
 .foot {
-  margin-top: 96px;
-  padding: 36px 0 44px;
+  margin-top: 110px;
+  padding: 64px 0 0;
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background:
+    radial-gradient(900px circle at 12% 0%, rgba(234, 88, 12, 0.05), transparent 55%),
+    radial-gradient(900px circle at 90% 0%, rgba(124, 58, 237, 0.05), transparent 55%),
+    var(--surface);
 }
-.foot__inner {
+.foot__top {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  gap: 48px 32px;
+  padding-bottom: 48px;
+}
+@media (max-width: 760px) { .foot__top { grid-template-columns: 1fr; gap: 36px; } }
+
+.foot__brand { max-width: 380px; }
+.foot__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text);
+}
+.foot__logo:hover { color: var(--text); text-decoration: none; }
+.foot__tag {
+  margin: 16px 0 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+.foot__tag code { font-size: 0.85em; }
+.foot__signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+.foot__signals li {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+}
+.foot__gh {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--gradient-brand);
+  background-size: 160% 100%;
+  box-shadow: var(--glow-brand);
+  transition: transform var(--dur-1) var(--ease-out), background-position var(--dur-2) var(--ease-out);
+}
+.foot__gh:hover { color: #fff; text-decoration: none; transform: translateY(-2px); background-position: 100% 50%; }
+
+.foot__nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+@media (max-width: 460px) { .foot__nav { grid-template-columns: repeat(2, 1fr); } }
+.foot__col-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin: 0 0 14px;
+}
+.foot__col-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.foot__col-list a {
+  color: var(--text-soft);
+  font-size: 14px;
+}
+.foot__col-list a:hover { color: var(--accent); text-decoration: none; }
+
+.foot__bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
   flex-wrap: wrap;
-}
-.foot__col {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.02em;
-}
-.foot__links { display: flex; gap: 16px; flex-wrap: wrap; }
-.foot__links a {
-  color: var(--text-soft);
-  font-family: var(--font-sans);
+  gap: 10px;
+  padding: 22px 0 30px;
+  border-top: 1px solid var(--border);
   font-size: 13px;
+  color: var(--text-muted);
 }
-.foot__links a:hover { color: var(--text); text-decoration: none; }
+.foot__bottom a { color: var(--text-soft); }
+.foot__bottom a:hover { color: var(--accent); text-decoration: none; }
+.foot__bottom-meta { font-family: var(--font-mono); font-size: 12px; }
+.foot__bottom > span:first-child { padding: 0 clamp(0px, 5vw, 0px); }
 
 /* ─── Per-product sub-page (Sheets / Editor / Desktop) ─────────────── */
 .subpage {
@@ -733,4 +830,178 @@ code, kbd {
   font-size: clamp(36px, 5vw, 56px);
   line-height: 1.04;
   letter-spacing: -0.022em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+ *  PREMIUM LAYER (v4) — "funded product" finish.
+ *  Loaded after the base so equal-specificity rules win. Adds gradients,
+ *  colored glows, motion (hover + scroll-reveal), accessibility primitives
+ *  (skip link, focus rings), and a reduced-motion escape hatch.
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Accessibility: skip link + visible focus ─────────────────────── */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  z-index: 200;
+  padding: 10px 16px;
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: top var(--dur-1) var(--ease-out);
+}
+.skip-link:focus { top: 12px; color: var(--bg); text-decoration: none; }
+
+:where(a, button, summary, [tabindex], input, select, textarea):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ── Bolder animated aurora ───────────────────────────────────────── */
+.aurora {
+  height: 880px;
+  background:
+    radial-gradient(760px circle at 12% -8%, rgba(234, 88, 12, 0.16), transparent 60%),
+    radial-gradient(820px circle at 90% 4%, rgba(124, 58, 237, 0.15), transparent 62%),
+    radial-gradient(900px circle at 60% 48%, rgba(225, 29, 143, 0.10), transparent 60%),
+    radial-gradient(900px circle at 30% 70%, rgba(13, 148, 136, 0.10), transparent 62%);
+  opacity: 1;
+  animation: aurora-drift 22s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift {
+  to { transform: translate3d(0, -18px, 0) scale(1.04); filter: hue-rotate(8deg); }
+}
+
+/* ── Display headlines — brand gradient + tighter ──────────────────── */
+.display em,
+.display__grad {
+  font-style: normal;
+  background: var(--gradient-brand);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: grad-pan 8s ease-in-out infinite alternate;
+}
+@keyframes grad-pan { to { background-position: 100% 50%; } }
+
+/* ── Buttons — gradient primary, per-product gradient accent ───────── */
+.btn { border-radius: 12px; transition:
+  transform var(--dur-1) var(--ease-out),
+  box-shadow var(--dur-2) var(--ease-out),
+  filter var(--dur-1) var(--ease-out); }
+.btn--primary {
+  background: var(--gradient-brand);
+  background-size: 160% 100%;
+  color: #fff;
+  box-shadow: var(--glow-brand);
+}
+.btn--primary:hover {
+  color: #fff;
+  background-position: 100% 50%;
+  transform: translateY(-2px);
+  box-shadow: 0 26px 64px -16px rgba(124, 58, 237, 0.55);
+}
+.btn--accent {
+  background-image: linear-gradient(120deg, var(--product-accent, var(--accent)), color-mix(in srgb, var(--product-accent, var(--accent)) 55%, #ffffff));
+  box-shadow: 0 14px 38px -12px color-mix(in srgb, var(--product-accent, var(--accent)) 60%, transparent);
+}
+.btn--accent:hover { transform: translateY(-2px); }
+.btn--ghost { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.btn--ghost:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+/* ── Cards — colored glow + lift on hover ─────────────────────────── */
+.product, .feature, .why__card, .community__card {
+  transition:
+    transform var(--dur-2) var(--ease-out),
+    box-shadow var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out);
+}
+.product::before { height: 4px; background: var(--gradient-brand); }
+.product:hover,
+.feature:hover,
+.why__card:hover,
+.community__card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 1px 2px rgba(15,23,42,0.05),
+              0 30px 60px -28px color-mix(in srgb, var(--product-accent, var(--accent)) 55%, rgba(124,58,237,0.5));
+  border-color: color-mix(in srgb, var(--product-accent, var(--accent)) 45%, var(--border-strong));
+}
+.why__icon { background: var(--gradient-brand-soft); }
+
+/* ── Eyebrow dot → gradient ───────────────────────────────────────── */
+.eyebrow__dot { background: var(--gradient-brand); }
+
+/* ── Trust strip — open-source credibility signals ────────────────── */
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 22px auto 0;
+}
+.trust--start { justify-content: flex-start; }
+.trust__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-soft);
+  letter-spacing: 0.01em;
+}
+.trust__item svg { color: var(--accent); flex: 0 0 auto; }
+.trust__item--live { color: var(--sheets); }
+.trust__dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--sheets);
+  box-shadow: 0 0 0 4px var(--sheets-soft);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+/* ── Section eyebrow / pill / badge ───────────────────────────────── */
+.badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 14px; border-radius: 999px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent-strong);
+  background: var(--gradient-brand-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+/* ── Scroll-reveal — fade + rise as sections enter the viewport ───── */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+.reveal[data-reveal-delay='1'] { transition-delay: 80ms; }
+.reveal[data-reveal-delay='2'] { transition-delay: 160ms; }
+.reveal[data-reveal-delay='3'] { transition-delay: 240ms; }
+
+/* ── Reduced motion: honor the user's OS setting (WCAG 2.3.3) ──────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .aurora { animation: none; }
 }

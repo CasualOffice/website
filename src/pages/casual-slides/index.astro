@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 
-const title = 'Casual Slides — PowerPoint-flavored web slides editor · Casual Office';
+const title = 'Casual Slides — Open-Source Self-Hosted PowerPoint & Google Slides Alternative';
 const description =
   'Open-source web-based PowerPoint-equivalent. Office-style ribbon, slide-panel thumbnails, file-centric workflow. Built on Univer OSS with a fork-and-patch layer for collab + new element types. .pptx import + export with 68 of 87 fidelity probes passing (wave 7o). Apache-2.0. Early-stage — pre-v0.1.0.';
 
@@ -30,12 +30,12 @@ const jsonLd = {
   isAccessibleForFree: true,
 };
 ---
-<Base {title} {description} active="slides" jsonLd={jsonLd} ogImage="/og.png">
+<Base {title} {description} active="slides" jsonLd={jsonLd} ogImage="/og.png" keywords="open source powerpoint alternative, self-hosted pptx editor, online presentation editor, google slides alternative, collaborative slides editor, open source presentation software">
   <section
     class="hero subpage"
     style="--product-accent: var(--slides); --product-accent-soft: var(--slides-soft);"
   >
-    <div class="container hero__inner">
+    <div class="container hero__inner reveal">
       <div class="subpage__topline">
         <span class="dot" aria-hidden="true"></span>
         Casual Slides

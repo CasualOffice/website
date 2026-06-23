@@ -2,9 +2,9 @@
 import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
 
-const title = 'Casual Office — open-source .xlsx and .docx in your browser';
+const title = 'Casual Office — Open-Source, Self-Hosted Google Docs, Sheets & Slides Alternative';
 const description =
-  'Casual Office is a real-time, file-centric, open-source office suite. Casual Sheets (web .xlsx) and Casual Docs (web .docx) round-trip native Office files, sync via Yjs CRDT, and run as a single self-hostable container. MIT + Apache-2.0. Try the live demos.';
+  'Casual Office is a free, open-source, self-hostable office suite — a real-time collaborative alternative to Google Docs, Google Sheets, Google Slides, and OnlyOffice. Edit native .docx, .xlsx, and .pptx files in your browser with live multi-user co-editing, then self-host the whole suite in one Docker container. Apache-2.0 + MIT. No accounts, no SaaS, no lock-in.';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -115,7 +115,11 @@ export default function App() {
 const faqs = [
   {
     q: 'What is Casual Office, in one sentence?',
-    a: 'Two real office editors — sheets + docs — that open native Office files in the browser, sync in real time, and save back to the original byte-for-byte format. Open source. Self-hostable as one Docker container.',
+    a: 'Three real office editors — Casual Sheets (.xlsx), Casual Docs (.docx), and Casual Slides (.pptx) — that open native Microsoft Office files in the browser, co-edit in real time, and save back to the original byte-for-byte format. Open source, self-hostable as one Docker container, free forever.',
+  },
+  {
+    q: 'Is Casual Office a free alternative to Google Docs and Microsoft Office?',
+    a: 'Yes. Casual Office is a free, open-source, self-hosted alternative to Google Docs, Google Sheets, Google Slides, Microsoft 365 / Office Online, and OnlyOffice. You run it on your own server, your documents stay in standard .docx / .xlsx / .pptx, and there are no per-seat fees or accounts.',
   },
   {
     q: 'Is this a SaaS? Will it ever be?',
@@ -161,31 +165,41 @@ jsonLd['@graph'].push({
 });
 ---
 <Base {title} {description} active="home" jsonLd={jsonLd}>
-  <!-- HERO — compact text, then the live demo dominates the fold -->
+  <!-- HERO — keyword-forward headline, then the live demo owns the fold -->
   <section class="hero hero--tight">
-    <div class="container hero__inner">
-      <span class="eyebrow">
+    <div class="container hero__inner reveal">
+      <span class="badge">
         <span class="eyebrow__dot" aria-hidden="true"></span>
-        open source · self-host · MIT + Apache-2.0
+        Open source · self-host · Apache-2.0 + MIT
       </span>
       <h1 class="display display--xl">
-        <code class="display__code">.xlsx</code> and <code class="display__code">.docx</code>,<br/>
-        in your <em>browser.</em>
+        The open-source<br/>
+        <em class="display__grad">Google Docs, Sheets &amp; Slides</em><br/>
+        alternative you self-host.
       </h1>
       <p class="lede lede--tight">
-        Real-time multi-peer co-editing. Saves back to the same byte-for-byte file.
-        No accounts, no SaaS, no upsell — try the live demos below, or
-        <code>docker run</code> it on your own server.
+        Casual Office is a free, real-time <strong>collaborative office suite</strong>
+        that opens native <code>.docx</code>, <code>.xlsx</code>, and
+        <code>.pptx</code> files in your browser and saves them back byte-for-byte.
+        Co-edit live with your team, then <code>docker run</code> the whole thing on
+        your own server — no accounts, no SaaS, no lock-in.
       </p>
 
       <div class="row row--centered">
-        <a class="btn btn--primary btn--lg" href="https://github.com/CasualOffice" rel="noopener" target="_blank" aria-label="View on GitHub">
+        <a class="btn btn--primary btn--lg" href="https://github.com/CasualOffice" rel="noopener" target="_blank" aria-label="Star Casual Office on GitHub">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="margin-right: 7px;">
             <path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/>
           </svg>
           Star on GitHub
         </a>
-        <a class="btn btn--ghost btn--lg" href="#docker">Self-host →</a>
+        <a class="btn btn--ghost btn--lg" href="#demo">Try the live demo →</a>
+      </div>
+
+      <div class="trust" aria-label="At a glance">
+        <span class="trust__item trust__item--live"><span class="trust__dot" aria-hidden="true"></span> Live multi-user co-editing</span>
+        <span class="trust__item">Apache-2.0 + MIT</span>
+        <span class="trust__item">Self-host · one Docker container</span>
+        <span class="trust__item">398 e2e tests green</span>
       </div>
     </div>
   </section>
@@ -194,7 +208,7 @@ jsonLd['@graph'].push({
        each loads the actual production demo in an iframe. No fakes,
        no static screenshots — visitors see the real product in five
        seconds. Lazy-loaded so the iframe doesn't block first paint. -->
-  <section class="demo" aria-label="Live product demo">
+  <section class="demo" id="demo" aria-label="Live product demo">
     <div class="container">
       <div class="demo__head">
         <div class="demo__tabs" role="tablist" aria-label="Choose a product">
@@ -283,7 +297,7 @@ jsonLd['@graph'].push({
        to care. -->
   <section class="section section--stats">
     <div class="container">
-      <div class="statline">
+      <div class="statline reveal">
         <div class="stat">
           <span class="stat__label">CASUAL DOCS</span>
           <span class="stat__value">39/39</span>
@@ -311,14 +325,14 @@ jsonLd['@graph'].push({
   <!-- PRODUCTS — three cards, each links to the product page -->
   <section class="section">
     <div class="container">
-      <div class="section__head">
+      <div class="section__head reveal">
         <div>
           <span class="eyebrow">three editors, one suite</span>
           <h2 class="title">A spreadsheet, a document editor,<br/>and a slide deck. Every line on GitHub.</h2>
         </div>
         <span class="section__hint">/products</span>
       </div>
-      <div class="products">
+      <div class="products reveal">
         <ProductCard
           slug="sheets"
           name="Casual Sheets"
@@ -387,17 +401,121 @@ jsonLd['@graph'].push({
     </div>
   </section>
 
+  <!-- WHO IT'S FOR — target audience, keyword-rich for search + AEO -->
+  <section class="section" aria-labelledby="audience-h">
+    <div class="container">
+      <div class="section__head reveal">
+        <div>
+          <span class="badge">Who it's for</span>
+          <h2 class="title" id="audience-h">Built for teams that want to<br/><em class="display__grad">own their documents</em>.</h2>
+        </div>
+        <span class="section__hint">/audience</span>
+      </div>
+      <div class="feature-grid">
+        <article class="feature reveal">
+          <span class="feature__icon">🔒</span>
+          <h3 class="feature__title">Privacy-first teams</h3>
+          <p class="feature__body">Keep documents off Google and Microsoft clouds. Self-host on your own infrastructure so spreadsheets and contracts never leave your network.</p>
+        </article>
+        <article class="feature reveal" data-reveal-delay="1">
+          <span class="feature__icon">🧩</span>
+          <h3 class="feature__title">Product teams embedding an editor</h3>
+          <p class="feature__body">Drop a real <code>.docx</code> / <code>.xlsx</code> editor into your intranet, LMS, CRM, or SaaS via the React SDK — instead of building a spreadsheet from scratch.</p>
+        </article>
+        <article class="feature reveal">
+          <span class="feature__icon">🛠️</span>
+          <h3 class="feature__title">Self-hosters &amp; homelabs</h3>
+          <p class="feature__body">One multi-arch Docker container, one port, no database required. A collaborative office suite for your private cloud in a single <code>docker run</code>.</p>
+        </article>
+        <article class="feature reveal" data-reveal-delay="1">
+          <span class="feature__icon">{ }</span>
+          <h3 class="feature__title">Developers &amp; OSS contributors</h3>
+          <p class="feature__body">Every line is on GitHub under Apache-2.0 + MIT. Small enough to read end-to-end, with green CI and good-first-issues — a serious open-source codebase, not a demo.</p>
+        </article>
+        <article class="feature reveal">
+          <span class="feature__icon">🏛️</span>
+          <h3 class="feature__title">Regulated &amp; air-gapped orgs</h3>
+          <p class="feature__body">No outbound calls, no accounts, no telemetry. Run it fully offline where compliance or air-gap requirements rule out the hosted office suites.</p>
+        </article>
+        <article class="feature reveal" data-reveal-delay="1">
+          <span class="feature__icon">🌐</span>
+          <h3 class="feature__title">Anyone wanting a Google Docs alternative</h3>
+          <p class="feature__body">A free, open-source alternative to Google Docs, Sheets, Slides, and OnlyOffice that you actually control — files in your format, on your server, forever.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE SUPPORT — capability matrix; "what all we support" + SEO -->
+  <section class="section" aria-labelledby="support-h">
+    <div class="container">
+      <div class="section__head reveal">
+        <div>
+          <span class="badge">What we support</span>
+          <h2 class="title" id="support-h">A real office suite — the formats and<br/>features you already rely on.</h2>
+        </div>
+        <span class="section__hint">/capabilities</span>
+      </div>
+      <div class="caps">
+        <div class="caps__col reveal">
+          <div class="caps__head" style="--product-accent: var(--sheets);"><span class="caps__dot"></span> Sheets <span class="caps__tag">.xlsx</span></div>
+          <ul class="caps__list">
+            <li>.xlsx · .ods · .csv · .tsv round-trip</li>
+            <li>Pivot tables with drill-down</li>
+            <li>8 chart types · trendlines · sparklines</li>
+            <li>Conditional formatting · data validation</li>
+            <li>.xlsm VBA macro passthrough</li>
+            <li>Version history · autosave</li>
+          </ul>
+        </div>
+        <div class="caps__col reveal" data-reveal-delay="1">
+          <div class="caps__head" style="--product-accent: var(--editor);"><span class="caps__dot"></span> Docs <span class="caps__tag">.docx</span></div>
+          <ul class="caps__list">
+            <li>.docx round-trip · 39/39 fixtures pristine</li>
+            <li>Paginated WYSIWYG · headers/footers</li>
+            <li>Tables · lists · styles · footnotes</li>
+            <li>Spell check · find &amp; replace (regex)</li>
+            <li>Citations · voice typing · outline</li>
+            <li>Print / Export-as-PDF</li>
+          </ul>
+        </div>
+        <div class="caps__col reveal" data-reveal-delay="2">
+          <div class="caps__head" style="--product-accent: var(--slides);"><span class="caps__dot"></span> Slides <span class="caps__tag">.pptx</span></div>
+          <ul class="caps__list">
+            <li>.pptx open + save · deep OOXML fidelity</li>
+            <li>Office-style ribbon · 6 layouts</li>
+            <li>Theme + background pickers</li>
+            <li>Tables · charts · text effects</li>
+            <li>Slide-panel thumbnails · Slide Show</li>
+            <li>Early-stage · actively developed</li>
+          </ul>
+        </div>
+        <div class="caps__col reveal" data-reveal-delay="3">
+          <div class="caps__head" style="--product-accent: var(--accent);"><span class="caps__dot"></span> Platform</div>
+          <ul class="caps__list">
+            <li>Real-time co-editing (Yjs CRDT)</li>
+            <li>Self-host: memory · local · S3 · Postgres</li>
+            <li>Multi-arch Docker (amd64 + arm64)</li>
+            <li>Personal mode · auth · WOPI host</li>
+            <li>Embed via React SDK</li>
+            <li>Apache-2.0 + MIT · no telemetry</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- WHY — 6 concrete differentiators with proper SVG icons -->
   <section class="section">
     <div class="container">
-      <div class="section__head">
+      <div class="section__head reveal">
         <div>
           <span class="eyebrow">why bother</span>
           <h2 class="title">Six reasons to take this seriously.</h2>
         </div>
         <span class="section__hint">/why</span>
       </div>
-      <div class="why">
+      <div class="why reveal">
         <article class="why__card">
           <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
             <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Zm-1 7V3.5L18.5 9H13Z"/>
@@ -472,14 +590,14 @@ jsonLd['@graph'].push({
        React or Vue app. Targets developers comparing to docx-editor.dev. -->
   <section class="section">
     <div class="container">
-      <div class="section__head">
+      <div class="section__head reveal">
         <div>
           <span class="eyebrow">embed</span>
           <h2 class="title">Drop it into your own app.</h2>
         </div>
         <span class="section__hint">npm</span>
       </div>
-      <div class="embed">
+      <div class="embed reveal">
         <div class="embed__col">
           <div class="embed__label">Install</div>
           <pre class="code-block code-block--inline"><code>npm i @casualoffice/docs</code></pre>
@@ -522,7 +640,7 @@ jsonLd['@graph'].push({
   <!-- SELF-HOST QUICKSTART -->
   <section class="section" id="docker">
     <div class="container">
-      <div class="section__head">
+      <div class="section__head reveal">
         <div>
           <span class="eyebrow">self-host</span>
           <h2 class="title">From zero to a running suite in one command.</h2>
@@ -541,14 +659,14 @@ jsonLd['@graph'].push({
   <!-- COMMUNITY — three concrete ways to participate -->
   <section class="section section--community">
     <div class="container">
-      <div class="section__head">
+      <div class="section__head reveal">
         <div>
           <span class="eyebrow">community-first</span>
           <h2 class="title">Help shape v1.</h2>
         </div>
         <span class="section__hint">/contribute</span>
       </div>
-      <div class="community">
+      <div class="community reveal">
         <div class="community__card">
           <span class="community__num">★</span>
           <h3 class="community__title">Star the repos</h3>
@@ -586,14 +704,14 @@ jsonLd['@graph'].push({
   <!-- FAQ -->
   <section class="section">
     <div class="container">
-      <div class="section__head">
+      <div class="section__head reveal">
         <div>
           <span class="eyebrow">questions</span>
           <h2 class="title">Common questions.</h2>
         </div>
         <span class="section__hint">/faq</span>
       </div>
-      <div class="faq">
+      <div class="faq reveal">
         {faqs.map((f) => (
           <details class="faq__item">
             <summary class="faq__q">{f.q}</summary>
@@ -604,14 +722,16 @@ jsonLd['@graph'].push({
     </div>
   </section>
 
-  <!-- ECHO CTA -->
+  <!-- ECHO CTA — mission + tagline -->
   <section class="section section--echo">
-    <div class="container container--narrow">
-      <h2 class="display display--small">Files in.<br/><em>Files out.</em></h2>
+    <div class="container container--narrow reveal">
+      <span class="badge">Our goal</span>
+      <h2 class="display display--small">Office software you<br/><em class="display__grad">own, not rent.</em></h2>
       <p class="lede">
-        Casual Office is a small office suite built like infrastructure.
-        Composable, file-shaped, permissive — closer to a UNIX tool than
-        a SaaS product.
+        The goal is simple: a serious, production-grade office suite that anyone can
+        self-host, read end-to-end, and trust with their data — where your files stay
+        in open formats on your own server. Built like infrastructure, not a SaaS:
+        composable, file-shaped, and permissively licensed forever.
       </p>
       <div class="row" style="margin-top: 8px;">
         <a class="btn btn--primary" href="https://github.com/CasualOffice" rel="noopener" target="_blank">Browse on GitHub →</a>
@@ -1110,5 +1230,78 @@ jsonLd['@graph'].push({
     color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 2px;
+  }
+
+  /* ── Capability matrix ("What we support") ───────────────────────── */
+  .caps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 920px) { .caps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .caps { grid-template-columns: 1fr; } }
+  .caps__col {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px 22px 24px;
+    transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+  }
+  .caps__col:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--product-accent, var(--accent)) 40%, var(--border-strong));
+    box-shadow: var(--shadow-md);
+  }
+  .caps__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text);
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .caps__dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--product-accent, var(--accent));
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--product-accent, var(--accent)) 14%, transparent);
+  }
+  .caps__tag {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text-muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 999px;
+  }
+  .caps__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .caps__list li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--text-soft);
+  }
+  .caps__list li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px;
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: var(--product-accent, var(--accent));
+    opacity: 0.16;
+  }
+  .caps__list li::after {
+    content: '✓';
+    position: absolute;
+    left: 2.5px; top: 3px;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--product-accent, var(--accent));
   }
 </style>

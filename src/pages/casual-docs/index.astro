@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 
-const title = 'Casual Docs — Word-flavored web document editor · Casual Office';
+const title = 'Casual Docs — Open-Source Self-Hosted Google Docs & Word Alternative';
 const description =
   'Open-source web .docx editor. ProseMirror with an OOXML-preserving model; a stateless Go gateway implementing the y-websocket protocol in ~120 lines. Real-time co-editing. Three-way fidelity harness in CI. Apache-2.0.';
 
@@ -30,12 +30,12 @@ const jsonLd = {
   isAccessibleForFree: true,
 };
 ---
-<Base {title} {description} active="editor" jsonLd={jsonLd} ogImage="/og-editor.png">
+<Base {title} {description} active="editor" jsonLd={jsonLd} ogImage="/og-editor.png" keywords="open source google docs alternative, self-hosted docx editor, online word editor, collaborative document editor, real-time co-editing, microsoft word alternative, open source onlyoffice alternative, self-hosted word online">
   <section
     class="hero subpage"
     style="--product-accent: var(--editor); --product-accent-soft: var(--editor-soft);"
   >
-    <div class="container hero__inner">
+    <div class="container hero__inner reveal">
       <div class="subpage__topline">
         <span class="dot" aria-hidden="true"></span>
         Casual Docs
