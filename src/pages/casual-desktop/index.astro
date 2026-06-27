@@ -61,17 +61,55 @@ const jsonLd = {
         Windows. Same shipped UX as the web, no SaaS in the loop.
       </p>
       <div class="row">
-        <a class="btn btn--primary" href={downloads.mac} rel="noopener">Download for macOS</a>
-        <a class="btn btn--ghost" href={downloads.linuxAppImage} rel="noopener">Linux (.AppImage)</a>
-        <a class="btn btn--ghost" href={downloads.winExe} rel="noopener">Windows (.exe)</a>
+        <a
+          id="primary-download"
+          class="btn btn--primary"
+          href={releasesUrl}
+          rel="noopener"
+          data-mac={downloads.mac}
+          data-win={downloads.winExe}
+          data-linux={downloads.linuxAppImage}
+        >Download Casual Office</a>
+        <a class="btn btn--ghost" href={releasesUrl} rel="noopener" target="_blank">All downloads</a>
       </div>
       <p class="lede" style="font-size: 0.92rem; opacity: 0.7; margin-top: 12px;">
-        Also: <a href={downloads.linuxDeb} rel="noopener">.deb</a> ·
-        <a href={downloads.winMsi} rel="noopener">.msi</a> ·
-        <a href={releasesUrl} rel="noopener" target="_blank">all releases &amp; checksums</a>.
-        Apache-2.0. The installers are unsigned in the OS sense — on macOS,
+        <span id="download-detail">
+          macOS <a href={downloads.mac} rel="noopener">.dmg</a> ·
+          Linux <a href={downloads.linuxAppImage} rel="noopener">.AppImage</a> /
+          <a href={downloads.linuxDeb} rel="noopener">.deb</a> ·
+          Windows <a href={downloads.winExe} rel="noopener">.exe</a> /
+          <a href={downloads.winMsi} rel="noopener">.msi</a> ·
+          <a href={releasesUrl} rel="noopener" target="_blank">checksums</a>.
+        </span>
+        Apache-2.0. Installers are unsigned in the OS sense — on macOS,
         right-click → Open on first launch.
       </p>
+      <script is:inline>
+        // Point the primary button at the visitor's OS. No-JS / unknown OS
+        // falls back to the releases page (the button's default href).
+        (function () {
+          var el = document.getElementById('primary-download');
+          if (!el) return;
+          var s = (navigator.userAgent || '') + ' ' + (navigator.platform || '');
+          var os = /Win/i.test(s)
+            ? 'win'
+            : /Mac|iPhone|iPad|iPod/i.test(s)
+              ? 'mac'
+              : /Linux|X11|CrOS/i.test(s)
+                ? 'linux'
+                : '';
+          var label = {
+            mac: 'Download for macOS',
+            win: 'Download for Windows',
+            linux: 'Download for Linux',
+          };
+          var href = { mac: el.dataset.mac, win: el.dataset.win, linux: el.dataset.linux };
+          if (os && href[os]) {
+            el.textContent = label[os];
+            el.setAttribute('href', href[os]);
+          }
+        })();
+      </script>
     </div>
   </section>
 
