@@ -25,7 +25,13 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       theme: 'github-light',
-      wrap: true,
+      // wrap: false — DON'T soft-wrap code blocks. `wrap: true` injects
+      // `white-space: pre-wrap` inline, which wrapped the wide ASCII
+      // architecture diagrams (240 cols) and scrambled the box-drawing on
+      // every viewport. With wrap off, blocks keep their lines intact and
+      // scroll horizontally instead (the `.docs__body pre` CSS sets
+      // `overflow-x: auto`), which is the standard code-block behaviour.
+      wrap: false,
     },
   },
   integrations: [
