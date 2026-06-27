@@ -3,7 +3,21 @@ import Base from '../../layouts/Base.astro';
 
 const title = 'Casual Desktop — offline Sheets + Editor in a Tauri binary · Casual Office';
 const description =
-  'Casual Desktop — a native binary for macOS, Linux, and Windows that reuses the Casual Docs and Casual Sheets web cores verbatim. Single-user, offline. Tauri shell. First binary ships once both web fidelity scores cross 90%.';
+  'Casual Desktop — a native binary for macOS, Linux, and Windows that reuses the Casual Docs and Casual Sheets web cores verbatim. Single-user, offline, signed in-app auto-update. Download v0.0.2.';
+
+// Release downloads. Versioned URLs so a button always points at a known-good
+// asset; bump `version` (and the asset names if the bundle naming changes) on
+// each release. GitHub rewrites the space in "Casual Office" to a dot.
+const version = '0.0.2';
+const base = `https://github.com/CasualOffice/desktop/releases/download/v${version}`;
+const downloads = {
+  mac: `${base}/Casual.Office_${version}_universal.dmg`,
+  linuxAppImage: `${base}/Casual.Office_${version}_amd64.AppImage`,
+  linuxDeb: `${base}/Casual.Office_${version}_amd64.deb`,
+  winExe: `${base}/Casual.Office_${version}_x64-setup.exe`,
+  winMsi: `${base}/Casual.Office_${version}_x64_en-US.msi`,
+};
+const releasesUrl = 'https://github.com/CasualOffice/desktop/releases/latest';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -13,9 +27,11 @@ const jsonLd = {
   applicationCategory: 'DesktopEnhancementApplication',
   operatingSystem: 'macOS, Linux, Windows',
   url: 'https://casualoffice.org/casual-desktop/',
+  downloadUrl: releasesUrl,
+  softwareVersion: version,
   license: 'https://www.apache.org/licenses/LICENSE-2.0',
   description:
-    'Tauri binaries that reuse the Casual Docs and Casual Sheets web cores verbatim — single-user, offline. In early scaffolding; first binary ships once both web fidelity scores cross 90%.',
+    'Tauri binaries that reuse the Casual Docs and Casual Sheets web cores verbatim — single-user, offline, with signed in-app auto-update. Available for macOS, Linux, and Windows.',
   image: 'https://casualoffice.org/og.png',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   author: {
@@ -36,7 +52,7 @@ const jsonLd = {
     <div class="container hero__inner reveal">
       <div class="subpage__topline">
         <span class="dot" aria-hidden="true"></span>
-        Casual Desktop · in progress
+        Casual Desktop · v{version}
       </div>
       <h1 class="display">The same editors, <em>off the network.</em></h1>
       <p class="lede">
@@ -45,18 +61,64 @@ const jsonLd = {
         Windows. Same shipped UX as the web, no SaaS in the loop.
       </p>
       <div class="row">
-        <a class="btn btn--ghost" href="https://github.com/CasualOffice" rel="noopener" target="_blank">Track on GitHub</a>
-        <a class="btn btn--ghost" href="/changelog/">Changelog</a>
+        <a
+          id="primary-download"
+          class="btn btn--primary"
+          href={releasesUrl}
+          rel="noopener"
+          data-mac={downloads.mac}
+          data-win={downloads.winExe}
+          data-linux={downloads.linuxAppImage}
+        >Download Casual Office</a>
+        <a class="btn btn--ghost" href={releasesUrl} rel="noopener" target="_blank">All downloads</a>
       </div>
+      <p class="lede" style="font-size: 0.92rem; opacity: 0.7; margin-top: 12px;">
+        <span id="download-detail">
+          macOS <a href={downloads.mac} rel="noopener">.dmg</a> ·
+          Linux <a href={downloads.linuxAppImage} rel="noopener">.AppImage</a> /
+          <a href={downloads.linuxDeb} rel="noopener">.deb</a> ·
+          Windows <a href={downloads.winExe} rel="noopener">.exe</a> /
+          <a href={downloads.winMsi} rel="noopener">.msi</a> ·
+          <a href={releasesUrl} rel="noopener" target="_blank">checksums</a>.
+        </span>
+        Apache-2.0. Installers are unsigned in the OS sense — on macOS,
+        right-click → Open on first launch.
+      </p>
+      <script is:inline>
+        // Point the primary button at the visitor's OS. No-JS / unknown OS
+        // falls back to the releases page (the button's default href).
+        (function () {
+          var el = document.getElementById('primary-download');
+          if (!el) return;
+          var s = (navigator.userAgent || '') + ' ' + (navigator.platform || '');
+          var os = /Win/i.test(s)
+            ? 'win'
+            : /Mac|iPhone|iPad|iPod/i.test(s)
+              ? 'mac'
+              : /Linux|X11|CrOS/i.test(s)
+                ? 'linux'
+                : '';
+          var label = {
+            mac: 'Download for macOS',
+            win: 'Download for Windows',
+            linux: 'Download for Linux',
+          };
+          var href = { mac: el.dataset.mac, win: el.dataset.win, linux: el.dataset.linux };
+          if (os && href[os]) {
+            el.textContent = label[os];
+            el.setAttribute('href', href[os]);
+          }
+        })();
+      </script>
     </div>
   </section>
 
   <section class="section" style="--product-accent: var(--desktop); --product-accent-soft: var(--desktop-soft);">
     <div class="container">
       <div class="fact-row">
-        <div><div class="fact__label">Status</div><div class="fact__value">scaffolding</div></div>
+        <div><div class="fact__label">Version</div><div class="fact__value">v{version}</div></div>
         <div><div class="fact__label">Targets</div><div class="fact__value">3 OSes</div></div>
-        <div><div class="fact__label">Ships when</div><div class="fact__value">≥ 90% web fidelity</div></div>
+        <div><div class="fact__label">Updates</div><div class="fact__value">signed, in-app</div></div>
         <div><div class="fact__label">Shell</div><div class="fact__value">Tauri</div></div>
       </div>
     </div>
@@ -100,12 +162,12 @@ const jsonLd = {
           </p>
         </article>
         <article class="feature">
-          <span class="feature__icon">⏱</span>
-          <h3 class="feature__title">Ships behind a fidelity gate</h3>
+          <span class="feature__icon">↑</span>
+          <h3 class="feature__title">Signed in-app updates</h3>
           <p class="feature__body">
-            First binary lands after both Editor and Sheets cross the ≥ 90%
-            fidelity floor. Sheets is already there for everyday workbooks;
-            Editor's gap matrix is the active work.
+            The app checks GitHub Releases on launch and installs newer signed
+            builds in place — verified against an embedded minisign key. Opt-out
+            in Settings. Update signing, not OS code-signing.
           </p>
         </article>
       </div>
@@ -115,13 +177,14 @@ const jsonLd = {
   <section class="section" style="--product-accent: var(--desktop); --product-accent-soft: var(--desktop-soft);">
     <div class="container container--narrow">
       <div class="callout">
-        <strong>Roadmap.</strong> Tauri scaffolding only today. The first
-        public binary ships once the web Editor's per-tag round-trip audit
-        crosses 90%. Sign-up for release notifications isn't here yet — watch
-        the repo or this page.
+        <strong>v{version} is the first public binary.</strong> All three OSes,
+        both editors, signed auto-update. The web cores keep improving — Sheets
+        already handles everyday workbooks, and the Editor's per-tag round-trip
+        fidelity is the active work; both flow to the desktop on the next
+        release.
       </div>
       <div class="row" style="margin-top: 22px;">
-        <a class="btn btn--ghost" href="https://github.com/CasualOffice" rel="noopener" target="_blank">Watch on GitHub</a>
+        <a class="btn btn--ghost" href={releasesUrl} rel="noopener" target="_blank">All releases</a>
         <a class="btn btn--ghost" href="/changelog/">Changelog</a>
       </div>
     </div>
