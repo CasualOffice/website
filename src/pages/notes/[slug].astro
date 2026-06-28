@@ -128,7 +128,7 @@ const fmtDate = (d: Date) =>
   .note__body :global(blockquote) { margin: 0 0 20px; padding: 8px 16px; border-left: 3px solid var(--product-accent); color: var(--text-soft); background: var(--surface-2); border-radius: 0 var(--radius) var(--radius) 0; }
   .note__body :global(a) { color: var(--product-accent); }
   .note__body :global(hr) { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
-  .note__body :global(table) { width: 100%; border-collapse: collapse; margin: 0 0 22px; font-size: 14px; }
+  .note__body :global(table) { width: 100%; border-collapse: collapse; margin: 0 0 22px; font-size: 14px; display: block; overflow-x: auto; }
   .note__body :global(th), .note__body :global(td) { padding: 8px 12px; border: 1px solid var(--border); text-align: left; }
   .note__body :global(th) { background: var(--surface-2); font-weight: 600; }
   .note__foot { padding: 24px 0 56px; border-top: 1px solid var(--border); }
