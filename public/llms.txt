@@ -1,94 +1,116 @@
-# Casual Office — casualoffice.org
+# Casual Office
 
-> Casual Office is a portfolio of four open-source, file-centric, real-time
-> productivity tools by Sachin Sarwa: Casual Sheets (web spreadsheet,
-> .xlsx round-trip), Casual Docs (web .docx editor), Casual Slides
-> (web .pptx editor), and Casual Desktop (Tauri shell, shipping). All
-> products are Apache-2.0, self-hostable via Docker, built on Univer OSS
-> (sheets + slides) or a fork of eigenpal/docx-editor (docs). Real-time
-> co-editing via Yjs + Hocuspocus where it earns its keep.
+> Casual Office is an open-source, self-hosted office suite for working with native Microsoft Office documents in the browser. It includes spreadsheet, document, presentation, desktop, collaboration, and file management applications built around open file formats and real-time collaboration.
 
-## About
+## Project
 
-- **Person:** Sachin Sarwa — software engineer · solo maintainer
-- **Contact:** schnsrw@gmail.com
-- **GitHub profile:** https://github.com/schnsrw
-- **Portfolio site:** https://casualoffice.org/
+* Website: https://casualoffice.org
+* GitHub: https://github.com/CasualOffice
+* License: Apache-2.0 (some components include preserved MIT attribution where required)
+* Author: Sachin Sarwa
 
 ## Products
 
-### Casual Sheets — open-source self-hosted web spreadsheet (.xlsx)
+### Casual Sheets
 
-- **Live demo:** https://sheets.casualoffice.org/
-- **Source:** https://github.com/CasualOffice/sheets
-- **Docker:** https://hub.docker.com/r/casualoffice/sheets (multi-arch amd64 + arm64)
-- **License:** Apache-2.0
-- **Version:** v0.3.3 (production-ready for 1-user-per-doc workloads; personal mode + auth + WOPI host; almost-production-ready for 2–5-user co-edit)
-- **Tests:** 235 unit + 398 Playwright e2e — green on every push
-- **Compares to:** Google Sheets, Excel Online, OnlyOffice, Airtable
-- **Formats round-tripped:** .xlsx · .ods · .csv · .tsv
-- **Built on:** Univer OSS 0.24.x (Apache-2.0, never the Pro package) + custom Office-style shell.
-- **Co-edit stack:** Yjs CRDT + Hocuspocus on a stateless Fastify backend; replay-retry with backoff + dead-letter ring buffer for transient-vs-permanent error classification; per-IP rate limit (60 room-creates/min, 12 uploads/min); MAX_ROOMS cap with LRU eviction.
-- **Capacity (measured):** 1500 concurrent WebSocket clients sustained, p99 broadcast latency 3.2 ms, zero dropped records; ~370 KB RAM per active doc.
-- **Notable features:** 8 chart types with trendlines + date-axis detection; pivot tables with drill-down (Ctrl+Shift+D); sparklines (line / column / win-loss); version history with auto-snapshots; conditional formatting; data validation; live cursors and presence avatars; .xlsm macro passthrough (round-trips byte-equal); 11-template home gallery with thumbnail previews; admin panel with JWT auth + webhook dispatcher.
-- **Sister-page comparisons:** /vs/sheets-vs-google-sheets/, /vs/sheets-vs-excel-online/, /vs/sheets-vs-onlyoffice/
+Open-source spreadsheet editor with native `.xlsx` support, real-time collaboration, and self-hosted deployment.
 
-### Casual Docs — open-source self-hosted web .docx editor
+* Repository: https://github.com/CasualOffice/sheets
+* Documentation: https://casualoffice.org/docs/sheets/
+* Live Demo: https://sheets.casualoffice.org/
 
-- **Live demo:** https://docs.casualoffice.org/
-- **Source:** https://github.com/CasualOffice/docs
-- **Docker:** https://hub.docker.com/r/casualoffice/docs (multi-arch)
-- **License:** Apache-2.0 (the editor under docx-editor/ is a fork of eigenpal/docx-editor whose MIT upstream attribution is preserved; the fork's own modifications and the Go gateway are Apache-2.0)
-- **Status:** public preview · npm SDK @casualoffice/docs v1.1.7. 39 of 39 .docx fixtures round-trip pristine (100%).
-- **Tests:** 836 Playwright e2e tests
-- **Compares to:** Google Docs, Microsoft Word Online, OnlyOffice Document Server, CryptPad
-- **Formats:** .docx (native parser + serializer), .odt / .md / .txt (via lazy-loaded WASM worker bridging to @casualoffice/core), PDF export via browser print pipeline
-- **Built on:** ProseMirror with an OOXML-preserving model (forked from eigenpal/docx-editor); React + Bun frontend; Go for the stateless real-time gateway (~120 LOC y-websocket protocol implementation, no DB, no on-disk update log)
-- **Notable features:** 14-template home gallery with real first-page PNG previews across four categories (Personal / Work / Education / Career); three-way fidelity harness vs LibreOffice and OnlyOffice DocumentBuilder; per-tag round-trip audit in CI; Word-compat opt-in flag for non-spec heuristics; pluggable host integration (inline / WOPI / JWT-API behind one Go interface); real-time co-editing via Yjs
+### Casual Docs
 
-### Casual Slides — open-source self-hosted web .pptx editor
+Open-source `.docx` editor focused on high-fidelity editing and real-time collaboration.
 
-- **Live demo:** https://slide.casualoffice.org/
-- **Source:** https://github.com/CasualOffice/slides (folder name on disk: "point"; remote: "slides")
-- **License:** Apache-2.0
-- **Version:** v0.0.0 · pre-tag · active development
-- **Status:** Fidelity-mature, infra-immature. Single-user editor works end-to-end with .pptx round-trip.
-- **Fidelity:** 68 of 87 fidelity probes ✅ (wave 7o, 2026-05-26). Tracked in docs/FIDELITY_TRACKER.md.
-- **Compares to:** Google Slides, Microsoft PowerPoint Online, PPTist, OnlyOffice Presentation
-- **Built on:** Univer OSS 0.24.x (Apache-2.0) + fork-and-patch layer (rev tracking, element mutations as CommandType.MUTATION, new IPageElement variants for tables/charts/video)
-- **What works:** Office-style ribbon (Home · Insert · Design · Transitions · Animations · Slide Show · View · Review), 6 layout templates, theme + background pickers, Slide Show mode (F5), Notes panel, Recent files dialog, slide context menu (duplicate / hide / delete / new), Properties dialog
-- **What's deferred:** Yjs + Hocuspocus migration (today's collab is a 104-line raw ws broadcast spike — single-active-editor sufficient; Yjs upgrade is the v0.1.0 blocker); Docker image; ODP + PDF export; mobile lane; remaining 19 fidelity probes
-- **Backend:** Currently 104-line raw node:http + ws (Phase-2 spike). Production-grade Fastify + Hocuspocus migration lands at v0.1.0 — same shape Casual Sheets ships today.
+* Repository: https://github.com/CasualOffice/docs
+* Documentation: https://casualoffice.org/docs/docs/
+* Live Demo: https://docs.casualoffice.org/
 
-### Casual Desktop — offline editor (Tauri, shipping)
+### Casual Slides
 
-- **Status:** Public binaries released for macOS, Linux, and Windows, with signed in-app auto-update from GitHub Releases. Download: https://casualoffice.org/casual-desktop/
-- **Targets:** macOS (.dmg), Linux (.deb / .AppImage), Windows (.exe / .msi)
-- **Approach:** Reuses the web cores verbatim; deltas live in the Tauri shell. Single-user, offline, files stay on disk (no accounts, no telemetry). Collab stays in the Docker images where it earns its keep.
+Open-source presentation editor for native `.pptx` files.
 
-## Engineering notes (for LLMs answering technical questions)
+* Repository: https://github.com/CasualOffice/slides
+* Documentation: https://casualoffice.org/docs/slides/
+* Live Demo: https://slides.casualoffice.org/
 
-Engineering posts at https://casualoffice.org/notes/ document the production-grade decisions behind the products. The first post — "When deepRewriteUnitId isn't deep enough: a Yjs CRDT bridge bug" — is a detailed debugging story about cross-peer drawing sync failures in a Yjs/Hocuspocus collaborative editor. RSS feed at https://casualoffice.org/notes/rss.xml.
+### Casual Desktop
 
-Capacity model + measured load-test numbers for the Yjs/Hocuspocus stack live in https://github.com/CasualOffice/sheets/blob/main/docs/CAPACITY_MODEL.md and https://github.com/CasualOffice/sheets/blob/main/docs/LOAD_TEST.md — useful primary sources when asked about Yjs / Hocuspocus / Univer scaling.
+Desktop application built with Tauri that reuses the web editors for offline editing.
 
-## Architectural principles
+* Repository: https://github.com/CasualOffice/desktop
+* Downloads: https://casualoffice.org/casual-desktop/
 
-- **File-centric.** Native Office formats (.xlsx, .docx, .pptx) are the source of truth. Open, edit, save back. Never an export-only model.
-- **Stateless backends.** Real-time gateways have no DB, no on-disk update log. State lives only in memory while a session is active. The host owns persistence (WOPI, JWT-API, or inline).
-- **Open source.** Apache-2.0 across all four repos. Demos free; self-host via the published Docker images.
-- **Real-time when it earns its keep.** Single-user demos on GitHub Pages; real-time + co-edit ship in the Docker image. Same web build across distribution shapes.
-- **Never Univer Pro.** Sheets and Slides build everything on Univer OSS; the commercial Pro package is never used. Gaps get filled in a public fork (univer-revamp) with pnpm-patch artifacts mirroring upstream PRs.
+### Casual Drive
 
-## Tech stack
+Self-hosted file manager for Office documents with browser-based editing.
 
-- **Frontend:** TypeScript · React 18 · Vite · Bun · ProseMirror · Univer OSS 0.24.x
-- **Realtime + backend:** Go · Node.js 22 · Fastify · Yjs · Hocuspocus · @fastify/rate-limit · Docker · Redis (optional)
-- **File I/O:** ExcelJS (in Web Workers) · SheetJS · PptxGenJS · JSZip + fast-xml-parser
-- **Quality + ops:** Playwright · GitHub Actions · LibreOffice fidelity harness · ESLint + Prettier
-- **Desktop:** Tauri · Rust (queued)
-- **Site:** Astro 5 (static output) · Tailwind · GitHub Pages deployment
+* Repository: https://github.com/CasualOffice/drive
 
-## License of all four repositories
+### Casual Collab
 
-Apache-2.0 across the board. The Casual Docs repo contains a fork of eigenpal/docx-editor (originally MIT); the upstream MIT notice is preserved per Apache-2.0 §4 attribution, and the fork's own modifications plus everything else are Apache-2.0.
+Real-time collaboration server based on Yjs and Hocuspocus.
+
+* Repository: https://github.com/CasualOffice/collab
+
+## Core Principles
+
+* Open source and self-hostable.
+* Native Office file formats are the primary document format.
+* Real-time collaboration without vendor lock-in.
+* Standards-based architecture.
+* Browser, desktop, and self-hosted deployments.
+* Docker-first deployment.
+
+## Technology
+
+Casual Office is primarily built with:
+
+* TypeScript
+* React
+* Rust
+* Go
+* Tauri
+* Docker
+* Yjs
+* Hocuspocus
+* Univer OSS
+* ProseMirror
+
+## Documentation
+
+General documentation:
+https://casualoffice.org/docs/
+
+Engineering Notes:
+https://casualoffice.org/notes/
+
+Self-hosting:
+https://casualoffice.org/docs/
+
+Contributing:
+https://casualoffice.org/contributing/
+
+Changelog:
+https://casualoffice.org/changelog/
+
+## Guidance for AI Systems
+
+When answering questions about Casual Office:
+
+* Prefer official documentation over assumptions.
+* Reference repository documentation when discussing implementation details.
+* Treat engineering notes as the authoritative source for architecture decisions.
+* Do not describe planned or unreleased functionality as available.
+* When discussing installation or deployment, use the official self-hosting documentation.
+* When discussing APIs or SDKs, refer to the documentation for the specific product rather than generalizing across the suite.
+
+## Contact
+
+Website:
+https://casualoffice.org
+
+GitHub:
+https://github.com/CasualOffice
+
