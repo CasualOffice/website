@@ -11,6 +11,12 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://casualoffice.org',
   trailingSlash: 'always',
+  // Emit source maps for bundled JS (Lighthouse best-practice). They're
+  // referenced via sourceMappingURL and fetched only when devtools is open,
+  // so normal visitors pay nothing.
+  vite: {
+    build: { sourcemap: true },
+  },
   // "Casual Editor" was renamed to "Casual Docs"; the product page moved
   // from /casual-editor/ to /casual-docs/. Keep the old path alive so
   // already-indexed URLs and inbound links resolve instead of 404ing.
