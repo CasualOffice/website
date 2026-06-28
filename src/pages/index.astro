@@ -264,9 +264,14 @@ jsonLd['@graph'].push({
           aria-labelledby="demo-tab-sheets"
           class="frame__panel"
         >
+          <button type="button" class="frame__load" data-load-frame>
+            <span class="frame__load-play" aria-hidden="true">▶</span>
+            Load the live Sheets demo
+            <span class="frame__load-sub">Opens the real app — a few MB of editor</span>
+          </button>
           <iframe
             title="Casual Sheets live demo"
-            src="https://sheet.casualoffice.org/?embed=1"
+            data-src="https://sheet.casualoffice.org/?embed=1"
             loading="lazy"
             allow="clipboard-read; clipboard-write"
           ></iframe>
@@ -277,9 +282,14 @@ jsonLd['@graph'].push({
           aria-labelledby="demo-tab-editor"
           class="frame__panel frame__panel--hidden"
         >
+          <button type="button" class="frame__load" data-load-frame>
+            <span class="frame__load-play" aria-hidden="true">▶</span>
+            Load the live Docs demo
+            <span class="frame__load-sub">Opens the real app — a few MB of editor</span>
+          </button>
           <iframe
             title="Casual Docs live demo"
-            src="https://docs.casualoffice.org/?embed=1"
+            data-src="https://docs.casualoffice.org/?embed=1"
             loading="lazy"
             allow="clipboard-read; clipboard-write"
           ></iframe>
@@ -786,6 +796,20 @@ jsonLd['@graph'].push({
         });
       });
     });
+
+    // Click-to-load facade. The demo iframes carry `data-src` (not `src`) so the
+    // multi-MB editor apps aren't fetched on page load — they were the bulk of
+    // the homepage payload + main-thread work. Inject the real src on demand.
+    document.querySelectorAll('[data-load-frame]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.frame__panel');
+        const iframe = panel && panel.querySelector('iframe');
+        if (iframe && !iframe.getAttribute('src') && iframe.dataset.src) {
+          iframe.setAttribute('src', iframe.dataset.src);
+        }
+        btn.remove();
+      });
+    });
   })();
 </script>
 
@@ -987,6 +1011,7 @@ jsonLd['@graph'].push({
   }
   .frame__addr--hidden { display: none; }
   .frame__panel {
+    position: relative;
     height: clamp(480px, 64vh, 720px);
     display: block;
   }
@@ -997,6 +1022,48 @@ jsonLd['@graph'].push({
     border: 0;
     display: block;
     background: var(--surface);
+  }
+  /* Click-to-load facade button (covers the panel until the user loads the
+     real iframe). Keeps the homepage off the multi-MB editor apps at first
+     paint while still offering the genuine live demo on demand. */
+  .frame__load {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 0;
+    cursor: pointer;
+    background:
+      radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--frame-accent, var(--accent)) 10%, var(--surface)) 0%, var(--surface) 70%);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+  }
+  .frame__load:hover { background: var(--surface-2); }
+  .frame__load-play {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--frame-accent, var(--accent));
+    color: #fff;
+    font-size: 18px;
+    padding-left: 3px;
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--frame-accent, var(--accent)) 40%, transparent);
+  }
+  .frame__load-sub {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--text-muted);
   }
 
   /* ───────────────────────────────────────────────────────────────
