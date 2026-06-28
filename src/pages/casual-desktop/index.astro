@@ -3,12 +3,12 @@ import Base from '../../layouts/Base.astro';
 
 const title = 'Casual Desktop — offline Sheets + Docs in a Tauri binary · Casual Office';
 const description =
-  'Casual Desktop — a native binary for macOS, Linux, and Windows that reuses the Casual Docs and Casual Sheets web cores verbatim. Single-user, offline, signed in-app auto-update. Download v0.0.4.';
+  'Casual Desktop — a native binary for macOS, Linux, and Windows that reuses the Casual Docs and Casual Sheets web cores verbatim. Single-user, offline, signed in-app auto-update. Download v0.0.5.';
 
 // Release downloads. Versioned URLs so a button always points at a known-good
 // asset; bump `version` (and the asset names if the bundle naming changes) on
 // each release. GitHub rewrites the space in "Casual Office" to a dot.
-const version = '0.0.4';
+const version = '0.0.5';
 const base = `https://github.com/CasualOffice/desktop/releases/download/v${version}`;
 const downloads = {
   mac: `${base}/Casual.Office_${version}_universal.dmg`,
@@ -232,12 +232,11 @@ const jsonLd = {
   <section class="section" style="--product-accent: var(--desktop); --product-accent-soft: var(--desktop-soft);">
     <div class="container container--narrow">
       <div class="callout">
-        <strong>v{version} is the latest hotfix.</strong> Rename now renames the
-        file on disk, your in-editor light/dark choice sticks across restarts,
-        and the document-open error banner is gone. It builds on v0.0.3 (opens
-        <code>.odt</code>, fixes <code>.psv</code> saving, dark mode follows the
-        launcher, Print&nbsp;&rarr;&nbsp;PDF) — see the changelog. Auto-update
-        installs it in place.
+        <strong>v{version} is the latest release.</strong> On desktop, your files
+        stay on disk — edits no longer get mirrored into browser storage
+        (IndexedDB); the disk file and its on-disk recovery sidecar are the only
+        source of truth. Builds on v0.0.4 (rename-on-disk, persistent theme,
+        cleaner open) — see the changelog. Auto-update installs it in place.
       </div>
       <div class="row" style="margin-top: 22px;">
         <a class="btn btn--ghost" href={releasesUrl} rel="noopener" target="_blank">All releases</a>
