@@ -3,12 +3,12 @@ import Base from '../../layouts/Base.astro';
 
 const title = 'Casual Desktop — offline Sheets + Editor in a Tauri binary · Casual Office';
 const description =
-  'Casual Desktop — a native binary for macOS, Linux, and Windows that reuses the Casual Docs and Casual Sheets web cores verbatim. Single-user, offline, signed in-app auto-update. Download v0.0.2.';
+  'Casual Desktop — a native binary for macOS, Linux, and Windows that reuses the Casual Docs and Casual Sheets web cores verbatim. Single-user, offline, signed in-app auto-update. Download v0.0.3.';
 
 // Release downloads. Versioned URLs so a button always points at a known-good
 // asset; bump `version` (and the asset names if the bundle naming changes) on
 // each release. GitHub rewrites the space in "Casual Office" to a dot.
-const version = '0.0.2';
+const version = '0.0.3';
 const base = `https://github.com/CasualOffice/desktop/releases/download/v${version}`;
 const downloads = {
   mac: `${base}/Casual.Office_${version}_universal.dmg`,
@@ -177,11 +177,11 @@ const jsonLd = {
   <section class="section" style="--product-accent: var(--desktop); --product-accent-soft: var(--desktop-soft);">
     <div class="container container--narrow">
       <div class="callout">
-        <strong>v{version} is the first public binary.</strong> All three OSes,
-        both editors, signed auto-update. The web cores keep improving — Sheets
-        already handles everyday workbooks, and the Editor's per-tag round-trip
-        fidelity is the active work; both flow to the desktop on the next
-        release.
+        <strong>v{version} is a hotfix on the first public binary.</strong> It
+        opens OpenDocument Text (<code>.odt</code>), fixes pipe-separated
+        (<code>.psv</code>) saving, makes dark mode follow the launcher across
+        both editors, routes Print to a PDF on desktop, and more — see the
+        changelog. Auto-update installs it in place over v0.0.2.
       </div>
       <div class="row" style="margin-top: 22px;">
         <a class="btn btn--ghost" href={releasesUrl} rel="noopener" target="_blank">All releases</a>
