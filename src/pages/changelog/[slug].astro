@@ -161,6 +161,22 @@ const ogImage = `/og-${entry.data.product}.png`;
     border: 1px solid var(--border);
     color: var(--text);
   }
+  /* Wide code blocks and tables must scroll, not clip — `body` has
+     overflow-x: hidden, so without these a long line is unreachable on
+     mobile. Mirrors the docs/notes/vs body styles. */
+  .cl-detail__body :global(pre) {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 0 0 18px;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+  .cl-detail__body :global(pre code) { background: transparent; border: 0; padding: 0; }
+  .cl-detail__body :global(table) { width: 100%; border-collapse: collapse; margin: 0 0 18px; display: block; overflow-x: auto; }
   .cl-detail__body :global(ul) { margin: 0 0 18px; padding-left: 22px; }
   .cl-detail__body :global(li) { margin: 0 0 6px; }
   .cl-detail__body :global(a) { color: var(--product-accent); text-decoration: underline; text-underline-offset: 3px; }
