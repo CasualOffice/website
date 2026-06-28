@@ -175,6 +175,64 @@ const jsonLd = {
   </section>
 
   <section class="section" style="--product-accent: var(--desktop); --product-accent-soft: var(--desktop-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">Installing</span>
+          <h2 class="title">The builds aren&rsquo;t OS-code-signed yet</h2>
+        </div>
+      </div>
+      <p class="muted" style="max-width: 70ch; margin: 0 0 22px;">
+        Code-signing certificates cost money per OS, so the downloads are
+        <strong>not signed in the OS sense</strong>. They&rsquo;re the same binaries
+        published on GitHub Releases, but macOS Gatekeeper and Windows SmartScreen
+        will warn on first launch. Here&rsquo;s how to get past it on each platform.
+        (Auto-update <em>is</em> cryptographically signed — verified against an
+        embedded minisign key — so updates after install are tamper-checked.)
+      </p>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature__icon"></span>
+          <h3 class="feature__title">macOS &middot; .dmg</h3>
+          <p class="feature__body">
+            Gatekeeper shows &ldquo;Casual Office can&rsquo;t be opened because Apple
+            cannot check it.&rdquo;
+          </p>
+          <ol class="install-steps">
+            <li>Drag the app to Applications.</li>
+            <li><strong>Right-click</strong> (or Ctrl-click) the app &rarr; <strong>Open</strong> &rarr; <strong>Open</strong>.</li>
+            <li>Or: System Settings &rarr; Privacy &amp; Security &rarr; <strong>Open Anyway</strong>.</li>
+            <li>Still stuck? In Terminal: <code>xattr -dr com.apple.quarantine "/Applications/Casual Office.app"</code></li>
+          </ol>
+        </article>
+        <article class="feature">
+          <span class="feature__icon"></span>
+          <h3 class="feature__title">Windows &middot; .exe / .msi</h3>
+          <p class="feature__body">
+            SmartScreen shows a blue &ldquo;Windows protected your PC&rdquo; dialog.
+          </p>
+          <ol class="install-steps">
+            <li>Click <strong>More info</strong>.</li>
+            <li>Click <strong>Run anyway</strong>.</li>
+            <li>Then install normally. The <code>.exe</code> (NSIS) and <code>.msi</code> are interchangeable &mdash; pick either.</li>
+          </ol>
+        </article>
+        <article class="feature">
+          <span class="feature__icon"></span>
+          <h3 class="feature__title">Linux &middot; .deb / .AppImage</h3>
+          <p class="feature__body">
+            No code-signing gate on Linux &mdash; just install or mark executable.
+          </p>
+          <ol class="install-steps">
+            <li><strong>.deb</strong> (Debian/Ubuntu): <code>sudo apt install ./Casual.Office_*_amd64.deb</code> &mdash; or open it in your software centre.</li>
+            <li><strong>.AppImage</strong> (any distro): <code>chmod +x Casual.Office_*_amd64.AppImage</code> then run it. Needs FUSE (<code>libfuse2</code> on newer Ubuntu).</li>
+          </ol>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--desktop); --product-accent-soft: var(--desktop-soft);">
     <div class="container container--narrow">
       <div class="callout">
         <strong>v{version} is a hotfix on the first public binary.</strong> It
@@ -190,3 +248,25 @@ const jsonLd = {
     </div>
   </section>
 </Base>
+
+<style>
+  .install-steps {
+    margin: 12px 0 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-soft);
+  }
+  .install-steps code {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    overflow-wrap: anywhere;
+  }
+</style>
