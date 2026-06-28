@@ -74,9 +74,24 @@ const PRODUCT_OG: Record<string, string> = {
 
 <style>
   .docs { padding: 32px 0 64px; }
-  .docs__container { display: grid; grid-template-columns: 240px 1fr; gap: 36px; }
+  .docs__container { display: grid; grid-template-columns: 240px 1fr; gap: 36px; align-items: start; }
   @media (max-width: 880px) {
     .docs__container { grid-template-columns: 1fr; }
+    /* Mobile: the sidebar stacks above the article. Don't let a long guide
+       list push the content far down — cap it and give it its own scroll,
+       framed as a nav panel. And drop the sticky/viewport-height behaviour. */
+    :global(.docs-side) {
+      position: static;
+      top: auto;
+      max-height: 42vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 20px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
   }
 
   .docs__article {
@@ -221,7 +236,13 @@ const PRODUCT_OG: Record<string, string> = {
     position: sticky;
     top: 84px;
     align-self: start;
-    padding: 8px 0;
+    /* Give the guide list its OWN scroll so a list taller than the viewport
+       is fully reachable. Previously the sticky column overflowed below the
+       fold with no way to scroll it — only the article scrolled. */
+    max-height: calc(100vh - 84px - 24px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 8px 6px 8px 0;
     font-size: 14px;
   }
   :global(.docs-side__group) { margin-bottom: 28px; }

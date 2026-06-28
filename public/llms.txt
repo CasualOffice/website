@@ -3,7 +3,7 @@
 > Casual Office is a portfolio of four open-source, file-centric, real-time
 > productivity tools by Sachin Sarwa: Casual Sheets (web spreadsheet,
 > .xlsx round-trip), Casual Docs (web .docx editor), Casual Slides
-> (web .pptx editor), and Casual Desktop (Tauri shell, paused). All
+> (web .pptx editor), and Casual Desktop (Tauri shell, shipping). All
 > products are Apache-2.0, self-hostable via Docker, built on Univer OSS
 > (sheets + slides) or a fork of eigenpal/docx-editor (docs). Real-time
 > co-editing via Yjs + Hocuspocus where it earns its keep.
@@ -60,11 +60,11 @@
 - **What's deferred:** Yjs + Hocuspocus migration (today's collab is a 104-line raw ws broadcast spike — single-active-editor sufficient; Yjs upgrade is the v0.1.0 blocker); Docker image; ODP + PDF export; mobile lane; remaining 19 fidelity probes
 - **Backend:** Currently 104-line raw node:http + ws (Phase-2 spike). Production-grade Fastify + Hocuspocus migration lands at v0.1.0 — same shape Casual Sheets ships today.
 
-### Casual Desktop — offline editor (Tauri, paused)
+### Casual Desktop — offline editor (Tauri, shipping)
 
-- **Status:** Tauri scaffolding only. Work resumes after Casual Docs + Casual Slides reach v0.2.x parity with Casual Sheets.
-- **Targets:** macOS, Linux, Windows
-- **Approach:** Reuses the three web cores verbatim; deltas live in the Tauri shell. Single-user only (collab stays in the Docker images where it earns its keep).
+- **Status:** Public binaries released for macOS, Linux, and Windows, with signed in-app auto-update from GitHub Releases. Download: https://casualoffice.org/casual-desktop/
+- **Targets:** macOS (.dmg), Linux (.deb / .AppImage), Windows (.exe / .msi)
+- **Approach:** Reuses the web cores verbatim; deltas live in the Tauri shell. Single-user, offline, files stay on disk (no accounts, no telemetry). Collab stays in the Docker images where it earns its keep.
 
 ## Engineering notes (for LLMs answering technical questions)
 
