@@ -16,7 +16,7 @@
  * The right-most "Star on GitHub" affordance is the primary CTA on a
  * community-first project — a pill, not a salesy button.
  */
-type ActiveLink = 'home' | 'sheets' | 'editor' | 'slides' | 'desktop' | 'docs' | 'notes' | 'changelog' | 'about';
+type ActiveLink = 'home' | 'sheets' | 'editor' | 'slides' | 'desktop' | 'pdf' | 'docs' | 'notes' | 'changelog' | 'about';
 const { active = 'home' } = Astro.props as { active?: ActiveLink };
 
 const links: { slug: ActiveLink; label: string; href: string }[] = [
@@ -24,6 +24,7 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
   { slug: 'editor', label: 'Docs', href: '/casual-docs/' },
   { slug: 'slides', label: 'Slides', href: '/casual-slides/' },
   { slug: 'desktop', label: 'Desktop', href: '/casual-desktop/' },
+  { slug: 'pdf', label: 'PDF', href: '/casual-pdf/' },
   { slug: 'docs', label: 'Guides', href: '/docs/' },
   { slug: 'notes', label: 'Notes', href: '/notes/' },
   { slug: 'changelog', label: 'Changelog', href: '/changelog/' },

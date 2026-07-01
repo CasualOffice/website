@@ -83,6 +83,23 @@ const jsonLd = {
             author: { '@id': 'https://casualoffice.org/#person' },
           },
         },
+        {
+          '@type': 'ListItem',
+          position: 4,
+          item: {
+            '@type': 'SoftwareApplication',
+            '@id': 'https://pdf.casualoffice.org/#app',
+            name: 'Casual PDF',
+            applicationCategory: 'BusinessApplication',
+            applicationSubCategory: 'DocumentEditorApplication',
+            operatingSystem: 'Web Browser, macOS, Linux, Windows',
+            url: 'https://pdf.casualoffice.org/',
+            codeRepository: 'https://github.com/CasualOffice/casual_pdf',
+            license: 'https://www.apache.org/licenses/LICENSE-2.0',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            author: { '@id': 'https://casualoffice.org/#person' },
+          },
+        },
       ],
     },
   ],
@@ -406,6 +423,22 @@ jsonLd['@graph'].push({
           href="/casual-desktop/"
           accent="var(--desktop)"
           accentSoft="var(--desktop-soft)"
+        />
+        <ProductCard
+          slug="pdf"
+          name="Casual PDF"
+          role="HIGH-FIDELITY PDF VIEWER + EDITOR"
+          body="View, annotate, e-sign, and redact PDFs in the browser with one PDFium engine across web and desktop. Real-time text editing (Tier 2), certified PKCS#7 digital signing, true byte-level redaction, form filling, page operations, and a full annotation suite."
+          features={[
+            'One PDFium engine — web + desktop, identical fidelity',
+            'Annotate · forms · in-place text edit · page ops',
+            'E-sign (visible stamp) + PKCS#7 certified signing',
+            'True byte-level redaction (rasterize + flatten)',
+          ]}
+          status="v1 in progress · live at pdf.casualoffice.org"
+          href="/casual-pdf/"
+          accent="var(--pdf)"
+          accentSoft="var(--pdf-soft)"
         />
       </div>
     </div>
