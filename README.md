@@ -8,6 +8,7 @@ Marketing + docs site for **Casual Office** — an open-source, file-centric, re
 | **Casual Docs** | `.docx` web editor with real-time co-editing | [CasualOffice/docs](https://github.com/CasualOffice/docs) | [docs.casualoffice.org](https://docs.casualoffice.org/) | public preview · 39/39 fidelity · npm SDK @casualoffice/docs |
 | **Casual Slides** | `.pptx` web slides editor | [CasualOffice/slides](https://github.com/CasualOffice/slides) | [slide.casualoffice.org](https://slide.casualoffice.org/) | v0.0.0 · pre-tag · 68/87 fidelity ✓ |
 | **Casual Desktop** | Tauri binaries wrapping the three web cores | (within product repos) | — | paused · queued |
+| **Casual PDF** | High-fidelity PDF viewer + editor | [CasualOffice/casual_pdf](https://github.com/CasualOffice/casual_pdf) | [pdf.casualoffice.org](https://pdf.casualoffice.org/) | v1 in progress · Tier-1 editor live |
 
 Built with **Astro 5** (static output) and deployed to GitHub Pages on every push to `main`. The site is **`casualoffice.org`** via the custom domain in `public/CNAME`.
 
@@ -22,6 +23,7 @@ Built with **Astro 5** (static output) and deployed to GitHub Pages on every pus
 | `/casual-docs/` | Product page |
 | `/casual-slides/` | Product page (honest about early-stage state) |
 | `/casual-desktop/` | Tauri lane status — paused, queued behind web v1 |
+| `/casual-pdf/` | Product page — viewer/editor features, stack, honest scope |
 | `/docs/` | Long-form docs — pulled from sibling repos via `scripts/sync-docs.mjs`. Per-product + shared sections. |
 | `/changelog/` | Per-product release notes — Astro content collection (`src/content/changelog/`) |
 | `/notes/` | Engineering posts — Yjs CRDT bridges, capacity modelling, `.xlsx` + `.pptx` round-trip lessons. Targets long-tail dev search queries; HN-shaped content. RSS at `/notes/rss.xml`. |

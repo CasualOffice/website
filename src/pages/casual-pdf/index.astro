@@ -1,0 +1,399 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Casual PDF — high-fidelity PDF viewer + editor · Casual Office';
+const description =
+  'Casual PDF is a free, open-source PDF viewer and editor — one PDFium engine across web and desktop. Annotate, fill forms, edit text in place, e-sign with PKCS#7, redact, and organise pages. Live at pdf.casualoffice.org. Apache-2.0.';
+
+const demoUrl = 'https://pdf.casualoffice.org/';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  '@id': 'https://pdf.casualoffice.org/#app',
+  name: 'Casual PDF',
+  applicationCategory: 'BusinessApplication',
+  applicationSubCategory: 'DocumentEditorApplication',
+  operatingSystem: 'Web Browser, macOS, Linux, Windows',
+  url: demoUrl,
+  codeRepository: 'https://github.com/CasualOffice/casual_pdf',
+  license: 'https://www.apache.org/licenses/LICENSE-2.0',
+  description:
+    'High-fidelity PDF viewer and editor powered by one PDFium engine across web and desktop. Annotate, fill AcroForms, edit text in place, e-sign (visible stamp + certified PKCS#7), redact, and organise pages. Apache-2.0.',
+  image: 'https://casualoffice.org/og.png',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: {
+    '@type': 'Person',
+    '@id': 'https://casualoffice.org/#person',
+    name: 'Sachin Sarwa',
+    url: 'https://casualoffice.org/',
+  },
+  isAccessibleForFree: true,
+};
+---
+<Base {title} {description} active="pdf" jsonLd={jsonLd}>
+  <section
+    class="hero subpage"
+    style="--product-accent: var(--pdf); --product-accent-soft: var(--pdf-soft);"
+  >
+    <div class="container hero__inner reveal">
+      <div class="subpage__topline">
+        <span class="dot" aria-hidden="true"></span>
+        Casual PDF · v1 in progress
+      </div>
+      <h1 class="display">One PDF engine. <em>Every surface.</em></h1>
+      <p class="lede">
+        A high-fidelity PDF viewer and editor — one PDFium engine across web and desktop,
+        identical rendering everywhere. Annotate, fill forms, edit text in place,
+        e-sign, redact, and organise pages. No SaaS. Apache-2.0.
+      </p>
+      <div class="row">
+        <a class="btn btn--primary" href={demoUrl} rel="noopener" target="_blank">
+          Open the live app ↗
+        </a>
+        <a class="btn btn--ghost" href="https://github.com/CasualOffice/casual_pdf" rel="noopener" target="_blank">
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE GRID -->
+  <section class="section">
+    <div class="container">
+      <div class="section__head reveal">
+        <div>
+          <span class="eyebrow">what it does</span>
+          <h2 class="title">A full Tier-1 PDF editor,<br/>built on one engine.</h2>
+        </div>
+        <span class="section__hint">/features</span>
+      </div>
+      <div class="feat-grid reveal">
+
+        <article class="feat">
+          <div class="feat__icon-wrap" style="--feat-color: var(--pdf);">
+            <svg class="feat__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path fill="currentColor" d="M9 13h6v-2H9m0 6h6v-2H9m8-12H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-4-4Zm-1 1.5L18.5 9H16V4.5Z"/>
+            </svg>
+          </div>
+          <h3 class="feat__title">High-fidelity rendering</h3>
+          <p class="feat__body">
+            PDFium — the same engine powering Chrome's PDF viewer — runs as WASM in the
+            browser and native on desktop. Identical pixel output on both surfaces
+            (render-parity CI gate: diff &lt;0.22%).
+          </p>
+        </article>
+
+        <article class="feat">
+          <div class="feat__icon-wrap" style="--feat-color: var(--pdf);">
+            <svg class="feat__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path fill="currentColor" d="M20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/>
+            </svg>
+          </div>
+          <h3 class="feat__title">Annotation suite</h3>
+          <p class="feat__body">
+            Highlight, ink, free-text, note, rectangle, ellipse, arrow. Undo/redo.
+            Multi-select with rubber-band marquee. Annotations bake into the PDF on download
+            via the EmbedPDF export plugin.
+          </p>
+        </article>
+
+        <article class="feat">
+          <div class="feat__icon-wrap" style="--feat-color: var(--pdf);">
+            <svg class="feat__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Zm-1 7V3.5L18.5 9H13Zm-2 9v-2H7v-2h4v-2l3 3-3 3Z"/>
+            </svg>
+          </div>
+          <h3 class="feat__title">In-place text editing</h3>
+          <p class="feat__body">
+            Edit existing PDF text directly — click a run, type, commit. PDFium's
+            text-object API (<code>FPDFText_SetText</code>) edits content in-place without
+            rasterising. Fail-closed for subsetted fonts: falls back to standard Helvetica/Times/Courier and shows a banner.
+          </p>
+        </article>
+
+        <article class="feat">
+          <div class="feat__icon-wrap" style="--feat-color: var(--pdf);">
+            <svg class="feat__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 19.52A2 2 0 0 0 5.6 22.5c.18-.05.35-.12.5-.21l1.57-.79A14.82 14.82 0 0 1 12 21c6.91 0 10-5 10-9a6 6 0 0 0-5-5.91zM13 14h-2v-2h2v2Zm0-4h-2V6h2v4Z"/>
+            </svg>
+          </div>
+          <h3 class="feat__title">E-signing + PKCS#7</h3>
+          <p class="feat__body">
+            Two signing modes: a <em>visible</em> signature stamp (draw or type, placed as
+            an annotation) and a <em>certified</em> PKCS#7 cryptographic signature via
+            <code>@signpdf/signpdf</code> — incremental update preserves original bytes.
+            Browser-minted self-signed or your own .p12/.pfx.
+          </p>
+        </article>
+
+        <article class="feat">
+          <div class="feat__icon-wrap" style="--feat-color: var(--pdf);">
+            <svg class="feat__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z"/>
+            </svg>
+          </div>
+          <h3 class="feat__title">True byte-level redaction</h3>
+          <p class="feat__body">
+            Drag to mark regions. Apply rasterises each page at 2×, paints opaque black boxes,
+            then rebuilds with pdf-lib — preserving MediaBox origin, CropBox, and rotation.
+            Content removed by construction: not in the output bytes.
+            Immune to de-redaction attacks (arXiv:2206.02285).
+          </p>
+        </article>
+
+        <article class="feat">
+          <div class="feat__icon-wrap" style="--feat-color: var(--pdf);">
+            <svg class="feat__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path fill="currentColor" d="M3 3h18v2H3V3Zm0 6h18v2H3V9Zm0 6h18v2H3v-2Zm0 6h18v2H3v-2Z"/>
+            </svg>
+          </div>
+          <h3 class="feat__title">Page operations + furniture</h3>
+          <p class="feat__body">
+            Drag to reorder or delete pages (Organize Pages). Watermark, header/footer
+            (with <code>{`{page}`}</code> / <code>{`{pages}`}</code> / <code>{`{date}`}</code>),
+            and Bates numbering — all stamped via pdf-lib as incremental updates.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S IN THE STACK -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__head reveal">
+        <div>
+          <span class="eyebrow">tech stack</span>
+          <h2 class="title">One engine, three surfaces.</h2>
+        </div>
+        <span class="section__hint">/architecture</span>
+      </div>
+      <div class="stack reveal">
+        <div class="stack__col">
+          <div class="stack__label">Engine</div>
+          <ul class="stack__list">
+            <li><strong>PDFium-WASM</strong> via EmbedPDF (MIT) — web + desktop webview</li>
+            <li><strong>pdfium-render</strong> (Apache/MIT) — native Rust, CI render-parity</li>
+            <li>One Rust crate (<code>casual-pdf-core</code>) → wasm32 + native</li>
+          </ul>
+        </div>
+        <div class="stack__col">
+          <div class="stack__label">Write side</div>
+          <ul class="stack__list">
+            <li><strong>pdf-lib</strong> — redaction, page furniture, image stamps</li>
+            <li><strong>@signpdf/signpdf</strong> + <strong>node-forge</strong> — PKCS#7 (BSD-3)</li>
+            <li>Incremental update: original bytes preserved, signatures valid</li>
+          </ul>
+        </div>
+        <div class="stack__col">
+          <div class="stack__label">UI + collab</div>
+          <ul class="stack__list">
+            <li>React 18 + Vite + TypeScript + @schnsrw/design-system</li>
+            <li>EmbedPDF plugins — annotation, history, export, form, signature</li>
+            <li>Yjs overlay (deferred) — collab deprioritised; solo w/ autosave today</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HONEST SCOPE -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="section__head reveal">
+        <div>
+          <span class="eyebrow">honest scope</span>
+          <h2 class="title">What Tier 1 means — and what it doesn't.</h2>
+        </div>
+      </div>
+      <div class="scope reveal">
+        <div class="scope__col scope__col--yes">
+          <div class="scope__head">Tier 1 — ships in v1</div>
+          <ul>
+            <li>Annotate (highlight, ink, shapes, notes)</li>
+            <li>Fill interactive AcroForm fields</li>
+            <li>In-place text editing (non-subsetted fonts; fallback for subset)</li>
+            <li>E-sign: visible stamp + certified PKCS#7</li>
+            <li>True byte-level redaction (rasterise + flatten)</li>
+            <li>Organise pages (reorder, delete)</li>
+            <li>Watermark · header/footer · Bates numbering</li>
+            <li>Search, selection, thumbnails, outline, fullscreen</li>
+            <li>Crash recovery + autosave (IndexedDB)</li>
+          </ul>
+        </div>
+        <div class="scope__col scope__col--later">
+          <div class="scope__head">Tier 2 — later</div>
+          <ul>
+            <li>Full paragraph reflow when edited text changes width</li>
+            <li>New page creation, complex layout editing</li>
+            <li>Real-time co-editing via services/collab</li>
+            <li>Public share links + granular viewer/commenter/signer rights</li>
+          </ul>
+          <p class="scope__note">
+            PDF is not a reflowable format — full reflow is Adobe's moat.
+            Tier 1 in-place editing is already more than most non-Adobe tools ship.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--echo">
+    <div class="container container--narrow reveal">
+      <span class="badge">Try it</span>
+      <h2 class="display display--small">
+        PDF editing that doesn't<br/><em class="display__grad">phone home.</em>
+      </h2>
+      <p class="lede">
+        Open a PDF, edit it, sign it, redact it — everything runs in your browser.
+        No account, no upload, no SaaS. Apache-2.0.
+      </p>
+      <div class="row" style="margin-top: 8px;">
+        <a class="btn btn--primary" href={demoUrl} rel="noopener" target="_blank">
+          Open Casual PDF ↗
+        </a>
+        <a class="btn btn--ghost" href="https://github.com/CasualOffice/casual_pdf" rel="noopener" target="_blank">
+          GitHub
+        </a>
+        <a class="btn btn--ghost" href="/">All products</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .feat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 920px) { .feat-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 580px) { .feat-grid { grid-template-columns: 1fr; } }
+
+  .feat {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 26px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 160ms ease, transform 200ms ease, box-shadow 200ms ease;
+  }
+  .feat:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  .feat__icon-wrap {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--feat-color) 10%, transparent);
+    display: grid;
+    place-items: center;
+    color: var(--feat-color);
+    flex-shrink: 0;
+  }
+  .feat__title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    margin: 4px 0 0;
+    color: var(--text);
+  }
+  .feat__body {
+    font-size: 13.5px;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .section--alt { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .stack {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 820px) { .stack { grid-template-columns: 1fr; } }
+  .stack__col {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px 22px 24px;
+  }
+  .stack__label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .stack__list {
+    margin: 0; padding: 0; list-style: none;
+    display: flex; flex-direction: column; gap: 9px;
+  }
+  .stack__list li {
+    font-size: 13.5px;
+    color: var(--text-soft);
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+  .stack__list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--pdf);
+    font-weight: 700;
+  }
+
+  .scope {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 700px) { .scope { grid-template-columns: 1fr; } }
+  .scope__col {
+    border-radius: var(--radius-lg);
+    padding: 24px 24px 26px;
+    border: 1px solid var(--border);
+  }
+  .scope__col--yes { background: color-mix(in srgb, var(--pdf) 4%, var(--bg)); border-color: color-mix(in srgb, var(--pdf) 20%, transparent); }
+  .scope__col--later { background: var(--surface); }
+  .scope__head {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .scope__col ul {
+    margin: 0; padding: 0; list-style: none;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .scope__col li {
+    font-size: 13.5px;
+    color: var(--text-soft);
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.45;
+  }
+  .scope__col--yes li::before { content: '✓'; position: absolute; left: 0; color: var(--pdf); font-weight: 700; font-size: 12px; }
+  .scope__col--later li::before { content: '○'; position: absolute; left: 0; color: var(--text-dim); }
+  .scope__note {
+    margin: 14px 0 0;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.5;
+  }
+</style>
