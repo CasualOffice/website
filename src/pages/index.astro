@@ -2,9 +2,9 @@
 import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
 
-const title = 'Casual Office — Open-Source, Self-Hosted Google Docs, Sheets & Slides Alternative';
+const title = 'Casual Office — Open-Source, Self-Hosted Google Docs & Sheets Alternative';
 const description =
-  'Casual Office is a free, open-source, self-hostable office suite — a real-time collaborative alternative to Google Docs, Google Sheets, Google Slides, and OnlyOffice. Edit native .docx, .xlsx, and .pptx files in your browser with live multi-user co-editing, then self-host the whole suite in one Docker container. Apache-2.0 + MIT. No accounts, no SaaS, no lock-in.';
+  'Casual Office is a free, open-source, self-hostable office suite — a real-time collaborative alternative to Google Docs, Google Sheets, and OnlyOffice. Edit native .docx and .xlsx files in your browser with live multi-user co-editing, plus a high-fidelity PDF editor. Self-host the whole suite in one Docker container. Apache-2.0 + MIT. No accounts, no SaaS, no lock-in.';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -132,11 +132,11 @@ export default function App() {
 const faqs = [
   {
     q: 'What is Casual Office, in one sentence?',
-    a: 'Three real office editors — Casual Sheets (.xlsx), Casual Docs (.docx), and Casual Slides (.pptx) — that open native Microsoft Office files in the browser, co-edit in real time, and save back to the original byte-for-byte format. Open source, self-hostable as one Docker container, free forever.',
+    a: 'Real office editors — Casual Sheets (.xlsx), Casual Docs (.docx), and a high-fidelity PDF editor — that open native files in the browser, co-edit in real time, and save back to the original byte-for-byte format. Open source, self-hostable as one Docker container, free forever.',
   },
   {
     q: 'Is Casual Office a free alternative to Google Docs and Microsoft Office?',
-    a: 'Yes. Casual Office is a free, open-source, self-hosted alternative to Google Docs, Google Sheets, Google Slides, Microsoft 365 / Office Online, and OnlyOffice. You run it on your own server, your documents stay in standard .docx / .xlsx / .pptx, and there are no per-seat fees or accounts.',
+    a: 'Yes. Casual Office is a free, open-source, self-hosted alternative to Google Docs, Google Sheets, Microsoft 365 / Office Online, and OnlyOffice. You run it on your own server, your documents stay in standard .docx / .xlsx, and there are no per-seat fees or accounts.',
   },
   {
     q: 'Is this a SaaS? Will it ever be?',
@@ -191,13 +191,13 @@ jsonLd['@graph'].push({
       </span>
       <h1 class="display display--xl">
         The open-source<br/>
-        <em class="display__grad">Google Docs, Sheets &amp; Slides</em><br/>
+        <em class="display__grad">Google Docs &amp; Sheets</em><br/>
         alternative you self-host.
       </h1>
       <p class="lede lede--tight">
         Casual Office is a free, real-time <strong>collaborative office suite</strong>
-        that opens native <code>.docx</code>, <code>.xlsx</code>, and
-        <code>.pptx</code> files in your browser and saves them back byte-for-byte.
+        that opens native <code>.docx</code> and <code>.xlsx</code> files in your
+        browser and saves them back byte-for-byte. Includes a high-fidelity PDF editor.
         Co-edit live with your team, then <code>docker run</code> the whole thing on
         your own server — no accounts, no SaaS, no lock-in.
       </p>
@@ -354,8 +354,8 @@ jsonLd['@graph'].push({
     <div class="container">
       <div class="section__head reveal">
         <div>
-          <span class="eyebrow">three editors, one suite</span>
-          <h2 class="title">A spreadsheet, a document editor,<br/>and a slide deck. Every line on GitHub.</h2>
+          <span class="eyebrow">editors, one suite</span>
+          <h2 class="title">A spreadsheet, a document editor,<br/>and a PDF editor. Every line on GitHub.</h2>
         </div>
         <span class="section__hint">/products</span>
       </div>
@@ -396,14 +396,14 @@ jsonLd['@graph'].push({
           slug="slides"
           name="Casual Slides"
           role="POWERPOINT-FLAVORED WEB SLIDES"
-          body="Open .pptx in the browser with deep OOXML fidelity — 68 of 87 fidelity probes passing after wave 7o. Office-style ribbon, slide-panel thumbnails, layout templates, theme + background pickers, Slide Show mode. Co-edit is a Phase-2 spike today; Yjs migration is the v0.1.0 blocker."
+          body="Open .pptx in the browser with deep OOXML fidelity — 68 of 87 fidelity probes passing. Office-style ribbon, slide-panel thumbnails, layout templates, theme pickers, Slide Show mode. Currently paused while Docs and PDF reach v1."
           features={[
             '.pptx round-trip · 68 / 87 fidelity ✓',
             'Office ribbon · 6 layouts · themes · backgrounds',
             'Tables · charts · text outline · arrowheads · effects',
             'Fork-and-patch on Univer Slides OSS',
           ]}
-          status="v0.0.0 · pre-tag · active"
+          status="paused · not current priority"
           href="/casual-slides/"
           accent="var(--slides)"
           accentSoft="var(--slides-soft)"
@@ -483,7 +483,7 @@ jsonLd['@graph'].push({
         <article class="feature reveal" data-reveal-delay="1">
           <span class="feature__icon">🌐</span>
           <h3 class="feature__title">Anyone wanting a Google Docs alternative</h3>
-          <p class="feature__body">A free, open-source alternative to Google Docs, Sheets, Slides, and OnlyOffice that you actually control — files in your format, on your server, forever.</p>
+          <p class="feature__body">A free, open-source alternative to Google Docs, Google Sheets, and OnlyOffice that you actually control — files in your format, on your server, forever.</p>
         </article>
       </div>
     </div>
@@ -523,14 +523,14 @@ jsonLd['@graph'].push({
           </ul>
         </div>
         <div class="caps__col reveal" data-reveal-delay="2">
-          <div class="caps__head" style="--product-accent: var(--slides);"><span class="caps__dot"></span> Slides <span class="caps__tag">.pptx</span></div>
+          <div class="caps__head" style="--product-accent: var(--pdf);"><span class="caps__dot"></span> PDF <span class="caps__tag">.pdf</span></div>
           <ul class="caps__list">
-            <li>.pptx open + save · deep OOXML fidelity</li>
-            <li>Office-style ribbon · 6 layouts</li>
-            <li>Theme + background pickers</li>
-            <li>Tables · charts · text effects</li>
-            <li>Slide-panel thumbnails · Slide Show</li>
-            <li>Early-stage · actively developed</li>
+            <li>PDFium-WASM · identical web + desktop fidelity</li>
+            <li>Annotate · forms · in-place text edit</li>
+            <li>E-sign · certified PKCS#7 digital signing</li>
+            <li>True byte-level redaction</li>
+            <li>Page ops · watermark · header/footer</li>
+            <li>Co-edit · public share links (v1 in progress)</li>
           </ul>
         </div>
         <div class="caps__col reveal" data-reveal-delay="3">
