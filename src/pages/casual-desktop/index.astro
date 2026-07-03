@@ -178,6 +178,46 @@ const jsonLd = {
     <div class="container">
       <div class="section__head">
         <div>
+          <span class="eyebrow">Coming in v0.0.6</span>
+          <h2 class="title">An offline AI assistant &mdash; and PDF joins the bundle.</h2>
+        </div>
+      </div>
+      <p class="muted" style="max-width: 72ch; margin: 0 0 22px;">
+        The next desktop release brings the AI assistant to the binary and folds
+        Casual PDF into the same shell. Both run on your machine &mdash; the model
+        can be a local one, and your files never leave the disk.
+      </p>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature__icon">✦</span>
+          <h3 class="feature__title">Offline AI assistant</h3>
+          <p class="feature__body">
+            The same document assistant that ships in Casual Docs, running against
+            a <strong>local model</strong> &mdash; llama.cpp with Metal on Apple
+            Silicon, CUDA on NVIDIA, CPU fallback everywhere &mdash; or your own
+            cloud key. Credentials live in the OS keychain, never the webview.
+            Every edit lands as a tracked change you accept or reject; nothing is
+            rewritten behind your back.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">▦</span>
+          <h3 class="feature__title">PDF in the same binary</h3>
+          <p class="feature__body">
+            Casual PDF joins Docs and Sheets in the desktop shell &mdash; the same
+            PDFium-WASM core: annotate, forms, in-place text edit, certified
+            PKCS#7 digital signing, and true byte-level redaction, all offline.
+            One download, three editors.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--desktop); --product-accent-soft: var(--desktop-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
           <span class="eyebrow">Installing</span>
           <h2 class="title">The builds aren&rsquo;t OS-code-signed yet</h2>
         </div>
