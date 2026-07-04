@@ -195,9 +195,10 @@ const jsonLd = {
             The same document assistant that ships in Casual Docs, running against
             a <strong>local model</strong> &mdash; llama.cpp with Metal on Apple
             Silicon, CUDA on NVIDIA, CPU fallback everywhere &mdash; or your own
-            cloud key. Credentials live in the OS keychain, never the webview.
-            Every edit lands as a tracked change you accept or reject; nothing is
-            rewritten behind your back.
+            cloud key. Cloud requests are dispatched natively from Rust over system
+            TLS, and the key can come from an environment variable so it stays out
+            of the renderer. Every edit lands as a tracked change you accept or
+            reject; nothing is rewritten behind your back.
           </p>
         </article>
         <article class="feature">
