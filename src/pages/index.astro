@@ -412,14 +412,14 @@ jsonLd['@graph'].push({
           slug="desktop"
           name="Casual Desktop"
           role="TAURI BINARIES · macOS · LINUX · WINDOWS"
-          body="A native binary for macOS, Linux, and Windows that reuses the Casual Docs and Casual Sheets web cores verbatim. Single-user, offline, with signed in-app auto-update. Download v0.0.5."
+          body="A native binary for macOS, Linux, and Windows that reuses the Casual Docs and Casual Sheets web cores verbatim. Single-user, offline, with signed in-app auto-update. v0.0.6 adds an on-device agentic AI assistant — it plans, edits, and reviews multi-step tasks entirely on your machine. Download v0.0.6."
           features={[
             'Tauri shell · reuses the web cores',
-            'macOS · Linux · Windows',
-            'Single-user · offline · native dialogs',
+            'On-device agentic AI · plan → execute → review',
+            'Local model (llama.cpp) · docs never leave the machine',
             'Signed in-app auto-update',
           ]}
-          status="available · v0.0.5"
+          status="available · v0.0.6"
           href="/casual-desktop/"
           accent="var(--desktop)"
           accentSoft="var(--desktop-soft)"
@@ -519,7 +519,7 @@ jsonLd['@graph'].push({
             <li>Tables · lists · styles · footnotes</li>
             <li>Spell check · find &amp; replace (regex)</li>
             <li>Citations · voice typing · outline</li>
-            <li>AI assistant · tracked-change edits</li>
+            <li>Agentic AI · MCP · tracked-change edits</li>
             <li>Print / Export-as-PDF</li>
           </ul>
         </div>
@@ -542,10 +542,52 @@ jsonLd['@graph'].push({
             <li>Multi-arch Docker (amd64 + arm64)</li>
             <li>Personal mode · auth · WOPI host</li>
             <li>Embed via React SDK</li>
-            <li>Local &amp; cloud AI · your keys, your model</li>
+            <li>Agentic AI · MCP · local &amp; cloud, your keys</li>
             <li>Apache-2.0 + MIT · no telemetry</li>
           </ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODES — feature matrix across deployment modes -->
+  <section class="section" aria-labelledby="modes-h">
+    <div class="container">
+      <div class="section__head reveal">
+        <div>
+          <span class="badge">Three ways to run it</span>
+          <h2 class="title" id="modes-h">Same suite, your privacy trade-off —<br/>hosted demo, native desktop, or self-hosted.</h2>
+        </div>
+        <span class="section__hint">/modes</span>
+      </div>
+      <div class="modes reveal">
+        <table class="modes__table">
+          <thead>
+            <tr>
+              <th scope="col">Feature</th>
+              <th scope="col">Web demo</th>
+              <th scope="col">Desktop</th>
+              <th scope="col">Self-host<br/><span class="modes__sub">Docker</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Docs · Sheets · PDF editors</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
+            <tr><th scope="row">AI assistant · tracked-change edits</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
+            <tr><th scope="row">Agentic AI — plan → execute → review</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
+            <tr><th scope="row">MCP — connect external tools</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
+            <tr><th scope="row">On-device local model (private, offline AI)</th><td class="n">—</td><td class="y">✓</td><td class="n">—</td></tr>
+            <tr><th scope="row">Works fully offline</th><td class="n">—</td><td class="y">✓</td><td class="n">—</td></tr>
+            <tr><th scope="row">Real-time co-editing (Yjs CRDT)</th><td class="n">—</td><td class="n">—</td><td class="y">✓</td></tr>
+            <tr><th scope="row">Multi-user · auth · WOPI host</th><td class="n">—</td><td class="n">—</td><td class="y">✓</td></tr>
+            <tr><th scope="row">Documents never leave your machine / server</th><td class="n">—</td><td class="y">✓</td><td class="y">✓</td></tr>
+            <tr><th scope="row">Bring your own key / model</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
+          </tbody>
+        </table>
+        <p class="modes__note">
+          Desktop runs a local model on-device — your documents and prompts stay on your machine.
+          The web demo and self-host use your own API key (or any provider you configure);
+          nothing is sent anywhere you didn't set up.
+        </p>
       </div>
     </div>
   </section>
@@ -1405,5 +1447,42 @@ jsonLd['@graph'].push({
     font-size: 9px;
     font-weight: 700;
     color: var(--product-accent, var(--accent));
+  }
+
+  /* Modes feature matrix */
+  .modes { overflow-x: auto; }
+  .modes__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 560px;
+  }
+  .modes__table th, .modes__table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .modes__table thead th {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--text);
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .modes__table tbody th {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .modes__table tbody tr:hover td,
+  .modes__table tbody tr:hover th { background: color-mix(in srgb, var(--accent) 4%, transparent); }
+  .modes__sub { font-family: var(--font-body, inherit); font-weight: 500; font-size: 11px; color: var(--text-muted); }
+  .modes__table td.y { color: var(--accent); font-weight: 700; }
+  .modes__table td.n { color: var(--text-muted); }
+  .modes__note {
+    margin: 14px 2px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 780px;
   }
 </style>
