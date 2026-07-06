@@ -1,0 +1,331 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Doc-Hub — encrypted, self-hosted document registry · Casual Office';
+const description =
+  'Doc-Hub is an open-source, self-hosted document hub: an encrypted, tamper-evident registry with hash-chained version history you can prove, AES-256-GCM encryption at rest, native in-browser editing, content search, and built-in audit, retention and legal hold. Documents only. One Docker container, Apache-2.0.';
+
+// docker run snippet. Held as a raw HTML string and emitted via set:html so
+// Astro doesn't interpolate the `${VAR}` segments and `<>` stay literal.
+const dockerRun = `<code>docker run -d --name hub \\
+  -p 8080:8080 \\
+  -v $HOME/dochub-data:/data \\
+  -e DOCHUB_BIND=0.0.0.0:8080 \\
+  -e DOCHUB_APP_ORIGIN=https://hub.your-server \\
+  -e DOCHUB_USERCONTENT_ORIGIN=https://usercontent-dochub.your-server \\
+  -e DOCHUB_STORAGE_BACKEND=fs \\
+  -e DOCHUB_FS_ROOT=/data \\
+  -e DOCHUB_MASTER_KEY=&lt;32-byte base64 KEK&gt; \\
+  ghcr.io/casualoffice/dochub:latest</code>`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': 'https://casualoffice.org/#person',
+      name: 'Sachin Sarwa',
+      url: 'https://casualoffice.org/',
+      sameAs: [
+        'https://github.com/CasualOffice',
+        'https://hub.docker.com/u/casualoffice',
+      ],
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': 'https://dochub.casualoffice.org/#app',
+      name: 'Doc-Hub',
+      applicationCategory: 'BusinessApplication',
+      applicationSubCategory: 'DocumentManagementSystem',
+      operatingSystem: 'Web Browser, Docker, Linux',
+      url: 'https://dochub.casualoffice.org/',
+      codeRepository: 'https://github.com/CasualOffice/dochub',
+      license: 'https://www.apache.org/licenses/LICENSE-2.0',
+      description:
+        'Open-source, self-hosted document hub — an encrypted, tamper-evident registry with hash-chained version history, AES-256-GCM encryption at rest, native in-browser editing, content search, and built-in audit, retention and legal hold. Documents only.',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      author: { '@id': 'https://casualoffice.org/#person' },
+      isAccessibleForFree: true,
+    },
+  ],
+};
+---
+<Base {title} {description} active="dochub" jsonLd={jsonLd}>
+  <div style="--product-accent: var(--dochub); --product-accent-soft: var(--dochub-soft); --group-accent: var(--dochub);">
+
+    <!-- HERO -->
+    <section class="subpage">
+      <div class="container reveal">
+        <div class="subpage__topline">
+          <span class="dot" style="background: var(--dochub)" aria-hidden="true"></span>
+          Casual Office · Doc-Hub
+        </div>
+        <h1 class="display">A registry, <em class="display__grad">not a folder.</em></h1>
+        <p class="lede">
+          Doc-Hub keeps the documents your team can't afford to lose or leak: encrypted at
+          rest, versioned forever in a hash-chained history you can prove, and edited natively
+          in the browser. Documents only, self-hosted on your own server. Server-trusted —
+          honestly not zero-knowledge E2E.
+        </p>
+        <div class="trust trust--start">
+          <span class="trust__item">Apache-2.0 licensed</span>
+          <span class="trust__item">Encrypted at rest</span>
+          <span class="trust__item">Single binary, Docker-ready</span>
+        </div>
+        <div class="row">
+          <a class="btn btn--accent" href="https://dochub.casualoffice.org/demo" rel="noopener" target="_blank">
+            Try the live demo →
+          </a>
+          <a class="btn btn--ghost" href="#self-host">Self-host in 30 seconds</a>
+          <a class="btn btn--ghost" href="https://github.com/CasualOffice/dochub" rel="noopener" target="_blank">
+            GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE 6 PILLARS -->
+    <section class="section" aria-labelledby="pillars-h">
+      <div class="container">
+        <div class="section__head reveal">
+          <div>
+            <span class="eyebrow">six pillars</span>
+            <h2 class="title" id="pillars-h">What makes it a hub.</h2>
+          </div>
+          <span class="section__hint">/pillars</span>
+        </div>
+        <div class="feature-grid">
+          <article class="feature reveal">
+            <span class="feature__icon">🔗</span>
+            <h3 class="feature__title">History you can't rewrite</h3>
+            <p class="feature__body">
+              Every save appends a new, hash-chained version. Old versions are never
+              overwritten and never hard-deleted — only tombstoned under retention. Alter any
+              past byte and verification fails. A registry, not a folder.
+            </p>
+          </article>
+          <article class="feature reveal" data-reveal-delay="1">
+            <span class="feature__icon">🔐</span>
+            <h3 class="feature__title">Encryption you control</h3>
+            <p class="feature__body">
+              Every document is encrypted at rest with AES-256-GCM envelope encryption —
+              per-workspace keys wrapped by a master key you supply — and TLS in transit. A
+              stolen disk or database dump is just ciphertext.
+            </p>
+          </article>
+          <article class="feature reveal">
+            <span class="feature__icon">✍️</span>
+            <h3 class="feature__title">Edit natively, in place</h3>
+            <p class="feature__body">
+              Click a <code>.docx</code> and it opens in embedded Casual Docs; a
+              <code>.xlsx</code> in Casual Sheet; a <code>.pdf</code> in Casual PDF — inside
+              the hub, with real-time co-editing. Every save lands as a new version.
+            </p>
+          </article>
+          <article class="feature reveal" data-reveal-delay="1">
+            <span class="feature__icon">🔎</span>
+            <h3 class="feature__title">Search inside documents</h3>
+            <p class="feature__body">
+              Full-text search reads the <em>content</em> of every document, not just
+              filenames, via the <code>core</code> extraction engine and a Tantivy index. An
+              optional AI layer adds semantic search, summaries and cross-document Q&amp;A.
+            </p>
+          </article>
+          <article class="feature reveal">
+            <span class="feature__icon">📜</span>
+            <h3 class="feature__title">A record you can prove</h3>
+            <p class="feature__body">
+              Append-only, hash-chained audit log; retention policies; legal hold; document
+              signing and provenance (Ed25519); exportable, offline-verifiable audit and
+              retention reports. Built in, not an add-on.
+            </p>
+          </article>
+          <article class="feature reveal" data-reveal-delay="1">
+            <span class="feature__icon">🗄️</span>
+            <h3 class="feature__title">Owned, accountable, durable</h3>
+            <p class="feature__body">
+              Team projects with Owner/Admin/Member roles, magic-link invites and atomic
+              ownership transfer — plus a private, DigiLocker-style personal locker. One Rust
+              binary in one Docker container.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW HISTORY WORKS — hash-chain explainer -->
+    <section class="section" aria-labelledby="chain-h">
+      <div class="container">
+        <div class="section__head reveal">
+          <div>
+            <span class="eyebrow">append-only</span>
+            <h2 class="title" id="chain-h">How the history you can't rewrite works.</h2>
+          </div>
+          <span class="section__hint">/history</span>
+        </div>
+        <ol class="chain reveal">
+          <li class="chain__link">
+            <span class="chain__step">v1</span>
+            <div class="chain__body">
+              <div class="chain__title">First save</div>
+              <p class="chain__note">The document is encrypted, stored write-once, and stamped with <code>content_hash = SHA-256(ciphertext)</code>. <code>prev_hash</code> is empty — this is the root.</p>
+            </div>
+          </li>
+          <li class="chain__link">
+            <span class="chain__step">v2</span>
+            <div class="chain__body">
+              <div class="chain__title">Every edit appends</div>
+              <p class="chain__note">A save never overwrites. It writes a new version whose <code>prev_hash</code> points at v1's <code>content_hash</code>, extending the chain. Restore brings an old version back — as a new version.</p>
+            </div>
+          </li>
+          <li class="chain__link">
+            <span class="chain__step">v3</span>
+            <div class="chain__body">
+              <div class="chain__title">Verify, end to end</div>
+              <p class="chain__note">Re-computing the chain proves it. Change any past byte and a link breaks — surfaced as a tamper alarm, never silently repaired. The audit log is itself append-only and hash-chained.</p>
+            </div>
+          </li>
+        </ol>
+        <p class="modes__note">
+          Nothing is ever hard-deleted. "Delete" sets a tombstone under retention and legal-hold
+          rules; bytes under hold are never removed. That is the product, not a setting.
+        </p>
+      </div>
+    </section>
+
+    <!-- SELF-HOST — install block -->
+    <section class="section" id="self-host">
+      <div class="container">
+        <div class="section__head reveal">
+          <div>
+            <span class="eyebrow">self-host</span>
+            <h2 class="title">One binary. One container. One key.</h2>
+          </div>
+          <span class="section__hint">docker</span>
+        </div>
+        <pre class="code-block" set:html={dockerRun}></pre>
+        <p class="modes__note">
+          Boot refuses to start without <code>DOCHUB_MASTER_KEY</code> (or a configured KMS),
+          and in production if the app and user-content origins are equal. Encryption is not
+          optional.
+        </p>
+        <div class="row" style="margin-top: 18px;">
+          <a class="btn btn--ghost" href="https://dochub.casualoffice.org/docs/install" rel="noopener" target="_blank">
+            Install guide →
+          </a>
+          <a class="btn btn--ghost" href="https://dochub.casualoffice.org/docs/configuration" rel="noopener" target="_blank">
+            Env-var reference
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- HONEST LIMITS -->
+    <section class="section" aria-labelledby="limits-h">
+      <div class="container">
+        <div class="section__head reveal">
+          <div>
+            <span class="eyebrow">honest limits</span>
+            <h2 class="title" id="limits-h">Where Doc-Hub draws the line.</h2>
+          </div>
+          <span class="section__hint">/limits</span>
+        </div>
+        <div class="feature-grid">
+          <article class="feature reveal">
+            <span class="feature__icon">🔓</span>
+            <h3 class="feature__title">Not zero-knowledge E2E</h3>
+            <p class="feature__body">
+              The server holds keys by design so it can index and reason over document content.
+              Encryption defeats a stolen disk or database dump — not a fully compromised,
+              trusted server. We state this plainly.
+            </p>
+          </article>
+          <article class="feature reveal" data-reveal-delay="1">
+            <span class="feature__icon">📄</span>
+            <h3 class="feature__title">Documents only</h3>
+            <p class="feature__body">
+              The MIME allowlist is authoritative: <code>.docx .xlsx .pptx .pdf .md .txt .csv
+              .json .yaml</code>. No video, no media libraries, no archives, no arbitrary
+              binaries. The narrow scope is the point.
+            </p>
+          </article>
+          <article class="feature reveal">
+            <span class="feature__icon">🚫</span>
+            <h3 class="feature__title">Not general cloud storage</h3>
+            <p class="feature__body">
+              Not a Drive or Dropbox clone, not a sync client, not a mailbox or calendar. A
+              focused document registry — encrypted, versioned, provable.
+            </p>
+          </article>
+        </div>
+        <div class="callout reveal" style="margin-top: 22px;">
+          We're not the best at everything — we're the best at being a small, sharp, self-hosted
+          hub that keeps your documents encrypted, versioned forever, and provable. Not a Drive
+          clone, not a Nextcloud fork.
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--echo">
+      <div class="container container--narrow reveal">
+        <span class="badge">Doc-Hub</span>
+        <h2 class="display display--small">
+          Keep the documents you<br/><em class="display__grad">can't afford to lose.</em>
+        </h2>
+        <p class="lede">
+          Encrypted at rest, versioned forever, provable — on your own server, under Apache-2.0.
+          Try the live registry, or self-host it in a single command.
+        </p>
+        <div class="row" style="margin-top: 8px;">
+          <a class="btn btn--accent" href="https://dochub.casualoffice.org/demo" rel="noopener" target="_blank">
+            Try the live demo →
+          </a>
+          <a class="btn btn--ghost" href="#self-host">Self-host</a>
+          <a class="btn btn--ghost" href="https://github.com/CasualOffice/dochub" rel="noopener" target="_blank">
+            GitHub
+          </a>
+        </div>
+        <div class="row gap-sm" style="margin-top: 22px;">
+          <span class="chip">Hash-chained history</span>
+          <span class="chip">AES-256-GCM</span>
+          <span class="chip">Audit · retention · legal hold</span>
+          <span class="chip">Apache-2.0</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Base>
+
+<style>
+  /* .code-block + .modes__note are defined page-scoped on the homepage;
+     re-declared here so the self-host block renders identically. */
+  .code-block {
+    background: #0c0a09;
+    border: 1px solid #1c1917;
+    border-radius: 12px;
+    padding: 18px 22px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: #fafaf9;
+    overflow-x: auto;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+  }
+  .code-block code {
+    background: transparent;
+    padding: 0;
+    border: 0;
+    color: inherit;
+    font-size: inherit;
+    white-space: pre;
+  }
+  .modes__note {
+    margin: 14px 2px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 780px;
+  }
+</style>

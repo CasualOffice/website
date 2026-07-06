@@ -11,7 +11,7 @@ interface Props {
   /** Override the og:image — defaults to /og.png (the umbrella card). */
   ogImage?: string;
   /** Marks the active nav link. */
-  active?: 'home' | 'sheets' | 'editor' | 'slides' | 'desktop' | 'docs' | 'notes' | 'changelog' | 'about';
+  active?: 'home' | 'dochub' | 'sheets' | 'editor' | 'slides' | 'desktop' | 'pdf' | 'docs' | 'notes' | 'changelog' | 'about';
   /** Per-page JSON-LD payload (will be JSON.stringify'd). */
   jsonLd?: object;
   /** Theme color hint sent in the meta tag. */
@@ -29,9 +29,10 @@ const {
   jsonLd,
   themeColor = '#ffffff',
   // Default umbrella keyword set — every page inherits these search
-  // intents; product pages pass a tighter list. Targets the high-volume
-  // "open source / self-hosted alternative to <Google/Microsoft>" queries.
-  keywords = 'open source office suite, self-hosted Google Docs alternative, open source Google Sheets alternative, collaborative document editor, real-time co-editing, open source OnlyOffice alternative, self-hosted collaborative editor, browser xlsx editor, browser docx editor, online spreadsheet editor, open source office software',
+  // intents; product pages pass a tighter list. Leads with the Doc-Hub
+  // flagship (document hub / encrypted registry / hash-chained / self-hosted)
+  // and keeps the editor "open source alternative to <Google/Microsoft>" terms.
+  keywords = 'Doc-Hub, self-hosted document hub, encrypted document registry, hash-chained version history, tamper-evident document management, self-hosted document management system, open source office suite, self-hosted Google Docs alternative, open source Google Sheets alternative, collaborative document editor, real-time co-editing, open source OnlyOffice alternative, browser xlsx editor, browser docx editor',
 } = Astro.props as Props;
 
 const SITE_URL = 'https://casualoffice.org';

@@ -57,6 +57,13 @@
   --pdf-light: #f87171;
   --pdf-soft: rgba(220, 38, 38, 0.08);
 
+  /* Doc-Hub — vault indigo. Cool anchor to the warm brand gradient;
+     "trust / registry / security" identity. Pulled to the indigo-700
+     line to match the sheets/editor/pdf legibility-on-white convention. */
+  --dochub: #4338ca;         /* indigo-700 */
+  --dochub-light: #818cf8;   /* indigo-400 */
+  --dochub-soft: rgba(67, 56, 202, 0.08);
+
   --warn: #b45309;
   --warn-soft: rgba(180, 83, 9, 0.10);
 
@@ -85,6 +92,7 @@
   --gradient-slides: linear-gradient(120deg, #0d9488, #2563eb);
   --gradient-desktop: linear-gradient(120deg, #f59e0b, #ea580c);
   --gradient-pdf: linear-gradient(120deg, #dc2626, #e11d48);
+  --gradient-dochub: linear-gradient(120deg, #4338ca, #7c3aed); /* indigo → violet, ties into the brand gradient's cool end */
   --glow-accent: 0 14px 40px -10px rgba(234, 88, 12, 0.45);
   --glow-brand: 0 22px 60px -18px rgba(124, 58, 237, 0.40);
   --shadow-glow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 24px 60px -24px rgba(124, 58, 237, 0.32);
@@ -766,6 +774,77 @@ code, kbd {
   color: var(--text-soft);
 }
 .callout strong { color: var(--text); }
+
+/* ── Hash-chain explainer (Doc-Hub /history) ─────────────────────────── */
+.chain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+  counter-reset: chain;
+}
+.chain__link {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: start;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+}
+.chain__link:hover {
+  border-color: color-mix(in srgb, var(--dochub) 40%, var(--border-strong));
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+/* Connecting "link" line between nodes — the visible chain. */
+.chain__link:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 41px;              /* centered under .chain__step */
+  bottom: -15px;
+  width: 2px;
+  height: 15px;
+  background: color-mix(in srgb, var(--dochub) 55%, transparent);
+}
+.chain__step {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--dochub-soft);
+  color: var(--dochub);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+}
+.chain__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.chain__note {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+.chain__note code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+}
+@media (prefers-reduced-motion: reduce) {
+  .chain__link { transition: none; }
+  .chain__link:hover { transform: none; }
+}
 
 /* ─── FAQ accordion ───────────────────────────────────────────────── */
 .faq {

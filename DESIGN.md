@@ -18,9 +18,13 @@ classes; they should rarely invent new colors, shadows, or easings.
 2. **Honest.** Numbers (test counts, fidelity, versions) are real and sourced from
    the product repos. No stock photos, no fake dashboards — the homepage embeds the
    actual live demos.
-3. **One brand, three products.** The umbrella brand gradient (orange → magenta →
-   violet) unifies; per-product accents (Sheets emerald, Docs violet, Slides teal,
-   Desktop orange) identify.
+3. **One hub, a suite of editors.** Casual Office is a suite of open-source,
+   self-hosted document tools built around a flagship: **Doc-Hub**, the encrypted,
+   tamper-evident document registry the editors live inside. The umbrella brand
+   gradient (orange → magenta → violet) unifies; per-product accents (Doc-Hub
+   indigo, Sheets emerald, Docs violet, Slides teal, PDF red, Desktop orange)
+   identify. Doc-Hub's cool indigo anchors the warm gradient — a "trust / registry /
+   security" identity.
 4. **Accessible by default.** Color contrast, focus rings, reduced-motion, and
    keyboard paths are part of "done," not a later pass. Target **WCAG 2.1 AA**.
 
@@ -35,14 +39,15 @@ classes; they should rarely invent new colors, shadows, or easings.
 | `--border` / `--border-strong` | stone-200 / 300 | Hairlines, visible borders |
 | `--text` / `--text-soft` / `--text-muted` / `--text-dim` | near-black → stone-400 | Headings → body → labels → placeholders |
 | `--accent` / `--accent-strong` | orange-600 / 700 | Umbrella accent, links |
-| `--sheets` `--editor` `--slides` `--desktop` | emerald / violet / teal / orange | Per-product accents |
+| `--dochub` `--sheets` `--editor` `--slides` `--pdf` `--desktop` | indigo-700 / emerald / violet / teal / red / orange | Per-product accents (`--dochub` = `#4338ca`, the flagship, ~8.3:1 on white; `--dochub-light` decorative only) |
 
 **Gradients & glows (premium layer):**
 
 - `--gradient-brand` — `110deg, #ea580c → #e11d8f → #7c3aed`. The signature. Used on
   primary buttons, `.display em` / `.display__grad` headline text, card top-accents,
   badges, the footer CTA.
-- `--gradient-sheets|editor|slides|desktop` — per-product gradient pairs.
+- `--gradient-dochub|sheets|editor|slides|pdf|desktop` — per-product gradient pairs
+  (`--gradient-dochub` is indigo → violet, tying Doc-Hub into the gradient's cool end).
 - `--glow-brand`, `--glow-accent`, `--shadow-glow` — colored shadows for depth.
 
 > Per-product surfaces set `--product-accent` (and `--product-accent-soft`) on a
@@ -95,6 +100,10 @@ animated brand-gradient text.
 - **Trust strip** — `.trust` + `.trust__item` (glassy credibility pills). The live
   dot is `.trust__dot`. Use in heros to surface license / self-host / test signals.
 - **Capability matrix** — `.caps` / `.caps__col` (per-product checklist columns).
+- **Hash-chain explainer** — `.chain` (ordered list) of `.chain__link` nodes, each a
+  `.chain__step` badge (mono, indigo `--dochub` fill) + `.chain__body`
+  (`.chain__title` + `.chain__note`). A connecting line links consecutive nodes into a
+  visible chain. Used on `/doc-hub/` to show the append-only version history.
 - **Footer** — structured: brand + pitch + OSS signals on the left, three nav
   columns, a bottom legal/credit bar.
 

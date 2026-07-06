@@ -2,9 +2,9 @@
 import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
 
-const title = 'Casual Office — Open-Source, Self-Hosted Google Docs & Sheets Alternative';
+const title = 'Casual Office — Doc-Hub: the encrypted, self-hosted document registry';
 const description =
-  'Casual Office is a free, open-source, self-hostable office suite — a real-time collaborative alternative to Google Docs, Google Sheets, and OnlyOffice. Edit native .docx and .xlsx files in your browser with live multi-user co-editing, plus a high-fidelity PDF editor. Self-host the whole suite in one Docker container. Apache-2.0 + MIT. No accounts, no SaaS, no lock-in.';
+  'Doc-Hub is an open-source, self-hosted document hub — an encrypted, tamper-evident registry for the documents your team can\'t afford to lose or leak. Hash-chained history you can prove, AES-256-GCM encryption at rest, native in-browser editing of .docx/.xlsx/.pdf, and content search. Documents only, on your own server. Apache-2.0, one Docker container. Part of Casual Office with Casual Sheets, Docs, PDF and Desktop.';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -25,18 +25,37 @@ const jsonLd = {
       name: 'Casual Office',
       alternateName: 'casualoffice.org',
       description:
-        'Open-source, real-time, file-centric office suite. Self-hostable. MIT + Apache-2.0.',
+        'Open-source, self-hosted document software. Doc-Hub is an encrypted, tamper-evident document registry with hash-chained history; Casual Sheets, Docs and PDF are the editors inside it. Self-hostable, Apache-2.0.',
       publisher: { '@id': 'https://casualoffice.org/#person' },
       inLanguage: 'en',
     },
     {
       '@type': 'ItemList',
       '@id': 'https://casualoffice.org/#projects',
-      name: 'Casual Office — projects',
+      name: 'Casual Office — Doc-Hub and editors',
       itemListElement: [
         {
           '@type': 'ListItem',
           position: 1,
+          item: {
+            '@type': 'SoftwareApplication',
+            '@id': 'https://dochub.casualoffice.org/#app',
+            name: 'Doc-Hub',
+            applicationCategory: 'BusinessApplication',
+            applicationSubCategory: 'DocumentManagementSystem',
+            operatingSystem: 'Web Browser, Docker, Linux',
+            url: 'https://dochub.casualoffice.org/',
+            codeRepository: 'https://github.com/CasualOffice/dochub',
+            license: 'https://www.apache.org/licenses/LICENSE-2.0',
+            description:
+              'Open-source, self-hosted document hub — an encrypted, tamper-evident registry with hash-chained version history, AES-256-GCM encryption at rest, native in-browser editing, content search, and built-in audit, retention and legal hold. Documents only.',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            author: { '@id': 'https://casualoffice.org/#person' },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
           item: {
             '@type': 'SoftwareApplication',
             '@id': 'https://sheet.casualoffice.org/#app',
@@ -53,7 +72,7 @@ const jsonLd = {
         },
         {
           '@type': 'ListItem',
-          position: 2,
+          position: 3,
           item: {
             '@type': 'SoftwareApplication',
             '@id': 'https://docs.casualoffice.org/#app',
@@ -70,7 +89,7 @@ const jsonLd = {
         },
         {
           '@type': 'ListItem',
-          position: 3,
+          position: 4,
           item: {
             '@type': 'SoftwareApplication',
             '@id': 'https://casualoffice.org/casual-desktop/#app',
@@ -85,7 +104,7 @@ const jsonLd = {
         },
         {
           '@type': 'ListItem',
-          position: 4,
+          position: 5,
           item: {
             '@type': 'SoftwareApplication',
             '@id': 'https://pdf.casualoffice.org/#app',
@@ -105,66 +124,58 @@ const jsonLd = {
   ],
 };
 
-// docker-compose snippet. Held as a raw string and emitted via
-// set:html so Astro doesn't try to interpolate the `${VAR}` segments.
-const composeYml = `<code>services:
-  app:
-    image: casualoffice/sheets:0.3
-    ports: ['3000:3000']
-    environment:
-      CASUAL_STORAGE: local
-      CASUAL_LOCAL_PATH: /data/workbooks
-    volumes:
-      - data:/data
-volumes:
-  data:</code>`;
+// docker run snippet for the self-host quickstart. Held as a raw string and
+// emitted via set:html so Astro treats the `${VAR}`, `\` and `<>` segments as
+// literal text rather than interpolating them.
+const dockerRun = `<code>docker run -d --name hub \\
+  -p 8080:8080 \\
+  -v $HOME/dochub-data:/data \\
+  -e DOCHUB_BIND=0.0.0.0:8080 \\
+  -e DOCHUB_APP_ORIGIN=https://hub.your-server \\
+  -e DOCHUB_USERCONTENT_ORIGIN=https://usercontent-dochub.your-server \\
+  -e DOCHUB_STORAGE_BACKEND=fs \\
+  -e DOCHUB_FS_ROOT=/data \\
+  -e DOCHUB_MASTER_KEY=&lt;32-byte base64 KEK&gt; \\
+  ghcr.io/casualoffice/dochub:latest</code>`;
 
-// Minimal React embed example — copy-pastable, three lines that
-// actually mount the editor. Same shape as docx-editor.dev for
-// developers comparing the two.
-const reactEmbed = `<code>import { DocxEditor } from '@casualoffice/docs';
-
-export default function App() {
-  return &lt;DocxEditor onSave={(blob) =&gt; saveAs(blob, 'doc.docx')} /&gt;;
-}</code>`;
-
-// FAQ — kept honest and short. No marketing hedge in the answers.
+// FAQ — Doc-Hub forward, kept honest and short. No marketing hedge in the
+// answers; the E2E limitation is stated plainly.
 const faqs = [
   {
-    q: 'What is Casual Office, in one sentence?',
-    a: 'Real office editors — Casual Sheets (.xlsx), Casual Docs (.docx), and a high-fidelity PDF editor — that open native files in the browser, co-edit in real time, and save back to the original byte-for-byte format. Open source, self-hostable as one Docker container, free forever.',
+    q: 'What is Doc-Hub, in one sentence?',
+    a: 'An open-source, self-hosted document hub — an encrypted, tamper-evident registry for the documents your team can\'t afford to lose or leak, with a hash-chained history you can prove and native in-browser editing.',
   },
   {
-    q: 'Is Casual Office a free alternative to Google Docs and Microsoft Office?',
-    a: 'Yes. Casual Office is a free, open-source, self-hosted alternative to Google Docs, Google Sheets, Microsoft 365 / Office Online, and OnlyOffice. You run it on your own server, your documents stay in standard .docx / .xlsx, and there are no per-seat fees or accounts.',
+    q: 'Is Doc-Hub end-to-end encrypted?',
+    a: 'No, and we say so plainly. Documents are encrypted at rest with AES-256-GCM envelope encryption and in transit with TLS, but the server holds the keys by design so it can index and reason over your content. That defeats a stolen disk or database dump — not a fully compromised, trusted server. It is not zero-knowledge E2E.',
   },
   {
-    q: 'Is this a SaaS? Will it ever be?',
-    a: 'No. The public demos at sheet.casualoffice.org and docs.casualoffice.org have no accounts, no plans, no upsell. The project is permissively licensed and free forever in the editions you can see today.',
+    q: 'What does "hash-chained history" actually mean?',
+    a: 'Every saved version stores the SHA-256 hash of its ciphertext plus the previous version\'s hash, forming a chain. Old versions are never overwritten or hard-deleted — only tombstoned under retention rules. Re-running the chain verifies it; alter any past byte and verification fails. Restore brings a prior version back as a new version, so nothing is ever destroyed.',
   },
   {
-    q: 'How does the .xlsx / .docx round-trip work?',
-    a: 'The file is the source of truth. Open → in-memory snapshot → edit → re-serialize back to the original OOXML shape. Casual Sheets carries macros and pivot caches through byte-equal. Casual Docs scores 39/39 fixtures pristine in the per-tag fidelity audit.',
+    q: 'What file types can I put in it?',
+    a: 'Documents only. The ingest allowlist is authoritative: .docx, .xlsx, .pptx, .pdf, .md, .txt, .csv, .json and .yaml, enforced by extension and magic-byte sniff on every upload. No video, no images-as-primary, no archives, no arbitrary binaries. The narrow scope is what lets us encrypt, index and version everything.',
   },
   {
-    q: 'Real-time co-editing — what powers it?',
-    a: 'Yjs (industry-standard CRDT) in the browser, paired with Hocuspocus (Casual Sheets) or a custom ~120-line Go y-websocket gateway (Casual Docs). State lives in memory while a session is active; persistence is delegated to the host integration.',
+    q: 'How do the editors fit in?',
+    a: 'They live inside the hub. Click a .docx and it opens in embedded Casual Docs, a .xlsx in Casual Sheet, a .pdf in Casual PDF — with real-time co-editing. Bytes decrypt into the editor and every save appends a new version. The same editors also ship standalone, and Casual Desktop is the local-only lane.',
   },
   {
-    q: 'Do I need a database?',
-    a: 'No. Default storage is in-memory or local filesystem. Casual Sheets also ships S3-compatible and Postgres backends, plus an optional personal mode (bcrypt + SQLite) for named per-user files — pick one with a single env var or skip them entirely.',
+    q: 'Do I need Postgres and S3?',
+    a: 'No. Doc-Hub runs as a single Rust binary in one Docker container. SQLite plus the local filesystem is enough for a $5 VPS; Postgres with S3/MinIO/R2/B2 is there when you need to scale. Pick your backend with env vars.',
   },
   {
-    q: 'Can I embed it in my own React or Vue app?',
-    a: 'Yes for Casual Docs — it ships as npm packages (`@casualoffice/docs`, `@eigenpal/docx-editor-vue`). The Go gateway is a separate process you can run alongside any backend. Casual Sheets now publishes an SDK (`@casualoffice/sheets`) for the xlsx import path plus an iframe postMessage protocol; a full React embed wrapper is in progress.',
+    q: 'What about compliance and audit?',
+    a: 'Built in, not an enterprise add-on: an append-only, hash-chained audit log, retention policies, legal hold, document signing and provenance (Ed25519), and exportable, offline-verifiable audit and retention reports.',
   },
   {
-    q: 'Where does it not fit?',
-    a: 'If you need server-side PDF rendering, automatic version history out of the box, enterprise SSO, or compliance certifications, this is not that. It is a focused open-source pair of editors, not a managed compliance suite.',
+    q: 'Is there AI, and does it phone home?',
+    a: 'AI is optional and pluggable. It adds semantic search, summaries, PII/entity detection and cross-document Q&A. You bring your own provider, and there is a local-model option for air-gapped installs. Nothing is sent anywhere you did not configure.',
   },
   {
-    q: 'Why does this exist?',
-    a: 'A counterposition to megasuites. Each product is small enough to read end-to-end, every line is on GitHub, and the file format is owned by the user — not the vendor.',
+    q: 'How does Doc-Hub relate to Casual Drive?',
+    a: 'Doc-Hub is the revamp of the former "Casual Drive" — from a storage Drive into a focused, encrypted document registry. The rename to dochub-* / DOCHUB_* names is in progress; there is no tagged release yet. It is in-transition, and we label it that way.',
   },
 ];
 
@@ -182,49 +193,46 @@ jsonLd['@graph'].push({
 });
 ---
 <Base {title} {description} active="home" jsonLd={jsonLd}>
-  <!-- HERO — keyword-forward headline, then the live demo owns the fold -->
+  <!-- HERO — Doc-Hub leads. Themed indigo via --product-accent so the
+       buttons, dots and gradient read as the flagship. -->
   <section class="hero hero--tight">
-    <div class="container hero__inner reveal">
+    <div class="container hero__inner reveal" style="--product-accent: var(--dochub); --product-accent-soft: var(--dochub-soft);">
       <span class="badge">
         <span class="eyebrow__dot" aria-hidden="true"></span>
-        Open source · self-host · Apache-2.0 + MIT
+        Casual Office · Doc-Hub · Apache-2.0
       </span>
       <h1 class="display display--xl">
-        The open-source<br/>
-        <em class="display__grad">Google Docs &amp; Sheets</em><br/>
-        alternative you self-host.
+        Documents you can trust.<br/>
+        <em class="display__grad">History you can prove.</em>
       </h1>
       <p class="lede lede--tight">
-        Casual Office is a free, real-time <strong>collaborative office suite</strong>
-        that opens native <code>.docx</code> and <code>.xlsx</code> files in your
-        browser and saves them back byte-for-byte. Includes a high-fidelity PDF editor.
-        Co-edit live with your team, then <code>docker run</code> the whole thing on
-        your own server — no accounts, no SaaS, no lock-in.
+        Doc-Hub is an open-source, self-hosted document hub — an encrypted,
+        tamper-evident registry for the documents your team can't afford to lose
+        or leak. Every save appends a hash-chained version you can verify; every
+        file is encrypted at rest; and you edit <code>.docx</code>,
+        <code>.xlsx</code> and <code>.pdf</code> natively, right in the browser.
+        Documents only, on your own server.
       </p>
 
       <div class="row row--centered">
-        <a class="btn btn--primary btn--lg" href="https://github.com/CasualOffice" rel="noopener" target="_blank" aria-label="Star Casual Office on GitHub">
-          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="margin-right: 7px;">
-            <path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/>
-          </svg>
-          Star on GitHub
+        <a class="btn btn--primary btn--lg" href="https://dochub.casualoffice.org/demo" rel="noopener" target="_blank">
+          Try the live demo →
         </a>
-        <a class="btn btn--ghost btn--lg" href="#demo">Try the live demo →</a>
+        <a class="btn btn--ghost btn--lg" href="#docker">Self-host in 30 seconds</a>
       </div>
 
       <div class="trust" aria-label="At a glance">
-        <span class="trust__item trust__item--live"><span class="trust__dot" aria-hidden="true"></span> Live multi-user co-editing</span>
-        <span class="trust__item">Apache-2.0 + MIT</span>
+        <span class="trust__item trust__item--live"><span class="trust__dot" aria-hidden="true"></span> Hash-chained, tamper-evident history</span>
+        <span class="trust__item">Encrypted at rest · AES-256-GCM</span>
         <span class="trust__item">Self-host · one Docker container</span>
-        <span class="trust__item">398 e2e tests green</span>
+        <span class="trust__item">Apache-2.0</span>
       </div>
     </div>
   </section>
 
-  <!-- LIVE DEMO — the headline visual. Two tabs (Sheets / Editor),
-       each loads the actual production demo in an iframe. No fakes,
-       no static screenshots — visitors see the real product in five
-       seconds. Lazy-loaded so the iframe doesn't block first paint. -->
+  <!-- LIVE DEMO — Doc-Hub primary, editors as tabs. Each panel loads the
+       real production app in an iframe (click-to-load facade so the
+       multi-MB apps don't block first paint). -->
   <section class="demo" id="demo" aria-label="Live product demo">
     <div class="container">
       <div class="demo__head">
@@ -233,9 +241,22 @@ jsonLd['@graph'].push({
             type="button"
             role="tab"
             aria-selected="true"
+            aria-controls="demo-dochub"
+            id="demo-tab-dochub"
+            class="demo__tab demo__tab--active"
+            data-demo="dochub"
+          >
+            <span class="demo__tab-dot" style="background: var(--dochub);" aria-hidden="true"></span>
+            Doc-Hub
+            <span class="demo__tab-pill">registry</span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected="false"
             aria-controls="demo-sheets"
             id="demo-tab-sheets"
-            class="demo__tab demo__tab--active"
+            class="demo__tab"
             data-demo="sheets"
           >
             <span class="demo__tab-dot" style="background: var(--sheets);" aria-hidden="true"></span>
@@ -257,7 +278,10 @@ jsonLd['@graph'].push({
           </button>
         </div>
         <div class="demo__actions">
-          <a class="demo__pop" href="https://sheet.casualoffice.org/" rel="noopener" target="_blank" data-pop-for="sheets">
+          <a class="demo__pop" href="https://dochub.casualoffice.org/demo" rel="noopener" target="_blank" data-pop-for="dochub">
+            Open Doc-Hub full-screen ↗
+          </a>
+          <a class="demo__pop demo__pop--hidden" href="https://sheet.casualoffice.org/" rel="noopener" target="_blank" data-pop-for="sheets">
             Open Sheets full-screen ↗
           </a>
           <a class="demo__pop demo__pop--hidden" href="https://docs.casualoffice.org/" rel="noopener" target="_blank" data-pop-for="editor">
@@ -267,19 +291,38 @@ jsonLd['@graph'].push({
       </div>
 
       <!-- Faux browser chrome for a polished, designed-on-purpose feel -->
-      <div class="frame" style="--frame-accent: var(--sheets);" data-frame>
+      <div class="frame" style="--frame-accent: var(--dochub);" data-frame>
         <div class="frame__chrome">
           <span class="frame__btn" style="background: #ff5f57"></span>
           <span class="frame__btn" style="background: #febc2e"></span>
           <span class="frame__btn" style="background: #28c840"></span>
-          <span class="frame__addr" data-addr="sheets">sheet.casualoffice.org</span>
+          <span class="frame__addr" data-addr="dochub">dochub.casualoffice.org</span>
+          <span class="frame__addr frame__addr--hidden" data-addr="sheets">sheet.casualoffice.org</span>
           <span class="frame__addr frame__addr--hidden" data-addr="editor">docs.casualoffice.org</span>
+        </div>
+        <div
+          id="demo-dochub"
+          role="tabpanel"
+          aria-labelledby="demo-tab-dochub"
+          class="frame__panel"
+        >
+          <button type="button" class="frame__load" data-load-frame>
+            <span class="frame__load-play" aria-hidden="true">▶</span>
+            Load the live Doc-Hub demo
+            <span class="frame__load-sub">Opens the real registry — a few MB of app</span>
+          </button>
+          <iframe
+            title="Doc-Hub live demo"
+            data-src="https://dochub.casualoffice.org/demo"
+            loading="lazy"
+            allow="clipboard-read; clipboard-write"
+          ></iframe>
         </div>
         <div
           id="demo-sheets"
           role="tabpanel"
           aria-labelledby="demo-tab-sheets"
-          class="frame__panel"
+          class="frame__panel frame__panel--hidden"
         >
           <button type="button" class="frame__load" data-load-frame>
             <span class="frame__load-play" aria-hidden="true">▶</span>
@@ -313,53 +356,114 @@ jsonLd['@graph'].push({
         </div>
       </div>
       <p class="demo__hint">
-        Real production demos, not screenshots. Open a real file, edit it, save it back —
-        nothing leaves your browser unless you click Share.
+        The real registry, not a screenshot. Upload a document, edit it in place,
+        and watch the version chain grow — every save is a new, hash-chained version.
       </p>
     </div>
   </section>
 
-  <!-- STATS BAR — concrete numbers, monospace. Same content as before
-       but the live demo above means the visitor already has a reason
-       to care. -->
+  <!-- STATS BAR — capability facts, no fake numbers. Doc-Hub has no tagged
+       release, so every value here is a defensible capability. -->
   <section class="section section--stats">
     <div class="container">
       <div class="statline reveal">
         <div class="stat">
-          <span class="stat__label">CASUAL DOCS</span>
-          <span class="stat__value">39/39</span>
-          <span class="stat__hint">.docx fixtures · 100% round-trip</span>
+          <span class="stat__label">AT REST</span>
+          <span class="stat__value">AES-256</span>
+          <span class="stat__hint">GCM envelope · per-workspace keys</span>
         </div>
         <div class="stat">
-          <span class="stat__label">CASUAL SHEETS</span>
-          <span class="stat__value">v0.3.3</span>
-          <span class="stat__hint">production-grade · WOPI host</span>
+          <span class="stat__label">HISTORY</span>
+          <span class="stat__value">append-only</span>
+          <span class="stat__hint">hash-chained · tamper-evident</span>
         </div>
         <div class="stat">
-          <span class="stat__label">CO-EDIT</span>
-          <span class="stat__value">live</span>
-          <span class="stat__hint">verified end-to-end · Yjs CRDT</span>
+          <span class="stat__label">FORMATS</span>
+          <span class="stat__value">9 types</span>
+          <span class="stat__hint">.docx .xlsx .pdf .md .txt .csv .json .yaml</span>
         </div>
         <div class="stat">
           <span class="stat__label">LICENSE</span>
-          <span class="stat__value">MIT + Apache</span>
-          <span class="stat__hint">no AGPL, no copyleft surprises</span>
+          <span class="stat__value">Apache-2.0</span>
+          <span class="stat__hint">self-host · one container</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PRODUCTS — three cards, each links to the product page -->
+  <!-- REGISTRY NARRATIVE — the six pillars; why a hub is not a folder -->
+  <section class="section" aria-labelledby="pillars-h">
+    <div class="container">
+      <div class="section__head reveal">
+        <div>
+          <span class="eyebrow">why a hub, not a folder</span>
+          <h2 class="title" id="pillars-h">Six things a folder can't do.</h2>
+        </div>
+        <span class="section__hint">/pillars</span>
+      </div>
+      <div class="feature-grid">
+        <article class="feature reveal">
+          <span class="feature__icon">🔗</span>
+          <h3 class="feature__title">History you can't rewrite</h3>
+          <p class="feature__body">Every save appends a new, hash-chained version. Old versions are never overwritten and never hard-deleted — only tombstoned under retention. Alter any past byte and verification fails. A registry, not a folder.</p>
+        </article>
+        <article class="feature reveal" data-reveal-delay="1">
+          <span class="feature__icon">🔐</span>
+          <h3 class="feature__title">Encryption you control</h3>
+          <p class="feature__body">Every document is encrypted at rest with AES-256-GCM envelope encryption — per-workspace keys wrapped by a master key you supply — and TLS in transit. A stolen disk or database dump is just ciphertext.</p>
+        </article>
+        <article class="feature reveal">
+          <span class="feature__icon">✍️</span>
+          <h3 class="feature__title">Edit natively, in place</h3>
+          <p class="feature__body">Click a <code>.docx</code> and it opens in embedded Casual Docs; a <code>.xlsx</code> in Casual Sheet; a <code>.pdf</code> in Casual PDF — inside the hub, with real-time co-editing. Every save lands as a new version.</p>
+        </article>
+        <article class="feature reveal" data-reveal-delay="1">
+          <span class="feature__icon">🔎</span>
+          <h3 class="feature__title">Search inside documents</h3>
+          <p class="feature__body">Full-text search reads the <em>content</em> of every document, not just filenames, via the <code>core</code> extraction engine and a Tantivy index. An optional AI layer adds semantic search, summaries and cross-document Q&amp;A.</p>
+        </article>
+        <article class="feature reveal">
+          <span class="feature__icon">📜</span>
+          <h3 class="feature__title">A record you can prove</h3>
+          <p class="feature__body">Append-only, hash-chained audit log; retention policies; legal hold; document signing and provenance (Ed25519); exportable, offline-verifiable audit and retention reports. Built in, not an add-on.</p>
+        </article>
+        <article class="feature reveal" data-reveal-delay="1">
+          <span class="feature__icon">🗄️</span>
+          <h3 class="feature__title">Owned, accountable, durable</h3>
+          <p class="feature__body">Team projects with Owner/Admin/Member roles, magic-link invites and atomic ownership transfer — plus a private, DigiLocker-style personal locker. One Rust binary in one Docker container.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT LINEUP — the registry, and everything that edits inside it.
+       Doc-Hub first (flagship, indigo), then the editors and desktop. -->
   <section class="section">
     <div class="container">
       <div class="section__head reveal">
         <div>
-          <span class="eyebrow">editors, one suite</span>
-          <h2 class="title">A spreadsheet, a document editor,<br/>and a PDF editor. Every line on GitHub.</h2>
+          <span class="eyebrow">one hub, four editors, one desktop</span>
+          <h2 class="title">The registry, and everything that edits inside it.</h2>
         </div>
         <span class="section__hint">/products</span>
       </div>
       <div class="products reveal">
+        <ProductCard
+          slug="dochub"
+          name="Doc-Hub"
+          role="ENCRYPTED, TAMPER-EVIDENT DOCUMENT REGISTRY"
+          body="The flagship. An encrypted, self-hosted registry where documents are versioned forever in a hash-chained history you can prove, searchable by content, and edited natively in the browser. Documents only. Server-trusted, honestly not zero-knowledge E2E."
+          features={[
+            'Hash-chained, append-only version history',
+            'AES-256-GCM at rest · per-workspace keys',
+            'Native embedded editing + real-time co-editing',
+            'Audit log · retention · legal hold · signing',
+          ]}
+          status="self-hostable · mid-revamp from Casual Drive"
+          href="/doc-hub/"
+          accent="var(--dochub)"
+          accentSoft="var(--dochub-soft)"
+        />
         <ProductCard
           slug="sheets"
           name="Casual Sheets"
@@ -393,42 +497,10 @@ jsonLd['@graph'].push({
           accentSoft="var(--editor-soft)"
         />
         <ProductCard
-          slug="slides"
-          name="Casual Slides"
-          role="POWERPOINT-FLAVORED WEB SLIDES"
-          body="Open .pptx in the browser with deep OOXML fidelity — 68 of 87 fidelity probes passing. Office-style ribbon, slide-panel thumbnails, layout templates, theme pickers, Slide Show mode. Currently paused while Docs and PDF reach v1."
-          features={[
-            '.pptx round-trip · 68 / 87 fidelity ✓',
-            'Office ribbon · 6 layouts · themes · backgrounds',
-            'Tables · charts · text outline · arrowheads · effects',
-            'Fork-and-patch on Univer Slides OSS',
-          ]}
-          status="paused · not current priority"
-          href="/casual-slides/"
-          accent="var(--slides)"
-          accentSoft="var(--slides-soft)"
-        />
-        <ProductCard
-          slug="desktop"
-          name="Casual Desktop"
-          role="TAURI BINARIES · macOS · LINUX · WINDOWS"
-          body="A native binary for macOS, Linux, and Windows that reuses the Casual Docs and Casual Sheets web cores verbatim. Single-user, offline, with signed in-app auto-update. v0.0.6 adds an on-device agentic AI assistant — it plans, edits, and reviews multi-step tasks entirely on your machine. Download v0.0.6."
-          features={[
-            'Tauri shell · reuses the web cores',
-            'On-device agentic AI · plan → execute → review',
-            'Local model (llama.cpp) · docs never leave the machine',
-            'Signed in-app auto-update',
-          ]}
-          status="available · v0.0.6"
-          href="/casual-desktop/"
-          accent="var(--desktop)"
-          accentSoft="var(--desktop-soft)"
-        />
-        <ProductCard
           slug="pdf"
           name="Casual PDF"
           role="HIGH-FIDELITY PDF VIEWER + EDITOR"
-          body="View, annotate, e-sign, and redact PDFs in the browser with one PDFium engine across web and desktop. Real-time text editing (Tier 2), certified PKCS#7 digital signing, true byte-level redaction, form filling, page operations, and a full annotation suite."
+          body="View, annotate, e-sign, and redact PDFs in the browser with one PDFium engine across web and desktop. Real-time text editing, certified PKCS#7 digital signing, true byte-level redaction, form filling, and page operations."
           features={[
             'One PDFium engine — web + desktop, identical fidelity',
             'Annotate · forms · in-place text edit · page ops',
@@ -440,350 +512,159 @@ jsonLd['@graph'].push({
           accent="var(--pdf)"
           accentSoft="var(--pdf-soft)"
         />
+        <ProductCard
+          slug="desktop"
+          name="Casual Desktop"
+          role="TAURI BINARIES · macOS · LINUX · WINDOWS"
+          body="A native binary for macOS, Linux, and Windows that reuses the Casual Docs and Casual Sheets web cores verbatim. Single-user, offline, with signed in-app auto-update. The local-only editing lane of the suite."
+          features={[
+            'Tauri shell · reuses the web cores',
+            'Local-only · no account, no cloud, no telemetry',
+            'Edit .docx / .xlsx / .md / .csv on your machine',
+            'Signed in-app auto-update',
+          ]}
+          status="available · v0.0.6"
+          href="/casual-desktop/"
+          accent="var(--desktop)"
+          accentSoft="var(--desktop-soft)"
+        />
+        <ProductCard
+          slug="slides"
+          name="Casual Slides"
+          role="POWERPOINT-FLAVORED WEB SLIDES"
+          body="Open .pptx in the browser with deep OOXML fidelity. Office-style ribbon, slide-panel thumbnails, layout templates, theme pickers, Slide Show mode. Single-editor today; real-time co-editing is a later target."
+          features={[
+            '.pptx round-trip · OOXML fidelity',
+            'Office ribbon · layouts · themes · backgrounds',
+            'Tables · charts · text outline · effects',
+            'Fork-and-patch on Univer Slides OSS',
+          ]}
+          status="v0.1.0 · demo on schnsrw.live"
+          href="/casual-slides/"
+          accent="var(--slides)"
+          accentSoft="var(--slides-soft)"
+        />
       </div>
     </div>
   </section>
 
-  <!-- WHO IT'S FOR — target audience, keyword-rich for search + AEO -->
-  <section class="section" aria-labelledby="audience-h">
+  <!-- COMPLIANCE / REGISTRY GUARANTEES — caps checklist across the four
+       guarantee domains: history, encryption, compliance, search + AI. -->
+  <section class="section" aria-labelledby="guarantees-h">
     <div class="container">
       <div class="section__head reveal">
         <div>
-          <span class="badge">Who it's for</span>
-          <h2 class="title" id="audience-h">Built for teams that want to<br/><em class="display__grad">own their documents</em>.</h2>
+          <span class="badge">What Doc-Hub guarantees</span>
+          <h2 class="title" id="guarantees-h">Built for records that have to hold up.</h2>
         </div>
-        <span class="section__hint">/audience</span>
-      </div>
-      <div class="feature-grid">
-        <article class="feature reveal">
-          <span class="feature__icon">🔒</span>
-          <h3 class="feature__title">Privacy-first teams</h3>
-          <p class="feature__body">Keep documents off Google and Microsoft clouds. Self-host on your own infrastructure so spreadsheets and contracts never leave your network.</p>
-        </article>
-        <article class="feature reveal" data-reveal-delay="1">
-          <span class="feature__icon">🧩</span>
-          <h3 class="feature__title">Product teams embedding an editor</h3>
-          <p class="feature__body">Drop a real <code>.docx</code> / <code>.xlsx</code> editor into your intranet, LMS, CRM, or SaaS via the React SDK — instead of building a spreadsheet from scratch.</p>
-        </article>
-        <article class="feature reveal">
-          <span class="feature__icon">🛠️</span>
-          <h3 class="feature__title">Self-hosters &amp; homelabs</h3>
-          <p class="feature__body">One multi-arch Docker container, one port, no database required. A collaborative office suite for your private cloud in a single <code>docker run</code>.</p>
-        </article>
-        <article class="feature reveal" data-reveal-delay="1">
-          <span class="feature__icon">{ }</span>
-          <h3 class="feature__title">Developers &amp; OSS contributors</h3>
-          <p class="feature__body">Every line is on GitHub under Apache-2.0 + MIT. Small enough to read end-to-end, with green CI and good-first-issues — a serious open-source codebase, not a demo.</p>
-        </article>
-        <article class="feature reveal">
-          <span class="feature__icon">🏛️</span>
-          <h3 class="feature__title">Regulated &amp; air-gapped orgs</h3>
-          <p class="feature__body">No outbound calls, no accounts, no telemetry. Run it fully offline where compliance or air-gap requirements rule out the hosted office suites.</p>
-        </article>
-        <article class="feature reveal" data-reveal-delay="1">
-          <span class="feature__icon">🌐</span>
-          <h3 class="feature__title">Anyone wanting a Google Docs alternative</h3>
-          <p class="feature__body">A free, open-source alternative to Google Docs, Google Sheets, and OnlyOffice that you actually control — files in your format, on your server, forever.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHAT WE SUPPORT — capability matrix; "what all we support" + SEO -->
-  <section class="section" aria-labelledby="support-h">
-    <div class="container">
-      <div class="section__head reveal">
-        <div>
-          <span class="badge">What we support</span>
-          <h2 class="title" id="support-h">A real office suite — the formats and<br/>features you already rely on.</h2>
-        </div>
-        <span class="section__hint">/capabilities</span>
+        <span class="section__hint">/guarantees</span>
       </div>
       <div class="caps">
         <div class="caps__col reveal">
-          <div class="caps__head" style="--product-accent: var(--sheets);"><span class="caps__dot"></span> Sheets <span class="caps__tag">.xlsx</span></div>
+          <div class="caps__head" style="--product-accent: var(--dochub);"><span class="caps__dot"></span> History <span class="caps__tag">chain</span></div>
           <ul class="caps__list">
-            <li>.xlsx · .ods · .csv · .tsv round-trip</li>
-            <li>Pivot tables with drill-down</li>
-            <li>8 chart types · trendlines · sparklines</li>
-            <li>Conditional formatting · data validation</li>
-            <li>.xlsm VBA macro passthrough</li>
-            <li>Version history · autosave</li>
+            <li>Every save = a new version</li>
+            <li>SHA-256 hash chain, verifiable</li>
+            <li>Restore-as-new — nothing destroyed</li>
+            <li>Diff any two versions</li>
+            <li>Export the provenance chain</li>
           </ul>
         </div>
         <div class="caps__col reveal" data-reveal-delay="1">
-          <div class="caps__head" style="--product-accent: var(--editor);"><span class="caps__dot"></span> Docs <span class="caps__tag">.docx</span></div>
+          <div class="caps__head" style="--product-accent: var(--dochub);"><span class="caps__dot"></span> Encryption <span class="caps__tag">at rest</span></div>
           <ul class="caps__list">
-            <li>.docx round-trip · 39/39 fixtures pristine</li>
-            <li>Paginated WYSIWYG · headers/footers</li>
-            <li>Tables · lists · styles · footnotes</li>
-            <li>Spell check · find &amp; replace (regex)</li>
-            <li>Citations · voice typing · outline</li>
-            <li>Agentic AI · MCP · tracked-change edits</li>
-            <li>Print / Export-as-PDF</li>
+            <li>AES-256-GCM envelope encryption</li>
+            <li>Per-workspace data keys</li>
+            <li>Master KEK or external KMS</li>
+            <li>Encrypted BYO-bucket credentials</li>
+            <li>Boot refuses to start without a key</li>
           </ul>
         </div>
         <div class="caps__col reveal" data-reveal-delay="2">
-          <div class="caps__head" style="--product-accent: var(--pdf);"><span class="caps__dot"></span> PDF <span class="caps__tag">.pdf</span></div>
+          <div class="caps__head" style="--product-accent: var(--editor);"><span class="caps__dot"></span> Compliance <span class="caps__tag">audit</span></div>
           <ul class="caps__list">
-            <li>PDFium-WASM · identical web + desktop fidelity</li>
-            <li>Annotate · forms · in-place text edit</li>
-            <li>E-sign · certified PKCS#7 digital signing</li>
-            <li>True byte-level redaction</li>
-            <li>Page ops · watermark · header/footer</li>
-            <li>Co-edit · public share links (v1 in progress)</li>
+            <li>Append-only, hash-chained audit log</li>
+            <li>Retention policies · legal hold</li>
+            <li>Document signing + provenance (Ed25519)</li>
+            <li>Exportable audit &amp; retention reports</li>
+            <li>Two-origin, isolated share links</li>
           </ul>
         </div>
         <div class="caps__col reveal" data-reveal-delay="3">
-          <div class="caps__head" style="--product-accent: var(--accent);"><span class="caps__dot"></span> Platform</div>
+          <div class="caps__head" style="--product-accent: var(--sheets);"><span class="caps__dot"></span> Search + AI <span class="caps__tag">content</span></div>
           <ul class="caps__list">
-            <li>Real-time co-editing (Yjs CRDT)</li>
-            <li>Self-host: memory · local · S3 · Postgres</li>
-            <li>Multi-arch Docker (amd64 + arm64)</li>
-            <li>Personal mode · auth · WOPI host</li>
-            <li>Embed via React SDK</li>
-            <li>Agentic AI · MCP · local &amp; cloud, your keys</li>
-            <li>Apache-2.0 + MIT · no telemetry</li>
+            <li>Full-text search inside documents</li>
+            <li>core extraction + Tantivy index</li>
+            <li>Optional AI: semantic search &amp; Q&amp;A</li>
+            <li>PII / entity detection</li>
+            <li>Local-model option for air-gapped installs</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MODES — feature matrix across deployment modes -->
-  <section class="section" aria-labelledby="modes-h">
+  <!-- WHAT IT IS / WHAT IT ISN'T — honest scope block, no overclaiming -->
+  <section class="section" aria-labelledby="honest-h">
     <div class="container">
       <div class="section__head reveal">
         <div>
-          <span class="badge">Three ways to run it</span>
-          <h2 class="title" id="modes-h">Same suite, your privacy trade-off —<br/>hosted demo, native desktop, or self-hosted.</h2>
+          <span class="eyebrow">no overclaiming</span>
+          <h2 class="title" id="honest-h">What Doc-Hub is — and what it isn't.</h2>
         </div>
-        <span class="section__hint">/modes</span>
+        <span class="section__hint">/honest</span>
       </div>
-      <div class="modes reveal">
-        <table class="modes__table">
-          <thead>
-            <tr>
-              <th scope="col">Feature</th>
-              <th scope="col">Web demo</th>
-              <th scope="col">Desktop</th>
-              <th scope="col">Self-host<br/><span class="modes__sub">Docker</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Docs · Sheets · PDF editors</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
-            <tr><th scope="row">AI assistant · tracked-change edits</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
-            <tr><th scope="row">Agentic AI — plan → execute → review</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
-            <tr><th scope="row">MCP — connect external tools</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
-            <tr><th scope="row">On-device local model (private, offline AI)</th><td class="n">—</td><td class="y">✓</td><td class="n">—</td></tr>
-            <tr><th scope="row">Works fully offline</th><td class="n">—</td><td class="y">✓</td><td class="n">—</td></tr>
-            <tr><th scope="row">Real-time co-editing (Yjs CRDT)</th><td class="n">—</td><td class="n">—</td><td class="y">✓</td></tr>
-            <tr><th scope="row">Multi-user · auth · WOPI host</th><td class="n">—</td><td class="n">—</td><td class="y">✓</td></tr>
-            <tr><th scope="row">Documents never leave your machine / server</th><td class="n">—</td><td class="y">✓</td><td class="y">✓</td></tr>
-            <tr><th scope="row">Bring your own key / model</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
-          </tbody>
-        </table>
-        <p class="modes__note">
-          Desktop runs a local model on-device — your documents and prompts stay on your machine.
-          The web demo and self-host use your own API key (or any provider you configure);
-          nothing is sent anywhere you didn't set up.
-        </p>
+      <div class="caps">
+        <div class="caps__col reveal">
+          <div class="caps__head" style="--product-accent: var(--dochub);"><span class="caps__dot"></span> What it is <span class="caps__tag">scope</span></div>
+          <ul class="caps__list">
+            <li>A focused document registry — encrypted, versioned, provable</li>
+            <li>Documents only: .docx .xlsx .pptx .pdf .md .txt .csv .json .yaml</li>
+            <li>Native in-browser editing with real-time co-editing</li>
+            <li>Self-hosted: SQLite on a $5 VPS, or Postgres + S3/MinIO/R2/B2 at scale</li>
+            <li>Owned, accountable, durable — on your own server</li>
+          </ul>
+        </div>
+        <div class="caps__col reveal" data-reveal-delay="1">
+          <div class="caps__head" style="--product-accent: var(--pdf);"><span class="caps__dot"></span> What it isn't <span class="caps__tag">honest</span></div>
+          <ul class="caps__list">
+            <li>Not general cloud storage — no Drive/Dropbox clone</li>
+            <li>Not zero-knowledge E2E — the server holds keys by design</li>
+            <li>Not a media library, sync client, mailbox or calendar</li>
+            <li>No video, no archives, no arbitrary binaries</li>
+            <li>Not a managed SaaS — you run it yourself</li>
+          </ul>
+        </div>
       </div>
+      <p class="callout">
+        Honest about the trade-off: the server holds keys so it can index and
+        reason over your document content. That means encryption defeats a stolen
+        disk or a database dump — not a fully compromised, trusted server. We state
+        this plainly rather than market "end-to-end."
+      </p>
     </div>
   </section>
 
-  <!-- WHY — 6 concrete differentiators with proper SVG icons -->
-  <section class="section">
-    <div class="container">
-      <div class="section__head reveal">
-        <div>
-          <span class="eyebrow">why bother</span>
-          <h2 class="title">Six reasons to take this seriously.</h2>
-        </div>
-        <span class="section__hint">/why</span>
-      </div>
-      <div class="why reveal">
-        <article class="why__card">
-          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-            <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Zm-1 7V3.5L18.5 9H13Z"/>
-          </svg>
-          <h3 class="why__title">The file is the source of truth</h3>
-          <p class="why__body">
-            Open <code>.xlsx</code> or <code>.docx</code>, edit, save back to the
-            same bytes. The audit counts every OOXML tag round-trip;
-            Casual Docs is at <strong>100% on 39 fixtures</strong>.
-          </p>
-        </article>
-        <article class="why__card">
-          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-            <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4Z"/>
-          </svg>
-          <h3 class="why__title">Real-time, actually verified</h3>
-          <p class="why__body">
-            Yjs CRDT in the browser, a <code>~120 LOC</code> Go gateway on the
-            server. A 5-second smoke proves multi-peer text, awareness, and live
-            rename — every push runs it.
-          </p>
-        </article>
-        <article class="why__card">
-          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-            <path fill="currentColor" d="M21 2H3a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1ZM8 18H6V8h2Zm5 0h-2V8h2Zm5 0h-2V8h2Z"/>
-          </svg>
-          <h3 class="why__title">Stateless backend</h3>
-          <p class="why__body">
-            No database, no on-disk update log in the real-time path. Session
-            state lives in memory while peers are connected, then drains to
-            the host integration on the last disconnect.
-          </p>
-        </article>
-        <article class="why__card">
-          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-            <path fill="currentColor" d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6Zm0 10H6V7.3l6-3 6 3V12Z"/>
-          </svg>
-          <h3 class="why__title">Permissive, forever</h3>
-          <p class="why__body">
-            MIT on the editor packages, Apache-2.0 on the backend. No
-            copyleft, no AGPL trapdoor, no "open core" features hidden behind
-            a paid tier.
-          </p>
-        </article>
-        <article class="why__card">
-          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-            <path fill="currentColor" d="M3 4h18v3H3Zm0 13h18v3H3Zm0-6.5h18v3H3Z"/>
-          </svg>
-          <h3 class="why__title">One container, one port</h3>
-          <p class="why__body">
-            Multi-arch images (amd64 + arm64) on Docker Hub. OCI labels, SBOM
-            and provenance attestations. <code>docker run</code> and you're
-            running both the editor and the WS gateway.
-          </p>
-        </article>
-        <article class="why__card">
-          <svg class="why__icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-            <path fill="currentColor" d="m18.4 14.4 4.6 4.6L21 21l-4.6-4.6a8 8 0 1 1 2-2ZM10 16a6 6 0 1 0-6-6 6 6 0 0 0 6 6Z"/>
-          </svg>
-          <h3 class="why__title">Built in the open</h3>
-          <p class="why__body">
-            Every commit, every fixture, every failing-then-passing test
-            visible on GitHub. The roadmap is a doc, not a slide deck. Pick
-            an issue, open a PR.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- EMBED — show how trivial it is to drop Casual Docs into a
-       React or Vue app. Targets developers comparing to docx-editor.dev. -->
-  <section class="section">
-    <div class="container">
-      <div class="section__head reveal">
-        <div>
-          <span class="eyebrow">embed</span>
-          <h2 class="title">Drop it into your own app.</h2>
-        </div>
-        <span class="section__hint">npm</span>
-      </div>
-      <div class="embed reveal">
-        <div class="embed__col">
-          <div class="embed__label">Install</div>
-          <pre class="code-block code-block--inline"><code>npm i @casualoffice/docs</code></pre>
-          <div class="embed__label embed__label--tight">Use</div>
-          <pre class="code-block" set:html={reactEmbed}></pre>
-        </div>
-        <div class="embed__col">
-          <div class="embed__label">Works with</div>
-          <div class="frameworks">
-            <a class="fw" href="https://github.com/CasualOffice/docs#vite" rel="noopener" target="_blank">
-              <span class="fw__name">Vite</span>
-            </a>
-            <a class="fw" href="https://github.com/CasualOffice/docs#nextjs" rel="noopener" target="_blank">
-              <span class="fw__name">Next.js</span>
-            </a>
-            <a class="fw" href="https://github.com/CasualOffice/docs#astro" rel="noopener" target="_blank">
-              <span class="fw__name">Astro</span>
-            </a>
-            <a class="fw" href="https://github.com/CasualOffice/docs#remix" rel="noopener" target="_blank">
-              <span class="fw__name">Remix</span>
-            </a>
-            <a class="fw" href="https://github.com/CasualOffice/docs#vue" rel="noopener" target="_blank">
-              <span class="fw__name">Vue</span>
-            </a>
-            <a class="fw" href="https://github.com/CasualOffice/docs#nuxt" rel="noopener" target="_blank">
-              <span class="fw__name">Nuxt</span>
-            </a>
-          </div>
-          <p class="embed__note">
-            The editor packages ship as ESM + UMD. The Go gateway is a
-            separate process — run it alongside any backend that speaks
-            HTTP. Casual Sheets now ships an SDK (`@casualoffice/sheets`) for xlsx
-            import plus an iframe protocol; a React wrapper is in progress.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SELF-HOST QUICKSTART -->
+  <!-- SELF-HOST QUICKSTART — the real docker run -->
   <section class="section" id="docker">
     <div class="container">
       <div class="section__head reveal">
         <div>
           <span class="eyebrow">self-host</span>
-          <h2 class="title">From zero to a running suite in one command.</h2>
+          <h2 class="title">From zero to a running hub in one command.</h2>
         </div>
         <span class="section__hint">docker</span>
       </div>
-      <pre class="code-block" set:html={composeYml}></pre>
+      <pre class="code-block" set:html={dockerRun}></pre>
+      <p class="modes__note">
+        Boot refuses to start without <code>DOCHUB_MASTER_KEY</code> (or a
+        configured KMS), and in production if the app and user-content origins
+        are equal. Encryption is not optional.
+      </p>
       <div class="row" style="margin-top: 20px;">
-        <a class="btn btn--ghost" href="/docs/sheets/self-hosting/">Self-hosting guide →</a>
-        <a class="btn btn--ghost" href="/docs/sheets/customization-auth/">Optional JWT auth</a>
-        <a class="btn btn--ghost" href="/docs/">All docs</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMMUNITY — three concrete ways to participate -->
-  <section class="section section--community">
-    <div class="container">
-      <div class="section__head reveal">
-        <div>
-          <span class="eyebrow">community-first</span>
-          <h2 class="title">Help shape v1.</h2>
-        </div>
-        <span class="section__hint">/contribute</span>
-      </div>
-      <div class="community reveal">
-        <div class="community__card">
-          <span class="community__num">★</span>
-          <h3 class="community__title">Star the repos</h3>
-          <p class="community__body">
-            Stars are the only signal that says "keep going." Two repos:
-            <a href="https://github.com/CasualOffice/docs" rel="noopener" target="_blank">docx</a>
-            for Casual Docs,
-            <a href="https://github.com/CasualOffice/sheets" rel="noopener" target="_blank">sheets</a>
-            for Casual Sheets.
-          </p>
-        </div>
-        <div class="community__card">
-          <span class="community__num">✎</span>
-          <h3 class="community__title">Open an issue</h3>
-          <p class="community__body">
-            Real-world <code>.docx</code> or <code>.xlsx</code> that breaks?
-            Attach the file. Every regression fixture in the audit started
-            life as someone's broken document.
-          </p>
-        </div>
-        <div class="community__card">
-          <span class="community__num">⤴</span>
-          <h3 class="community__title">Send a PR</h3>
-          <p class="community__body">
-            The bar is the green CI suite plus a fixture that pins the
-            change. Both repos have <code>CONTRIBUTING.md</code>; the
-            <a href="https://github.com/CasualOffice/docs/issues" rel="noopener" target="_blank">issue trackers</a>
-            tag <code>good-first-issue</code>.
-          </p>
-        </div>
+        <a class="btn btn--ghost" href="https://dochub.casualoffice.org/docs/install" rel="noopener" target="_blank">Install guide →</a>
+        <a class="btn btn--ghost" href="https://dochub.casualoffice.org/docs/configuration" rel="noopener" target="_blank">Env-var reference</a>
+        <a class="btn btn--ghost" href="/doc-hub/">Doc-Hub product page</a>
       </div>
     </div>
   </section>
@@ -813,35 +694,36 @@ jsonLd['@graph'].push({
   <section class="section section--echo">
     <div class="container container--narrow reveal">
       <span class="badge">Our goal</span>
-      <h2 class="display display--small">Office software you<br/><em class="display__grad">own, not rent.</em></h2>
+      <h2 class="display display--small">Documents you<br/><em class="display__grad">own, not rent.</em></h2>
       <p class="lede">
-        The goal is simple: a serious, production-grade office suite that anyone can
-        self-host, read end-to-end, and trust with their data — where your files stay
-        in open formats on your own server. Built like infrastructure, not a SaaS:
-        composable, file-shaped, and permissively licensed forever.
+        A place to keep the documents that matter — encrypted, versioned forever,
+        and provable — on your own server, under a license that can't be revoked.
+        Built like infrastructure, not a SaaS: focused, self-hosted, and honest
+        about its limits.
       </p>
       <div class="row" style="margin-top: 8px;">
-        <a class="btn btn--primary" href="https://github.com/CasualOffice" rel="noopener" target="_blank">Browse on GitHub →</a>
-        <a class="btn btn--ghost" href="/docs/">Documentation</a>
-        <a class="btn btn--ghost" href="/changelog/">Changelog</a>
+        <a class="btn btn--primary" href="https://dochub.casualoffice.org/demo" rel="noopener" target="_blank">Try the live demo →</a>
+        <a class="btn btn--ghost" href="https://github.com/CasualOffice/dochub" rel="noopener" target="_blank">Doc-Hub on GitHub</a>
+        <a class="btn btn--ghost" href="#docker">Self-host</a>
       </div>
       <div class="row gap-sm" style="margin-top: 22px;">
-        <span class="chip">Open source</span>
-        <span class="chip">Self-hostable</span>
-        <span class="chip">MIT + Apache-2.0</span>
-        <span class="chip">Real-time, verified</span>
+        <span class="chip">Encrypted at rest</span>
+        <span class="chip">Versioned forever</span>
+        <span class="chip">Tamper-evident</span>
+        <span class="chip">Apache-2.0</span>
       </div>
     </div>
   </section>
 </Base>
 
-<!-- Tab switcher for the live demo. Tiny vanilla JS — no React, no
-     framework needed for two buttons. Flips ARIA attrs + show/hide
-     classes. Iframes stay mounted so switching back doesn't re-load. -->
+<!-- Tab switcher for the live demo. Tiny vanilla JS — no framework needed
+     for three buttons. Flips ARIA attrs + show/hide classes. Iframes stay
+     mounted so switching back doesn't re-load. -->
 <script is:inline>
   (function () {
     const tabs = document.querySelectorAll('[data-demo]');
     const panels = {
+      dochub: document.getElementById('demo-dochub'),
       sheets: document.getElementById('demo-sheets'),
       editor: document.getElementById('demo-editor'),
     };
@@ -849,6 +731,7 @@ jsonLd['@graph'].push({
     const addrs = document.querySelectorAll('[data-addr]');
     const pops = document.querySelectorAll('[data-pop-for]');
     const FRAME_ACCENTS = {
+      dochub: 'var(--dochub)',
       sheets: 'var(--sheets)',
       editor: 'var(--editor)',
     };
@@ -875,8 +758,8 @@ jsonLd['@graph'].push({
     });
 
     // Click-to-load facade. The demo iframes carry `data-src` (not `src`) so the
-    // multi-MB editor apps aren't fetched on page load — they were the bulk of
-    // the homepage payload + main-thread work. Inject the real src on demand.
+    // multi-MB apps aren't fetched on page load — they were the bulk of the
+    // homepage payload + main-thread work. Inject the real src on demand.
     document.querySelectorAll('[data-load-frame]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const panel = btn.closest('.frame__panel');
@@ -892,9 +775,9 @@ jsonLd['@graph'].push({
 
 <style>
   /* ───────────────────────────────────────────────────────────────
-   *  HERO — tightened from the previous version. The demo below is
-   *  the headline visual, so the hero stays compact and centered
-   *  rather than pushing the demo below the fold.
+   *  HERO — tightened. The demo below is the headline visual, so the
+   *  hero stays compact and centered rather than pushing the demo
+   *  below the fold.
    * ──────────────────────────────────────────────────────────── */
   .hero--tight {
     padding: 56px 0 32px;
@@ -1101,8 +984,8 @@ jsonLd['@graph'].push({
     background: var(--surface);
   }
   /* Click-to-load facade button (covers the panel until the user loads the
-     real iframe). Keeps the homepage off the multi-MB editor apps at first
-     paint while still offering the genuine live demo on demand. */
+     real iframe). Keeps the homepage off the multi-MB apps at first paint
+     while still offering the genuine live demo on demand. */
   .frame__load {
     position: absolute;
     inset: 0;
@@ -1190,193 +1073,7 @@ jsonLd['@graph'].push({
     color: var(--text-muted);
   }
 
-  /* ───────────────────────────────────────────────────────────────
-   *  WHY — replaces the generic feature grid. Six cards, SVG icons,
-   *  one paragraph of concrete copy each.
-   * ──────────────────────────────────────────────────────────── */
-  .why {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 920px) { .why { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 620px) { .why { grid-template-columns: 1fr; } }
-  .why__card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 26px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: border-color 160ms ease, transform 200ms ease, box-shadow 200ms ease;
-  }
-  .why__card:hover {
-    border-color: var(--border-strong);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-  }
-  .why__icon {
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 8px;
-    border-radius: 10px;
-    box-sizing: content-box;
-    width: 22px;
-    height: 22px;
-    align-self: flex-start;
-  }
-  .why__title {
-    font-family: var(--font-display);
-    font-size: 17px;
-    font-weight: 700;
-    margin: 4px 0 0;
-    color: var(--text);
-    letter-spacing: -0.01em;
-  }
-  .why__body {
-    font-size: 14px;
-    color: var(--text-soft);
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* ───────────────────────────────────────────────────────────────
-   *  EMBED — two-column showing install + framework adapters
-   * ──────────────────────────────────────────────────────────── */
-  .embed {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-  }
-  @media (max-width: 820px) { .embed { grid-template-columns: 1fr; } }
-  .embed__col { display: flex; flex-direction: column; gap: 10px; }
-  .embed__label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-  .embed__label--tight { margin-top: 6px; }
-  .embed__note {
-    margin: 8px 0 0;
-    color: var(--text-muted);
-    font-size: 13px;
-    line-height: 1.6;
-  }
-  .frameworks {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-  @media (max-width: 460px) { .frameworks { grid-template-columns: repeat(2, 1fr); } }
-  .fw {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 12px;
-    text-align: center;
-    color: var(--text);
-    text-decoration: none;
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    font-weight: 600;
-    transition: border-color 120ms ease, transform 200ms ease, background-color 120ms ease, box-shadow 120ms ease;
-  }
-  .fw:hover {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-    color: var(--accent-strong);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
-  }
-  .code-block {
-    background: #0c0a09;
-    border: 1px solid #1c1917;
-    border-radius: 12px;
-    padding: 18px 22px;
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: #fafaf9;
-    overflow-x: auto;
-    line-height: 1.6;
-    box-shadow: var(--shadow-md);
-  }
-  .code-block code { color: inherit; }
-  .code-block--inline { padding: 12px 16px; font-size: 13px; }
-  .code-block code {
-    background: transparent;
-    padding: 0;
-    border: 0;
-    color: inherit;
-    font-size: inherit;
-    white-space: pre;
-  }
-
-  /* ───────────────────────────────────────────────────────────────
-   *  COMMUNITY — three "how to participate" cards
-   * ──────────────────────────────────────────────────────────── */
-  .section--community {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-  }
-  .community {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 24px;
-  }
-  @media (max-width: 920px) { .community { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 620px) { .community { grid-template-columns: 1fr; } }
-  .community__card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 26px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: border-color 120ms ease, box-shadow 200ms ease;
-  }
-  .community__card:hover {
-    border-color: var(--border-strong);
-    box-shadow: var(--shadow-md);
-  }
-  .community__num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    font-size: 18px;
-    font-weight: 700;
-    font-family: var(--font-display);
-  }
-  .community__title {
-    font-family: var(--font-display);
-    font-size: 17px;
-    font-weight: 700;
-    margin: 0;
-    color: var(--text);
-  }
-  .community__body {
-    font-size: 14px;
-    color: var(--text-soft);
-    line-height: 1.6;
-    margin: 0;
-  }
-  .community__body a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  /* ── Capability matrix ("What we support") ───────────────────────── */
+  /* ── Capability matrix (guarantees + is/isn't) ───────────────────── */
   .caps {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1449,35 +1146,30 @@ jsonLd['@graph'].push({
     color: var(--product-accent, var(--accent));
   }
 
-  /* Modes feature matrix */
-  .modes { overflow-x: auto; }
-  .modes__table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-    min-width: 560px;
+  /* Code block — self-host quickstart */
+  .code-block {
+    background: #0c0a09;
+    border: 1px solid #1c1917;
+    border-radius: 12px;
+    padding: 18px 22px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: #fafaf9;
+    overflow-x: auto;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
   }
-  .modes__table th, .modes__table td {
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--border);
-    text-align: center;
+  .code-block code {
+    background: transparent;
+    padding: 0;
+    border: 0;
+    color: inherit;
+    font-size: inherit;
+    white-space: pre;
   }
-  .modes__table thead th {
-    font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--text);
-    border-bottom: 1px solid var(--border-strong);
-  }
-  .modes__table tbody th {
-    text-align: left;
-    font-weight: 500;
-    color: var(--text);
-  }
-  .modes__table tbody tr:hover td,
-  .modes__table tbody tr:hover th { background: color-mix(in srgb, var(--accent) 4%, transparent); }
-  .modes__sub { font-family: var(--font-body, inherit); font-weight: 500; font-size: 11px; color: var(--text-muted); }
-  .modes__table td.y { color: var(--accent); font-weight: 700; }
-  .modes__table td.n { color: var(--text-muted); }
+  .code-block--inline { padding: 12px 16px; font-size: 13px; }
+
+  /* Caption note under the self-host block */
   .modes__note {
     margin: 14px 2px 0;
     font-size: 13px;
