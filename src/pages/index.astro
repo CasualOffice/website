@@ -156,7 +156,7 @@ const faqs = [
   },
   {
     q: 'Can I embed it in my own React or Vue app?',
-    a: 'Yes for Casual Docs — it ships as npm packages (`@casualoffice/docs`, `@eigenpal/docx-editor-vue`). The Go gateway is a separate process you can run alongside any backend. Casual Sheets now publishes an SDK (`@casualoffice/sheets`) for the xlsx import path plus an iframe postMessage protocol; a full React embed wrapper is in progress.',
+    a: 'Yes — both editors now ship as installable npm SDKs: `@casualoffice/docs` (Casual Docs) and `@casualoffice/sheets` (Casual Sheets). They share one unified contract — the same document mode, event emitter, `getContent`/`setContent` handle, feature flag-map, and declarative collab and AI props — so a host wires both editors the same way. Each also offers an iframe + postMessage mount for process isolation.',
   },
   {
     q: 'Where does it not fit?',
@@ -387,7 +387,7 @@ jsonLd['@graph'].push({
             'Yjs + Go y-websocket gateway',
             'Co-edit verified end-to-end (smoke + tests)',
           ]}
-          status="public preview · npm SDK v1.1.7"
+          status="public preview · npm SDK v1.2.0"
           href="/casual-docs/"
           accent="var(--editor)"
           accentSoft="var(--editor-soft)"
@@ -687,9 +687,17 @@ jsonLd['@graph'].push({
       <div class="embed reveal">
         <div class="embed__col">
           <div class="embed__label">Install</div>
-          <pre class="code-block code-block--inline"><code>npm i @casualoffice/docs</code></pre>
+          <pre class="code-block code-block--inline"><code>npm i @casualoffice/docs
+npm i @casualoffice/sheets</code></pre>
           <div class="embed__label embed__label--tight">Use</div>
           <pre class="code-block" set:html={reactEmbed}></pre>
+          <p class="embed__note">
+            Both editors ship one unified SDK contract — same document mode,
+            events, imperative handle, feature flags, and declarative collab +
+            AI props. See the
+            <a href="/docs/editor/sdk/">Docs SDK guide</a> and the
+            <a href="/docs/sheets/sdk/">Sheets SDK guide</a>.
+          </p>
         </div>
         <div class="embed__col">
           <div class="embed__label">Works with</div>
@@ -714,10 +722,10 @@ jsonLd['@graph'].push({
             </a>
           </div>
           <p class="embed__note">
-            The editor packages ship as ESM + UMD. The Go gateway is a
-            separate process — run it alongside any backend that speaks
-            HTTP. Casual Sheets now ships an SDK (`@casualoffice/sheets`) for xlsx
-            import plus an iframe protocol; a React wrapper is in progress.
+            The editor packages ship as ESM + UMD. Mount the raw React
+            component, the batteries-included wrapper, or an isolated
+            iframe; the collab gateway is a separate process you run
+            alongside any backend that speaks HTTP.
           </p>
         </div>
       </div>
