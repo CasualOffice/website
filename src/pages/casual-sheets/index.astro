@@ -31,6 +31,16 @@ const jsonLd = {
   },
   isAccessibleForFree: true,
 };
+
+// Minimal React mount snippet for the SDK section. Held as an escaped
+// raw string and emitted via set:html so Astro doesn't parse the JSX
+// tags as real elements.
+const sheetsEmbed = `<code>import { CasualSheets } from '@casualoffice/sheets';
+import '@casualoffice/sheets/styles';
+
+export default function App({ data }) {
+  return &lt;CasualSheets initialData={data} onChange={persist} /&gt;;
+}</code>`;
 ---
 <Base {title} {description} active="sheets" jsonLd={jsonLd} ogImage="/og-sheets.png" keywords="open source google sheets alternative, self-hosted spreadsheet, online xlsx editor, excel alternative, collaborative spreadsheet, real-time spreadsheet co-editing, open source onlyoffice alternative, self-hosted excel online">
   <section
@@ -165,6 +175,30 @@ const jsonLd = {
         <span class="chip"><code>ExcelJS</code> in Web Workers</span>
         <span class="chip"><code>ECharts</code></span>
         <span class="chip"><code>Docker</code> multi-arch</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--sheets); --product-accent-soft: var(--sheets-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">Embed it — SDK</span>
+          <h2 class="title">Drop the spreadsheet into your own React app.</h2>
+        </div>
+      </div>
+      <p class="lede">
+        <code>@casualoffice/sheets</code> embeds a full spreadsheet editor with the
+        unified, cross-editor contract — the same <code>documentMode</code>, event
+        emitter, <code>getContent</code>/<code>setContent</code> handle, feature
+        flag-map, and declarative collab + AI props that
+        <a href="/docs/editor/sdk/">Casual Docs</a> exposes.
+      </p>
+      <pre style="margin: 8px 0 0; padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-mono); font-size: 13px; overflow-x: auto;"><code>npm i @casualoffice/sheets</code></pre>
+      <pre style="margin: 12px 0 0; padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-mono); font-size: 13px; overflow-x: auto;" set:html={sheetsEmbed}></pre>
+      <div class="row" style="margin-top: 22px;">
+        <a class="btn btn--accent" style="--product-accent: var(--sheets);" href="/docs/sheets/sdk/">SDK guide →</a>
+        <a class="btn btn--ghost" href="/docs/editor/sdk/">Docs SDK guide</a>
       </div>
     </div>
   </section>
