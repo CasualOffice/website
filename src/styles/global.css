@@ -15,88 +15,133 @@
  *      status pills (more polished than Space Mono).
  * ─────────────────────────────────────────────────────────────────────── */
 
+/* Self-hosted IBM Plex — the neobrutal system face. No CDN, no render-block,
+   no silent fallback. Plex Sans is one heavy sans doing display + body; Plex
+   Mono carries labels, eyebrows and code. */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: swap;
+  src: url('/fonts/plex-sans-variable.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/plex-mono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url('/fonts/plex-mono-500.woff2') format('woff2');
+}
+
 :root {
   color-scheme: light;
 
-  /* Surface scale — pure white at the base, gentle stone tints climbing
-     through the elevation steps. Reads as paper, not a black slab. */
-  --bg: #ffffff;
-  --surface: #fafaf9;       /* stone-50 */
-  --surface-2: #f5f5f4;     /* stone-100 */
-  --surface-3: #e7e5e4;     /* stone-200 */
-  --border: #e7e5e4;        /* same as surface-3 — subtle 1 px division */
-  --border-strong: #d6d3d1; /* stone-300 — visible borders */
+  /* ── Neobrutal "Paper" (light) — warm cream canvas, white cards, 2px ink
+       borders, hard offset shadows. Umbrella accent is orange; violet is
+       Doc-Hub's product color and is deliberately NOT the suite signal. ── */
+  --paper: #f4f1ea;
+  --bg: #f4f1ea;            /* page canvas = warm cream */
+  --card: #ffffff;         /* cards sit white ON the cream */
+  --surface: #ece7db;      /* sunken wells / table headers */
+  --surface-2: #ece7db;    /* stone-ish tint retained for code/kbd */
+  --surface-3: #ddd7c7;
+  --border: #14110c;       /* structural ink — every border is 2px ink */
+  --border-strong: #14110c;
+  --border-w: 2px;
 
-  --text: #0c0a09;          /* near-black, slight warm */
-  --text-soft: #44403c;     /* stone-700 — body copy */
-  --text-muted: #78716c;    /* stone-500 — labels, eyebrows */
-  --text-dim: #a8a29e;      /* stone-400 — placeholders */
+  --text: #14110c;         /* near-black warm ink (text AND borders) */
+  --text-soft: #55503f;    /* body copy */
+  --text-muted: #6f6a57;   /* labels, eyebrows */
+  --text-dim: #8a8574;     /* placeholders */
 
-  /* Umbrella accent — vibrant orange that reads as "open & alive" on
-     a white surface (the warm orange we used on dark was too muted
-     here). The hover step deepens to orange-700. */
-  --accent: #ea580c;        /* orange-600 */
-  --accent-soft: rgba(234, 88, 12, 0.08);
-  --accent-strong: #c2410c; /* orange-700 */
+  /* Umbrella accent — orange. Not any single flagship's identity. */
+  --accent: #ea580c;
+  --accent-strong: #c2410c;
+  --accent-soft: #ffedd5;  /* solid tint (not translucent) — neobrutal */
 
-  /* Per-product accents — pulled toward the Tailwind 700 line so
-     they pop on white but stay legible in body copy. */
-  --sheets: #047857;        /* emerald-700 */
-  --sheets-light: #34d399;
-  --sheets-soft: rgba(4, 120, 87, 0.08);
-  --editor: #6d28d9;        /* violet-700 */
-  --editor-light: #a78bfa;
-  --editor-soft: rgba(109, 40, 217, 0.08);
-  --desktop: #ea580c;       /* matches umbrella */
-  --desktop-light: #fb923c;
-  --desktop-soft: rgba(234, 88, 12, 0.08);
-  --slides: #0d9488;        /* teal-600 — refreshed brand mark, matches the page-gradient deep stop */
-  --slides-light: #2dd4bf;  /* teal-400 — gradient bright stop */
-  --slides-soft: rgba(13, 148, 136, 0.08);
-  --pdf: #dc2626;           /* red-600 — PDF brand red */
-  --pdf-light: #f87171;
-  --pdf-soft: rgba(220, 38, 38, 0.08);
+  /* Per-product accents + solid -100 tint. Chroma is sandboxed to the
+     product chip, dot, feature markers and "Read more" — never the frame. */
+  --sheets: #047857;  --sheets-light: #34d399;  --sheets-soft: #d1fae5;  --sheets-100: #d1fae5;
+  --editor: #6d28d9;  --editor-light: #a78bfa;  --editor-soft: #ede9fe;  --editor-100: #ede9fe;
+  --desktop:#c2410c;  --desktop-light:#fb923c;  --desktop-soft:#ffedd5;  --desktop-100:#ffedd5;
+  --slides: #0d9488;  --slides-light: #2dd4bf;  --slides-soft: #ccfbf1;  --slides-100: #ccfbf1;
+  --pdf:    #dc2626;  --pdf-light:    #f87171;  --pdf-soft:    #fee2e2;  --pdf-100:    #fee2e2;
 
-  --warn: #b45309;
-  --warn-soft: rgba(180, 83, 9, 0.10);
+  --warn: #d97706;
+  --warn-soft: #fef3c7;
 
   --radius: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 
-  /* Light-theme shadows — kept small + colored slate so cards float
-     gently rather than ballooning. Heavy black shadows on white read
-     as "bubble UI" — we avoid that. */
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 1px 2px rgba(15, 23, 42, 0.04),
-               0 4px 12px rgba(15, 23, 42, 0.06);
-  --shadow-lg: 0 1px 2px rgba(15, 23, 42, 0.04),
-               0 12px 32px rgba(15, 23, 42, 0.10);
+  /* Depth is hard offset ink shadows, zero blur. Legacy --shadow-* names are
+     repointed so existing consumers inherit the neobrutal press for free. */
+  --shadow-ink: #14110c;
+  --shadow-sm: 2px 2px 0 var(--shadow-ink);
+  --shadow-md: 4px 4px 0 var(--shadow-ink);
+  --shadow-lg: 6px 6px 0 var(--shadow-ink);
+  --shadow-card: 4px 4px 0 var(--shadow-ink);
+  --shadow-hover: 6px 6px 0 var(--shadow-ink);
 
-  /* ── Premium layer (v4) — gradients, glows, motion ────────────────
-     The clean-light base above stays; this layer adds the "funded
-     product" finish: a brand gradient (orange → magenta → violet),
-     per-product gradients, colored glow shadows, and motion tokens
-     used by hovers + scroll-reveal. */
-  --gradient-brand: linear-gradient(110deg, #ea580c 0%, #e11d8f 46%, #7c3aed 100%);
-  --gradient-brand-soft: linear-gradient(110deg, rgba(234, 88, 12, 0.10), rgba(225, 29, 143, 0.08) 50%, rgba(124, 58, 237, 0.10));
-  --gradient-sheets: linear-gradient(120deg, #059669, #0d9488);
-  --gradient-editor: linear-gradient(120deg, #7c3aed, #d6276e);
-  --gradient-slides: linear-gradient(120deg, #0d9488, #2563eb);
-  --gradient-desktop: linear-gradient(120deg, #f59e0b, #ea580c);
-  --gradient-pdf: linear-gradient(120deg, #dc2626, #e11d48);
-  --glow-accent: 0 14px 40px -10px rgba(234, 88, 12, 0.45);
-  --glow-brand: 0 22px 60px -18px rgba(124, 58, 237, 0.40);
-  --shadow-glow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 24px 60px -24px rgba(124, 58, 237, 0.32);
+  /* Flourish tokens neutralized: gradients collapse to flat solids and glows
+     become hard shadows, so old consumers keep working without the sheen. */
+  --gradient-brand: linear-gradient(var(--accent), var(--accent));
+  --gradient-brand-soft: linear-gradient(var(--accent-soft), var(--accent-soft));
+  --gradient-sheets: linear-gradient(var(--sheets), var(--sheets));
+  --gradient-editor: linear-gradient(var(--editor), var(--editor));
+  --gradient-slides: linear-gradient(var(--slides), var(--slides));
+  --gradient-desktop: linear-gradient(var(--desktop), var(--desktop));
+  --gradient-pdf: linear-gradient(var(--pdf), var(--pdf));
+  --glow-accent: var(--shadow-card);
+  --glow-brand: var(--shadow-card);
+  --shadow-glow: var(--shadow-card);
+
+  --ease: cubic-bezier(0.2, 0, 0, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --dur-1: 140ms;
-  --dur-2: 280ms;
-  --dur-3: 620ms;
+  --dur-1: 120ms;
+  --dur-2: 200ms;
+  --dur-3: 480ms;
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Manrope', 'Inter', -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* ── Dark "Ink" — first-class peer. Toggled by .dark on <html> (pre-paint
+     bootstrap in Base.astro) and defaulted from prefers-color-scheme. Flips
+     ~18 core tokens; borders lift off pure black; accents brighten. ── */
+:root.dark {
+  color-scheme: dark;
+  --paper: #14121a;
+  --bg: #14121a;
+  --card: #1e1b26;
+  --surface: #100e15;
+  --surface-2: #100e15;
+  --surface-3: #26222f;
+  --border: #34303f;
+  --border-strong: #45414f;
+  --text: #f1eef7;
+  --text-soft: #b8b2c4;
+  --text-muted: #928ca3;
+  --text-dim: #6f6980;
+  --accent: #fb7a3c;
+  --accent-strong: #fca35f;
+  --accent-soft: #3a2417;
+  --sheets: #34d399; --sheets-soft: #12362b; --sheets-100: #12362b;
+  --editor: #a78bfa; --editor-soft: #241a3d; --editor-100: #241a3d;
+  --desktop:#fb923c; --desktop-soft:#3a2417; --desktop-100:#3a2417;
+  --slides: #2dd4bf; --slides-soft: #0f322f; --slides-100: #0f322f;
+  --pdf:    #f87171; --pdf-soft:    #3a1717; --pdf-100:    #3a1717;
+  --warn: #fbbf24; --warn-soft: #3a2e12;
+  --shadow-ink: #05040a;
 }
 
 /* ─── Base ─────────────────────────────────────────────────────────── */
@@ -387,31 +432,43 @@ code, kbd {
 }
 .product:hover::before { opacity: 1; }
 
-.product__dot {
-  display: inline-block;
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: var(--product-accent);
-  margin-right: 10px;
-  vertical-align: middle;
-  box-shadow: 0 0 0 5px var(--product-accent-soft);
+.product__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
 }
+.product__mark {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius);
+  display: grid;
+  place-items: center;
+  background: var(--product-accent-soft);
+  border: var(--border-w) solid var(--border);
+  color: var(--product-accent);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 18px;
+}
+.product__titles { min-width: 0; }
 
 .product__name {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 22px;
-  margin: 0 0 6px;
+  font-weight: 800;
+  font-size: 19px;
+  margin: 0;
   letter-spacing: -0.015em;
   color: var(--text);
 }
 .product__role {
   font-family: var(--font-mono);
-  font-size: 11.5px;
+  font-size: 10.5px;
   text-transform: uppercase;
-  letter-spacing: 0.10em;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
-  margin: 4px 0 18px;
+  margin: 3px 0 0;
 }
 .product__body {
   font-size: 15px;
@@ -1009,3 +1066,112 @@ code, kbd {
   .reveal { opacity: 1; transform: none; }
   .aurora { animation: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+ *  NEOBRUTAL OVERRIDE LAYER (v5) — retires the v4 gradient/glow/glass finish.
+ *  Appended last so it wins the cascade over the premium layer. Frame is
+ *  neutral ink; chroma is confined to product chips, dots, ▸ markers and
+ *  "Read more". Approved direction: Paper + Restrained.
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+/* Kill ambient graphics — the aurora mesh has no place in a flat system. */
+.aurora { display: none !important; }
+
+::selection { background: var(--accent-soft); color: var(--accent-strong); }
+
+/* Nav — solid paper, 2px ink underline, no glass. */
+.nav {
+  background: var(--bg);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: var(--border-w) solid var(--border);
+}
+.nav__link { color: var(--text-soft); }
+.nav__link:hover,
+.nav__link[aria-current='page'] {
+  background: var(--accent-soft);
+  border-radius: var(--radius);
+}
+
+/* Display headline emphasis — solid ink-accent, no orange→violet gradient. */
+.display em {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--accent);
+}
+.display__grad { background: none !important; -webkit-text-fill-color: currentColor; color: var(--accent); }
+
+/* Eyebrow rule → keep, but tint via accent, and drop the gradient dot. */
+.eyebrow::before { background: var(--border); }
+.eyebrow__dot { background: var(--accent) !important; border: var(--border-w) solid var(--border); }
+
+/* Cards — white on cream, ink frame, ONE shared ink offset shadow. */
+.product, .feature, .why__card, .community__card {
+  background: var(--card);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease);
+}
+.product:hover, .feature:hover, .why__card:hover, .community__card:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border);
+}
+/* Restrained: no colored top accent bar. Chroma stays in the chip. */
+.product::before { display: none !important; }
+.why__icon { background: var(--accent-soft) !important; border: var(--border-w) solid var(--border); }
+
+/* Buttons — flat fill, 2px ink border, hard shadow, press-into-shadow. */
+.btn {
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-sans);
+  font-weight: 650;
+  background: var(--card);
+  color: var(--text);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: transform var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease), background var(--dur-1) var(--ease);
+}
+.btn:hover { transform: translate(-1px, -1px); box-shadow: var(--shadow-hover); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--shadow-ink); }
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--accent-strong); box-shadow: var(--shadow-hover); }
+.btn--ghost { background: var(--card); color: var(--text); }
+.btn--accent { background: var(--product-accent, var(--accent)); color: #fff; background-image: none; }
+
+/* Badges / pills — bordered tint, not a gradient wash. */
+.badge {
+  background: var(--accent-soft);
+  border: var(--border-w) solid var(--border);
+  color: var(--text);
+  border-radius: 999px;
+}
+
+/* Trust strip — solid pills, no glass. */
+.trust__item {
+  background: var(--card);
+  border: var(--border-w) solid var(--border);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Chips + code — ink hairline on the cream. */
+.chip { border: var(--border-w) solid var(--border); background: var(--card); }
+code, kbd { border: 1px solid var(--border); background: var(--surface-2); }
+
+/* Footer — flat cream well, 2px ink top border; GitHub pill goes solid. */
+.foot { background: var(--surface); border-top: var(--border-w) solid var(--border); }
+.foot::before, .foot::after { display: none !important; }
+.foot__gh {
+  background: var(--accent);
+  color: #fff;
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+.foot__gh:hover { background: var(--accent-strong); transform: translate(-1px, -1px); box-shadow: var(--shadow-hover); }
+
+/* Consistent, visible focus ring across the suite. */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

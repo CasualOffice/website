@@ -35,9 +35,16 @@ Open-source presentation editor for native `.pptx` files.
 * Documentation: https://casualoffice.org/docs/slides/
 * Live Demo: https://slides.casualoffice.org/
 
+### Casual PDF
+
+Open-source, high-fidelity PDF viewer and editor: annotate, fill forms, edit text in place, e-sign (PKCS#7 certified signing), and perform true byte-level redaction. One PDFium engine is shared across web and desktop for identical fidelity.
+
+* Documentation: https://casualoffice.org/casual-pdf/
+* Live Demo: https://pdf.casualoffice.org/
+
 ### Casual Desktop
 
-Desktop application built with Tauri that reuses the web editors for offline editing.
+Desktop application built with Tauri that reuses the web editors for offline editing. Includes an on-device agentic AI assistant (plan, edit, review) that runs a local model so documents never leave the machine.
 
 * Repository: https://github.com/CasualOffice/desktop
 * Downloads: https://casualoffice.org/casual-desktop/
@@ -77,6 +84,26 @@ Casual Office is primarily built with:
 * Hocuspocus
 * Univer OSS
 * ProseMirror
+
+## Common Questions
+
+Q: What is Casual Office?
+A: An open-source, self-hosted office suite for editing native Microsoft Office documents — spreadsheets (.xlsx), documents (.docx), presentations (.pptx), and PDFs — directly in the browser, with real-time collaboration. It is a self-hostable alternative to Google Workspace, Microsoft 365, and OnlyOffice.
+
+Q: Is Casual Office free and open source?
+A: Yes. It is licensed under Apache-2.0 (some components preserve MIT attribution where required) and can be self-hosted at no cost.
+
+Q: What file formats does it support?
+A: Native Office formats are the primary formats: .xlsx / .ods / .csv / .tsv (Sheets), .docx (Docs), .pptx (Slides), and PDF (Casual PDF). Files round-trip in their original format rather than being converted to a proprietary one.
+
+Q: Can I self-host it?
+A: Yes. Deployment is Docker-first, with self-host storage options including memory, local disk, S3, and Postgres. See the documentation for self-hosting guides.
+
+Q: Does it support real-time collaboration?
+A: Yes. Co-editing is powered by Yjs and the Hocuspocus/Casual Collab server, so multiple users can edit the same document simultaneously without vendor lock-in.
+
+Q: How is it different from Google Docs or OnlyOffice?
+A: Casual Office is fully open source and self-hostable, keeps documents in native Office formats, and can run entirely on your own infrastructure (or offline on the desktop). Comparison pages are available at https://casualoffice.org/vs/.
 
 ## Documentation
 
