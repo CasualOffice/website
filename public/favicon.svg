@@ -1,22 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Brand tile -->
-  <rect width="64" height="64" rx="14" fill="#217346"/>
-
-  <!-- 3×3 grid of soft white cells, one bright center cell as the "active cell".
-       Cells are separate (with tile-coloured gaps) so the icon reads as
-       distinct cells, not a uniform grid. -->
-  <g fill="#ffffff">
-    <!-- top row -->
-    <rect x="11" y="11" width="12" height="12" rx="2.5" fill-opacity="0.35"/>
-    <rect x="26" y="11" width="12" height="12" rx="2.5" fill-opacity="0.35"/>
-    <rect x="41" y="11" width="12" height="12" rx="2.5" fill-opacity="0.35"/>
-    <!-- middle row -->
-    <rect x="11" y="26" width="12" height="12" rx="2.5" fill-opacity="0.35"/>
-    <rect x="26" y="26" width="12" height="12" rx="2.5"/>  <!-- ACTIVE CELL -->
-    <rect x="41" y="26" width="12" height="12" rx="2.5" fill-opacity="0.35"/>
-    <!-- bottom row -->
-    <rect x="11" y="41" width="12" height="12" rx="2.5" fill-opacity="0.35"/>
-    <rect x="26" y="41" width="12" height="12" rx="2.5" fill-opacity="0.35"/>
-    <rect x="41" y="41" width="12" height="12" rx="2.5" fill-opacity="0.35"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Casual Office">
+  <!-- Neobrutal ink tile — the suite mark. Umbrella-neutral (not any single
+       product's color); a stack of versioned documents echoing the registry
+       motif, with an orange "active" marker as the one accent. -->
+  <rect width="64" height="64" rx="14" fill="#14110c"/>
+  <!-- document stack: older versions peek behind the current one -->
+  <rect x="24" y="13" width="22" height="30" rx="4" fill="#6f6a57"/>
+  <rect x="20" y="17" width="22" height="30" rx="4" fill="#a8a29e"/>
+  <rect x="16" y="21" width="22" height="30" rx="4" fill="#f4f1ea"/>
+  <!-- text lines on the current document -->
+  <g fill="#14110c">
+    <rect x="20" y="28" width="14" height="3" rx="1.5"/>
+    <rect x="20" y="34" width="14" height="3" rx="1.5"/>
+    <rect x="20" y="40" width="9" height="3" rx="1.5"/>
   </g>
+  <!-- suite accent — the single orange signal -->
+  <rect x="35" y="38" width="8" height="8" rx="2" fill="#ea580c"/>
 </svg>

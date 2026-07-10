@@ -11,6 +11,16 @@ interface Props {
   accentSoft: string;
 }
 const { slug, name, role, body, features, status, href, accent, accentSoft } = Astro.props as Props;
+
+// Chroma is sandboxed to this glyph chip — the one place product color lives
+// on the card. The frame stays neutral ink (the restrained umbrella rule).
+const glyph: Record<Props['slug'], string> = {
+  sheets: 'S',
+  editor: 'D',
+  slides: 'P',
+  desktop: '▤',
+  pdf: 'F',
+};
 ---
 <a
   class="product"
@@ -18,10 +28,12 @@ const { slug, name, role, body, features, status, href, accent, accentSoft } = A
   data-product={slug}
   style={`--product-accent: ${accent}; --product-accent-soft: ${accentSoft};`}
 >
-  <div>
-    <span class="product__dot" aria-hidden="true"></span>
-    <h2 class="product__name" style="display: inline">{name}</h2>
-    <div class="product__role">{role}</div>
+  <div class="product__head">
+    <span class="product__mark" aria-hidden="true">{glyph[slug]}</span>
+    <span class="product__titles">
+      <h2 class="product__name">{name}</h2>
+      <div class="product__role">{role}</div>
+    </span>
   </div>
   <p class="product__body">{body}</p>
   <ul class="product__features">

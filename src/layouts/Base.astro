@@ -27,7 +27,7 @@ const {
   ogImage = '/og.png',
   active = 'home',
   jsonLd,
-  themeColor = '#ffffff',
+  themeColor = '#f4f1ea',
   // Default umbrella keyword set — every page inherits these search
   // intents; product pages pass a tighter list. Targets the high-volume
   // "open source / self-hosted alternative to <Google/Microsoft>" queries.
@@ -39,6 +39,34 @@ const canonical = canonicalPath
   ? new URL(canonicalPath, SITE_URL).toString()
   : new URL(Astro.url.pathname, SITE_URL).toString();
 const ogImageAbs = new URL(ogImage, SITE_URL).toString();
+
+// GEO / LLM-answerability: when a page doesn't supply its own JSON-LD, emit an
+// Organization + WebSite graph so generative engines and rich results have a
+// clean, machine-readable description of the suite to quote.
+const defaultJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}/#org`,
+      name: 'Casual Office',
+      url: SITE_URL,
+      logo: `${SITE_URL}/favicon.svg`,
+      description:
+        'Casual Office is an open-source, self-hosted office suite for editing native Microsoft Office documents (.xlsx, .docx, .pptx, PDF) in the browser, with real-time collaboration.',
+      sameAs: ['https://github.com/CasualOffice'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: 'Casual Office',
+      publisher: { '@id': `${SITE_URL}/#org` },
+      inLanguage: 'en',
+    },
+  ],
+};
+const structuredData = jsonLd ?? defaultJsonLd;
 ---
 <!doctype html>
 <html lang="en">
@@ -50,7 +78,24 @@ const ogImageAbs = new URL(ogImage, SITE_URL).toString();
     <meta name="keywords" content={keywords} />
     <meta name="author" content="Sachin Sarwa" />
     <meta name="theme-color" content={themeColor} />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
+
+    {/* Pre-paint theme bootstrap — set .dark on <html> from the saved choice
+        (or the OS setting) BEFORE first paint, so dark mode never flashes. */}
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var dark = saved ? saved === 'dark'
+            : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (dark) {
+            document.documentElement.classList.add('dark');
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (m) m.setAttribute('content', '#14121a');
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -78,35 +123,18 @@ const ogImageAbs = new URL(ogImage, SITE_URL).toString();
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
 
-    {jsonLd && (
-      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-    )}
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    {/* Load the font stylesheet ASYNCHRONOUSLY so it never blocks first paint
-        (Lighthouse "render-blocking requests"). `media="print"` makes the
-        browser fetch it at low priority and not apply it for screen until the
-        onload swaps media to `all`; `display=swap` (in the URL) means text
-        paints immediately in the fallback and swaps in when the webfont
-        arrives. <noscript> keeps it working with JS disabled. */}
+    {/* Self-hosted IBM Plex — no CDN round-trip, no render-block, no silent
+        fallback. Preload the variable sans (the face used above the fold); the
+        @font-face rules live in global.css. */}
     <link
       rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      as="font"
+      type="font/woff2"
+      href="/fonts/plex-sans-variable.woff2"
+      crossorigin
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
-      />
-    </noscript>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-J47QDJKSN8" is:inline></script>

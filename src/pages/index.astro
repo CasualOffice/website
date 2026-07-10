@@ -1049,15 +1049,13 @@ npm i @casualoffice/sheets</code></pre>
      Per-tab accent shows up as a thin top stripe so the user always
      sees which product they're viewing. */
   .frame {
-    background: var(--bg);
-    border: 1px solid var(--border-strong);
-    border-radius: 16px;
+    background: var(--card);
+    border: var(--border-w) solid var(--border);
+    border-radius: var(--radius-xl);
     overflow: hidden;
     position: relative;
-    box-shadow:
-      0 1px 2px rgba(15, 23, 42, 0.04),
-      0 20px 50px -20px rgba(15, 23, 42, 0.18);
-    transition: box-shadow 200ms ease, border-color 200ms ease;
+    box-shadow: var(--shadow-hover);
+    transition: box-shadow 200ms var(--ease), transform 200ms var(--ease);
   }
   .frame::before {
     content: '';
@@ -1065,7 +1063,7 @@ npm i @casualoffice/sheets</code></pre>
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 4px;
     background: var(--frame-accent, var(--accent));
     z-index: 2;
   }
@@ -1123,8 +1121,7 @@ npm i @casualoffice/sheets</code></pre>
     gap: 8px;
     border: 0;
     cursor: pointer;
-    background:
-      radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--frame-accent, var(--accent)) 10%, var(--surface)) 0%, var(--surface) 70%);
+    background: var(--surface);
     color: var(--text);
     font-family: var(--font-display);
     font-weight: 600;
@@ -1142,7 +1139,8 @@ npm i @casualoffice/sheets</code></pre>
     color: #fff;
     font-size: 18px;
     padding-left: 3px;
-    box-shadow: 0 6px 20px color-mix(in srgb, var(--frame-accent, var(--accent)) 40%, transparent);
+    border: var(--border-w) solid var(--border);
+    box-shadow: var(--shadow-card);
   }
   .frame__load-sub {
     font-family: var(--font-sans);
@@ -1301,13 +1299,13 @@ npm i @casualoffice/sheets</code></pre>
     box-shadow: var(--shadow-sm);
   }
   .code-block {
-    background: #0c0a09;
-    border: 1px solid #1c1917;
-    border-radius: 12px;
+    background: #14110c;
+    border: var(--border-w) solid var(--border);
+    border-radius: var(--radius);
     padding: 18px 22px;
     font-family: var(--font-mono);
     font-size: 12.5px;
-    color: #fafaf9;
+    color: #f4f1ea;
     overflow-x: auto;
     line-height: 1.6;
     box-shadow: var(--shadow-md);
