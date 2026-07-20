@@ -100,6 +100,22 @@ const jsonLd = {
             author: { '@id': 'https://casualoffice.org/#person' },
           },
         },
+        {
+          '@type': 'ListItem',
+          position: 5,
+          item: {
+            '@type': 'SoftwareApplication',
+            '@id': 'https://ras.casualoffice.org/#app',
+            name: 'Casual RAS',
+            applicationCategory: 'DeveloperApplication',
+            operatingSystem: 'macOS, Linux, Windows',
+            url: 'https://ras.casualoffice.org/',
+            codeRepository: 'https://github.com/CasualOffice/RASystem',
+            license: 'https://www.apache.org/licenses/LICENSE-2.0',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            author: { '@id': 'https://casualoffice.org/#person' },
+          },
+        },
       ],
     },
   ],
@@ -439,6 +455,22 @@ jsonLd['@graph'].push({
           href="/casual-pdf/"
           accent="var(--pdf)"
           accentSoft="var(--pdf-soft)"
+        />
+        <ProductCard
+          slug="ras"
+          name="Casual RAS"
+          role="WHITE-LABEL EMBEDDABLE REMOTE ACCESS"
+          body="Casual Remote Access System — an embeddable platform vendors add to their own app for secure screen viewing, remote pointer, remote keyboard/mouse control, collaboration, and approved support actions, under their own brand. Shared Rust core, peer-to-peer over iroh/QUIC, host-authoritative per-message capability enforcement."
+          features={[
+            'Embed in your app · white-label · not a standalone tool',
+            'P2P over iroh/QUIC · encrypted · NAT-traversing',
+            'Signed PASETO grants · per-message host enforcement',
+            'Consent + always-visible indicator + emergency stop',
+          ]}
+          status="alpha · v0.0.2-alpha"
+          href="/casual-ras/"
+          accent="var(--ras)"
+          accentSoft="var(--ras-soft)"
         />
       </div>
     </div>
