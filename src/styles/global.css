@@ -73,6 +73,7 @@
   --desktop:#c2410c;  --desktop-light:#fb923c;  --desktop-soft:#ffedd5;  --desktop-100:#ffedd5;
   --slides: #0d9488;  --slides-light: #2dd4bf;  --slides-soft: #ccfbf1;  --slides-100: #ccfbf1;
   --pdf:    #dc2626;  --pdf-light:    #f87171;  --pdf-soft:    #fee2e2;  --pdf-100:    #fee2e2;
+  --ras:    #6060d0;  --ras-light:    #9fa0e8;  --ras-soft:    #e6e6fb;  --ras-100:    #e6e6fb;
 
   --warn: #d97706;
   --warn-soft: #fef3c7;
@@ -99,6 +100,7 @@
   --gradient-slides: linear-gradient(var(--slides), var(--slides));
   --gradient-desktop: linear-gradient(var(--desktop), var(--desktop));
   --gradient-pdf: linear-gradient(var(--pdf), var(--pdf));
+  --gradient-ras: linear-gradient(var(--ras), var(--ras));
   --glow-accent: var(--shadow-card);
   --glow-brand: var(--shadow-card);
   --shadow-glow: var(--shadow-card);
@@ -140,6 +142,7 @@
   --desktop:#fb923c; --desktop-soft:#3a2417; --desktop-100:#3a2417;
   --slides: #2dd4bf; --slides-soft: #0f322f; --slides-100: #0f322f;
   --pdf:    #f87171; --pdf-soft:    #3a1717; --pdf-100:    #3a1717;
+  --ras:    #9fa0e8; --ras-soft:    #1e1e3a; --ras-100:    #1e1e3a;
   --warn: #fbbf24; --warn-soft: #3a2e12;
   --shadow-ink: #05040a;
 }

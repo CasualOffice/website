@@ -1,0 +1,355 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Casual RAS — white-label, embeddable remote-access platform · Casual Office';
+const description =
+  'Casual RAS (Casual Remote Access System) is a white-label, embeddable remote-access platform. Software vendors embed it to add secure screen viewing, a remote pointer, remote keyboard/mouse control, collaboration, and approved support actions under their own brand. Rust core, iroh/QUIC P2P transport, host-authoritative capability enforcement. Apache-2.0. Alpha.';
+
+// Alpha status. Downloads are the GitHub Releases of the RASystem repo; the
+// controller (Connect) ships on all three OSes today, the host (Share) leads
+// on macOS. Bump `version` on each release.
+const version = '0.0.2-alpha';
+const repoUrl = 'https://github.com/CasualOffice/RASystem';
+const releasesUrl = `${repoUrl}/releases`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  '@id': 'https://ras.casualoffice.org/#app',
+  name: 'Casual RAS',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'macOS, Linux, Windows',
+  url: 'https://ras.casualoffice.org/',
+  codeRepository: repoUrl,
+  downloadUrl: releasesUrl,
+  softwareVersion: version,
+  license: 'https://www.apache.org/licenses/LICENSE-2.0',
+  description:
+    'White-label, embeddable remote-access platform: secure screen viewing, remote pointer, remote keyboard/mouse control, collaboration, and approved support actions. Shared Rust core, peer-to-peer over iroh/QUIC, host-authoritative per-message capability enforcement. Alpha.',
+  image: 'https://casualoffice.org/og.png',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: {
+    '@type': 'Person',
+    '@id': 'https://casualoffice.org/#person',
+    name: 'Sachin Sarwa',
+    url: 'https://casualoffice.org/',
+  },
+  isAccessibleForFree: true,
+  softwareRequirements: 'macOS 12+ (share + connect), Linux (share + connect), Windows (connect; share compile-gated)',
+};
+---
+<Base
+  {title}
+  {description}
+  active="ras"
+  jsonLd={jsonLd}
+  keywords="embeddable remote access, white-label remote desktop SDK, remote screen viewing, remote control, peer-to-peer remote access, iroh quic remote desktop, open source remote access, rust remote access, self-hosted remote support"
+>
+  <section
+    class="hero subpage"
+    style="--product-accent: var(--ras); --product-accent-soft: var(--ras-soft);"
+  >
+    <div class="container hero__inner reveal">
+      <div class="subpage__topline">
+        <span class="dot" aria-hidden="true"></span>
+        Casual RAS · v{version}
+      </div>
+      <h1 class="display">Remote access <em>you embed, under your own brand.</em></h1>
+      <p class="lede">
+        Casual RAS (Casual Remote Access System) is a <strong>white-label,
+        embeddable remote-access platform</strong>. Software vendors embed it to add
+        secure screen viewing, a remote pointer, remote keyboard/mouse control,
+        multi-user collaboration, and approved support actions natively — without
+        sending users to a separate branded remote-desktop product. A shared Rust
+        core, peer-to-peer over <strong>iroh/QUIC</strong> (encrypted, NAT-traversing,
+        relay fallback).
+      </p>
+      <div class="row">
+        <a class="btn btn--accent" style="--product-accent: var(--ras);" href={releasesUrl} rel="noopener" target="_blank">Downloads (GitHub Releases) →</a>
+        <a class="btn btn--ghost" href={repoUrl} rel="noopener" target="_blank">Source on GitHub</a>
+      </div>
+      <p class="lede" style="font-size: 0.92rem; opacity: 0.7; margin-top: 12px;">
+        Apache-2.0. <strong>Alpha</strong> — the security core and feature set are
+        implemented at the code level and CI-green; on-device verification, signed
+        installers, and the SDK extraction are still in progress. Builds currently
+        ship unsigned in the OS sense (Gatekeeper / SmartScreen will warn on first
+        launch).
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--ras); --product-accent-soft: var(--ras-soft);">
+    <div class="container">
+      <div class="fact-row">
+        <div><div class="fact__label">Status</div><div class="fact__value">v{version}</div></div>
+        <div><div class="fact__label">Transport</div><div class="fact__value">iroh / QUIC</div></div>
+        <div><div class="fact__label">Priorities</div><div class="fact__value">Security → Latency → UX</div></div>
+        <div><div class="fact__label">License</div><div class="fact__value">Apache-2.0</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--ras); --product-accent-soft: var(--ras-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">The shape</span>
+          <h2 class="title">A platform to embed, not another app to install.</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature__icon">⧉</span>
+          <h3 class="feature__title">White-label &amp; embeddable</h3>
+          <p class="feature__body">
+            Vendors add secure screen viewing, remote control, collaboration, and
+            approved support actions inside their own application, under their own
+            brand — not a separate remote-desktop product users get bounced to.
+            Casual RAS is the platform, not a standalone app.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⚙</span>
+          <h3 class="feature__title">Shared Rust core</h3>
+          <p class="feature__body">
+            A shared Rust core drives a unified desktop app that plays both roles —
+            <strong>Share</strong> (the controlled machine) and
+            <strong>Connect</strong> (the technician/support side). SDKs extracted
+            from that proven core are a later deliverable, so the surface is
+            validated by a real consumer first.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">↔</span>
+          <h3 class="feature__title">Peer-to-peer over iroh/QUIC</h3>
+          <p class="feature__body">
+            Sessions ride an encrypted, NAT-traversing QUIC link with relay
+            fallback — direct where the network allows, relayed where it must.
+            Transport encryption authenticates the peer&rsquo;s identity; it does
+            not grant authority — that is the host&rsquo;s job.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⏻</span>
+          <h3 class="feature__title">Security-first ordering</h3>
+          <p class="feature__body">
+            A single decision rule runs through the whole system:
+            <strong>Security → Latency → UX</strong>. When two conflict, the higher
+            one wins — consent, grant validation, and capability checks are never
+            skipped to shave milliseconds or smooth onboarding.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--ras); --product-accent-soft: var(--ras-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">The differentiator</span>
+          <h2 class="title">Consent-gated, host-authoritative by design.</h2>
+        </div>
+      </div>
+      <p class="muted" style="max-width: 74ch; margin: 0 0 22px;">
+        The security model is the point, and it is honest about its scope: it makes
+        access consent-gated and host-controlled. It does not claim to stop a
+        determined attacker or a coached user from acting on their own machine.
+      </p>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature__icon">✋</span>
+          <h3 class="feature__title">Explicit local consent</h3>
+          <p class="feature__body">
+            A controller <em>requests</em>; it never self-authorizes. The local user
+            is the final owner of the machine — a connecting peer is held in the
+            handshake, seeing no pixels, until the user clicks Allow. Deny, or
+            silence, refuses fail-closed.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">🔑</span>
+          <h3 class="feature__title">Signed PASETO grants</h3>
+          <p class="feature__body">
+            After consent the host issues a short-lived, signed
+            <strong>PASETO v4.public</strong> session grant bound to host,
+            controller, and endpoint identities. Expired or endpoint-mismatched
+            grants are rejected — the transport is a pipe, authorization is the
+            host&rsquo;s.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⛨</span>
+          <h3 class="feature__title">Per-message capability enforcement</h3>
+          <p class="feature__body">
+            Every privileged action is a named, fine-grained capability, enforced
+            <strong>host-side on every message</strong> — never trusting the
+            controller&rsquo;s claimed scope. Unknown capabilities are denied, never
+            defaulted-on.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">👁</span>
+          <h3 class="feature__title">Always-visible indicator + emergency stop</h3>
+          <p class="feature__body">
+            Active remote control is always visible and recording is always
+            disclosed — white-labeling may not hide these. An emergency Stop
+            overrides everything (grant, lease, in-flight input) and takes effect
+            within the target time locally.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">📜</span>
+          <h3 class="feature__title">Hash-chained, signed audit log</h3>
+          <p class="feature__body">
+            Security-sensitive events are recorded to a per-session, append-only
+            <strong>SHA-256 hash chain</strong> signed by the host identity — tamper-
+            evident and authentic. The journal is content-free by construction: no
+            pixels, keystrokes, clipboard bytes, or paths.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">∅</span>
+          <h3 class="feature__title">Secrets never touch logs</h3>
+          <p class="feature__body">
+            Private keys, grant contents, clipboard data, typed text, file contents,
+            and screen pixels are structurally kept out of logs and crash dumps —
+            revealed only at the OS boundary where they&rsquo;re actually used.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--ras); --product-accent-soft: var(--ras-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">What&rsquo;s in it</span>
+          <h2 class="title">Two roles, one binary — plus a full collaboration channel.</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature__icon">🖥</span>
+          <h3 class="feature__title">Connect &amp; view</h3>
+          <p class="feature__body">
+            The Connect (controller) role decodes and views a shared screen on
+            <strong>macOS, Linux, and Windows</strong> — it only decodes, so it runs
+            everywhere. Includes viewer-side annotation and a remote pointer.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">📡</span>
+          <h3 class="feature__title">Share your screen</h3>
+          <p class="feature__body">
+            The Share (host) role captures and encodes. macOS uses hardware-
+            accelerated ScreenCaptureKit + VideoToolbox; the Linux and Windows
+            capture paths are implemented on a software encoder. Windows share is
+            CI-compile-gated — see status below.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⌨</span>
+          <h3 class="feature__title">Remote keyboard &amp; mouse</h3>
+          <p class="feature__body">
+            OS-level input injection is implemented on all three platforms
+            (macOS CGEvent, Linux XTEST, Windows SendInput), each behind a control
+            lease and per-message capability gate. One active OS-input controller at
+            a time by default.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⧉</span>
+          <h3 class="feature__title">Clipboard, files &amp; chat</h3>
+          <p class="feature__body">
+            Clipboard sync (set-never-paste), a signed-catalogue file transfer that
+            structurally rejects path traversal, and in-session chat — each with the
+            payload kept out of logs. File browsing anywhere is deliberately not
+            supported; transfers land in a host-chosen sandbox.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">🔊</span>
+          <h3 class="feature__title">Output audio &amp; cursor channel</h3>
+          <p class="feature__body">
+            Output audio (Opus over QUIC datagrams, live-only, never recorded, always
+            disclosed) and a dedicated cursor-shape channel keep the session feeling
+            native without inflating the video path.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⧖</span>
+          <h3 class="feature__title">Multi-monitor &amp; reconnection</h3>
+          <p class="feature__body">
+            Multi-monitor enumeration with a HiDPI-aware render model, plus hardened
+            session reconnection: a WiFi/NAT blip re-dials the same authenticated
+            peer and re-validates the grant through the unchanged validator, rather
+            than dropping the session.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--ras); --product-accent-soft: var(--ras-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">Honest status</span>
+          <h2 class="title">Alpha, hardening toward production</h2>
+        </div>
+      </div>
+      <p class="muted" style="max-width: 74ch; margin: 0 0 22px;">
+        We&rsquo;d rather be accurate than impressive. Here is exactly where things
+        stand — no over-claiming.
+      </p>
+      <div class="feature-grid">
+        <article class="feature">
+          <h3 class="feature__title">Implemented at the code level</h3>
+          <p class="feature__body">
+            The security core and the feature set above are built and CI-green, with
+            unit, property, fuzz, and loopback tests. The design is
+            platform-abstracted and the invariants are enforced structurally, not
+            just by policy.
+          </p>
+        </article>
+        <article class="feature">
+          <h3 class="feature__title">Still in progress</h3>
+          <p class="feature__body">
+            On-device verification on Linux and Windows, OS code-signed and notarized
+            installers, and the SDK extraction — the actual embeddable product — are
+            in progress. Windows share/control is CI-compile-gated only (no test
+            hardware yet), so it is not verified on a real Windows machine.
+          </p>
+        </article>
+        <article class="feature">
+          <h3 class="feature__title">What it is not</h3>
+          <p class="feature__body">
+            This is not a finished product and does not claim to be. The security
+            design is consent-gated and security-first at alpha maturity — it makes
+            access explicit and auditable. It is not a guarantee against attack, and
+            it does not detect or prevent misuse by an authorized session.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--ras); --product-accent-soft: var(--ras-soft);">
+    <div class="container container--narrow">
+      <div class="callout">
+        <strong>Get the alpha.</strong> Downloads live on the GitHub Releases of the
+        RASystem repository. The Connect (viewer) app ships on macOS, Linux, and
+        Windows today; the Share (host) app leads on macOS. Builds are unsigned in
+        the OS sense for now, so expect a Gatekeeper / SmartScreen warning on first
+        launch.
+      </div>
+      <div class="row" style="margin-top: 22px;">
+        <a class="btn btn--accent" style="--product-accent: var(--ras);" href={releasesUrl} rel="noopener" target="_blank">All releases →</a>
+        <a class="btn btn--ghost" href={repoUrl} rel="noopener" target="_blank">Source on GitHub</a>
+        <a class="btn btn--ghost" href="/changelog/">Changelog</a>
+      </div>
+    </div>
+  </section>
+</Base>

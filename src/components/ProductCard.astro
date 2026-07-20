@@ -1,6 +1,6 @@
 ---
 interface Props {
-  slug: 'sheets' | 'editor' | 'slides' | 'desktop' | 'pdf';
+  slug: 'sheets' | 'editor' | 'slides' | 'desktop' | 'pdf' | 'ras';
   name: string;
   role: string;
   body: string;
@@ -20,6 +20,7 @@ const glyph: Record<Props['slug'], string> = {
   slides: 'P',
   desktop: '▤',
   pdf: 'F',
+  ras: '⧉',
 };
 ---
 <a
