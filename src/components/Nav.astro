@@ -69,20 +69,6 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
         aria-current={l.slug === active ? 'page' : undefined}
       >{l.label}</a>
     ))}
-    <button
-      type="button"
-      class="nav__theme"
-      aria-label="Toggle dark mode"
-      data-theme-toggle
-    >
-      <svg class="nav__theme-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <circle cx="12" cy="12" r="4"/>
-        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
-      </svg>
-      <svg class="nav__theme-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor">
-        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
-      </svg>
-    </button>
     <a
       class="nav__star"
       href="https://github.com/CasualOffice"
@@ -133,20 +119,6 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
   })();
 </script>
 
-<script is:inline>
-  // Theme toggle — flips .dark on <html> and persists the choice. The initial
-  // theme is set pre-paint in Base.astro so there is no flash.
-  (function () {
-    var btn = document.querySelector('[data-theme-toggle]');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
-      var dark = document.documentElement.classList.toggle('dark');
-      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
-      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#14121a' : '#f4f1ea');
-    });
-  })();
-</script>
-
 <style>
   /* Brand mark — neobrutal ink tile with the document-stack SVG. Retires the
      conic-gradient blob from the v3/v4 look. */
@@ -162,30 +134,6 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
   .nav__mark::before,
   .nav__mark::after { display: none; }
   .nav__mark svg { display: block; border-radius: 8px; }
-
-  /* Theme toggle — 38px icon button matching the neobrutal chrome. */
-  .nav__theme {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    margin-left: 4px;
-    padding: 0;
-    background: var(--card);
-    border: var(--border-w, 2px) solid var(--border);
-    border-radius: var(--radius, 10px);
-    box-shadow: var(--shadow-card);
-    color: var(--text);
-    cursor: pointer;
-    transition: transform var(--dur-1, 120ms) var(--ease), box-shadow var(--dur-1, 120ms) var(--ease);
-  }
-  .nav__theme:hover { transform: translate(-1px, -1px); box-shadow: var(--shadow-hover); }
-  .nav__theme:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--shadow-ink); }
-  .nav__theme:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .nav__theme-moon { display: none; }
-  :global(:root.dark) .nav__theme-sun { display: none; }
-  :global(:root.dark) .nav__theme-moon { display: block; }
 
   /* Hamburger button — hidden on desktop, shown under 880px. */
   .nav__toggle {
@@ -235,30 +183,31 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
   .nav__star {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 7px 13px;
+    gap: 7px;
+    padding: 8px 15px;
     margin-left: 8px;
-    border: var(--border-w, 2px) solid var(--border);
+    border: 1px solid transparent;
     border-radius: 999px;
-    color: var(--text);
-    font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 600;
+    color: var(--bg);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 550;
+    letter-spacing: -0.01em;
     text-decoration: none;
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-sm);
     transition:
-      transform var(--dur-1, 120ms) var(--ease),
-      box-shadow var(--dur-1, 120ms) var(--ease),
-      background-color var(--dur-1, 120ms) var(--ease);
-    background: var(--card);
+      transform var(--dur-1) var(--ease),
+      box-shadow var(--dur-2) var(--ease),
+      opacity var(--dur-1) var(--ease);
+    background: var(--text);
   }
   .nav__star:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: var(--shadow-hover);
-    background: var(--accent-soft);
-    color: var(--text);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    opacity: 0.92;
+    color: var(--bg);
   }
-  .nav__star:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--shadow-ink); }
+  .nav__star:active { transform: translateY(0); }
 
   .nav__scrim { display: none; }
 
