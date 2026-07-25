@@ -17,14 +17,14 @@ Open-source spreadsheet editor with native `.xlsx` support, real-time collaborat
 
 * Repository: https://github.com/CasualOffice/sheets
 * Documentation: https://casualoffice.org/docs/sheets/
-* Live Demo: https://sheets.casualoffice.org/
+* Live Demo: https://sheet.casualoffice.org/
 
 ### Casual Docs
 
 Open-source `.docx` editor focused on high-fidelity editing and real-time collaboration.
 
 * Repository: https://github.com/CasualOffice/docs
-* Documentation: https://casualoffice.org/docs/docs/
+* Documentation: https://casualoffice.org/docs/editor/
 * Live Demo: https://docs.casualoffice.org/
 
 ### Casual Slides
@@ -32,7 +32,7 @@ Open-source `.docx` editor focused on high-fidelity editing and real-time collab
 Open-source presentation editor for native `.pptx` files.
 
 * Repository: https://github.com/CasualOffice/slides
-* Documentation: https://casualoffice.org/docs/slides/
+* Overview: https://casualoffice.org/casual-slides/
 * Live Demo: https://slides.casualoffice.org/
 
 ### Casual PDF

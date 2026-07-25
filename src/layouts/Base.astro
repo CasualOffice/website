@@ -27,7 +27,7 @@ const {
   ogImage = '/og.png',
   active = 'home',
   jsonLd,
-  themeColor = '#f4f1ea',
+  themeColor = '#07070b',
   // Default umbrella keyword set — every page inherits these search
   // intents; product pages pass a tighter list. Targets the high-volume
   // "open source / self-hosted alternative to <Google/Microsoft>" queries.
@@ -67,9 +67,49 @@ const defaultJsonLd = {
   ],
 };
 const structuredData = jsonLd ?? defaultJsonLd;
+
+// BreadcrumbList — derived from the URL path so every sub-page ships a
+// machine-readable hierarchy (rich-result eligible + a clean reachability
+// signal for crawlers and answer engines). The home page gets none.
+const SEG_LABELS: Record<string, string> = {
+  'casual-sheets': 'Casual Sheets',
+  'casual-docs': 'Casual Docs',
+  'casual-slides': 'Casual Slides',
+  'casual-desktop': 'Casual Desktop',
+  'casual-pdf': 'Casual PDF',
+  'casual-ras': 'Casual RAS',
+  docs: 'Guides',
+  editor: 'Casual Docs',
+  sheets: 'Casual Sheets',
+  slides: 'Casual Slides',
+  vs: 'Comparisons',
+  notes: 'Engineering Notes',
+  changelog: 'Changelog',
+  about: 'About',
+  contributing: 'Contributing',
+  license: 'License',
+};
+const humanize = (s: string) =>
+  SEG_LABELS[s] ?? s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+const segments = Astro.url.pathname.split('/').filter(Boolean);
+const breadcrumbLd = segments.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+        ...segments.map((seg, i) => ({
+          '@type': 'ListItem',
+          position: i + 2,
+          name: humanize(seg),
+          item: new URL(`${segments.slice(0, i + 1).join('/')}/`, SITE_URL).toString(),
+        })),
+      ],
+    }
+  : null;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -78,24 +118,7 @@ const structuredData = jsonLd ?? defaultJsonLd;
     <meta name="keywords" content={keywords} />
     <meta name="author" content="Sachin Sarwa" />
     <meta name="theme-color" content={themeColor} />
-    <meta name="color-scheme" content="light dark" />
-
-    {/* Pre-paint theme bootstrap — set .dark on <html> from the saved choice
-        (or the OS setting) BEFORE first paint, so dark mode never flashes. */}
-    <script is:inline>
-      (function () {
-        try {
-          var saved = localStorage.getItem('theme');
-          var dark = saved ? saved === 'dark'
-            : window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (dark) {
-            document.documentElement.classList.add('dark');
-            var m = document.querySelector('meta[name="theme-color"]');
-            if (m) m.setAttribute('content', '#14121a');
-          }
-        } catch (e) {}
-      })();
-    </script>
+    <meta name="color-scheme" content="dark" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -123,16 +146,23 @@ const structuredData = jsonLd ?? defaultJsonLd;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    {/* Discovery: feed + sitemap so crawlers and readers find both without
+        parsing robots.txt. */}
+    <link rel="alternate" type="application/rss+xml" title="Casual Office — Engineering Notes" href="/notes/rss.xml" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap-index.xml" />
 
-    {/* Self-hosted IBM Plex — no CDN round-trip, no render-block, no silent
-        fallback. Preload the variable sans (the face used above the fold); the
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    {breadcrumbLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />}
+
+    {/* Display + body use the native system stack (SF Pro on Apple devices,
+        Inter/system-ui elsewhere) so there is no render-blocking web font
+        above the fold. Preload only Plex Mono, used for labels + code; the
         @font-face rules live in global.css. */}
     <link
       rel="preload"
       as="font"
       type="font/woff2"
-      href="/fonts/plex-sans-variable.woff2"
+      href="/fonts/plex-mono-500.woff2"
       crossorigin
     />
 
