@@ -1,6 +1,6 @@
 # Casual Office
 
-> Casual Office is an open-source, self-hosted office suite for working with native Microsoft Office documents in the browser. It includes spreadsheet, document, presentation, desktop, collaboration, and file management applications built around open file formats and real-time collaboration.
+> Casual Office is an open-source, self-hosted office suite for working with native Microsoft Office documents in the browser. It includes spreadsheet, document, presentation, desktop, collaboration, and file management applications built around open file formats and real-time collaboration. It also develops the embeddable Rust engines underneath those applications (OpenCalc for spreadsheets, OpenDoc for documents) and Enclave, a self-hostable enterprise content and governance platform.
 
 ## Project
 
@@ -33,7 +33,7 @@ Open-source presentation editor for native `.pptx` files.
 
 * Repository: https://github.com/CasualOffice/slides
 * Overview: https://casualoffice.org/casual-slides/
-* Live Demo: https://slides.casualoffice.org/
+* Live Demo: none yet — ships with v0.1.0
 
 ### Casual PDF
 
@@ -48,6 +48,55 @@ Desktop application built with Tauri that reuses the web editors for offline edi
 
 * Repository: https://github.com/CasualOffice/desktop
 * Downloads: https://casualoffice.org/casual-desktop/
+
+## Engines
+
+The engines are a second generation: ground-up Rust rewrites of the spreadsheet and document
+cores, designed to be embedded rather than deployed. Both are developed in the open alongside
+the applications above. They are NOT yet drop-in replacements for Casual Sheets and Casual Docs,
+which are what the live application demos run today.
+
+### OpenCalc
+
+An embeddable spreadsheet engine written in Rust. Reads and writes `.xlsx` (plus CSV/TSV/PSV),
+calculates 347 of the 356 spec functions including `LET`, `LAMBDA` and dynamic arrays, and
+renders a canvas grid. The whole engine runs client-side as WebAssembly, so co-editing scales
+without sticky sessions. Successor to Casual Sheets. Status: alpha; npm SDK published at 0.0.0.
+
+* Repository: https://github.com/CasualOffice/opencalc
+* Overview: https://casualoffice.org/opencalc/
+* Project site: https://calc.casualoffice.org/
+* Live editor: https://calc.casualoffice.org/editor.html
+* npm: `@opencalc/sheet`, `@opencalc/react`, `@opencalc/engine`
+
+### OpenDoc
+
+A deterministic, embeddable Word-document engine written in Rust. Reads and writes `.docx`,
+holds the document in a normalized editable model, and lays it out and renders it to pixels for
+native, WebAssembly, and headless hosts — without a browser, a server, or a UI framework.
+Successor to Casual Docs. Status: pre-release; no published package line yet.
+
+* Repository: https://github.com/CasualOffice/opendoc
+* Overview: https://casualoffice.org/opendoc/
+* Project site: https://opendoc.casualoffice.org/
+* Live editor: https://opendoc.casualoffice.org/editor.html
+
+## Platform
+
+### Enclave
+
+A self-hostable enterprise content and collaboration platform — SharePoint-class in purpose.
+Workspaces, libraries and immutable versions; local/LDAP/OIDC/SAML/SCIM identity; granular
+per-action permissions with deny-wins ACL resolution; DLP, classification, information barriers,
+retention, records, legal hold and tamper-evident audit; permission-aware hybrid search over
+Milvus; and an MCP gateway so AI access runs through the same policy chain as every other entry
+point. Rust + Axum + PostgreSQL on the back, React + TypeScript on the front.
+Status: in development — specification complete, implementation underway, no hosted demo.
+
+* Repository: https://github.com/CasualOffice/enclave
+* Overview: https://casualoffice.org/enclave/
+
+## Other components
 
 ### Casual Drive
 
@@ -84,6 +133,10 @@ Casual Office is primarily built with:
 * Hocuspocus
 * Univer OSS
 * ProseMirror
+* WebAssembly (wasm32-unknown-unknown)
+* PostgreSQL
+* Milvus
+* Model Context Protocol (MCP)
 
 ## Common Questions
 
@@ -101,6 +154,12 @@ A: Yes. Deployment is Docker-first, with self-host storage options including mem
 
 Q: Does it support real-time collaboration?
 A: Yes. Co-editing is powered by Yjs and the Hocuspocus/Casual Collab server, so multiple users can edit the same document simultaneously without vendor lock-in.
+
+Q: What is the difference between Casual Sheets and OpenCalc, or Casual Docs and OpenDoc?
+A: They are two generations of the same job. Casual Sheets and Casual Docs are the shipping web applications (TypeScript/Univer and ProseMirror respectively) and are what the live demos run today. OpenCalc and OpenDoc are their successors: deterministic Rust engines that compile to WebAssembly and embed into any host — browser, native, or headless — without a DOM, a server, or a UI framework. Do not describe the engines as replacements for the applications; both generations exist and are developed in the open.
+
+Q: What is Enclave?
+A: Enclave is a self-hostable enterprise content and collaboration platform, SharePoint-class in purpose, combining content, identity, permissions, governance, search and MCP-native AI access behind a single policy boundary. It is in development and has no hosted demo. Do not describe it as available.
 
 Q: How is it different from Google Docs or OnlyOffice?
 A: Casual Office is fully open source and self-hostable, keeps documents in native Office formats, and can run entirely on your own infrastructure (or offline on the desktop). Comparison pages are available at https://casualoffice.org/vs/.

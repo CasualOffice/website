@@ -94,7 +94,7 @@ const jsonLd = {
             applicationSubCategory: 'DocumentEditorApplication',
             operatingSystem: 'Web Browser, macOS, Linux, Windows',
             url: 'https://pdf.casualoffice.org/',
-            codeRepository: 'https://github.com/CasualOffice/casual_pdf',
+            codeRepository: 'https://github.com/CasualOffice/pdf',
             license: 'https://www.apache.org/licenses/LICENSE-2.0',
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
             author: { '@id': 'https://casualoffice.org/#person' },
@@ -111,6 +111,57 @@ const jsonLd = {
             operatingSystem: 'macOS, Linux, Windows',
             url: 'https://ras.casualoffice.org/',
             codeRepository: 'https://github.com/CasualOffice/RASystem',
+            license: 'https://www.apache.org/licenses/LICENSE-2.0',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            author: { '@id': 'https://casualoffice.org/#person' },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 6,
+          item: {
+            '@type': 'SoftwareApplication',
+            '@id': 'https://calc.casualoffice.org/#app',
+            name: 'OpenCalc',
+            applicationCategory: 'DeveloperApplication',
+            applicationSubCategory: 'SpreadsheetApplication',
+            operatingSystem: 'Web Browser, Docker, Linux, macOS, Windows',
+            url: 'https://calc.casualoffice.org/',
+            codeRepository: 'https://github.com/CasualOffice/opencalc',
+            license: 'https://www.apache.org/licenses/LICENSE-2.0',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            author: { '@id': 'https://casualoffice.org/#person' },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 7,
+          item: {
+            '@type': 'SoftwareApplication',
+            '@id': 'https://opendoc.casualoffice.org/#app',
+            name: 'OpenDoc',
+            applicationCategory: 'DeveloperApplication',
+            applicationSubCategory: 'WordProcessor',
+            operatingSystem: 'Web Browser, Linux, macOS, Windows',
+            url: 'https://opendoc.casualoffice.org/',
+            codeRepository: 'https://github.com/CasualOffice/opendoc',
+            license: 'https://www.apache.org/licenses/LICENSE-2.0',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            author: { '@id': 'https://casualoffice.org/#person' },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 8,
+          item: {
+            '@type': 'SoftwareApplication',
+            '@id': 'https://casualoffice.org/enclave/#app',
+            name: 'Enclave',
+            applicationCategory: 'BusinessApplication',
+            applicationSubCategory: 'EnterpriseContentManagement',
+            operatingSystem: 'Linux, Docker, Kubernetes',
+            url: 'https://casualoffice.org/enclave/',
+            codeRepository: 'https://github.com/CasualOffice/enclave',
             license: 'https://www.apache.org/licenses/LICENSE-2.0',
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
             author: { '@id': 'https://casualoffice.org/#person' },
@@ -175,8 +226,20 @@ const faqs = [
     a: 'Yes — both editors now ship as installable npm SDKs: `@casualoffice/docs` (Casual Docs) and `@casualoffice/sheets` (Casual Sheets). They share one unified contract — the same document mode, event emitter, `getContent`/`setContent` handle, feature flag-map, and declarative collab and AI props — so a host wires both editors the same way. Each also offers an iframe + postMessage mount for process isolation.',
   },
   {
+    q: 'What is the difference between Casual Sheets and OpenCalc, or Casual Docs and OpenDoc?',
+    a: 'They are two generations. Casual Sheets and Casual Docs are the shipping web apps, built on TypeScript (a Univer fork) and ProseMirror respectively — those are what the live demos run today. OpenCalc and OpenDoc are their successors: the same jobs rewritten as deterministic Rust engines that compile to WebAssembly, so the spreadsheet or document engine can be embedded in any host — a browser, a native app, or a headless service — without a DOM, a server, or a UI framework. Both generations are developed in the open; the engines are not yet a drop-in replacement for the apps.',
+  },
+  {
+    q: 'Can I embed the engine itself rather than a whole editor?',
+    a: 'That is what OpenCalc and OpenDoc are for. OpenCalc ships as `@opencalc/sheet` on npm (a custom element with a shadow root) and as `casual_calc_sdk` for Rust hosts; OpenDoc exposes the same engine to Rust, wasm32, and headless hosts. Time and randomness are supplied to the engine rather than sampled by it, which is what makes a session replayable and testable.',
+  },
+  {
+    q: 'What is Enclave?',
+    a: 'Enclave is a self-hostable enterprise content and collaboration platform — SharePoint-class in purpose. Workspaces, libraries and versions; local/LDAP/OIDC/SAML/SCIM identity; per-action permissions with deny-wins ACL resolution; DLP, classification, retention, legal hold and tamper-evident audit; permission-aware hybrid search; and an MCP gateway so AI access runs through the same policy chain as everything else. It is in active development and has no hosted demo yet.',
+  },
+  {
     q: 'Where does it not fit?',
-    a: 'If you need server-side PDF rendering, automatic version history out of the box, enterprise SSO, or compliance certifications, this is not that. It is a focused open-source pair of editors, not a managed compliance suite.',
+    a: 'The editors are editors. If you need server-side PDF rendering or automatic version history out of the box, that is not what they are. Enterprise identity (OIDC/SAML/SCIM), governance and retention live in Enclave rather than in the editors — and Enclave is still in development, so if you need any of that in production today, this is not yet it. Nothing here carries a compliance certification.',
   },
   {
     q: 'Why does this exist?',
@@ -285,6 +348,32 @@ jsonLd['@graph'].push({
             Casual Docs
             <span class="demo__tab-pill">.docx</span>
           </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="demo-opencalc"
+            id="demo-tab-opencalc"
+            class="demo__tab"
+            data-demo="opencalc"
+          >
+            <span class="demo__tab-dot" style="background: var(--opencalc);" aria-hidden="true"></span>
+            OpenCalc
+            <span class="demo__tab-pill">wasm</span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="demo-opendoc"
+            id="demo-tab-opendoc"
+            class="demo__tab"
+            data-demo="opendoc"
+          >
+            <span class="demo__tab-dot" style="background: var(--opendoc);" aria-hidden="true"></span>
+            OpenDoc
+            <span class="demo__tab-pill">wasm</span>
+          </button>
         </div>
         <div class="demo__actions">
           <a class="demo__pop" href="https://sheet.casualoffice.org/" rel="noopener" target="_blank" data-pop-for="sheets">
@@ -292,6 +381,12 @@ jsonLd['@graph'].push({
           </a>
           <a class="demo__pop demo__pop--hidden" href="https://docs.casualoffice.org/" rel="noopener" target="_blank" data-pop-for="editor">
             Open Editor full-screen ↗
+          </a>
+          <a class="demo__pop demo__pop--hidden" href="https://calc.casualoffice.org/editor.html" rel="noopener" target="_blank" data-pop-for="opencalc">
+            Open OpenCalc full-screen ↗
+          </a>
+          <a class="demo__pop demo__pop--hidden" href="https://opendoc.casualoffice.org/editor.html?demo=1" rel="noopener" target="_blank" data-pop-for="opendoc">
+            Open OpenDoc full-screen ↗
           </a>
         </div>
       </div>
@@ -304,6 +399,8 @@ jsonLd['@graph'].push({
           <span class="frame__btn" style="background: #28c840"></span>
           <span class="frame__addr" data-addr="sheets">sheet.casualoffice.org</span>
           <span class="frame__addr frame__addr--hidden" data-addr="editor">docs.casualoffice.org</span>
+          <span class="frame__addr frame__addr--hidden" data-addr="opencalc">calc.casualoffice.org/editor.html</span>
+          <span class="frame__addr frame__addr--hidden" data-addr="opendoc">opendoc.casualoffice.org/editor.html</span>
         </div>
         <div
           id="demo-sheets"
@@ -341,10 +438,49 @@ jsonLd['@graph'].push({
             allow="clipboard-read; clipboard-write"
           ></iframe>
         </div>
+        <div
+          id="demo-opencalc"
+          role="tabpanel"
+          aria-labelledby="demo-tab-opencalc"
+          class="frame__panel frame__panel--hidden"
+        >
+          <button type="button" class="frame__load" data-load-frame>
+            <span class="frame__load-play" aria-hidden="true">▶</span>
+            Load the live OpenCalc editor
+            <span class="frame__load-sub">The Rust engine as WebAssembly — runs entirely in your tab</span>
+          </button>
+          <iframe
+            title="OpenCalc live editor"
+            data-src="https://calc.casualoffice.org/editor.html"
+            loading="lazy"
+            allow="clipboard-read; clipboard-write"
+          ></iframe>
+        </div>
+        <div
+          id="demo-opendoc"
+          role="tabpanel"
+          aria-labelledby="demo-tab-opendoc"
+          class="frame__panel frame__panel--hidden"
+        >
+          <button type="button" class="frame__load" data-load-frame>
+            <span class="frame__load-play" aria-hidden="true">▶</span>
+            Load the live OpenDoc editor
+            <span class="frame__load-sub">A bundled .docx, laid out and rendered by the engine itself</span>
+          </button>
+          <iframe
+            title="OpenDoc live editor"
+            data-src="https://opendoc.casualoffice.org/editor.html?demo=1"
+            loading="lazy"
+            allow="clipboard-read; clipboard-write"
+          ></iframe>
+        </div>
       </div>
       <p class="demo__hint">
         Real production demos, not screenshots. Open a real file, edit it, save it back —
-        nothing leaves your browser unless you click Share.
+        nothing leaves your browser unless you click Share. The last two tabs are the
+        next-generation Rust engines, <a href="/opencalc/">OpenCalc</a> and
+        <a href="/opendoc/">OpenDoc</a>, running as WebAssembly with no server in the loop
+        at all.
       </p>
     </div>
   </section>
@@ -485,6 +621,77 @@ jsonLd['@graph'].push({
           href="/casual-ras/"
           accent="var(--ras)"
           accentSoft="var(--ras-soft)"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGINES + PLATFORM — the Rust successors and the enterprise boundary -->
+  <section class="section" aria-labelledby="engines-h">
+    <div class="container">
+      <div class="section__head reveal">
+        <div>
+          <span class="eyebrow">engines &amp; platform</span>
+          <h2 class="title" id="engines-h">The next generation, in Rust —<br/>and the boundary you run them behind.</h2>
+        </div>
+        <span class="section__hint">/engines</span>
+      </div>
+      <p class="lede" style="max-width: 74ch; margin: -8px 0 28px;">
+        The editors above are apps you deploy. These are the pieces underneath:
+        <strong>OpenCalc</strong> and <strong>OpenDoc</strong> are ground-up Rust rewrites
+        of the spreadsheet and document cores — deterministic, embeddable, and compiled to
+        WebAssembly so they run in a browser tab with no server behind them. Both have live
+        editors you can type into right now. <strong>Enclave</strong> is the enterprise
+        content and governance platform they sit inside.
+      </p>
+      <div class="products reveal">
+        <ProductCard
+          slug="opencalc"
+          name="OpenCalc"
+          role="EMBEDDABLE RUST SPREADSHEET ENGINE"
+          body="The successor to Casual Sheets, rewritten as a deterministic Rust engine that reads and writes .xlsx, calculates it, and paints a canvas grid — the whole engine client-side in WebAssembly, so co-editing scales without sticky sessions. Embeddable as a web component, a Rust crate, or a WOPI adapter."
+          features={[
+            '347 / 356 spec functions · LET · LAMBDA · dynamic arrays',
+            '.xlsx semantic fixed point · CSV/TSV/PSV · unmodelled parts kept byte-for-byte',
+            'WASM canvas grid · server-mediated OT · no sticky sessions',
+            'npm @opencalc/sheet · Rust SDK · WOPI for Nextcloud / SharePoint',
+          ]}
+          status="alpha · SDK v0.0.0 · live at calc.casualoffice.org"
+          href="/opencalc/"
+          accent="var(--opencalc)"
+          accentSoft="var(--opencalc-soft)"
+        />
+        <ProductCard
+          slug="opendoc"
+          name="OpenDoc"
+          role="EMBEDDABLE RUST DOCX ENGINE"
+          body="The successor to Casual Docs. It reads and writes .docx, holds the document in a normalized editable model, and lays it out and renders it to pixels — for native, WebAssembly, and headless hosts that need real DOCX fidelity without a browser, a server, or a UI framework."
+          features={[
+            'Import: styles · numbering · tables · fields · footnotes · tracked changes',
+            'Export: byte-identical reconstruction, or a semantic re-write of an edited model',
+            'Own layout + raster: parley shaping, tiny-skia rendering, no DOM',
+            'Every surface takes every operation — enforced by a CI matrix',
+          ]}
+          status="pre-release · live at opendoc.casualoffice.org"
+          href="/opendoc/"
+          accent="var(--opendoc)"
+          accentSoft="var(--opendoc-soft)"
+        />
+        <ProductCard
+          slug="enclave"
+          name="Enclave"
+          role="ENTERPRISE WORKSPACE + POLICY BOUNDARY"
+          body="Content, governance, search and AI access behind one policy boundary — SharePoint-class in purpose, self-hostable, and built so that every entry point (web, sync, REST, MCP, agent) runs through the same authorization chain, implemented once."
+          features={[
+            'Workspaces · libraries · immutable versions · lists · 16 view types',
+            'OIDC · SAML · LDAP · SCIM · passkeys · per-action permissions',
+            'DLP · classification · retention · legal hold · tamper-evident audit',
+            'Permission-aware hybrid search + an MCP gateway under the same chain',
+          ]}
+          status="in development · no hosted demo yet"
+          href="/enclave/"
+          accent="var(--enclave)"
+          accentSoft="var(--enclave-soft)"
         />
       </div>
     </div>
@@ -898,6 +1105,8 @@ npm i @casualoffice/sheets</code></pre>
     const panels = {
       sheets: document.getElementById('demo-sheets'),
       editor: document.getElementById('demo-editor'),
+      opencalc: document.getElementById('demo-opencalc'),
+      opendoc: document.getElementById('demo-opendoc'),
     };
     const frame = document.querySelector('[data-frame]');
     const addrs = document.querySelectorAll('[data-addr]');
@@ -905,6 +1114,8 @@ npm i @casualoffice/sheets</code></pre>
     const FRAME_ACCENTS = {
       sheets: 'var(--sheets)',
       editor: 'var(--editor)',
+      opencalc: 'var(--opencalc)',
+      opendoc: 'var(--opendoc)',
     };
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {

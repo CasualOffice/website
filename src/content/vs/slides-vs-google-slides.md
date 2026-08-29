@@ -193,8 +193,9 @@ works: **Casual Slides is worth following.**
 
 ## Try Casual Slides
 
-The live demo is at <https://slide.casualoffice.org/>. Source is at
-[github.com/CasualOffice/slides](https://github.com/CasualOffice/slides).
+There is no hosted demo yet — it ships with v0.1.0. Source is at
+[github.com/CasualOffice/slides](https://github.com/CasualOffice/slides),
+and it runs locally in a few commands.
 
 For local development:
 

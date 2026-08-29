@@ -2,7 +2,8 @@
 /**
  * Top navigation. Sticky, blurred backdrop. Mobile-first:
  *
- *  - ≥ 880px  → full horizontal link row.
+ *  - ≥ 880px  → full horizontal link row, products behind one "Products"
+ *               disclosure so the bar stays one line.
  *  - < 880px  → brand + hamburger; links collapse into a full-width
  *               drop panel toggled by the button. The panel is keyboard
  *               reachable, closes on Escape / outside-click / link-tap,
@@ -13,18 +14,62 @@
  * long-form documentation section is labelled "Guides" so the two don't
  * collide in the bar.
  *
+ * Why products are grouped rather than listed flat: the suite is nine
+ * entries once the engines (OpenCalc, OpenDoc) and the platform (Enclave)
+ * are counted. Flat, that is ~1050px of links, which overflows the bar
+ * everywhere between the 880px mobile breakpoint and a wide desktop. The
+ * disclosure keeps the top level to four items at every width. On mobile
+ * the disclosure flattens back out — the panel already scrolls, so a
+ * nested toggle there would be a tap for nothing.
+ *
  * The right-most "Star on GitHub" affordance is the primary CTA on a
  * community-first project — a pill, not a salesy button.
  */
-type ActiveLink = 'home' | 'sheets' | 'editor' | 'slides' | 'desktop' | 'pdf' | 'ras' | 'docs' | 'notes' | 'changelog' | 'about';
+type ActiveLink =
+  | 'home'
+  | 'sheets'
+  | 'editor'
+  | 'slides'
+  | 'desktop'
+  | 'pdf'
+  | 'ras'
+  | 'opencalc'
+  | 'opendoc'
+  | 'enclave'
+  | 'docs'
+  | 'notes'
+  | 'changelog'
+  | 'about';
 const { active = 'home' } = Astro.props as { active?: ActiveLink };
 
+// Two groups inside the Products disclosure. "Apps" are the things a person
+// opens; "Engines & platform" are the things a developer embeds or deploys.
+const productGroups: { title: string; items: { slug: ActiveLink; label: string; note: string; href: string }[] }[] = [
+  {
+    title: 'Apps',
+    items: [
+      { slug: 'sheets', label: 'Casual Sheets', note: '.xlsx spreadsheet', href: '/casual-sheets/' },
+      { slug: 'editor', label: 'Casual Docs', note: '.docx editor', href: '/casual-docs/' },
+      { slug: 'slides', label: 'Casual Slides', note: '.pptx slides', href: '/casual-slides/' },
+      { slug: 'pdf', label: 'Casual PDF', note: 'PDF viewer + editor', href: '/casual-pdf/' },
+      { slug: 'desktop', label: 'Casual Desktop', note: 'native binaries', href: '/casual-desktop/' },
+      { slug: 'ras', label: 'Casual RAS', note: 'embeddable remote access', href: '/casual-ras/' },
+    ],
+  },
+  {
+    title: 'Engines & platform',
+    items: [
+      { slug: 'opencalc', label: 'OpenCalc', note: 'Rust spreadsheet engine', href: '/opencalc/' },
+      { slug: 'opendoc', label: 'OpenDoc', note: 'Rust DOCX engine', href: '/opendoc/' },
+      { slug: 'enclave', label: 'Enclave', note: 'enterprise workspace', href: '/enclave/' },
+    ],
+  },
+];
+
+const productSlugs = productGroups.flatMap((g) => g.items.map((i) => i.slug));
+const productsActive = productSlugs.includes(active);
+
 const links: { slug: ActiveLink; label: string; href: string }[] = [
-  { slug: 'sheets', label: 'Sheets', href: '/casual-sheets/' },
-  { slug: 'editor', label: 'Docs', href: '/casual-docs/' },
-  { slug: 'desktop', label: 'Desktop', href: '/casual-desktop/' },
-  { slug: 'pdf', label: 'PDF', href: '/casual-pdf/' },
-  { slug: 'ras', label: 'RAS', href: '/casual-ras/' },
   { slug: 'docs', label: 'Guides', href: '/docs/' },
   { slug: 'notes', label: 'Notes', href: '/notes/' },
   { slug: 'changelog', label: 'Changelog', href: '/changelog/' },
@@ -62,6 +107,38 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
   </button>
 
   <div class="nav__links" id="nav-menu" data-nav-menu>
+    <div class="nav__group" data-nav-group>
+      <button
+        type="button"
+        class={productsActive ? 'nav__link nav__link--active nav__products' : 'nav__link nav__products'}
+        aria-expanded="false"
+        aria-controls="nav-products"
+        data-nav-group-toggle
+      >
+        Products
+        <svg class="nav__caret" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="m2.5 4.5 3.5 3.5 3.5-3.5"/>
+        </svg>
+      </button>
+      <div class="nav__dropdown" id="nav-products" data-nav-dropdown>
+        {productGroups.map((group) => (
+          <div class="nav__dropcol">
+            <span class="nav__droptitle">{group.title}</span>
+            {group.items.map((i) => (
+              <a
+                class={i.slug === active ? 'nav__drop nav__drop--active' : 'nav__drop'}
+                href={i.href}
+                aria-current={i.slug === active ? 'page' : undefined}
+              >
+                <span class="nav__drop-label">{i.label}</span>
+                <span class="nav__drop-note">{i.note}</span>
+              </a>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+
     {links.map((l) => (
       <a
         class={l.slug === active ? 'nav__link nav__link--active' : 'nav__link'}
@@ -96,7 +173,15 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
     const toggle = nav.querySelector('[data-nav-toggle]');
     const menu = nav.querySelector('[data-nav-menu]');
     const scrim = nav.querySelector('[data-nav-scrim]');
+    const group = nav.querySelector('[data-nav-group]');
+    const groupToggle = nav.querySelector('[data-nav-group-toggle]');
     const mq = window.matchMedia('(max-width: 879px)');
+
+    function setGroupOpen(open) {
+      if (!group) return;
+      group.classList.toggle('nav__group--open', open);
+      groupToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
 
     function setOpen(open) {
       nav.classList.toggle('nav--open', open);
@@ -104,12 +189,25 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
       toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       // Only trap scroll on the mobile breakpoint.
       document.body.style.overflow = open && mq.matches ? 'hidden' : '';
+      if (!open) setGroupOpen(false);
     }
 
     toggle.addEventListener('click', () => setOpen(!nav.classList.contains('nav--open')));
     scrim && scrim.addEventListener('click', () => setOpen(false));
+
+    // Below 880px the dropdown is rendered inline and always visible, so the
+    // disclosure button is hidden and this handler never fires there.
+    groupToggle &&
+      groupToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setGroupOpen(!group.classList.contains('nav__group--open'));
+      });
+
     menu.addEventListener('click', (e) => {
       if (e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('click', (e) => {
+      if (group && !group.contains(e.target)) setGroupOpen(false);
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') setOpen(false);
@@ -180,6 +278,74 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
   .nav--open .nav__toggle-bars span:nth-child(2) { opacity: 0; }
   .nav--open .nav__toggle-bars span:nth-child(3) { top: 6px; transform: rotate(-45deg); }
 
+  /* ── Products disclosure ─────────────────────────────────────────── */
+  .nav__group { position: relative; }
+  .nav__products {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+  }
+  .nav__caret {
+    transition: transform var(--dur-1) var(--ease);
+    opacity: 0.6;
+  }
+  .nav__group--open .nav__caret { transform: rotate(180deg); }
+
+  .nav__dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translate(-50%, -6px);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(190px, 1fr));
+    gap: 4px 22px;
+    padding: 14px;
+    background: var(--card);
+    border: var(--border-w) solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 160ms;
+  }
+  .nav__group--open .nav__dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+    transition: opacity 160ms ease, transform 160ms ease, visibility 0s;
+  }
+  .nav__dropcol { display: flex; flex-direction: column; gap: 2px; }
+  .nav__droptitle {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    padding: 4px 10px 6px;
+  }
+  .nav__drop {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text);
+    transition: background-color var(--dur-1) var(--ease);
+  }
+  .nav__drop:hover { background: var(--surface-2); text-decoration: none; }
+  .nav__drop--active { background: var(--surface-2); }
+  .nav__drop-label { font-size: 14px; font-weight: 550; letter-spacing: -0.01em; }
+  .nav__drop-note { font-size: 11.5px; color: var(--text-dim); font-family: var(--font-mono); }
+
   .nav__star {
     display: inline-flex;
     align-items: center;
@@ -227,6 +393,8 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
       background: var(--bg);
       border-bottom: 1px solid var(--border);
       box-shadow: var(--shadow-lg);
+      max-height: calc(100dvh - 60px);
+      overflow-y: auto;
       transform: translateY(-8px);
       opacity: 0;
       visibility: hidden;
@@ -245,6 +413,30 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
       font-size: 16px;
       border-radius: 10px;
     }
+
+    /* The disclosure flattens: the button disappears and the two columns
+       stack inline, so every product is one tap away instead of two. */
+    .nav__products { display: none; }
+    .nav__dropdown {
+      position: static;
+      transform: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 0;
+      background: none;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: none;
+    }
+    .nav__drop { padding: 10px 12px; }
+    .nav__drop-label { font-size: 15.5px; }
+    .nav__droptitle { padding: 12px 12px 6px; }
+
     .nav__star {
       margin: 8px 0 0;
       justify-content: center;
@@ -267,6 +459,8 @@ const links: { slug: ActiveLink; label: string; href: string }[] = [
 
   @media (prefers-reduced-motion: reduce) {
     .nav__links,
+    .nav__dropdown,
+    .nav__caret,
     .nav__toggle-bars span { transition: none; }
   }
 </style>

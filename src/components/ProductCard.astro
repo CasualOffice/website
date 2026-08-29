@@ -1,6 +1,6 @@
 ---
 interface Props {
-  slug: 'sheets' | 'editor' | 'slides' | 'desktop' | 'pdf' | 'ras';
+  slug: 'sheets' | 'editor' | 'slides' | 'desktop' | 'pdf' | 'ras' | 'opencalc' | 'opendoc' | 'enclave';
   name: string;
   role: string;
   body: string;
@@ -21,6 +21,9 @@ const glyph: Record<Props['slug'], string> = {
   desktop: '▤',
   pdf: 'F',
   ras: '⧉',
+  opencalc: 'Σ',
+  opendoc: '¶',
+  enclave: '◈',
 };
 ---
 <a

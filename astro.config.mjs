@@ -51,8 +51,14 @@ export default defineConfig({
         if (url === 'https://casualoffice.org/') return { ...item, priority: 1.0, changefreq: 'weekly' };
         if (
           url === 'https://casualoffice.org/casual-sheets/' ||
-          url === 'https://casualoffice.org/casual-docs/'
+          url === 'https://casualoffice.org/casual-docs/' ||
+          url === 'https://casualoffice.org/opencalc/' ||
+          url === 'https://casualoffice.org/opendoc/'
         ) return { ...item, priority: 0.9, changefreq: 'weekly' };
+        // Enclave has no demo yet, so it ranks below the shipping products
+        // but above docs — it is still a product page people search for.
+        if (url === 'https://casualoffice.org/enclave/')
+          return { ...item, priority: 0.8, changefreq: 'weekly' };
         if (url === 'https://casualoffice.org/casual-desktop/')
           return { ...item, priority: 0.6, changefreq: 'monthly' };
         return item;
