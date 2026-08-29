@@ -1,14 +1,25 @@
 # Casual Office — `casualoffice.org`
 
-Marketing + docs site for **Casual Office** — an open-source, file-centric, real-time productivity suite by [Sachin Sarwa](https://github.com/schnsrw). Three editors, one shared self-host story, all Apache-2.0:
+Marketing + docs site for **Casual Office** — an open-source, file-centric, real-time productivity suite by [Sachin Sarwa](https://github.com/schnsrw). Applications, the embeddable engines underneath them, and the platform they run inside — all Apache-2.0:
 
 | Product | What | Repo | Demo | Status |
 |---|---|---|---|---|
 | **Casual Sheets** | `.xlsx` web spreadsheet with real-time co-editing | [CasualOffice/sheets](https://github.com/CasualOffice/sheets) | [sheet.casualoffice.org](https://sheet.casualoffice.org/) | v0.3.3 — production-ready for 1-user/doc · personal mode + WOPI · "almost" for co-edit |
 | **Casual Docs** | `.docx` web editor with real-time co-editing | [CasualOffice/docs](https://github.com/CasualOffice/docs) | [docs.casualoffice.org](https://docs.casualoffice.org/) | public preview · 39/39 fidelity · npm SDK @casualoffice/docs |
-| **Casual Slides** | `.pptx` web slides editor | [CasualOffice/slides](https://github.com/CasualOffice/slides) | [slide.casualoffice.org](https://slide.casualoffice.org/) | v0.0.0 · pre-tag · 68/87 fidelity ✓ |
+| **Casual Slides** | `.pptx` web slides editor | [CasualOffice/slides](https://github.com/CasualOffice/slides) | — (ships with v0.1.0) | v0.0.0 · pre-tag · 68/87 fidelity ✓ |
 | **Casual Desktop** | Tauri binaries wrapping the three web cores | (within product repos) | — | paused · queued |
-| **Casual PDF** | High-fidelity PDF viewer + editor | [CasualOffice/casual_pdf](https://github.com/CasualOffice/casual_pdf) | [pdf.casualoffice.org](https://pdf.casualoffice.org/) | v1 in progress · Tier-1 editor live |
+| **Casual PDF** | High-fidelity PDF viewer + editor | [CasualOffice/pdf](https://github.com/CasualOffice/pdf) | [pdf.casualoffice.org](https://pdf.casualoffice.org/) | v1 in progress · Tier-1 editor live |
+| **Casual RAS** | White-label embeddable remote access | [CasualOffice/RASystem](https://github.com/CasualOffice/RASystem) | [ras.casualoffice.org](https://ras.casualoffice.org/) | alpha · v0.0.2-alpha |
+
+### Engines + platform
+
+These are the second generation and the boundary around it. **OpenCalc and OpenDoc are successors to Casual Sheets and Casual Docs, not renames** — both generations exist, and the two application demos above still run the first generation.
+
+| Project | What | Repo | Site / demo | Status |
+|---|---|---|---|---|
+| **OpenCalc** | Embeddable Rust spreadsheet engine, WASM canvas grid, `.xlsx` round-trip | [CasualOffice/opencalc](https://github.com/CasualOffice/opencalc) | [calc.casualoffice.org](https://calc.casualoffice.org/) · [editor](https://calc.casualoffice.org/editor.html) | alpha · npm SDK `0.0.0` |
+| **OpenDoc** | Deterministic Rust `.docx` engine — model, layout, raster, WASM editor | [CasualOffice/opendoc](https://github.com/CasualOffice/opendoc) | [opendoc.casualoffice.org](https://opendoc.casualoffice.org/) · [editor](https://opendoc.casualoffice.org/editor.html?demo=1) | pre-release |
+| **Enclave** | Self-hosted enterprise content + governance + search + MCP-AI platform | [CasualOffice/enclave](https://github.com/CasualOffice/enclave) | — | in development · no demo |
 
 Built with **Astro 5** (static output) and deployed to GitHub Pages on every push to `main`. The site is **`casualoffice.org`** via the custom domain in `public/CNAME`.
 
@@ -24,6 +35,10 @@ Built with **Astro 5** (static output) and deployed to GitHub Pages on every pus
 | `/casual-slides/` | Product page (honest about early-stage state) |
 | `/casual-desktop/` | Tauri lane status — paused, queued behind web v1 |
 | `/casual-pdf/` | Product page — viewer/editor features, stack, honest scope |
+| `/casual-ras/` | Product page — embeddable remote access, alpha |
+| `/opencalc/` | Engine page — embeds the live `calc.casualoffice.org` editor |
+| `/opendoc/` | Engine page — embeds the live `opendoc.casualoffice.org` editor |
+| `/enclave/` | Platform page — the policy chain, capabilities, honest status |
 | `/docs/` | Long-form docs — pulled from sibling repos via `scripts/sync-docs.mjs`. Per-product + shared sections. |
 | `/changelog/` | Per-product release notes — Astro content collection (`src/content/changelog/`) |
 | `/notes/` | Engineering posts — Yjs CRDT bridges, capacity modelling, `.xlsx` + `.pptx` round-trip lessons. Targets long-tail dev search queries; HN-shaped content. RSS at `/notes/rss.xml`. |
@@ -48,8 +63,9 @@ Built with **Astro 5** (static output) and deployed to GitHub Pages on every pus
 ├── src/
 │   ├── layouts/Base.astro      # shared <head>, nav, footer, JSON-LD slot
 │   ├── components/
-│   │   ├── Nav.astro
+│   │   ├── Nav.astro          # products behind one disclosure; flattens on mobile
 │   │   ├── Footer.astro
+│   │   ├── LiveFrame.astro    # one embedded live app in faux browser chrome
 │   │   └── ProductCard.astro
 │   ├── pages/                  # one file = one route
 │   │   ├── index.astro
@@ -57,6 +73,11 @@ Built with **Astro 5** (static output) and deployed to GitHub Pages on every pus
 │   │   ├── casual-docs/index.astro
 │   │   ├── casual-slides/index.astro
 │   │   ├── casual-desktop/index.astro
+│   │   ├── casual-pdf/index.astro
+│   │   ├── casual-ras/index.astro
+│   │   ├── opencalc/index.astro
+│   │   ├── opendoc/index.astro
+│   │   ├── enclave/index.astro
 │   │   ├── docs/index.astro + [...slug].astro
 │   │   ├── changelog/index.astro + [slug].astro
 │   │   ├── notes/index.astro + [slug].astro + rss.xml.ts
@@ -69,7 +90,7 @@ Built with **Astro 5** (static output) and deployed to GitHub Pages on every pus
 │   │   ├── changelog/          # one .md per release, named <product>-v<version>.md
 │   │   ├── notes/              # engineering posts (long-tail SEO targets)
 │   │   └── vs/                 # comparison pages
-│   └── styles/global.css       # design tokens + per-product accents (sheets · editor · slides · desktop)
+│   └── styles/global.css       # design tokens + per-product accents (sheets · editor · slides · desktop · pdf · ras · opencalc · opendoc · enclave)
 ├── scripts/
 │   ├── build-og.mjs            # social card generator (Playwright)
 │   └── sync-docs.mjs           # pulls docs/ from sibling repos into src/content/docs/
@@ -134,7 +155,10 @@ A    @    185.199.111.153
 |---|---|---|
 | Casual Sheets | [CasualOffice/sheets](https://github.com/CasualOffice/sheets) | [sheet.casualoffice.org](https://sheet.casualoffice.org/) |
 | Casual Docs | [CasualOffice/docs](https://github.com/CasualOffice/docs) | [docs.casualoffice.org](https://docs.casualoffice.org/) |
-| Casual Slides | [CasualOffice/slides](https://github.com/CasualOffice/slides) | [slide.casualoffice.org](https://slide.casualoffice.org/) |
+| Casual Slides | [CasualOffice/slides](https://github.com/CasualOffice/slides) | — |
+| OpenCalc | [CasualOffice/opencalc](https://github.com/CasualOffice/opencalc) | [calc.casualoffice.org](https://calc.casualoffice.org/) |
+| OpenDoc | [CasualOffice/opendoc](https://github.com/CasualOffice/opendoc) | [opendoc.casualoffice.org](https://opendoc.casualoffice.org/) |
+| Enclave | [CasualOffice/enclave](https://github.com/CasualOffice/enclave) | — |
 
 ## License
 

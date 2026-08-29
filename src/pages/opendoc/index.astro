@@ -1,0 +1,353 @@
+---
+import Base from '../../layouts/Base.astro';
+import LiveFrame from '../../components/LiveFrame.astro';
+
+const title = 'OpenDoc — a deterministic, embeddable Rust DOCX engine · Casual Office';
+const description =
+  'OpenDoc is a deterministic, embeddable Word-document engine written in Rust. It reads and writes .docx, holds the document in a normalized editable model, and lays it out and renders it to pixels — for native, WebAssembly, and headless hosts that need real DOCX fidelity without a browser, a server, or a UI framework. Apache-2.0. Pre-release.';
+
+const repoUrl = 'https://github.com/CasualOffice/opendoc';
+const siteUrl = 'https://opendoc.casualoffice.org/';
+const editorUrl = 'https://opendoc.casualoffice.org/editor.html?demo=1';
+const blankEditorUrl = 'https://opendoc.casualoffice.org/editor.html';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  '@id': 'https://opendoc.casualoffice.org/#app',
+  name: 'OpenDoc',
+  applicationCategory: 'DeveloperApplication',
+  applicationSubCategory: 'WordProcessor',
+  operatingSystem: 'Web Browser, Linux, macOS, Windows',
+  url: siteUrl,
+  codeRepository: repoUrl,
+  license: 'https://www.apache.org/licenses/LICENSE-2.0',
+  description:
+    'Deterministic, embeddable Rust engine for .docx: loss-aware import into a normalized editable model, byte-identical or semantic export, grapheme-aware editing primitives with transactional undo, and its own text layout and raster rendering. Compiles to WebAssembly and drives a live in-browser editor. Pre-release.',
+  image: 'https://casualoffice.org/og.png',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: {
+    '@type': 'Person',
+    '@id': 'https://casualoffice.org/#person',
+    name: 'Sachin Sarwa',
+    url: 'https://casualoffice.org/',
+  },
+  isAccessibleForFree: true,
+  programmingLanguage: 'Rust',
+};
+
+const quickstart = `<code>git clone https://github.com/CasualOffice/opendoc.git
+cd opendoc
+cargo test --workspace --all-features --locked</code>`;
+const renderExample = `<code># import → paginate → compose → raster, in one command
+cargo run -p casual-doc-render \\
+  --example render_docx_page -- page.png</code>`;
+---
+<Base
+  {title}
+  {description}
+  active="opendoc"
+  jsonLd={jsonLd}
+  keywords="rust docx library, embeddable docx engine, docx rust parser, wasm docx editor, docx layout engine, headless docx rendering, open source word engine, docx round trip, opendoc"
+>
+  <section
+    class="hero subpage"
+    style="--product-accent: var(--opendoc); --product-accent-soft: var(--opendoc-soft);"
+  >
+    <div class="container hero__inner reveal">
+      <div class="subpage__topline">
+        <span class="dot" aria-hidden="true"></span>
+        OpenDoc · pre-release · successor to Casual Docs
+      </div>
+      <h1 class="display">The document engine, <em>not the dependency.</em></h1>
+      <p class="lede">
+        OpenDoc is a <strong>deterministic, embeddable Word-document engine written in
+        Rust</strong>. It reads and writes <code>.docx</code>, holds the document in a
+        normalized editable model, and lays it out and renders it to pixels — for native,
+        WebAssembly, and headless hosts that need real DOCX fidelity
+        <strong>without a browser, a server, or a UI framework</strong>. It is the
+        ground-up successor to <a href="/casual-docs/">Casual Docs</a>, which treats the
+        DOM as its canvas; OpenDoc owns the layout itself.
+      </p>
+      <div class="row">
+        <a class="btn btn--accent" style="--product-accent: var(--opendoc);" href={editorUrl} rel="noopener" target="_blank">Open the live editor →</a>
+        <a class="btn btn--ghost" href={siteUrl} rel="noopener" target="_blank">opendoc.casualoffice.org</a>
+        <a class="btn btn--ghost" href={repoUrl} rel="noopener" target="_blank">Source on GitHub</a>
+      </div>
+      <p class="lede" style="font-size: 0.92rem; opacity: 0.7; margin-top: 12px;">
+        Apache-2.0. <strong>Pre-release</strong> — OpenDoc will take semantic versioning
+        when its public package line begins. Rust 1.96 pinned, 1.88 MSRV; every pull
+        request runs build, test, lint, docs and WASM gates.
+      </p>
+    </div>
+  </section>
+
+  <!-- The engine, embedded. This is the WebAssembly build laying out and
+       painting a real .docx — not a screenshot, and not the landing page. -->
+  <section class="section" style="--product-accent: var(--opendoc); --product-accent-soft: var(--opendoc-soft);">
+    <div class="container">
+      <LiveFrame
+        title="OpenDoc live editor"
+        src={editorUrl}
+        addr="opendoc.casualoffice.org/editor.html"
+        accent="var(--opendoc)"
+        label="Load the live OpenDoc editor"
+        sub="A bundled .docx, laid out and painted by the engine itself — no DOM rendering"
+      />
+      <p class="muted" style="margin: 16px auto 0; max-width: 74ch; text-align: center;">
+        Type with formatting, apply styles, fonts, sizes and colours, build lists and
+        tables, then save back to <code>.docx</code>. Nothing is uploaded — everything runs
+        client-side. To start from your own file instead, open the
+        <a href={blankEditorUrl} rel="noopener" target="_blank">blank editor</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--opendoc); --product-accent-soft: var(--opendoc-soft);">
+    <div class="container">
+      <div class="fact-row">
+        <div><div class="fact__label">Status</div><div class="fact__value">pre-release</div></div>
+        <div><div class="fact__label">Targets</div><div class="fact__value">Rust · WASM · headless</div></div>
+        <div><div class="fact__label">Rendering</div><div class="fact__value">own layout + raster</div></div>
+        <div><div class="fact__label">License</div><div class="fact__value">Apache-2.0</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--opendoc); --product-accent-soft: var(--opendoc-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">Why OpenDoc</span>
+          <h2 class="title">Most ways to work with <code>.docx</code><br/>force a trade-off. This one doesn&rsquo;t.</h2>
+        </div>
+      </div>
+      <p class="muted" style="max-width: 74ch; margin: 0 0 22px;">
+        The usual options are a full office suite you cannot embed, a converter that
+        silently drops what it does not understand, or a browser editor that treats the
+        DOM as the source of truth. OpenDoc is built the other way around.
+      </p>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature__icon">◈</span>
+          <h3 class="feature__title">Loss-aware by design</h3>
+          <p class="feature__body">
+            Content the semantic model does not yet represent is preserved and reproduced
+            verbatim, or reported — <strong>never silently discarded</strong>.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">≡</span>
+          <h3 class="feature__title">Deterministic</h3>
+          <p class="feature__body">
+            The same input, fonts, and engine version produce the same model, layout, and
+            bytes, every time — which is what makes rendering regression-testable at all.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⧉</span>
+          <h3 class="feature__title">Embeddable and host-agnostic</h3>
+          <p class="feature__body">
+            No mandatory DOM, server, React, or collaboration provider. The core targets
+            Rust hosts, <code>wasm32-unknown-unknown</code>, desktop, and headless services
+            alike.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⛨</span>
+          <h3 class="feature__title">Safe with untrusted files</h3>
+          <p class="feature__body">
+            Packages are parsed under explicit entry, path, size, expansion, and resource
+            limits — a hostile <code>.docx</code> is an input, not an exploit.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--opendoc); --product-accent-soft: var(--opendoc-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">What it does</span>
+          <h2 class="title">Import, edit, lay out, render, export.</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature__icon">↓</span>
+          <h3 class="feature__title">DOCX import</h3>
+          <p class="feature__body">
+            Into a normalized, editable model: paragraphs and runs with the full property
+            tail, styles (<code>basedOn</code> chains) and theme, numbering, sections and
+            page geometry, tables (merged cells, nested tables, borders, shading, cell
+            margins), images and drawings, hyperlinks, fields, text boxes, footnotes and
+            endnotes, headers and footers, comments, tracked changes, bookmarks, and
+            content controls.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">↑</span>
+          <h3 class="feature__title">DOCX export, two ways</h3>
+          <p class="feature__body">
+            Byte-identical reconstruction of an unedited package, <em>or</em> a semantic
+            writer that re-emits an edited model as a valid <code>.docx</code> that opens
+            cleanly in LibreOffice.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">✎</span>
+          <h3 class="feature__title">Editing primitives</h3>
+          <p class="feature__body">
+            Grapheme-aware inserts and deletes, paragraph split/join, atomic transactions
+            with semantic inverses, position mapping, revision-checked undo/redo, directed
+            caret and range selection, and bounded ordered events.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">▤</span>
+          <h3 class="feature__title">Layout and rendering</h3>
+          <p class="feature__body">
+            Text shaping and line breaking via <code>parley</code>, an effective-property
+            style cascade, pagination with break control, a backend-neutral display list,
+            and a CPU raster backend that renders real pages and tables to PNG via
+            <code>tiny-skia</code> with glyph outlines from <code>skrifa</code>.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">◫</span>
+          <h3 class="feature__title">In-browser editor (WASM)</h3>
+          <p class="feature__body">
+            The engine compiled to <code>wasm32-unknown-unknown</code> drives a live
+            editor: hit-testing, an engine-drawn caret and selection, incremental
+            per-page repaint (sub-10 ms on a large document), run and paragraph
+            formatting with type-in-format, lists, tables, pictures, drawings, comments and
+            tracked changes — all through a closed operation set with group undo/redo.
+          </p>
+        </article>
+        <article class="feature">
+          <span class="feature__icon">⊞</span>
+          <h3 class="feature__title">Every surface takes every operation</h3>
+          <p class="feature__body">
+            The page body, headers, footers, footnote and endnote bodies, text boxes, and
+            objects nested inside a shape group each accept typing, selection, formatting,
+            clipboard, find and replace, comments, and tracked changes — held to that by an
+            operation × surface matrix in CI, not by spot-checks.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--opendoc); --product-accent-soft: var(--opendoc-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">Build it</span>
+          <h2 class="title">It builds from source, and renders a page in one command.</h2>
+        </div>
+      </div>
+      <div class="embed">
+        <div class="embed__col">
+          <span class="embed__label">Clone and test</span>
+          <pre class="code" set:html={quickstart}></pre>
+          <p class="embed__note">
+            The repository pins Rust <strong>1.96.0</strong> through
+            <code>rust-toolchain.toml</code> and supports <strong>1.88.0</strong> as its
+            MSRV, checked separately on every pull request.
+          </p>
+        </div>
+        <div class="embed__col">
+          <span class="embed__label">Render a page to PNG</span>
+          <pre class="code" set:html={renderExample}></pre>
+          <p class="embed__note">
+            On native, the render crate resolves installed OS faces by default — useful for
+            CJK, symbol, and complex-script text the bundled Latin faces do not cover — so
+            no feature flag is needed.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--opendoc); --product-accent-soft: var(--opendoc-soft);">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">Honest status</span>
+          <h2 class="title">Pre-release, developed in the open.</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <h3 class="feature__title">Working today</h3>
+          <p class="feature__body">
+            Import, export, the editing model, layout, raster rendering, and the
+            WebAssembly editor above all run. The engine is the document core for Casual
+            Docs and an SDK others can embed.
+          </p>
+        </article>
+        <article class="feature">
+          <h3 class="feature__title">Not yet</h3>
+          <p class="feature__body">
+            There is no published package line yet, so there is no stable version to pin —
+            semantic versioning starts when one does. Build from source in the meantime.
+          </p>
+        </article>
+        <article class="feature">
+          <h3 class="feature__title">Relationship to Casual Docs</h3>
+          <p class="feature__body">
+            <a href="/casual-docs/">Casual Docs</a> is the shipping ProseMirror web editor
+            and is what <code>docs.casualoffice.org</code> runs today. OpenDoc is its
+            successor and is <strong>not yet a drop-in replacement</strong> — it is where the
+            document engine work now happens.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="--product-accent: var(--opendoc); --product-accent-soft: var(--opendoc-soft);">
+    <div class="container container--narrow">
+      <div class="callout">
+        <strong>Open a document in it.</strong> The editor above loads a bundled
+        <code>.docx</code>; the blank editor takes one of your own. Everything runs
+        client-side, so nothing you open leaves the browser.
+      </div>
+      <div class="row" style="margin-top: 22px;">
+        <a class="btn btn--accent" style="--product-accent: var(--opendoc);" href={editorUrl} rel="noopener" target="_blank">Open the live editor →</a>
+        <a class="btn btn--ghost" href={repoUrl} rel="noopener" target="_blank">Source on GitHub</a>
+        <a class="btn btn--ghost" href="/casual-docs/">Casual Docs (the app)</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Two-column code block layout — the homepage's equivalent rules are scoped
+     to that page, so they are restated here. */
+  .embed { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  @media (max-width: 820px) { .embed { grid-template-columns: 1fr; } }
+  .embed__col { display: flex; flex-direction: column; gap: 10px; }
+  .embed__label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .embed__note { margin: 8px 0 0; color: var(--text-muted); font-size: 13.5px; line-height: 1.6; }
+  .code {
+    margin: 0;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.65;
+    overflow-x: auto;
+  }
+  .code code { background: none; padding: 0; font-size: inherit; }
+</style>

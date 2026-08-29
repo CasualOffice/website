@@ -69,6 +69,14 @@
   --pdf:    #e11d48;  --pdf-light:    #fb7185;  --pdf-soft:    #ffecf0;  --pdf-100:    #ffecf0;
   --ras:    #4f46e5;  --ras-light:    #818cf8;  --ras-soft:    #eceafe;  --ras-100:    #eceafe;
 
+  /* Engines + platform. OpenCalc and OpenDoc are the Rust successors to the
+     Sheets / Docs web apps, so they get their own hues rather than borrowing
+     the app accents — the two generations are distinguishable at a glance.
+     OpenDoc's blue is the one already used on opendoc.casualoffice.org. */
+  --opencalc: #0891b2;  --opencalc-light: #22d3ee;  --opencalc-soft: #e0f7fb;  --opencalc-100: #e0f7fb;
+  --opendoc:  #3355c4;  --opendoc-light:  #7d95e8;  --opendoc-soft:  #e9edfb;  --opendoc-100:  #e9edfb;
+  --enclave:  #a16207;  --enclave-light:  #d4a017;  --enclave-soft:  #fbf3de;  --enclave-100:  #fbf3de;
+
   --warn: #b45309;
   --warn-soft: #fef3c7;
 
@@ -98,6 +106,9 @@
   --gradient-desktop: linear-gradient(135deg, var(--desktop), var(--desktop-light));
   --gradient-pdf: linear-gradient(135deg, var(--pdf), var(--pdf-light));
   --gradient-ras: linear-gradient(135deg, var(--ras), var(--ras-light));
+  --gradient-opencalc: linear-gradient(135deg, var(--opencalc), var(--opencalc-light));
+  --gradient-opendoc: linear-gradient(135deg, var(--opendoc), var(--opendoc-light));
+  --gradient-enclave: linear-gradient(135deg, var(--enclave), var(--enclave-light));
   --glow-accent: var(--shadow-md);
   --glow-brand: var(--shadow-md);
   --shadow-glow: var(--shadow-md);
@@ -148,6 +159,9 @@
   --slides: #2fe0d0; --slides-light: #7ff0e6; --slides-soft: #052422; --slides-100: #052422;
   --pdf:    #ff6d8a; --pdf-light:    #ffa0b3; --pdf-soft:    #2a0d15; --pdf-100:    #2a0d15;
   --ras:    #8f9bff; --ras-light:    #b7bdff; --ras-soft:    #101033; --ras-100:    #101033;
+  --opencalc: #3ee0f5; --opencalc-light: #8aeefc; --opencalc-soft: #04252c; --opencalc-100: #04252c;
+  --opendoc:  #7f9cff; --opendoc-light:  #b3c4ff; --opendoc-soft:  #0b1230; --opendoc-100:  #0b1230;
+  --enclave:  #e3b341; --enclave-light:  #f2d17a; --enclave-soft:  #2a1f06; --enclave-100:  #2a1f06;
   --warn: #fbbf24; --warn-soft: #2a2210;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.6);
@@ -929,9 +943,10 @@ code, kbd {
 
 .foot__nav {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 28px;
 }
+@media (max-width: 1040px) { .foot__nav { grid-template-columns: repeat(2, 1fr); row-gap: 32px; } }
 @media (max-width: 460px) { .foot__nav { grid-template-columns: repeat(2, 1fr); } }
 .foot__col-title {
   font-family: var(--font-mono);

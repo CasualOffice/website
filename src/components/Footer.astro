@@ -2,7 +2,7 @@
 const year = new Date().getFullYear();
 
 // Structured footer — a brand column with the one-line pitch + open-source
-// signals, then three navigation columns. Reads as a maintained project,
+// signals, then four navigation columns. Reads as a maintained project,
 // not a personal page.
 const columns: { title: string; links: { label: string; href: string; external?: boolean }[] }[] = [
   {
@@ -14,6 +14,14 @@ const columns: { title: string; links: { label: string; href: string; external?:
       { label: 'Casual PDF', href: '/casual-pdf/' },
       { label: 'Casual Desktop', href: '/casual-desktop/' },
       { label: 'Casual RAS', href: '/casual-ras/' },
+    ],
+  },
+  {
+    title: 'Engines & platform',
+    links: [
+      { label: 'OpenCalc', href: '/opencalc/' },
+      { label: 'OpenDoc', href: '/opendoc/' },
+      { label: 'Enclave', href: '/enclave/' },
     ],
   },
   {
@@ -59,7 +67,8 @@ const columns: { title: string; links: { label: string; href: string; external?:
       <p class="foot__tag">
         An open-source, self-hosted office suite — real <code>.xlsx</code>,
         <code>.docx</code>, and <code>.pptx</code> in the browser, with real-time
-        co-editing. A Google Docs &amp; Microsoft Office alternative you run yourself.
+        co-editing. A Google Docs &amp; Microsoft Office alternative you run yourself,
+        plus the Rust engines underneath it.
       </p>
       <ul class="foot__signals" aria-label="Project facts">
         <li>Apache-2.0 + MIT</li>
